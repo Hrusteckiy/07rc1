@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\image">
+      <UniqueIdentifier>{8af26fed-f4e3-4b5b-a116-8fd0b0e3c767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\image\decode">
+      <UniqueIdentifier>{46e86504-58fc-4fd8-9037-ebf3eeebc8a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\image\encode">
+      <UniqueIdentifier>{542d3194-61c2-4985-b1f0-f58b773ebd97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\image\sys">
+      <UniqueIdentifier>{736be8c3-9c37-468e-a2b5-4c6cd99aef83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\jxrgluelib">
+      <UniqueIdentifier>{273a1fd7-6889-49c0-aef3-f4ba91b426e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\image">
+      <UniqueIdentifier>{edef1305-00f5-42b2-bb81-9c2c68f892b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\image\decode">
+      <UniqueIdentifier>{b127e970-ae41-43d7-b419-f2ec6b89ebb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\image\encode">
+      <UniqueIdentifier>{d1ea78fa-d58f-448b-925a-39132c5f8e04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\image\sys">
+      <UniqueIdentifier>{5ad1166d-b512-4101-a0ac-29c998a18244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\image\x86">
+      <UniqueIdentifier>{686faecb-706e-4972-9c79-ddc5c9f735cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\common">
+      <UniqueIdentifier>{a66adc78-7372-4b59-b0d4-34e2844f4ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\jxrgluelib">
+      <UniqueIdentifier>{33d20165-a031-41ab-903a-fee5a31253a0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="image\decode\decode.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\JXRTranscode.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\postprocess.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\segdec.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\strdec.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\strdec_x86.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\strInvTransform.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\decode\strPredQuantDec.c">
+      <Filter>Source Files\image\decode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\encode\encode.c">
+      <Filter>Source Files\image\encode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\encode\segenc.c">
+      <Filter>Source Files\image\encode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\encode\strenc.c">
+      <Filter>Source Files\image\encode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\encode\strenc_x86.c">
+      <Filter>Source Files\image\encode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\encode\strFwdTransform.c">
+      <Filter>Source Files\image\encode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\encode\strPredQuantEnc.c">
+      <Filter>Source Files\image\encode</Filter>
+    </ClCompile>
+    <ClCompile Include="image\sys\adapthuff.c">
+      <Filter>Source Files\image\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="image\sys\image.c">
+      <Filter>Source Files\image\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="image\sys\strcodec.c">
+      <Filter>Source Files\image\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="image\sys\strPredQuant.c">
+      <Filter>Source Files\image\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="image\sys\strTransform.c">
+      <Filter>Source Files\image\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="jxrgluelib\JXRGlue.c">
+      <Filter>Source Files\jxrgluelib</Filter>
+    </ClCompile>
+    <ClCompile Include="jxrgluelib\JXRGlueJxr.c">
+      <Filter>Source Files\jxrgluelib</Filter>
+    </ClCompile>
+    <ClCompile Include="jxrgluelib\JXRGluePFC.c">
+      <Filter>Source Files\jxrgluelib</Filter>
+    </ClCompile>
+    <ClCompile Include="jxrgluelib\JXRMeta.c">
+      <Filter>Source Files\jxrgluelib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="image\decode\decode.h">
+      <Filter>Header Files\image\decode</Filter>
+    </ClInclude>
+    <ClInclude Include="image\encode\encode.h">
+      <Filter>Header Files\image\encode</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\ansi.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\common.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\perfTimer.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\strcodec.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\strTransform.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\windowsmediaphoto.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\sys\xplatform_image.h">
+      <Filter>Header Files\image\sys</Filter>
+    </ClInclude>
+    <ClInclude Include="image\x86\x86.h">
+      <Filter>Header Files\image\x86</Filter>
+    </ClInclude>
+    <ClInclude Include="common\include\guiddef.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\include\wmsal.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\include\wmspecstring.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\include\wmspecstrings_adt.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\include\wmspecstrings_strict.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\include\wmspecstrings_undef.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="jxrgluelib\JXRGlue.h">
+      <Filter>Header Files\jxrgluelib</Filter>
+    </ClInclude>
+    <ClInclude Include="jxrgluelib\JXRMeta.h">
+      <Filter>Header Files\jxrgluelib</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
