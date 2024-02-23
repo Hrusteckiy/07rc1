@@ -190,10 +190,10 @@ static HRESULT WINAPI Handler (PVOID pvUserContext, DWORD dwMessageType, PVOID p
 //------------------------------------------------------------------------------
 
 void    
-IClient::_SendTo_LL( const void* data, u32 size, u32 flags, u32 timeout )
+IClient::_SendTo_LL( const void* data, u32 size, u32 flags_, u32 timeout )
 {
     R_ASSERT(server);
-    server->IPureServer::SendTo_LL( ID, const_cast<void*>(data), size, flags, timeout );
+    server->IPureServer::SendTo_LL( ID, const_cast<void*>(data), size, flags_, timeout );
 }
 
 
@@ -502,7 +502,7 @@ HRESULT	IPureServer::net_Handler(u32 dwMessageType, PVOID pMessage)
 		{
 			PDPNMSG_ENUM_HOSTS_QUERY	msg = PDPNMSG_ENUM_HOSTS_QUERY(pMessage);
 			if (0 == msg->dwReceivedDataSize) return S_FALSE;
-			if (!stricmp((const char*)msg->pvReceivedData, "ToConnect")) return S_OK;
+			if (!_stricmp((const char*)msg->pvReceivedData, "ToConnect")) return S_OK;
 			if (*((const GUID*) msg->pvReceivedData) != NET_GUID) return S_FALSE;
 			if (!OnCL_QueryHost()) return S_FALSE;
 			return S_OK;

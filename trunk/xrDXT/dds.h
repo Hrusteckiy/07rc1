@@ -10,18 +10,6 @@
 #ifndef _DDS_H_
 #define _DDS_H_
 
-struct DDS_PIXELFORMAT
-{
-    DWORD dwSize;
-    DWORD dwFlags;
-    DWORD dwFourCC;
-    DWORD dwRGBBitCount;
-    DWORD dwRBitMask;
-    DWORD dwGBitMask;
-    DWORD dwBBitMask;
-    DWORD dwABitMask;
-};
-
 #define DDS_FOURCC 0x00000004  // DDPF_FOURCC
 #define DDS_RGB    0x00000040  // DDPF_RGB
 #define DDS_RGBA   0x00000041  // DDPF_RGB | DDPF_ALPHAPIXELS
@@ -95,6 +83,19 @@ struct DDS_HEADER
     DWORD dwCubemapFlags;
     DWORD dwReserved2[3];
 };
+
+enum DDS_HEADER_FLAGS
+{
+	DDSD_CAPS			= (1 << 0),
+    DDSD_HEIGHT			= (1 << 1),
+	DDSD_WIDTH			= (1 << 2),
+	DDSD_PITCH			= (1 << 3),
+	DDSD_PIXELFORMAT	= (1 << 12),
+	DDSD_MIPMAPCOUNT	= (1 << 17),
+	DDSD_LINEARSIZE		= (1 << 19),
+	DDSD_DEPTH			= (1 << 23),
+};
+
 
 
 #endif

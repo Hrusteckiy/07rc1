@@ -48,6 +48,7 @@ static int start_day	= 31;	// 31
 static int start_month	= 1;	// January
 static int start_year	= 1999;	// 1999
 
+/*
 #ifdef NDEBUG
 namespace std {
 	void terminate()
@@ -56,6 +57,7 @@ namespace std {
 	}
 }
 #endif // #ifdef NDEBUG
+*/
 
 void compute_build_id	()
 {
@@ -522,7 +524,7 @@ BOOL IsOutOfVirtualMemory()
 typedef void DUMMY_STUFF (const void*,const u32&,void*);
 XRCORE_API DUMMY_STUFF	*g_temporary_stuff;
 
-#define TRIVIAL_ENCRYPTOR_DECODER
+//#define TRIVIAL_ENCRYPTOR_DECODER
 #include "trivial_encryptor.h"
 
 //#define RUSSIAN_BUILD

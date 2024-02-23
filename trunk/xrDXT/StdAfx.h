@@ -18,6 +18,8 @@
 #define XR_EPROPS_API
 #define ECORE_API
 
+#define USE_NVTT
+
 #ifndef MAKEFOURCC
 #define MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
 	((DWORD)(BYTE)(ch0) | ((DWORD)(BYTE)(ch1) << 8) |   \
@@ -25,8 +27,21 @@
 #endif //defined(MAKEFOURCC)
 
 #pragma comment(lib,"xrCore.lib")
-#pragma comment(lib,"nvDXTlibMTDLL.lib")
-
+#ifndef USE_NVTT
+#ifdef DEBUG
+#	ifdef _WIN64
+#		pragma comment(lib,"nvDXTlibMTDLLd.vc8.x64.lib")
+#	else
+#		pragma comment(lib,"nvDXTlibMTDLLd.vc8.lib")
+#	endif
+#else
+#	ifdef _WIN64
+#		pragma comment(lib,"nvDXTlibMTDLL.vc8.x64.lib")
+#	else
+#		pragma comment(lib,"nvDXTlibMTDLL.vc8.lib")
+#	endif
+#endif
+#endif
 #pragma warning( disable : 4995 )
 
 #endif

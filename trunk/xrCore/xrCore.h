@@ -29,6 +29,7 @@
 #endif
 
 #	include "xrCore_platform.h"
+#	include <functional>
 
 /*
 // stl-config
