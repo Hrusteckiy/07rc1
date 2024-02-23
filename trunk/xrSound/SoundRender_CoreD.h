@@ -1,7 +1,7 @@
 #ifndef SoundRender_CoreDH
 #define SoundRender_CoreDH
 #pragma once
-
+#define DIRECTSOUND_VERSION 0x0900
 #include "SoundRender_Core.h"
 
 #pragma warning(push)

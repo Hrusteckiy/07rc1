@@ -76,7 +76,7 @@ void Image_DXTC::SaveAsRaw()
 	VERIFY (pf);
 
 	// writes only 32 bit format.
-	fwrite( m_pDecompBytes, m_nHeight * m_nWidth * 4, sizeof( byte ), pf );
+	fwrite( m_pDecompBytes, m_nHeight * m_nWidth * 4, sizeof( BYTE ), pf );
 	
 	fclose( pf );
 	pf = NULL;
@@ -141,7 +141,7 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 	// start reading the file
 	// from Microsoft's mssdk D3DIM example "Compress"
 
-	DDSURFACEDESC2      ddsd;
+	DDS_HEADER		    ddsd;
     DWORD				dwMagic;
 
 
@@ -155,7 +155,7 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
     }
 	
     // Read the surface description
-    fread( &ddsd, sizeof(DDSURFACEDESC2), 1, file );
+    fread( &ddsd, sizeof(DDS_HEADER), 1, file );
 
 
     // Does texture have mipmaps?
@@ -169,7 +169,7 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 
 	// Is it DXTC ?
 	// I sure hope pixelformat is valid!
-	DecodePixelFormat( m_strFormat, &( ddsd.ddpfPixelFormat ) );
+	DecodePixelFormat( m_strFormat, &( ddsd.ddspf ) );
 
 	if( m_CompFormat == PF_DXT1 ||
 		m_CompFormat == PF_DXT2 ||
@@ -204,11 +204,11 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 
 	// Read only first mip level for now:
 
-    if( ddsd.dwFlags & DDSD_LINEARSIZE )
+    if( ddsd.dwHeaderFlags & DDSD_LINEARSIZE )
     {
 		//TRACE("dwFlags  has DDSD_LINEARSIZE\n");
 
-		m_pCompBytes = (BYTE*)calloc( ddsd.dwLinearSize, sizeof(BYTE) );
+		m_pCompBytes = (BYTE*)calloc( ddsd.dwPitchOrLinearSize, sizeof(BYTE) );
 
 		if( m_pCompBytes == NULL )
 		{
@@ -216,17 +216,17 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 			return( false );
 		}
 
-        fread( m_pCompBytes, ddsd.dwLinearSize, 1, file );
+        fread( m_pCompBytes, ddsd.dwPitchOrLinearSize, 1, file );
     }
     else
     {
 		//TRACE("dwFlags  file doesn't have linearsize set\n");
 
-        DWORD dwBytesPerRow = ddsd.dwWidth * ddsd.ddpfPixelFormat.dwRGBBitCount / 8;
+        DWORD dwBytesPerRow = ddsd.dwWidth * ddsd.ddspf.dwRGBBitCount / 8;
 
-		m_pCompBytes = (BYTE*) calloc( ddsd.lPitch * ddsd.dwHeight, sizeof(BYTE) );
+		m_pCompBytes = (BYTE*) calloc( ddsd.dwPitchOrLinearSize * ddsd.dwHeight, sizeof(BYTE) );
 
-		m_nCompSize = ddsd.lPitch * ddsd.dwHeight;
+		m_nCompSize = ddsd.dwPitchOrLinearSize * ddsd.dwHeight;
 		m_nCompLineSz = dwBytesPerRow;
 
 
@@ -241,7 +241,7 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
         for( DWORD yp = 0; yp < ddsd.dwHeight; yp++ )
         {
             fread( pDest, dwBytesPerRow, 1, file );
-            pDest += ddsd.lPitch;
+            pDest += ddsd.dwPitchOrLinearSize;
         }
     }
 
@@ -1014,7 +1014,7 @@ typedef struct _DDSURFACEDESC2 {
 //	adapted from microsoft mssdk D3DIM Compress example
 //  PixelFormatToString()
 //-----------------------------------------------------------------------------
-VOID Image_DXTC::DecodePixelFormat( CHAR* strPixelFormat, DDPIXELFORMAT* pddpf )
+VOID Image_DXTC::DecodePixelFormat( CHAR* strPixelFormat, DDS_PIXELFORMAT* pddpf )
 {
     switch( pddpf->dwFourCC )
     {
@@ -1025,7 +1025,7 @@ VOID Image_DXTC::DecodePixelFormat( CHAR* strPixelFormat, DDPIXELFORMAT* pddpf )
                      GetNumberOfBits( pddpf->dwRBitMask ),
                      GetNumberOfBits( pddpf->dwGBitMask ),
                      GetNumberOfBits( pddpf->dwBBitMask ),
-                     pddpf->dwBBitMask & DDPF_ALPHAPREMULT ? "-premul" : "" );
+                     /*pddpf->dwBBitMask & DDPF_ALPHAPREMULT ? "-premul" : */"" );		//KD: this code must be wrong, DDPF_ALPHAPREMULT is stored in dwFlags
 			m_CompFormat = PF_ARGB;
             break;
 

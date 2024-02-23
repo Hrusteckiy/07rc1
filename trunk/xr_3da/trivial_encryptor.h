@@ -16,6 +16,7 @@
 /**/
 #define RUSSIAN_BUILD
 /**/
+#pragma once
 
 class trivial_encryptor {
 private:
@@ -48,27 +49,38 @@ public:
 	static	u32					m_table_iterations;
 	static	u32					m_table_seed;
 	static	u32					m_encrypt_seed;
-
+/*
 #ifdef TRIVIAL_ENCRYPTOR_ENCODER
 #	ifdef TRIVIAL_ENCRYPTOR_DECODER
 		private: static bool	m_initialized;
 #	endif // TRIVIAL_ENCRYPTOR_DECODER
 #endif // TRIVIAL_ENCRYPTOR_ENCODER
-
-#ifdef TRIVIAL_ENCRYPTOR_ENCODER
+*/
+//#ifdef TRIVIAL_ENCRYPTOR_ENCODER
 	private: static type		m_alphabet[alphabet_size];
-#endif // TRIVIAL_ENCRYPTOR_ENCODER
+//#endif // TRIVIAL_ENCRYPTOR_ENCODER
 
-#ifdef TRIVIAL_ENCRYPTOR_DECODER
+//#ifdef TRIVIAL_ENCRYPTOR_DECODER
 	private: static type		m_alphabet_back[alphabet_size];
-#endif // TRIVIAL_ENCRYPTOR_DECODER
+//#endif // TRIVIAL_ENCRYPTOR_DECODER
 
-private:
 	IC	static void	initialize		()
 	{
-	#ifndef TRIVIAL_ENCRYPTOR_ENCODER
+		if (!strstr(GetCommandLine(), "-steam"))
+		{
+			m_table_iterations = 2048;
+			m_table_seed       = 20091958;
+			m_encrypt_seed     = 20031955;
+		}
+		else
+		{
+			m_table_iterations = 1024;
+			m_table_seed       = 6011979;
+			m_encrypt_seed     = 24031979;
+		}
+
 		type					*m_alphabet = (type*)_alloca(sizeof(type)*alphabet_size);
-	#endif // TRIVIAL_ENCRYPTOR_ENCODER
+
 
 		for (u32 i=0; i<alphabet_size; ++i)
 			m_alphabet[i]		= (type)i;
@@ -84,18 +96,19 @@ private:
 			std::swap			(m_alphabet[j],m_alphabet[k]);
 		}
 
-	#ifdef TRIVIAL_ENCRYPTOR_DECODER
+	//#ifdef TRIVIAL_ENCRYPTOR_DECODER
 		for (u32 i=0; i<alphabet_size; ++i)
 			m_alphabet_back[m_alphabet[i]]	= (type)i;
-	#endif // TRIVIAL_ENCRYPTOR_DECODER
+	//#endif // TRIVIAL_ENCRYPTOR_DECODER
 	}
 
-#ifdef TRIVIAL_ENCRYPTOR_ENCODER
+//#ifdef TRIVIAL_ENCRYPTOR_ENCODER
 	public:	IC	static void	encode	(pcvoid source, const u32 &source_size, pvoid destination)
 	{
-#	ifndef TRIVIAL_ENCRYPTOR_DECODER
+//#	ifndef TRIVIAL_ENCRYPTOR_DECODER
 		static bool m_initialized	= false;
-#	endif // TRIVIAL_ENCRYPTOR_DECODER
+		auto m_alphabet = (type*)_alloca(sizeof(type) * alphabet_size);
+//#	endif // TRIVIAL_ENCRYPTOR_DECODER
 		if (!m_initialized) {
 			initialize			();
 			m_initialized		= true;
@@ -109,14 +122,14 @@ private:
 		for ( ; I != E; ++I, ++J)
 			*J					= m_alphabet[*I] ^ type(temp.random(256) & 0xff);
 	}
-#endif // TRIVIAL_ENCRYPTOR_ENCODER
+//#endif // TRIVIAL_ENCRYPTOR_ENCODER
 
-#ifdef TRIVIAL_ENCRYPTOR_DECODER
+//#ifdef TRIVIAL_ENCRYPTOR_DECODER
 	public:	IC	static void	decode	(pcvoid source, const u32 &source_size, pvoid destination)
 	{
-#	ifndef TRIVIAL_ENCRYPTOR_ENCODER
+//#	ifndef TRIVIAL_ENCRYPTOR_ENCODER
 		static bool m_initialized	= false;
-#	endif // TRIVIAL_ENCRYPTOR_ENCODER
+//#	endif // TRIVIAL_ENCRYPTOR_ENCODER
 		if (!m_initialized) {
 			initialize			();
 			m_initialized		= true;
@@ -132,7 +145,7 @@ private:
 	}
 #endif // TRIVIAL_ENCRYPTOR_DECODER
 };
-
+/*
 #ifdef TRIVIAL_ENCRYPTOR_ENCODER
 #	ifdef TRIVIAL_ENCRYPTOR_DECODER
 		bool trivial_encryptor::m_initialized	= false;
@@ -148,13 +161,16 @@ private:
 	u32	trivial_encryptor::m_table_seed			= 6011979;
 	u32	trivial_encryptor::m_encrypt_seed		= 24031979;
 #endif // RUSSIAN_BUILD
+*/
+// почему-то шифрование для RU и WW архивов задавалось своим дефайном
 
-#ifdef TRIVIAL_ENCRYPTOR_ENCODER
-	trivial_encryptor::type	trivial_encryptor::m_alphabet[trivial_encryptor::alphabet_size];
-#endif // TRIVIAL_ENCRYPTOR_ENCODER
+//#ifdef TRIVIAL_ENCRYPTOR_ENCODER
+u32 trivial_encryptor::m_table_iterations, trivial_encryptor::m_table_seed, trivial_encryptor::m_encrypt_seed;
+//#endif // TRIVIAL_ENCRYPTOR_ENCODER
 
-#ifdef TRIVIAL_ENCRYPTOR_DECODER
+
+//#ifdef TRIVIAL_ENCRYPTOR_DECODER
 	trivial_encryptor::type	trivial_encryptor::m_alphabet_back[trivial_encryptor::alphabet_size];
-#endif // TRIVIAL_ENCRYPTOR_DECODER
+//#endif // TRIVIAL_ENCRYPTOR_DECODER
 
-#endif // TRIVIAL_ENCRYPTOR_H
+//#endif // TRIVIAL_ENCRYPTOR_H

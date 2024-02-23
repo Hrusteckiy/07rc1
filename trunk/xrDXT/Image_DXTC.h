@@ -27,10 +27,8 @@ function is called.  Output of timing test is saved to a local .txt file.
 #pragma once
 #endif // _MSC_VER > 1000
 
-
-#include <d3d.h>
-
-
+#include "dds\ddsTypes.h"
+#include "dds.h"
 
 //struct TimingInfo;		// defined in Image_DXTC.cpp
 
@@ -58,7 +56,7 @@ class Image_DXTC
 	string256		m_strFormat;
 	PixFormat		m_CompFormat;
 
-	DDSURFACEDESC2  m_DDSD;				// read from dds file
+	DDS_HEADER		m_DDSD;				// read from dds file
 	bool			m_bMipTexture;		// texture has mipmaps?
 
 	int				m_nWidth;			// in pixels of uncompressed image 
@@ -70,7 +68,7 @@ private:
 	void			DecompressDXT4		();
 	void			DecompressDXT5		();
 
-	void			DecodePixelFormat	(LPSTR strPixelFormat, DDPIXELFORMAT* pddpf );
+	void			DecodePixelFormat	(LPSTR strPixelFormat, DDS_PIXELFORMAT* pddpf );
 	void			AllocateDecompBytes	();
 public:
 					Image_DXTC			();
