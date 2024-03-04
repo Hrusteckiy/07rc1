@@ -55,22 +55,26 @@
     <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\..\binaries</OutDir>
-    <IntDir>..\..\..\intermediate\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>..\..\..\3rd party\dxsdk\Lib\;..\..\..\3rd party\OpenAL\libs\Win32;..\..\..\3rd party\libs;..\..\..\3rd party\eax;..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\xrLua\src;..\..\..\3rd party\FreeImage\FreeImage\Source;..\..\xrCore;..\..\..\3rd party\MagicSoftware\FreeMagic\Include;..\..\..\3rd party\OpenAL\Include;..\..\..\3rd party\luabind_old\luabind;..\..\..\3rd party\loki;..\..\..\3rd party\eax\Include;..\..\..\3rd party\boost;..\..\..\3rd party\DPlay\;..\..\..\3rd party\dxsdk\Include\;$(WindowsSdkDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\..\binaries</OutDir>
-    <IntDir>..\..\..\intermediate\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>..\..\xrLua\src;..\..\..\3rd party\FreeImage\FreeImage\Source;..\..\xrCore;..\..\..\3rd party\MagicSoftware\FreeMagic\Include;..\..\..\3rd party\OpenAL\Include;..\..\..\3rd party\luabind_old\luabind;..\..\..\3rd party\loki;..\..\..\3rd party\eax\Include;..\..\..\3rd party\boost;..\..\..\3rd party\DPlay\;..\..\..\3rd party\dxsdk\Include\;$(WindowsSdkDir)include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\..\3rd party\dxsdk\Lib\;..\..\..\3rd party\OpenAL\libs\Win32;..\..\..\3rd party\libs;..\..\..\3rd party\eax;..\..\..\libraries;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\..\..\3rd party\dxsdk\Lib\;..\..\..\3rd party\OpenAL\libs\Win32;..\..\..\3rd party\libs;..\..\..\3rd party\eax;..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
-    <OutDir>..\..\..\binaries</OutDir>
-    <IntDir>..\..\..\intermediate\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>..\..\..\3rd party\dxsdk\Lib\;..\..\..\3rd party\OpenAL\libs\Win32;..\..\..\3rd party\libs;..\..\..\3rd party\eax;..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\xrLua\src;..\..\..\3rd party\FreeImage\FreeImage\Source;..\..\xrCore;..\..\..\3rd party\MagicSoftware\FreeMagic\Include;..\..\..\3rd party\OpenAL\Include;..\..\..\3rd party\luabind_old\luabind;..\..\..\3rd party\loki;..\..\..\3rd party\eax\Include;..\..\..\3rd party\boost;..\..\..\3rd party\DPlay\;..\..\..\3rd party\dxsdk\Include\;$(WindowsSdkDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,7 +105,7 @@
       <MapFileName />
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
-      <ImportLibrary>..\..\..\libraries\$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\libraries\$(Platform)\$(Configuration)\$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -143,7 +147,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-      <ImportLibrary>..\..\..\libraries\$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\libraries\$(Platform)\$(Configuration)\$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -178,7 +182,7 @@
       <MapFileName>$(OutDir)$(ProjectName).map</MapFileName>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
-      <ImportLibrary>..\..\..\libraries\$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>..\..\..\libraries\$(Platform)\$(Configuration)\$(ProjectName).lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
