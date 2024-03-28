@@ -24,3 +24,8 @@ gamedata.dba
 gamedata.dbb
 gamedata.dbc
 gamedata.dbd
+*.db
+*.tlog
+*.log
+*.obj
+*.pdb
