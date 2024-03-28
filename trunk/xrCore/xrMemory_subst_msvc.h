@@ -127,7 +127,7 @@ IC	T*		xr_new		(const P1& p1, const P2& p2, const P3& p3, const P4& p4, const P5
 template <bool _is_pm, typename T>
 struct xr_special_free
 {
-	IC void operator()(T* &ptr)
+	IC void operator()(T* const &ptr)
 	{
 		void*	_real_ptr	= dynamic_cast<void*>(ptr);
 		ptr->~T			();
@@ -138,7 +138,7 @@ struct xr_special_free
 template <typename T>
 struct xr_special_free<false,T>
 {
-	IC void operator()(T* &ptr)
+	IC void operator()(T* const &ptr)
 	{
 		ptr->~T			();
 		Memory.mem_free	(ptr);
