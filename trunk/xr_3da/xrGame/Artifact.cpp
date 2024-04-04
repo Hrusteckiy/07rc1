@@ -65,6 +65,7 @@ CArtefact::CArtefact(void)
 	m_sParticlesName			= NULL;
 	m_pTrailLight				= NULL;
 	m_activationObj				= NULL;
+	m_additional_weight			= 0.0f;
 }
 
 
@@ -97,6 +98,7 @@ void CArtefact::Load(LPCSTR section)
 			m_ArtefactHitImmunities.LoadImmunities(pSettings->r_string(section,"hit_absorbation_sect"),pSettings);
 	}
 	m_bCanSpawnZone = !!pSettings->line_exist("artefact_spawn_zones", section);
+	m_additional_weight = READ_IF_EXISTS(pSettings, r_float, section, "additional_inventory_weight", 0.0f);
 
 
 	animGet				(m_anim_idle,					pSettings->r_string(*hud_sect,"anim_idle"));

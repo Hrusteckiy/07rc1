@@ -482,6 +482,9 @@ public:
 	virtual BOOL						g_State				(SEntityState& state) const;
 	virtual	float						GetWeaponAccuracy	() const;
 			bool						IsZoomAimingMode	() const {return m_bZoomAimingMode;}
+			virtual float				MaxCarryWeight		() const;
+			float						MaxWalkWeight		() const;
+			float						get_additional_weight() const;
 
 protected:
 	//если актер целится в прицел
