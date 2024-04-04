@@ -54,6 +54,7 @@ protected:
 	ref_light						m_pTrailLight;
 	Fcolor							m_TrailLightColor;
 	float							m_fTrailLightRange;
+	float							m_additional_weight;
 protected:
 	virtual void					UpdateLights();
 	
@@ -62,6 +63,7 @@ public:
 	virtual void					StopLights();
 	void							ActivateArtefact					();
 	bool							CanBeActivated						()				{return m_bCanSpawnZone;};// does artefact can spawn anomaly zone
+	float							AdditionalInventoryWeight			() const {return m_additional_weight;}
 
 	virtual void					PhDataUpdate						(dReal step);
 	virtual void					PhTune								(dReal step)	{};
