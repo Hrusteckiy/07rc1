@@ -394,14 +394,14 @@ typedef int               gsi_bool;
 	#define _T(a)       a
 
 	#if defined(_WIN32)
-		#define _tsnprintf _snprintf
+		#define _tsnprintf sprintf_s
 	#else
 		#define _tsnprintf snprintf
 	#endif
 #endif // GSI_UNICODE
 
 #if defined(_WIN32)
-	#define snprintf _snprintf
+	#define snprintf sprintf_s
 #endif // _WIN32
 
 #if defined(_WIN32) && !defined(GS_UNDER_CE)
