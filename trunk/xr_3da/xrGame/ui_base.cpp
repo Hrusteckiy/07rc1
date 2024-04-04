@@ -208,6 +208,15 @@ ui_core::ui_core()
 	g_current_font_scale.set	(1.0f,1.0f);
 }
 
+float ui_core::get_current_kx()
+{
+	float h = float(Device.dwHeight);
+	float w = float(Device.dwWidth);
+
+	float res = (h / w) / (UI_BASE_HEIGHT / UI_BASE_WIDTH);
+	return res;
+}
+
 ui_core::~ui_core()
 {
 	xr_delete						(m_pFontManager);
