@@ -235,21 +235,30 @@ BOOL CDemoRecord::Process(Fvector &P, Fvector &D, Fvector &N, float& fFov, float
 {
 	if (0==file)	return TRUE;
 
-	if (m_bMakeScreenshot){
+	if (m_bMakeScreenshot)
+	{
 		MakeScreenshotFace();
 		// update camera
 		N.set(m_Camera.j);
 		D.set(m_Camera.k);
 		P.set(m_Camera.c);
-	}else if (m_bMakeLevelMap){
+	}
+	else if (m_bMakeLevelMap)
+	{
 			MakeLevelMapProcess();
-	}else if (m_bMakeCubeMap){
+	}
+	else if (m_bMakeCubeMap)
+	{
 		MakeCubeMapFace(D,N);
 		P.set(m_Camera.c);
 		fAspect = 1.f;
-	}else{
-		if (psHUD_Flags.test(HUD_DRAW)){
-			if ((Device.dwTimeGlobal/750)%3!=0) {
+	}
+	else
+	{
+		if (psHUD_Flags.test(HUD_DRAW))
+		{
+			if (IR_GetKeyState(DIK_F1))
+			{
 //				pApp->pFontSystem->SetSizeI	(0.02f);
 				pApp->pFontSystem->SetColor	(color_rgba(255,0,0,255));
 				pApp->pFontSystem->SetAligment(CGameFont::alCenter);
@@ -335,9 +344,9 @@ void CDemoRecord::IR_OnKeyboardPress	(int dik)
 	{	
 		if (g_pGameLevel->CurrentEntity())
 		{
-//#ifndef NDEBUG
+#ifndef NDEBUG
 			g_pGameLevel->CurrentEntity()->ForceTransform(m_Camera);
-//#endif
+#endif
 			fLifeTime		= -1; 
 		}
 	}
