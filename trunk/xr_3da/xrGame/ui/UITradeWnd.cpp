@@ -643,3 +643,24 @@ void CUITradeWnd::ColorizeItem(CUICellItem* itm, bool b)
 		itm->SetColor(color_rgba(255, 100, 100, 255));
 	}
 }
+
+bool CUITradeWnd::OnKeyboard(int dik, EUIMessages keyboard_action)
+{
+	if (inherited::OnKeyboard(dik, keyboard_action))return true;
+
+	if (keyboard_action == WINDOW_KEY_PRESSED)
+	{
+		if (is_binded(kUSE, dik) || is_binded(kQUIT, dik))
+		{
+			SwitchToTalk();
+			return true;
+		}
+		else if (is_binded(kSPRINT_TOGGLE, dik))
+		{
+			PerformTrade();
+			return true;
+		}
+	}
+	return false;
+}
+
