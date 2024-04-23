@@ -630,7 +630,8 @@ void CUITradeWnd::BindDragDropListEnents(CUIDragDropListEx* lst)
 void CUITradeWnd::ColorizeItem(CUICellItem* itm, bool b)
 {
 	CInventoryItem*	jitem = (CInventoryItem*)itm->m_pData;
-	if ((jitem->m_eItemPlace == eItemPlaceBelt || jitem->m_eItemPlace == eItemPlaceSlot) && b)
+	PIItem piitem = (PIItem)itm->m_pData;
+	if ((jitem->m_eItemPlace == eItemPlaceBelt || jitem->m_eItemPlace == eItemPlaceSlot) && b && piitem->m_pCurrentInventory->GetOwner() == m_pInvOwner)
 	{
 		itm->SetColor(color_rgba(180, 255, 180, 255));
 	}
