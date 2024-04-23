@@ -162,6 +162,19 @@ void CUIGameSP::ReInitShownUI()
 	
 };
 
+void CUIGameSP::ReinitDialogs()
+{
+	inherited::ReinitDialogs();
+	delete_data(InventoryMenu);
+	InventoryMenu = xr_new<CUIInventoryWnd>();
+
+	delete_data(TalkMenu);
+	TalkMenu = xr_new<CUITalkWnd>();
+
+	delete_data(UICarBodyMenu);
+	UICarBodyMenu = xr_new<CUICarBodyWnd>();
+}
+
 
 extern ENGINE_API BOOL bShowPauseString;
 void CUIGameSP::ChangeLevel				(GameGraph::_GRAPH_ID game_vert_id, u32 level_vert_id, Fvector pos, Fvector ang, Fvector pos2, Fvector ang2, bool b)
