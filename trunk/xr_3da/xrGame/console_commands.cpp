@@ -380,6 +380,23 @@ public:
 	  }
 };
 
+#include "UIGameCustom.h"
+class CCC_UIReload : public IConsole_Command
+{
+public:
+
+	CCC_UIReload(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = TRUE; };
+	virtual void Execute(LPCSTR args) {
+		if (g_pGamePersistent && g_pGameLevel && Level().game)
+		{
+			HUD().GetUI()->UIGame()->HideShownDialogs(); //реинит диалоговых окон вроде talk wnd
+			HUD().GetUI()->UIGame()->ReInitShownUI();
+			HUD().GetUI()->UIGame()->ReinitDialogs();
+			g_pGameLevel->pHUD->OnScreenRatioChanged();
+		}
+	}
+};
+
 bool valid_file_name(LPCSTR file_name)
 {
 
@@ -1405,6 +1422,7 @@ void CCC_RegisterCommands()
 	// Demo
 	CMD1(CCC_DemoPlay,			"demo_play"				);
 	CMD1(CCC_DemoRecord,		"demo_record"			);
+	CMD1(CCC_UIReload,			"ui_reload"				);
 
 #ifndef MASTER_GOLD
 	// ai

@@ -107,6 +107,7 @@ public:
 	CUIDialogWnd*		MainInputReceiver		();
 	virtual void		ReInitShownUI			() = 0;
 	virtual void		HideShownDialogs		(){};
+	virtual void		ReinitDialogs			(){};
 
 			void		AddCustomMessage		(LPCSTR id, float x, float y, float font_size, CGameFont *pFont, u16 alignment, u32 color);
 			void		AddCustomMessage		(LPCSTR id, float x, float y, float font_size, CGameFont *pFont, u16 alignment, u32 color/*, LPCSTR def_text*/, float flicker );
