@@ -73,5 +73,14 @@
         <text align="c" font="graffiti22" r="238" g="153" b="26">ui_st_take_all</text>
 	</take_all_btn>
 
+	<action_sounds>
+		<snd_open>interface\inv_open</snd_open>
+		<snd_close>interface\inv_close</snd_close>
+		<snd_item_to_ruck>interface\inv_ruck</snd_item_to_ruck>
+		<snd_properties>interface\inv_properties</snd_properties>
+		<snd_attach_addon>interface\inv_attach_addon</snd_attach_addon>
+		<snd_item_use>interface\inv_slot</snd_item_use>
+	</action_sounds>
+
 </window>
 

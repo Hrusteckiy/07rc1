@@ -130,7 +130,27 @@ void CUICarBodyWnd::Init()
 	BindDragDropListEnents			(m_pUIOurBagList);
 	BindDragDropListEnents			(m_pUIOthersBagList);
 
+	//Load sounds
 
+	if (uiXml.NavigateToNode("action_sounds", 0))
+	{
+		XML_NODE* stored_root			= uiXml.GetLocalRoot();
+		uiXml.SetLocalRoot				(uiXml.NavigateToNode("action_sounds", 0));
+		if (uiXml.NavigateToNode("snd_detach_addon", 0))
+			::Sound->create				(sounds[eCarBodyDetachAddon],	uiXml.Read("snd_detach_addon",	0,	NULL),st_Effect,sg_SourceType);
+		if (uiXml.NavigateToNode("snd_item_to_ruck", 0))
+			::Sound->create				(sounds[eCarBodyItemToRuck],	uiXml.Read("snd_item_to_ruck",	0,	NULL),st_Effect,sg_SourceType);
+		if (uiXml.NavigateToNode("snd_item_use", 0))
+			::Sound->create				(sounds[eCarBodyItemUse],		uiXml.Read("snd_item_use",		0,	NULL),st_Effect,sg_SourceType);
+		if (uiXml.NavigateToNode("snd_properties", 0))
+			::Sound->create				(sounds[eCarBodyProperties],	uiXml.Read("snd_properties",	0,	NULL),st_Effect,sg_SourceType);
+		if (uiXml.NavigateToNode("snd_open", 0))
+			::Sound->create				(sounds[eCarBodySndOpen],		uiXml.Read("snd_open",			0,	NULL),st_Effect,sg_SourceType);
+		if (uiXml.NavigateToNode("snd_close", 0))
+			::Sound->create				(sounds[eCarBodySndClose],		uiXml.Read("snd_close",			0,	NULL),st_Effect,sg_SourceType);
+
+		uiXml.SetLocalRoot				(stored_root);
+	}
 }
 
 void CUICarBodyWnd::InitCarBody(CInventoryOwner* pOur, CInventoryBox* pInvBox)
@@ -214,6 +234,8 @@ void CUICarBodyWnd::UpdateLists_delayed()
 
 void CUICarBodyWnd::Hide()
 {
+	if (&sounds[eCarBodySndClose])
+		PlaySnd									(eCarBodySndClose);
 	InventoryUtilities::SendInfoToActor			("ui_car_body_hide");
 	m_pUIOurBagList->ClearAll					(true);
 	m_pUIOthersBagList->ClearAll				(true);
@@ -267,7 +289,7 @@ void CUICarBodyWnd::SendMessage(CUIWindow *pWnd, s16 msg, void *pData)
 	{
 		TakeAll					();
 	}
-	else if(pWnd == m_pUIPropertiesBox &&	msg == PROPERTY_CLICKED)
+	else if (pWnd == m_pUIPropertiesBox &&	msg == PROPERTY_CLICKED)
 	{
 		if(m_pUIPropertiesBox->GetClickedItem())
 		{
@@ -278,14 +300,23 @@ void CUICarBodyWnd::SendMessage(CUIWindow *pWnd, s16 msg, void *pData)
 				break;
 			case INVENTORY_UNLOAD_MAGAZINE:
 				{
-				CUICellItem * itm = CurrentItem();
-				(smart_cast<CWeaponMagazined*>((CWeapon*)itm->m_pData))->UnloadMagazine();
-				for(u32 i=0; i<itm->ChildsCount(); ++i)
-				{
-					CUICellItem * child_itm			= itm->Child(i);
-					(smart_cast<CWeaponMagazined*>((CWeapon*)child_itm->m_pData))->UnloadMagazine();
-				}
+					CUICellItem * itm = CurrentItem();
+					(smart_cast<CWeaponMagazined*>((CWeapon*)itm->m_pData))->UnloadMagazine();
+					for(u32 i=0; i<itm->ChildsCount(); ++i)
+					{
+						CUICellItem * child_itm			= itm->Child(i);
+						(smart_cast<CWeaponMagazined*>((CWeapon*)child_itm->m_pData))->UnloadMagazine();
+					}
 				}break;
+			case INVENTORY_DETACH_SCOPE_ADDON:
+				DetachAddon(*(smart_cast<CWeapon*>(CurrentIItem()))->GetScopeName());
+				break;
+			case INVENTORY_DETACH_SILENCER_ADDON:
+				DetachAddon(*(smart_cast<CWeapon*>(CurrentIItem()))->GetSilencerName());
+				break;
+			case INVENTORY_DETACH_GRENADE_LAUNCHER_ADDON:
+				DetachAddon(*(smart_cast<CWeapon*>(CurrentIItem()))->GetGrenadeLauncherName());
+				break;
 			}
 		}
 	}
@@ -322,6 +353,8 @@ void CUICarBodyWnd::Show()
 	inherited::Show							();
 	SetCurrentItem							(NULL);
 	InventoryUtilities::UpdateWeight		(*m_pUIOurBagWnd);
+	if (&sounds[eCarBodySndOpen])
+		PlaySnd								(eCarBodySndOpen);
 }
 
 void CUICarBodyWnd::DisableAll()
@@ -415,46 +448,106 @@ bool CUICarBodyWnd::OnKeyboard(int dik, EUIMessages keyboard_action)
 
 void CUICarBodyWnd::ActivatePropertiesBox()
 {
-	if(m_pInventoryBox)	return;
+	if (m_pInventoryBox)	return;
 		
 	m_pUIPropertiesBox->RemoveAll();
 	
-//.	CWeaponMagazined*		pWeapon			= smart_cast<CWeaponMagazined*>(CurrentIItem());
-	CEatableItem*			pEatableItem	= smart_cast<CEatableItem*>(CurrentIItem());
+	CWeaponMagazined*		pWeapon			= smart_cast<CWeaponMagazined*>(CurrentIItem());
+	CEatableItem*			pEatableItem	= smart_cast<CEatableItem*>		(CurrentIItem());
 	CMedkit*				pMedkit			= smart_cast<CMedkit*>			(CurrentIItem());
 	CAntirad*				pAntirad		= smart_cast<CAntirad*>			(CurrentIItem());
 	CBottleItem*			pBottleItem		= smart_cast<CBottleItem*>		(CurrentIItem());
     bool					b_show			= false;
 	
-	LPCSTR _action				= NULL;
-	if(pMedkit || pAntirad)
+	LPCSTR _action_				= NULL;
+	if (pMedkit || pAntirad)
 	{
-		_action						= "st_use";
+		_action_					= "st_use";
 		b_show						= true;
 	}
-	else if(pEatableItem)
+	else if (pEatableItem)
 	{
-		if(pBottleItem)
-			_action					= "st_drink";
+		if (pBottleItem)
+			_action_				= "st_drink";
 		else
-			_action					= "st_eat";
+			_action_				= "st_eat";
 		b_show						= true;
 	}
-	if(_action)
-		m_pUIPropertiesBox->AddItem(_action,  NULL, INVENTORY_EAT_ACTION);
+
+	//отсоединение аддонов от вещи
+	if (pWeapon)
+	{
+		if (pWeapon->GrenadeLauncherAttachable() && pWeapon->IsGrenadeLauncherAttached())
+		{
+			m_pUIPropertiesBox->AddItem("st_detach_gl", NULL, INVENTORY_DETACH_GRENADE_LAUNCHER_ADDON);
+			b_show = true;
+		}
+		if (pWeapon->ScopeAttachable() && pWeapon->IsScopeAttached())
+		{
+			m_pUIPropertiesBox->AddItem("st_detach_scope", NULL, INVENTORY_DETACH_SCOPE_ADDON);
+			b_show = true;
+		}
+		if (pWeapon->SilencerAttachable() && pWeapon->IsSilencerAttached())
+		{
+			m_pUIPropertiesBox->AddItem("st_detach_silencer", NULL, INVENTORY_DETACH_SILENCER_ADDON);
+			b_show = true;
+		}
+		if (smart_cast<CWeaponMagazined*>(pWeapon) && IsGameTypeSingle())
+		{
+			bool b = (0 != pWeapon->GetAmmoElapsed());
+
+			if (!b)
+			{
+				CUICellItem* itm = CurrentItem();
+				for (u32 i = 0; i < itm->ChildsCount(); ++i)
+				{
+					pWeapon = smart_cast<CWeaponMagazined*>((CWeapon*)itm->Child(i)->m_pData);
+					if (pWeapon->GetAmmoElapsed())
+					{
+						b = true;
+						break;
+					}
+				}
+			}
+
+			if (b)
+			{
+				m_pUIPropertiesBox->AddItem("st_unload_magazine", NULL, INVENTORY_UNLOAD_MAGAZINE);
+				b_show = true;
+			}
+		}
+	}
+
+	/*bool disallow_drop = false;//(pOutfit && bAlreadyDressed);
+	disallow_drop |= !!CurrentIItem()->IsQuestItem();
+
+	if (!disallow_drop)
+	{
+
+		m_pUIPropertiesBox->AddItem("st_drop", NULL, INVENTORY_DROP_ACTION);
+		b_show = true;
+
+		if (CurrentItem()->ChildsCount())
+			m_pUIPropertiesBox->AddItem("st_drop_all", (void*)33, INVENTORY_DROP_ACTION);
+	}*/
+	if (_action_)
+		m_pUIPropertiesBox->AddItem(_action_,  NULL, INVENTORY_EAT_ACTION);
 
 
-	if(b_show){
+	if (b_show)
+	{
 		m_pUIPropertiesBox->AutoUpdateSize	();
 		m_pUIPropertiesBox->BringAllToTop	();
 
-		Fvector2						cursor_pos;
+		Fvector2						cursor__pos;
 		Frect							vis_rect;
 
 		GetAbsoluteRect					(vis_rect);
-		cursor_pos						= GetUICursor()->GetCursorPosition();
-		cursor_pos.sub					(vis_rect.lt);
-		m_pUIPropertiesBox->Show		(vis_rect, cursor_pos);
+		cursor__pos						= GetUICursor()->GetCursorPosition();
+		cursor__pos.sub					(vis_rect.lt);
+		m_pUIPropertiesBox->Show		(vis_rect, cursor__pos);
+		if (&sounds[eCarBodyProperties])
+			PlaySnd(eCarBodyProperties);
 	}
 }
 
@@ -477,7 +570,8 @@ void CUICarBodyWnd::EatItem()
 	CGameObject::u_EventGen		(P, GEG_PLAYER_ITEM_EAT, Actor()->ID());
 	P.w_u16						(CurrentIItem()->object().ID());
 	CGameObject::u_EventSend	(P);
-
+	if (&sounds[eCarBodyItemUse])
+		PlaySnd					(eCarBodyItemUse);
 }
 
 
@@ -518,7 +612,9 @@ bool CUICarBodyWnd::OnItemDrop(CUICellItem* itm)
 		CUICellItem* ci			= old_owner->RemoveItem(CurrentItem(), false);
 		new_owner->SetItem		(ci);
 	}
-	SetCurrentItem					(NULL);
+	SetCurrentItem				(NULL);
+	if (&sounds[eCarBodyDropItem])
+		PlaySnd					(eCarBodyDropItem);
 
 	return				true;
 }
@@ -576,7 +672,7 @@ bool CUICarBodyWnd::OnItemRButtonClick(CUICellItem* itm)
 	return						false;
 }
 
-void move_item (u16 from_id, u16 to_id, u16 what_id)
+void CUICarBodyWnd::move_item (u16 from_id, u16 to_id, u16 what_id)
 {
 	NET_Packet P;
 	CGameObject::u_EventGen					(	P,
@@ -595,6 +691,8 @@ void move_item (u16 from_id, u16 to_id, u16 what_id)
 	P.w_u16									(what_id);
 	CGameObject::u_EventSend				(P);
 
+	if (&sounds[eCarBodyItemToRuck])
+		PlaySnd(eCarBodyItemToRuck);
 }
 
 bool CUICarBodyWnd::TransferItem(PIItem itm, CInventoryOwner* owner_from, CInventoryOwner* owner_to, bool b_check)
@@ -631,4 +729,32 @@ void CUICarBodyWnd::ColorizeItem(CUICellItem* itm)
 	CInventoryItem* jitem = (CInventoryItem*)itm->m_pData;
 	if (jitem->m_eItemPlace == eItemPlaceBelt || jitem->m_eItemPlace == eItemPlaceSlot)
 		itm->SetColor(color_rgba(180, 255, 180, 255));
+}
+
+void CUICarBodyWnd::DetachAddon(const char* addon_name)
+{
+	if (OnClient())
+	{
+		NET_Packet								P;
+		CurrentIItem()->object().u_EventGen		(P, GE_ADDON_DETACH, CurrentIItem()->object().ID());
+		P.w_stringZ								(addon_name);
+		CurrentIItem()->object().u_EventSend	(P);
+	};
+	CurrentIItem()->Detach						(addon_name, true);
+
+	//спрятать вещь из активного слота в инвентарь на время вызова менюшки
+	//CActor *pActor								= smart_cast<CActor*>(Level().CurrentEntity());
+	//if (pActor && CurrentIItem() == pActor->inventory().ActiveItem())
+	//{
+	//		m_iCurrentActiveSlot				= pActor->inventory().GetActiveSlot();
+	//		pActor->inventory().Activate		(NO_ACTIVE_SLOT);
+	//}
+	if (&sounds[eCarBodyDetachAddon])
+		PlaySnd(eCarBodyDetachAddon);
+}
+
+void CUICarBodyWnd::PlaySnd(eCarBodySndAction a)
+{
+	if (sounds[a]._handle())
+		sounds[a].play(NULL, sm_2D);
 }
