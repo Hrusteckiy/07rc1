@@ -1,13 +1,28 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <window>
 
-	<static_icon x="15" y="32" width="205" height="235" stretch="1">
-		<texture>ui_charinfo_left</texture>
-		<texture_offset x="-13" y="0"/>
+	<static_icon x="10" y="25" width="235" height="235" stretch="1">
+		<auto_static x="0" y="-6" width="230" height="52" stretch="1">
+			<texture>ui_charinfo_left_top</texture>
+		</auto_static>
+		<auto_static x="0" y="43" width="230" height="132" stretch="1">
+			<texture>ui_charinfo_left_middle</texture>
+		</auto_static>
+		<auto_static x="0" y="175" width="230" height="60" stretch="1">
+			<texture>ui_charinfo_left_bottom</texture>
+		</auto_static>
 	</static_icon>
-	<static_icon x="820" y="32" width="205" height="235" stretch="1">
-		<texture>ui_charinfo_right</texture>
-		<texture_offset x="-2" y="0"/>
+
+	<static_icon x="785" y="25" width="235" height="235" stretch="1">
+		<auto_static x="0" y="-6" width="230" height="52" stretch="1">
+			<texture>ui_charinfo_left_top</texture>
+		</auto_static>
+		<auto_static x="0" y="43" width="230" height="132" stretch="1">
+			<texture>ui_charinfo_left_middle</texture>
+		</auto_static>
+		<auto_static x="0" y="175" width="230" height="60" stretch="1">
+			<texture>ui_charinfo_left_bottom</texture>
+		</auto_static>
 	</static_icon>
 
 	<main x="0" y="0" width="1024" height="768"/>
@@ -86,7 +101,7 @@
 		<texture>ui_frame_03</texture>		
 	</desc_frame_window>
 
-	<desc_static x="212" y="22" width="607" height="232" stretch="1">
+	<desc_static x="227" y="22" width="583" height="232" stretch="1">
 		<texture>ui_hud_frame_buyM</texture>		
 	</desc_static>
 
