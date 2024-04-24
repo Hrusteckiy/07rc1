@@ -42,6 +42,17 @@ public:
 	void					UpdateLists_delayed			();
 
 protected:
+	enum eCarBodySndAction{	eCarBodySndOpen	=0,
+								eCarBodySndClose,
+								eCarBodyItemToRuck,
+								eCarBodyProperties,
+								eCarBodyDropItem,
+								eCarBodyDetachAddon,
+								eCarBodyItemUse,
+								eCarBodySndMax};
+
+	ref_sound				sounds					[eCarBodySndMax];
+	void					PlaySnd					(eCarBodySndAction a);
 	CInventoryOwner*		m_pOurObject;
 
 	CInventoryOwner*		m_pOthersObject;
@@ -92,9 +103,12 @@ protected:
 	bool		xr_stdcall	OnItemSelected				(CUICellItem* itm);
 	bool		xr_stdcall	OnItemRButtonClick			(CUICellItem* itm);
 
+
 	bool					TransferItem				(PIItem itm, CInventoryOwner* owner_from, CInventoryOwner* owner_to, bool b_check);
 	void					BindDragDropListEnents		(CUIDragDropListEx* lst);
 
 	void					ColorizeItem				(CUICellItem* itm);
 
+	void					DetachAddon					(const char* addon_name);
+	void					move_item					(u16 from_id, u16 to_id, u16 what_id);
 };
