@@ -1,13 +1,28 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <window x="0" y="0" w="640" h="480" r="227" g="121" b="222" texture="1">
 
-	<static_icon x="15" y="32" width="143" height="220"  stretch="1">
-		<texture>ui_charinfo_left</texture>
-		<texture_offset x="-5" y="0"/>
+	<static_icon x="15" y="12" width="180" height="220"  stretch="1">
+		<auto_static x="0" y="-2" width="176" height="45" stretch="1">
+			<texture>ui_charinfo_left_top</texture>
+		</auto_static>
+		<auto_static x="0" y="43" width="176" height="140" stretch="1">
+			<texture>ui_charinfo_left_middle</texture>
+		</auto_static>
+		<auto_static x="0" y="183" width="176" height="64" stretch="1">
+			<texture>ui_charinfo_left_bottom</texture>
+		</auto_static>
 	</static_icon>
-	<static_icon x="850" y="32" width="143" height="220" stretch="1">
-		<texture>ui_charinfo_right</texture>
-		<texture_offset x="2" y="0"/>
+
+	<static_icon x="850" y="12" width="180" height="220" stretch="1">
+		<auto_static x="0" y="-2" width="176" height="45" stretch="1">
+			<texture>ui_charinfo_left_top</texture>
+		</auto_static>
+		<auto_static x="0" y="43" width="176" height="140" stretch="1">
+			<texture>ui_charinfo_left_middle</texture>
+		</auto_static>
+		<auto_static x="0" y="183" width="176" height="64" stretch="1">
+			<texture>ui_charinfo_left_bottom</texture>
+		</auto_static>
 	</static_icon>
 
 	<main x="0" y="0" width="1024" height="768"/>

@@ -1,7 +1,9 @@
 <ui_texture>
     <file_name>ui\ui_inventory2</file_name>
     <texture id="ui_trade_wnd" x="0" y="218" width="1024" height="531" />
-    <texture id="ui_charinfo_left" x="0" y="0" width="210" height="218" />
+    <texture id="ui_charinfo_left_top" x="0" y="0" width="210" height="33" />
+    <texture id="ui_charinfo_left_middle" x="0" y="33" width="210" height="109" />
+    <texture id="ui_charinfo_left_bottom" x="0" y="142" width="210" height="76" />
     <texture id="ui_charinfo_right" x="813" y="0" width="211" height="218" />
     <texture id="ui_trade_wnd_left" x="0" y="218" width="343" height="500" />
     <texture id="ui_trade_wnd_right" x="708" y="218" width="316" height="500" />
