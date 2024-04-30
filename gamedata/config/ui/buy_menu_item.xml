@@ -40,7 +40,7 @@
     <wpn_params x="10" y="0" width="220" height="70">
 		<cap_accuracy x="15" y="8" width="120" height="8">
 			<text font="letterica16" r="124" g="119" b="115">ui_inv_accuracy</text>
-		</cap_accuracy>		
+		</cap_accuracy>
 		<cap_handling x="210" y="8" width="120" height="8">
 			<text font="letterica16" r="124" g="119" b="115">ui_inv_handling</text>
 		</cap_handling>

@@ -56,8 +56,8 @@
 		<texture width="258" height="271">ui\ui_inv_info_over_b</texture>
 	</descr_static>
 
-	<auto_static x="405" y="461" width="220" height="30">
-		<text font="graffiti22" r="238" g="153" b="26">ui_st_description</text>
+	<auto_static x="408" y="461" width="220" height="25">
+		<text vert_align="c" font="graffiti22" r="238" g="153" b="26">ui_st_description</text>
 	</auto_static>
 
 	<top_background x="0" y="0" width="1024" height="128">
