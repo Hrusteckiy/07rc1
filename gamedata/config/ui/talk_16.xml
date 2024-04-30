@@ -25,11 +25,11 @@
 		</auto_static>
 	</right_character_icon>
 	
-	<top_background x=0 y=0 width=1024 height=128>
+	<top_background x="0" y="0" width="1024" height="128">
 		<texture>ui\ui_top_background</texture>
 	</top_background>
 
-	<bottom_background x=0 y=736 width=1024 height=32>
+	<bottom_background x="0" y="736" width="1024" height="32">
 		<texture>ui\ui_bottom_background</texture>
 	</bottom_background>
 	<!-- BUTTONS -->
@@ -68,7 +68,7 @@
 	</question_item>
 	
 	<other_answer_item x="0" y="0" width="557" height="0" min_height="13" bottom_footer="5">
-		<name_caption x="0" y="0" width="550" height="10">
+		<name_caption x="5" y="0" width="550" height="10">
 			<text font="graffiti22" r="238" g="153" b="26" complex_mode="0"/>
 		</name_caption>
 		
@@ -78,7 +78,7 @@
 	</other_answer_item>
 
 	<actor_answer_item x="0" y="0" width="557" height="0" min_height="13" bottom_footer="10">
-		<name_caption x="0" y="0" width="550" height="10">
+		<name_caption x="5" y="0" width="550" height="10">
 			<text font="graffiti22" r="135" g="183" b="116" complex_mode="0"/>
 		</name_caption>
 		
