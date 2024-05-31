@@ -344,9 +344,9 @@ void CDemoRecord::IR_OnKeyboardPress	(int dik)
 	{	
 		if (g_pGameLevel->CurrentEntity())
 		{
-#ifndef NDEBUG
+//#ifndef NDEBUG
 			g_pGameLevel->CurrentEntity()->ForceTransform(m_Camera);
-#endif
+//#endif
 			fLifeTime		= -1; 
 		}
 	}
