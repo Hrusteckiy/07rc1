@@ -38,6 +38,11 @@ public:
 	virtual void 			OnH_A_Chield				();
 	virtual void 			OnH_B_Independent			(bool just_before_destroy);
 
+	virtual void 			PlayAnimIdle				();
+	virtual bool 			TryPlayAnimIdle				();
+
+	virtual void 			onMovementChanged			(ACTOR_DEFS::EMoveCommand cmd);
+
 	virtual void 			OnEvent						(NET_Packet& P, u16 type);
 
 	virtual void 			OnAnimationEnd				(u32 state);
@@ -102,6 +107,7 @@ protected:
 	shared_str				m_sAnimShow;
 	shared_str				m_sAnimHide;
 	shared_str				m_sAnimIdle;
+	shared_str				m_sAnimIdleSpr;
 	shared_str				m_sAnimPlaying;
 	shared_str				m_sAnimThrowBegin;
 	shared_str				m_sAnimThrowIdle;

@@ -37,17 +37,73 @@ void CWeaponKnife::Load	(LPCSTR section)
 
 	// HUD :: Anims
 	R_ASSERT			(m_pHUD);
-	animGet				(mhud_idle,		pSettings->r_string(*hud_sect,"anim_idle"));
-	animGet				(mhud_hide,		pSettings->r_string(*hud_sect,"anim_hide"));
-	animGet				(mhud_show,		pSettings->r_string(*hud_sect,"anim_draw"));
-	animGet				(mhud_attack,	pSettings->r_string(*hud_sect,"anim_shoot1_start"));
-	animGet				(mhud_attack2,	pSettings->r_string(*hud_sect,"anim_shoot2_start"));
-	animGet				(mhud_attack_e,	pSettings->r_string(*hud_sect,"anim_shoot1_end"));
-	animGet				(mhud_attack2_e,pSettings->r_string(*hud_sect,"anim_shoot2_end"));
+	animGet				(mhud_idle,				pSettings->r_string(*hud_sect,"anim_idle"));
+	animGet				(mhud_hide,				pSettings->r_string(*hud_sect,"anim_hide"));
+	animGet				(mhud_show,				pSettings->r_string(*hud_sect,"anim_draw"));
+	animGet				(mhud_attack,			pSettings->r_string(*hud_sect,"anim_shoot1_start"));
+	animGet				(mhud_attack2,			pSettings->r_string(*hud_sect,"anim_shoot2_start"));
+	animGet				(mhud_attack_e,			pSettings->r_string(*hud_sect,"anim_shoot1_end"));
+	animGet				(mhud_attack2_e,		pSettings->r_string(*hud_sect,"anim_shoot2_end"));
+	if (pSettings->line_exist(*hud_sect, "anim_idle_sprint"))
+		animGet			(mhud_idle_sprint,		pSettings->r_string(*hud_sect,"anim_idle_sprint"));
 
 	HUD_SOUND::LoadSound(section,"snd_shoot"		, m_sndShot		, ESoundTypes(SOUND_TYPE_WEAPON_SHOOTING)		);
 	
 	knife_material_idx =  GMLib.GetMaterialIdx(KNIFE_MATERIAL_NAME);
+}
+
+bool CWeaponKnife::TryPlayAnimIdle()
+{
+	VERIFY(GetState() == eIdle);
+	if (!IsZoomed())
+	{
+		CActor* pActor = smart_cast<CActor*>(H_Parent());
+		if (pActor)
+		{
+			CEntity::SEntityState st;
+			pActor->g_State(st);
+			if (st.bSprint && mhud_idle_sprint.size())
+			{
+				m_pHUD->animPlay(random_anim(mhud_idle_sprint), TRUE, NULL, GetState());
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void CWeaponKnife::onMovementChanged(ACTOR_DEFS::EMoveCommand cmd)
+{
+	if ((cmd == ACTOR_DEFS::mcSprint) && (GetState() == eIdle))
+		PlayAnimIdle();
+}
+
+void CWeaponKnife::UpdateCL()
+{
+	inherited::UpdateCL();
+}
+
+void CWeaponKnife::PlayAnimIdle()
+{
+	MotionSVec* m = NULL;
+	if (TryPlayAnimIdle()) return;
+
+	VERIFY(GetState() == eIdle);
+
+	CActor* pActor = smart_cast<CActor*>(H_Parent());
+	if (pActor)
+	{
+		CEntity::SEntityState st;
+		pActor->g_State(st);
+		if (st.bSprint && mhud_idle_sprint.size())
+		{
+			m_pHUD->animPlay(random_anim(mhud_idle_sprint), TRUE, NULL, GetState());
+		}
+		else
+		{
+			m_pHUD->animPlay(random_anim(mhud_idle), TRUE, NULL, GetState());
+		}
+	}
 }
 
 void CWeaponKnife::OnStateSwitch	(u32 S)
@@ -207,9 +263,7 @@ void CWeaponKnife::switch2_Attacking	(u32 state)
 
 void CWeaponKnife::switch2_Idle	()
 {
-	VERIFY(GetState()==eIdle);
-
-	m_pHUD->animPlay(random_anim(mhud_idle), TRUE, this, GetState());
+	PlayAnimIdle();
 	m_bPending = false;
 }
 
@@ -302,7 +356,16 @@ void CWeaponKnife::LoadFireParams(LPCSTR section, LPCSTR prefix)
 
 void CWeaponKnife::StartIdleAnim()
 {
-	m_pHUD->animDisplay(mhud_idle[Random.randI(mhud_idle.size())], TRUE);
+	CActor* pActor = smart_cast<CActor*>(H_Parent());
+	if (pActor)
+	{
+		CEntity::SEntityState st;
+		pActor->g_State(st);
+		if (mhud_idle_sprint.size() && st.bSprint)
+			m_pHUD->animDisplay(mhud_idle_sprint[Random.randI(mhud_idle_sprint.size())], TRUE);
+		else
+			m_pHUD->animDisplay(mhud_idle[Random.randI(mhud_idle.size())], TRUE);
+	}
 }
 void CWeaponKnife::GetBriefInfo(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count)
 {

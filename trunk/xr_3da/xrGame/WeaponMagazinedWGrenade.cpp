@@ -232,7 +232,7 @@ void  CWeaponMagazinedWGrenade::PerformSwitchGL()
 	while(l_magazine.size()) { m_magazine2.push_back(l_magazine.back()); l_magazine.pop_back(); }
 	iAmmoElapsed = (int)m_magazine.size();
 
-	if(m_bZoomEnabled && m_pHUD)
+	if (m_zoom_params.m_bZoomEnabled && m_pHUD)
 	{
 		if(m_bGrenadeMode)
 			LoadZoomOffset(*hud_sect, "grenade_");
@@ -577,7 +577,7 @@ void CWeaponMagazinedWGrenade::InitAddons()
 			CRocketLauncher::m_fLaunchSpeed = pSettings->r_float(*m_sGrenadeLauncherName,"grenade_vel");
 		}
 
-		if(m_bZoomEnabled && m_pHUD)
+		if (m_zoom_params.m_bZoomEnabled && m_pHUD)
 		{
 			if(m_bGrenadeMode)
 				LoadZoomOffset(*hud_sect, "grenade_");
@@ -601,7 +601,7 @@ bool	CWeaponMagazinedWGrenade::UseScopeTexture()
 
 float	CWeaponMagazinedWGrenade::CurrentZoomFactor	()
 {
-	if (IsGrenadeLauncherAttached() && m_bGrenadeMode) return m_fIronSightZoomFactor;
+	if (IsGrenadeLauncherAttached() && m_bGrenadeMode) return m_zoom_params.m_fIronSightZoomFactor;
 	return inherited::CurrentZoomFactor();
 }
 

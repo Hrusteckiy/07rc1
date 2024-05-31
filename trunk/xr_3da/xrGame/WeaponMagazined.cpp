@@ -91,6 +91,9 @@ void CWeaponMagazined::Load	(LPCSTR section)
 	if(pSettings->line_exist(*hud_sect,"anim_idle_sprint"))
 		animGet				(mhud.mhud_idle_sprint,	pSettings->r_string(*hud_sect, "anim_idle_sprint"));
 
+	if (pSettings->line_exist(*hud_sect, "anim_idle_w_gl_sprint"))
+		animGet				(mhud.mhud_idle_w_gl_sprint, pSettings->r_string(*hud_sect, "anim_idle_w_gl_sprint"));
+
 	if(IsZoomEnabled())
 		animGet				(mhud.mhud_idle_aim,		pSettings->r_string(*hud_sect, "anim_idle_aim"));
 	
@@ -857,116 +860,6 @@ bool CWeaponMagazined::Detach(const char* item_section_name, bool b_spawn_item)
 		return inherited::Detach(item_section_name, b_spawn_item);;
 }
 
-void CWeaponMagazined::InitAddons()
-{
-	//////////////////////////////////////////////////////////////////////////
-	// Прицел
-	m_fIronSightZoomFactor = READ_IF_EXISTS(pSettings, r_float, cNameSect(), "ironsight_zoom_factor", 50.0f);
-
-	if(IsScopeAttached())
-	{
-		if(m_eScopeStatus == ALife::eAddonAttachable)
-		{
-			m_sScopeName = pSettings->r_string(cNameSect(), "scope_name");
-			m_iScopeX	 = pSettings->r_s32(cNameSect(),"scope_x");
-			m_iScopeY	 = pSettings->r_s32(cNameSect(),"scope_y");
-
-			shared_str scope_tex_name;
-			scope_tex_name = pSettings->r_string(*m_sScopeName, "scope_texture");
-			m_fScopeZoomFactor = pSettings->r_float	(*m_sScopeName, "scope_zoom_factor");
-			
-			if(m_UIScope) xr_delete(m_UIScope);
-			m_UIScope = xr_new<CUIStaticItem>();
-
-			m_UIScope->Init(*scope_tex_name, "hud\\default", 0, 0, alNone);
-
-		}
-		else if(m_eScopeStatus == ALife::eAddonPermanent)
-		{
-			m_fScopeZoomFactor = pSettings->r_float	(cNameSect(), "scope_zoom_factor");
-			shared_str scope_tex_name;
-			scope_tex_name = pSettings->r_string(cNameSect(), "scope_texture");
-
-			if(m_UIScope) xr_delete(m_UIScope);
-			m_UIScope = xr_new<CUIStaticItem>();
-			m_UIScope->Init(*scope_tex_name, "hud\\default", 0, 0, alNone);
-
-		}
-	}
-	else
-	{
-		if(m_UIScope) xr_delete(m_UIScope);
-		
-		if(IsZoomEnabled())
-			m_fIronSightZoomFactor = pSettings->r_float	(cNameSect(), "scope_zoom_factor");
-	}
-
-	
-
-	if(IsSilencerAttached() && SilencerAttachable())
-	{		
-		m_sFlameParticlesCurrent = m_sSilencerFlameParticles;
-		m_sSmokeParticlesCurrent = m_sSilencerSmokeParticles;
-		m_pSndShotCurrent = &sndSilencerShot;
-
-
-		//сила выстрела
-		LoadFireParams	(*cNameSect(), "");
-
-		//подсветка от выстрела
-		LoadLights		(*cNameSect(), "silencer_");
-		ApplySilencerKoeffs();
-	}
-	else
-	{
-		m_sFlameParticlesCurrent = m_sFlameParticles;
-		m_sSmokeParticlesCurrent = m_sSmokeParticles;
-		m_pSndShotCurrent = &sndShot;
-
-		//сила выстрела
-		LoadFireParams	(*cNameSect(), "");
-		//подсветка от выстрела
-		LoadLights		(*cNameSect(), "");
-	}
-
-	inherited::InitAddons();
-}
-
-void CWeaponMagazined::ApplySilencerKoeffs	()
-{
-	float BHPk = 1.0f, BSk = 1.0f;
-	float FDB_k = 1.0f, CD_k = 1.0f;
-	
-	if (pSettings->line_exist(m_sSilencerName, "bullet_hit_power_k"))
-	{
-		BHPk = pSettings->r_float(m_sSilencerName, "bullet_hit_power_k");
-		clamp(BHPk, 0.0f, 1.0f);
-	};
-	if (pSettings->line_exist(m_sSilencerName, "bullet_speed_k"))
-	{
-		BSk = pSettings->r_float(m_sSilencerName, "bullet_speed_k");
-		clamp(BSk, 0.0f, 1.0f);
-	};
-	if (pSettings->line_exist(m_sSilencerName, "fire_dispersion_base_k"))
-	{
-		FDB_k = pSettings->r_float(m_sSilencerName, "fire_dispersion_base_k");
-//		clamp(FDB_k, 0.0f, 1.0f);
-	};
-	if (pSettings->line_exist(m_sSilencerName, "cam_dispersion_k"))
-	{
-		CD_k = pSettings->r_float(m_sSilencerName, "cam_dispersion_k");
-		clamp(CD_k, 0.0f, 1.0f);
-	};
-
-	//fHitPower			= fHitPower*BHPk;
-	fvHitPower			.mul(BHPk);
-	fHitImpulse			*= BSk;
-	m_fStartBulletSpeed *= BSk;
-	fireDispersionBase	*= FDB_k;
-	camDispersion		*= CD_k;
-	camDispersionInc	*= CD_k;
-}
-
 //виртуальные функции для проигрывания анимации HUD
 void CWeaponMagazined::PlayAnimShow()
 {
@@ -989,17 +882,43 @@ void CWeaponMagazined::PlayAnimReload()
 
 bool CWeaponMagazined::TryPlayAnimIdle()
 {
-	VERIFY(GetState()==eIdle);
-	if(!IsZoomed()){
+	VERIFY(GetState() == eIdle);
+	if (!IsZoomed())
+	{
 		CActor* pActor = smart_cast<CActor*>(H_Parent());
-		if(pActor)
+		if (pActor)
 		{
 			CEntity::SEntityState st;
 			pActor->g_State(st);
-			if(st.bSprint && mhud.mhud_idle_sprint.size())
+			if (!IsGrenadeLauncherAttached())
 			{
-				m_pHUD->animPlay(random_anim(mhud.mhud_idle_sprint), TRUE, NULL,GetState());
-				return true;
+				if (st.bSprint)
+				{
+					if (mhud.mhud_idle_sprint.size())
+					{
+						m_pHUD->animPlay(random_anim(mhud.mhud_idle_sprint), TRUE, NULL, GetState());
+						return true;
+					}
+				}
+			}
+			else
+			{
+				if (st.bSprint)
+				{
+					if (mhud.mhud_idle_w_gl_sprint.size())
+					{
+						m_pHUD->animPlay(random_anim(mhud.mhud_idle_w_gl_sprint), TRUE, NULL, GetState());
+						return true;
+					}
+					else
+					{
+						if (mhud.mhud_idle_sprint.size())
+						{
+							m_pHUD->animPlay(random_anim(mhud.mhud_idle_sprint), TRUE, NULL, GetState());
+							return true;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1051,7 +970,7 @@ void CWeaponMagazined::OnZoomIn			()
 }
 void CWeaponMagazined::OnZoomOut		()
 {
-	if(!m_bZoomMode) return;
+	if(!m_zoom_params.m_bIsZoomModeNow) return;
 
 	inherited::OnZoomOut();
 

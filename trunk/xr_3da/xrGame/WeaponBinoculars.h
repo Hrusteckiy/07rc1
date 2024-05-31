@@ -14,18 +14,19 @@ private:
 protected:
 	HUD_SOUND		sndZoomIn;
 	HUD_SOUND		sndZoomOut;
-	float			m_fRTZoomFactor; //run-time zoom factor
 	bool			m_bVision;
 public:
 					CWeaponBinoculars	(); 
 	virtual			~CWeaponBinoculars	();
 
 	void			Load				(LPCSTR section);
-
+	
 	virtual void	OnZoomIn			();
 	virtual void	OnZoomOut			();
 	virtual	void	ZoomInc				();
 	virtual	void	ZoomDec				();
+	virtual void	GetZoomData			(const float scope_factor, float& delta, float& min_zoom_factor);
+	virtual	float	CurrentZoomFactor	() { return m_fRTZoomFactor; }
 	virtual void	net_Destroy			();
 	virtual BOOL	net_Spawn			(CSE_Abstract* DC);
 
