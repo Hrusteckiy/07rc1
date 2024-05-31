@@ -21,24 +21,10 @@ protected:
 	// Media :: sounds
 	HUD_SOUND		sndShow;
 	HUD_SOUND		sndHide;
-	HUD_SOUND		sndShot;
 	HUD_SOUND		sndEmptyClick;
 	HUD_SOUND		sndReload;
-	//звук текущего выстрела
-	HUD_SOUND*		m_pSndShotCurrent;
 
 	virtual void	StopHUDSounds		();
-
-	//дополнительная информация о глушителе
-	LPCSTR			m_sSilencerFlameParticles;
-	LPCSTR			m_sSilencerSmokeParticles;
-	HUD_SOUND		sndSilencerShot;
-
-	ESoundTypes		m_eSoundShow;
-	ESoundTypes		m_eSoundHide;
-	ESoundTypes		m_eSoundShot;
-	ESoundTypes		m_eSoundEmptyClick;
-	ESoundTypes		m_eSoundReload;
 	struct SWMmotions{
 		MotionSVec		mhud_idle;
 		MotionSVec		mhud_idle_aim;
@@ -47,6 +33,7 @@ protected:
 		MotionSVec		mhud_show;		//
 		MotionSVec		mhud_shots;		//
 		MotionSVec		mhud_idle_sprint;
+		MotionSVec		mhud_idle_w_gl_sprint;
 	};
 	SWMmotions			mhud;	
 	
@@ -79,7 +66,6 @@ protected:
 
 protected:
 	virtual void	ReloadMagazine	();
-			void	ApplySilencerKoeffs	();
 
 	virtual void	state_Fire		(float dt);
 	virtual void	state_MagEmpty	(float dt);
@@ -99,8 +85,8 @@ public:
 
 	virtual	void	UpdateCL		();
 	virtual void	net_Destroy		();
-	virtual void			net_Export			(NET_Packet& P);
-	virtual void			net_Import			(NET_Packet& P);
+	virtual void	net_Export		(NET_Packet& P);
+	virtual void	net_Import		(NET_Packet& P);
 
 	virtual void	OnH_A_Chield		();
 
@@ -108,8 +94,6 @@ public:
 	virtual bool	Detach(const char* item_section_name, bool b_spawn_item);
 	virtual bool	CanAttach(PIItem pIItem);
 	virtual bool	CanDetach(const char* item_section_name);
-
-	virtual void	InitAddons();
 
 	virtual bool	Action			(s32 cmd, u32 flags);
 	virtual void	onMovementChanged	(ACTOR_DEFS::EMoveCommand cmd);

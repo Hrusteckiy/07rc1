@@ -10,6 +10,9 @@
 #include "Actor_Flags.h"
 #include "../SkeletonAnimated.h"
 #include "game_cl_single.h"
+#include "ai_sounds.h"
+#include "HudSound.h"
+#include "WeaponBinocularsVision.h"
 
 
 // refs
@@ -19,6 +22,9 @@ class CSE_ALifeItemWeapon;
 class CSE_ALifeItemWeaponAmmo;
 class CWeaponMagazined;
 class CParticlesObject;
+class CUIStaticItem;
+class CBinocularsVision;
+class CNightVisionEffector;
 class CUIStaticItem;
 
 class CWeapon : public CHudItemObject,
@@ -90,6 +96,58 @@ public:
 	virtual bool			NeedToDestroyObject	() const; 
 	virtual ALife::_TIME_ID	TimePassedAfterIndependant() const;
 protected:
+
+	//дополнительная информация о глушителе
+	LPCSTR					m_sSilencerFlameParticles;
+	LPCSTR					m_sSilencerSmokeParticles;
+	HUD_SOUND				sndSilencerShot;
+	//звук текущего выстрела
+	HUD_SOUND*				m_pSndShotCurrent;
+	HUD_SOUND				sndShot;
+
+	ESoundTypes				m_eSoundShow;
+	ESoundTypes				m_eSoundHide;
+	ESoundTypes				m_eSoundShot;
+	ESoundTypes				m_eSoundEmptyClick;
+	ESoundTypes				m_eSoundReload;
+
+	float					m_fScopeInertionFactor;
+	float					m_fZoomStepCount;
+	float					m_fZoomMinKoeff;
+
+	struct SZoomParams
+	{
+		bool			m_bZoomEnabled;			//разрешение режима приближения
+		bool			m_bHideCrosshairInZoom;
+//		bool			m_bZoomDofEnabled;
+
+		bool			m_bIsZoomModeNow;		//когда режим приближения включен
+		float			m_fCurrentZoomFactor;	//текущий фактор приближения
+		float			m_fZoomRotateTime;		//время приближения
+	
+		float			m_fIronSightZoomFactor;	//коэффициент увеличения прицеливания
+		float			m_fScopeZoomFactor;		//коэффициент увеличения прицела
+		float           m_f3dZoomFactor;        //коэффициент мирового зума при использовании второго вьюпорта
+
+		float			m_fZoomRotationFactor;
+		float           m_fSecondVPFovFactor;
+
+//		float           m_fSecondVP_FovFactor;
+		
+//		Fvector			m_ZoomDof;
+		Fvector4		m_ReloadDof;
+		Fvector4		m_ReloadEmptyDof;
+		BOOL			m_bUseDynamicZoom;
+		shared_str		m_sUseZoomPostprocess;
+		shared_str		m_sUseBinocularVision;
+		CBinocularsVision*		m_pVision;
+		CNightVisionEffector*	m_pNight_vision;
+
+	} m_zoom_params;
+	
+		float			m_fFactor;
+		float			m_fRTZoomFactor; //run-time zoom factor
+		CUIStaticItem*	m_UIScope;
 	//время удаления оружия
 	ALife::_TIME_ID			m_dwWeaponRemoveTime;
 	ALife::_TIME_ID			m_dwWeaponIndependencyTime;
@@ -101,6 +159,7 @@ public:
 
 //	void					animGet				(MotionSVec& lst, LPCSTR prefix);
 	void					signal_HideComplete	();
+	virtual void			ApplySilencerKoeffs	();
 
 //////////////////////////////////////////////////////////////////////////
 //  InventoryItem methods
@@ -215,40 +274,25 @@ protected:
 ///////////////////////////////////////////////////
 //	для режима приближения и снайперского прицела
 ///////////////////////////////////////////////////
-protected:
-	//разрешение режима приближения
-	bool			m_bZoomEnabled;
-	//текущий фактор приближения
-	float			m_fZoomFactor;
-	//время приближения
-	float			m_fZoomRotateTime;
-	//текстура для снайперского прицела, в режиме приближения
-	CUIStaticItem*	m_UIScope;
-	//коэффициент увеличения прицеливания
-	float			m_fIronSightZoomFactor;
-	//коэффициент увеличения прицела
-	float			m_fScopeZoomFactor;
-	//когда режим приближения включен
-	bool			m_bZoomMode;
-	//от 0 до 1, показывает насколько процентов
-	//мы перемещаем HUD  
-	float			m_fZoomRotationFactor;
-	bool			m_bHideCrosshairInZoom;
+
 public:
 
-	IC bool					IsZoomEnabled		()	const	{return m_bZoomEnabled;}
-	virtual	void			ZoomInc				(){};
-	virtual	void			ZoomDec				(){};
+	IC bool					IsZoomEnabled		()	const	{return m_zoom_params.m_bZoomEnabled;}
+	virtual	void			ZoomInc				();
+	virtual	void			ZoomDec				();
 	virtual void			OnZoomIn			();
 	virtual void			OnZoomOut			();
-			bool			IsZoomed			()	const	{return m_bZoomMode;};
+			bool			IsZoomed			()	const	{return m_zoom_params.m_bIsZoomModeNow;};
 	CUIStaticItem*			ZoomTexture			();	
-			bool			ZoomHideCrosshair	()			{return m_bHideCrosshairInZoom || ZoomTexture();}
+			bool			ZoomHideCrosshair	()			{return m_zoom_params.m_bHideCrosshairInZoom || ZoomTexture();}
 
-	IC float				GetZoomFactor		() const		{	return m_fZoomFactor;	}
+	IC float				GetZoomFactor		() const		{	return m_zoom_params.m_fCurrentZoomFactor;	}
+	IC void					SetZoomFactor		(float f) 		{m_zoom_params.m_fCurrentZoomFactor = f;}
+	void					GetZoomData			(const float scope_factor, float& delta, float& min_zoom_factor);
+	void					ZoomDynamicMod		(bool bIncrement, bool bForceLimit);
 	virtual	float			CurrentZoomFactor	();
 	//показывает, что оружие находится в соостоянии поворота для приближенного прицеливания
-			bool			IsRotatingToZoom	() const		{	return (m_fZoomRotationFactor<1.f);}
+			bool			IsRotatingToZoom	() const		{	return (m_zoom_params.m_fCurrentZoomFactor <1.f);}
 
 			void			LoadZoomOffset		(LPCSTR section, LPCSTR prefix);
 

@@ -26,6 +26,7 @@
 #include "mathutils.h"
 #include "object_broker.h"
 #include "../igame_persistent.h"
+#include "ui/UIWindow.h"
 
 #define WEAPON_REMOVE_TIME		60000
 #define ROTATION_TIME			0.25f
@@ -55,8 +56,12 @@ CWeapon::CWeapon(LPCSTR name)
 
 	eHandDependence			= hdNone;
 
-	m_fZoomFactor			= g_fov;
-	m_fZoomRotationFactor	= 0.f;
+	m_zoom_params.m_fCurrentZoomFactor			= g_fov;
+	m_zoom_params.m_fZoomRotationFactor			= 0.f;
+	m_zoom_params.m_pVision						= NULL;
+	m_zoom_params.m_pNight_vision				= NULL;
+	m_zoom_params.m_fSecondVPFovFactor			= 0.0f;
+	m_zoom_params.m_f3dZoomFactor				= 0.0f;
 
 
 	m_pAmmo					= NULL;
@@ -364,9 +369,10 @@ void CWeapon::Load		(LPCSTR section)
 	m_eSilencerStatus		 = (ALife::EWeaponAddonStatus)pSettings->r_s32(section,"silencer_status");
 	m_eGrenadeLauncherStatus = (ALife::EWeaponAddonStatus)pSettings->r_s32(section,"grenade_launcher_status");
 
-	m_bZoomEnabled = !!pSettings->r_bool(section,"zoom_enabled");
-	m_fZoomRotateTime = ROTATION_TIME;
-	if(m_bZoomEnabled && m_pHUD) LoadZoomOffset(*hud_sect, "");
+	m_zoom_params.m_bZoomEnabled		= !!pSettings->r_bool(section,"zoom_enabled");
+	m_zoom_params.m_fZoomRotateTime		= READ_IF_EXISTS(pSettings, r_float, section,"zoom_rotate_time", 0.25f);
+	if(m_zoom_params.m_bZoomEnabled && m_pHUD)
+		LoadZoomOffset(*hud_sect, "");
 
 	if(m_eScopeStatus == ALife::eAddonAttachable)
 	{
@@ -405,11 +411,12 @@ void CWeapon::Load		(LPCSTR section)
 	else
 		m_bAutoSpawnAmmo = TRUE;
 	//////////////////////////////////////
+	
 
+	m_zoom_params.m_bHideCrosshairInZoom		= true;
 
-	m_bHideCrosshairInZoom = true;
 	if(pSettings->line_exist(hud_sect, "zoom_hide_crosshair"))
-		m_bHideCrosshairInZoom = !!pSettings->r_bool(hud_sect, "zoom_hide_crosshair");	
+		m_zoom_params.m_bHideCrosshairInZoom = !!pSettings->r_bool(hud_sect, "zoom_hide_crosshair");	
 
 	//////////////////////////////////////////////////////////
 
@@ -445,9 +452,8 @@ void CWeapon::LoadZoomOffset (LPCSTR section, LPCSTR prefix)
 	m_pHUD->SetZoomOffset(pSettings->r_fvector3	(hud_sect, strconcat(sizeof(full_name),full_name, prefix, "zoom_offset")));
 	m_pHUD->SetZoomRotateX(pSettings->r_float	(hud_sect, strconcat(sizeof(full_name),full_name, prefix, "zoom_rotate_x")));
 	m_pHUD->SetZoomRotateY(pSettings->r_float	(hud_sect, strconcat(sizeof(full_name),full_name, prefix, "zoom_rotate_y")));
-
-	if(pSettings->line_exist(hud_sect, "zoom_rotate_time"))
-		m_fZoomRotateTime = pSettings->r_float(hud_sect,"zoom_rotate_time");
+	
+	m_zoom_params.m_fZoomRotateTime		= READ_IF_EXISTS(pSettings, r_float, section,"zoom_rotate_time", 0.25f);
 }
 /*
 void CWeapon::animGet	(MotionSVec& lst, LPCSTR prefix)
@@ -530,7 +536,7 @@ void CWeapon::net_Export(NET_Packet& P)
 	P.w_u8					(m_flagsAddOnState);
 	P.w_u8					((u8)m_ammoType);
 	P.w_u8					((u8)GetState());
-	P.w_u8					((u8)m_bZoomMode);
+	P.w_u8					((u8)m_zoom_params.m_bIsZoomModeNow);
 }
 
 void CWeapon::net_Import(NET_Packet& P)
@@ -592,7 +598,7 @@ void CWeapon::save(NET_Packet &output_packet)
 	save_data		(iAmmoElapsed,		output_packet);
 	save_data		(m_flagsAddOnState, output_packet);
 	save_data		(m_ammoType,		output_packet);
-	save_data		(m_bZoomMode,		output_packet);
+	save_data		(m_zoom_params.m_bIsZoomModeNow,		output_packet);
 }
 
 void CWeapon::load(IReader &input_packet)
@@ -602,9 +608,9 @@ void CWeapon::load(IReader &input_packet)
 	load_data		(m_flagsAddOnState, input_packet);
 	UpdateAddonsVisibility	();
 	load_data		(m_ammoType,		input_packet);
-	load_data		(m_bZoomMode,		input_packet);
+	load_data		(m_zoom_params.m_bIsZoomModeNow,		input_packet);
 
-	if (m_bZoomMode)	OnZoomIn();
+	if (m_zoom_params.m_bIsZoomModeNow)	OnZoomIn();
 		else			OnZoomOut();
 }
 
@@ -671,7 +677,7 @@ void CWeapon::OnH_B_Independent	(bool just_before_destroy)
 
 	m_strapped_mode				= false;
 	SetHUDmode					(FALSE);
-	m_bZoomMode					= false;
+	m_zoom_params.m_bIsZoomModeNow					= false;
 	UpdateXForm					();
 
 }
@@ -734,6 +740,9 @@ void CWeapon::UpdateCL		()
 		make_Interpolation		();
 	
 	VERIFY(smart_cast<CKinematics*>(Visual()));
+
+	if (m_zoom_params.m_pVision)
+		m_zoom_params.m_pVision->Update();
 }
 
 
@@ -769,7 +778,7 @@ void CWeapon::SetDefaults()
 	m_flags.set			(FUsingCondition, TRUE);
 	bMisfire			= false;
 	m_flagsAddOnState	= 0;
-	m_bZoomMode			= false;
+	m_zoom_params.m_bIsZoomModeNow			= false;
 }
 
 void CWeapon::UpdatePosition(const Fmatrix& trans)
@@ -1202,25 +1211,118 @@ bool CWeapon::Activate()
 
 void CWeapon::InitAddons()
 {
+	//////////////////////////////////////////////////////////////////////////
+	// Прицел
+	m_zoom_params.m_fIronSightZoomFactor = READ_IF_EXISTS(pSettings, r_float, cNameSect(), "ironsight_zoom_factor", 50.0f);
+
+	if (IsScopeAttached())
+	{
+		if (m_eScopeStatus == ALife::eAddonAttachable)
+		{
+			m_sScopeName = pSettings->r_string(cNameSect(), "scope_name");
+			m_iScopeX = pSettings->r_s32(cNameSect(), "scope_x");
+			m_iScopeY = pSettings->r_s32(cNameSect(), "scope_y");
+
+			shared_str scope_tex_name;
+			scope_tex_name = pSettings->r_string(*m_sScopeName, "scope_texture");
+			m_zoom_params.m_fScopeZoomFactor = pSettings->r_float(*m_sScopeName, "scope_zoom_factor");
+
+			if (m_UIScope) xr_delete(m_UIScope);
+			m_UIScope = xr_new<CUIStaticItem>();
+
+			m_UIScope->Init(*scope_tex_name, "hud\\default", 0, 0, alNone);
+
+		}
+		else if (m_eScopeStatus == ALife::eAddonPermanent)
+		{
+			m_zoom_params.m_fScopeZoomFactor = pSettings->r_float(cNameSect(), "scope_zoom_factor");
+			shared_str scope_tex_name;
+			scope_tex_name = pSettings->r_string(cNameSect(), "scope_texture");
+
+			if (m_UIScope) xr_delete(m_UIScope);
+			m_UIScope = xr_new<CUIStaticItem>();
+			m_UIScope->Init(*scope_tex_name, "hud\\default", 0, 0, alNone);
+
+		}
+	}
+	else
+	{
+		if (m_UIScope) xr_delete(m_UIScope);
+
+		if (IsZoomEnabled())
+			m_zoom_params.m_fIronSightZoomFactor = pSettings->r_float(cNameSect(), "scope_zoom_factor");
+	}
+	if (m_UIScope)
+	{
+
+		m_zoom_params.m_bUseDynamicZoom = READ_IF_EXISTS(pSettings, r_bool, cNameSect(), "scope_dynamic_zoom", FALSE);
+
+		if (m_zoom_params.m_bUseDynamicZoom)
+		{
+			m_fZoomStepCount = READ_IF_EXISTS(pSettings, r_u8, cNameSect(), "scope_zoom_steps", 3.0f);
+			m_fZoomMinKoeff = READ_IF_EXISTS(pSettings, r_u8, cNameSect(), "min_zoom_k", 0.3f);
+		}
+
+		m_zoom_params.m_sUseBinocularVision = READ_IF_EXISTS(pSettings, r_string, cNameSect(), "scope_alive_detector", 0);
+	}
+
+	if (IsSilencerAttached() && SilencerAttachable())
+	{
+		m_sFlameParticlesCurrent = m_sSilencerFlameParticles;
+		m_sSmokeParticlesCurrent = m_sSilencerSmokeParticles;
+		m_pSndShotCurrent = &sndSilencerShot;
+
+
+		//сила выстрела
+		LoadFireParams(*cNameSect(), "");
+
+		//подсветка от выстрела
+		LoadLights(*cNameSect(), "silencer_");
+		ApplySilencerKoeffs();
+	}
+	else
+	{
+		m_sFlameParticlesCurrent = m_sFlameParticles;
+		m_sSmokeParticlesCurrent = m_sSmokeParticles;
+		m_pSndShotCurrent = &sndShot;
+
+		//сила выстрела
+		LoadFireParams(*cNameSect(), "");
+		//подсветка от выстрела
+		LoadLights(*cNameSect(), "");
+	}
 }
 
 float CWeapon::CurrentZoomFactor	()
 {
-	return IsScopeAttached() ? m_fScopeZoomFactor : m_fIronSightZoomFactor;
+	return IsScopeAttached() ? m_zoom_params.m_fScopeZoomFactor : m_zoom_params.m_fIronSightZoomFactor;
 };
 
+float LastZoomFactor = 0.0f;
 void CWeapon::OnZoomIn()
 {
-	m_bZoomMode = true;
-	m_fZoomFactor = CurrentZoomFactor();
+	m_zoom_params.m_bIsZoomModeNow = true;
+
+	if (LastZoomFactor)
+		m_fRTZoomFactor = LastZoomFactor;
+	else
+		m_fRTZoomFactor = CurrentZoomFactor();
+
+	if (m_zoom_params.m_sUseBinocularVision.size() && IsScopeAttached() && NULL == m_zoom_params.m_pVision)
+		m_zoom_params.m_pVision = xr_new<CBinocularsVision>(m_zoom_params.m_sUseBinocularVision);
 	StopHudInertion();
 }
 
 void CWeapon::OnZoomOut()
 {
-	m_bZoomMode = false;
-	m_fZoomFactor = g_fov;
+	m_zoom_params.m_bIsZoomModeNow = false;
 
+	if (LastZoomFactor)
+		m_fRTZoomFactor = LastZoomFactor;
+	else
+		m_fRTZoomFactor = CurrentZoomFactor();
+
+	xr_delete(m_zoom_params.m_pVision);
 	StartHudInertion();
 }
 
@@ -1415,28 +1517,28 @@ void CWeapon::UpdateHudAdditonal		(Fmatrix& trans)
 	CActor* pActor = smart_cast<CActor*>(H_Parent());
 	if(!pActor) return;
 
-	if(		(pActor->IsZoomAimingMode() && m_fZoomRotationFactor<=1.f) ||
-			(!pActor->IsZoomAimingMode() && m_fZoomRotationFactor>0.f))
+	if(		(pActor->IsZoomAimingMode() && m_zoom_params.m_fZoomRotationFactor<=1.f) ||
+			(!pActor->IsZoomAimingMode() && m_zoom_params.m_fZoomRotationFactor>0.f))
 	{
 		Fmatrix hud_rotation;
 		hud_rotation.identity();
-		hud_rotation.rotateX(m_pHUD->ZoomRotateX()*m_fZoomRotationFactor);
+		hud_rotation.rotateX(m_pHUD->ZoomRotateX()* m_zoom_params.m_fZoomRotationFactor);
 
 		Fmatrix hud_rotation_y;
 		hud_rotation_y.identity();
-		hud_rotation_y.rotateY(m_pHUD->ZoomRotateY()*m_fZoomRotationFactor);
+		hud_rotation_y.rotateY(m_pHUD->ZoomRotateY()* m_zoom_params.m_fZoomRotationFactor);
 		hud_rotation.mulA_43(hud_rotation_y);
 
 		Fvector offset = m_pHUD->ZoomOffset();
-		offset.mul					(m_fZoomRotationFactor);
+		offset.mul					(m_zoom_params.m_fZoomRotationFactor);
 		hud_rotation.translate_over	(offset);
 		trans.mulB_43				(hud_rotation);
 
 		if(pActor->IsZoomAimingMode())
-			m_fZoomRotationFactor += Device.fTimeDelta/m_fZoomRotateTime;
+			m_zoom_params.m_fZoomRotationFactor += Device.fTimeDelta/ m_zoom_params.m_fZoomRotateTime;
 		else
-			m_fZoomRotationFactor -= Device.fTimeDelta/m_fZoomRotateTime;
-		clamp(m_fZoomRotationFactor, 0.f, 1.f);
+			m_zoom_params.m_fZoomRotationFactor -= Device.fTimeDelta/ m_zoom_params.m_fZoomRotateTime;
+		clamp(m_zoom_params.m_fZoomRotationFactor, 0.f, 1.f);
 	}
 }
 
@@ -1498,7 +1600,8 @@ void CWeapon::OnDrawUI()
 			ZoomTexture()->SetRect	(0,0,UI_BASE_WIDTH, UI_BASE_HEIGHT);
 			ZoomTexture()->Render	();
 
-//			m_UILens.Draw();
+			if (m_zoom_params.m_pVision)
+				m_zoom_params.m_pVision->Draw();
 		}
 	}
 }
@@ -1569,6 +1672,63 @@ u32 CWeapon::Cost() const
 	return res;
 }
 
+void CWeapon::GetZoomData(const float scope_factor, float& delta, float& min_zoom_factor)
+{
+	float def_fov = /*GameConstants::GetOGSE_WpnZoomSystem() ? 1.f : bIsSecondVPZoomPresent() ? 75.0f : */g_fov;
+	float delta_factor_total = def_fov - scope_factor;
+	VERIFY(delta_factor_total > 0);
+	min_zoom_factor = def_fov - delta_factor_total * m_fZoomMinKoeff;
+	delta = (delta_factor_total * (1 - m_fZoomMinKoeff)) / m_fZoomStepCount;
+}
+
+void CWeapon::ZoomDynamicMod(bool bIncrement, bool bForceLimit)
+{
+	if (!IsScopeAttached())
+		return;
+
+	if (!m_zoom_params.m_bUseDynamicZoom)
+		return;
+
+	float delta, min_zoom_factor, max_zoom_factor;
+
+	max_zoom_factor = m_zoom_params.m_fScopeZoomFactor;
+
+	GetZoomData(max_zoom_factor, delta, min_zoom_factor);
+
+	if (bForceLimit)
+	{
+		m_fRTZoomFactor = (bIncrement ? max_zoom_factor : min_zoom_factor);
+	}
+	else
+	{
+		float f = GetZoomFactor();
+
+		f -= delta * (bIncrement ? 1.f : -1.f);
+
+		clamp(f, max_zoom_factor, min_zoom_factor);
+
+
+		SetZoomFactor(f);
+
+		// Lex Addon (correct by Suhar_) 24.10.2018		(begin)  
+		LastZoomFactor = f;
+		// Lex Addon (correct by Suhar_) 24.10.2018		(end)
+	}
+
+	//if (m_sounds.FindSoundItem("sndChangeZoom", false) && LastZoomFactor != min_zoom_factor && LastZoomFactor != max_zoom_factor)
+	//	PlaySound("sndChangeZoom", get_LastFP());
+}
+
+void CWeapon::ZoomInc()
+{
+	ZoomDynamicMod(true, false);
+}
+
+void CWeapon::ZoomDec()
+{
+	ZoomDynamicMod(false, false);
+}
+
 void CWeapon::Hide		()
 {
 	if(IsGameTypeSingle())
@@ -1617,4 +1777,39 @@ const float &CWeapon::hit_probability	() const
 {
 	VERIFY					((g_SingleGameDifficulty >= egdNovice) && (g_SingleGameDifficulty <= egdMaster)); 
 	return					(m_hit_probability[egdNovice]);
+}
+
+void CWeapon::ApplySilencerKoeffs	()
+{
+	float BHPk = 1.0f, BSk = 1.0f;
+	float FDB_k = 1.0f, CD_k = 1.0f;
+	
+	if (pSettings->line_exist(m_sSilencerName, "bullet_hit_power_k"))
+	{
+		BHPk = pSettings->r_float(m_sSilencerName, "bullet_hit_power_k");
+		clamp(BHPk, 0.0f, 1.0f);
+	};
+	if (pSettings->line_exist(m_sSilencerName, "bullet_speed_k"))
+	{
+		BSk = pSettings->r_float(m_sSilencerName, "bullet_speed_k");
+		clamp(BSk, 0.0f, 1.0f);
+	};
+	if (pSettings->line_exist(m_sSilencerName, "fire_dispersion_base_k"))
+	{
+		FDB_k = pSettings->r_float(m_sSilencerName, "fire_dispersion_base_k");
+//		clamp(FDB_k, 0.0f, 1.0f);
+	};
+	if (pSettings->line_exist(m_sSilencerName, "cam_dispersion_k"))
+	{
+		CD_k = pSettings->r_float(m_sSilencerName, "cam_dispersion_k");
+		clamp(CD_k, 0.0f, 1.0f);
+	};
+
+	//fHitPower			= fHitPower*BHPk;
+	fvHitPower			.mul(BHPk);
+	fHitImpulse			*= BSk;
+	m_fStartBulletSpeed *= BSk;
+	fireDispersionBase	*= FDB_k;
+	camDispersion		*= CD_k;
+	camDispersionInc	*= CD_k;
 }

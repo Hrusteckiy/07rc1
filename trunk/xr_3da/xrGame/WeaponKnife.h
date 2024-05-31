@@ -8,6 +8,7 @@ private:
 	typedef CWeapon inherited;
 protected:
 	MotionSVec			mhud_idle;
+	MotionSVec			mhud_idle_sprint;
 	MotionSVec			mhud_hide;
 	MotionSVec			mhud_show;
 	MotionSVec			mhud_attack;
@@ -28,6 +29,8 @@ protected:
 			void		switch2_Attacking			(u32 state);
 
 	virtual void		OnAnimationEnd				(u32 state);
+	virtual void		UpdateCL					();
+	virtual void		PlayAnimIdle				();
 	virtual void		OnStateSwitch				(u32 S);
 
 	void				state_Attacking				(float dt);
@@ -57,6 +60,10 @@ public:
 	virtual				~CWeaponKnife(); 
 
 	void				Load							(LPCSTR section);
+
+	virtual bool		TryPlayAnimIdle					();
+
+	virtual void		onMovementChanged				(ACTOR_DEFS::EMoveCommand cmd);
 
 	virtual void		Fire2Start						();
 	virtual void		FireStart						();
