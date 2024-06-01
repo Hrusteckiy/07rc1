@@ -10,6 +10,7 @@
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "phworld.h"
 #include "restriction_space.h"
+#include "Actor.h"
 #include "../IGame_Persistent.h"
 
 #define	FASTMODE_DISTANCE (50.f)	//distance to camera from sphere, when zone switches to fast update sequence
@@ -401,7 +402,20 @@ void CArtefact::OnStateSwitch		(u32 S)
 
 void CArtefact::PlayAnimIdle()
 {
-	m_pHUD->animPlay(random_anim(m_anim_idle),		FALSE, NULL, eIdle);
+	CActor* pActor = smart_cast<CActor*>(H_Parent());
+	if (pActor)
+	{
+		CEntity::SEntityState st;
+		pActor->g_State(st);
+		if (st.bSprint && m_anim_idle_sprint.size())
+		{
+			m_pHUD->animPlay(random_anim(m_anim_idle_sprint), TRUE, NULL, GetState());
+		}
+		else
+		{
+			m_pHUD->animPlay(random_anim(m_anim_idle), TRUE, NULL, eIdle);
+		}
+	}
 }
 
 void CArtefact::OnAnimationEnd		(u32 state)

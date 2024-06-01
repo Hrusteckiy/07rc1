@@ -627,13 +627,14 @@ bool CInventory::Action(s32 cmd, u32 flags)
 		}break;
 	case kARTEFACT:
 		{
-			if(flags&CMD_START)
+			if (flags & CMD_START)
 			{
-                if((int)m_iActiveSlot == ARTEFACT_SLOT &&
-					m_slots[m_iActiveSlot].m_pIItem && IsGameTypeSingle())
+                if (m_slots[m_iActiveSlot].m_pIItem == ItemFromSlot(ARTEFACT_SLOT))
 				{
 					b_send_event = Activate(NO_ACTIVE_SLOT);
-				}else {
+				}
+				else
+				{
 					b_send_event = Activate(ARTEFACT_SLOT);
 				}
 			}
