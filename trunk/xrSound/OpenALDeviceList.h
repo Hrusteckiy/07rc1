@@ -1,8 +1,8 @@
 #ifndef ALDEVICELIST_H
 #define ALDEVICELIST_H
 
-#define AL_GENERIC_HARDWARE "Generic Hardware"
-#define AL_GENERIC_SOFTWARE "Generic Software"
+#define AL_GENERIC_HARDWARE "Generic Macron-1"
+#define AL_GENERIC_SOFTWARE "Generic Macron-2"
 
 struct ALDeviceDesc{
 	xr_string			name;
