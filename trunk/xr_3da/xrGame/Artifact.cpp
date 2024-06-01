@@ -452,7 +452,15 @@ u16	CArtefact::bone_count_to_synchronize	() const
 	return CInventoryItem::object().PHGetSyncItemsNumber();
 }
 
-
+void CArtefact::GetBriefInfo(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count)
+{
+	if (IsGameTypeSingle())
+	{
+		str_name = Name();
+		str_count = "";
+		icon_sect_name = "";
+	}
+}
 
 //---SArtefactActivation----
 SArtefactActivation::SArtefactActivation(CArtefact* af,u32 owner_id)
