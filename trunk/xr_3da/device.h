@@ -77,6 +77,7 @@ public:
 	CRegistrator	<pureFrame			>			seqFrame;
 	CRegistrator	<pureFrame			>			seqFrameMT;
 	CRegistrator	<pureDeviceReset	>			seqDeviceReset;
+	CRegistrator	<pureScreenResolutionChanged>	seqResolutionChanged;
 	xr_vector		<fastdelegate::FastDelegate0<> >	seqParallel;
 
 	// Dependent classes

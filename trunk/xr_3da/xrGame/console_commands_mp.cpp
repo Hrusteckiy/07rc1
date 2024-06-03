@@ -859,7 +859,17 @@ public:
 		g_pGamePersistent->Environment().SetWeather(weather_name);		
 	};
 
-	virtual void	Info	(TInfo& I){strcpy(I,"Set new weather"); }
+	virtual void	Info		(TInfo& I){strcpy(I,"Set new weather"); }
+	virtual void	fill_tips	(vecTips& tips, u32 mode)
+	{
+		if (g_pGamePersistent && OnServer())
+		{
+			for (auto& it : g_pGamePersistent->Environment().WeatherCycles)
+			{
+				tips.push_back(it.first);
+			}
+		}
+	}
 };
 
 class CCC_SaveStatistic : public IConsole_Command {

@@ -56,7 +56,8 @@ void CRenderDevice::Reset		(bool precache)
 #ifdef DEBUG
 	_SHOW_REF("*ref -CRenderDevice::ResetTotal: DeviceREF:",HW.pDevice);
 #endif // DEBUG
-	bool b_16_before	= (float)dwWidth/(float)dwHeight > (1024.0f/768.0f+0.01f);
+	u32 dwWidth_before = dwWidth;
+	u32 dwHeight_before = dwHeight;
 
 	ShowCursor				(TRUE);
 	u32 tm_start			= TimerAsync();
@@ -91,9 +92,10 @@ void CRenderDevice::Reset		(bool precache)
 		
 	seqDeviceReset.Process(rp_DeviceReset);
 
-	bool b_16_after	= (float)dwWidth/(float)dwHeight > (1024.0f/768.0f+0.01f);
-	if(b_16_after!=b_16_before && g_pGameLevel && g_pGameLevel->pHUD) 
-		g_pGameLevel->pHUD->OnScreenRatioChanged();
+	if (dwWidth_before != dwWidth || dwHeight_before != dwHeight)
+	{
+		seqResolutionChanged.Process(rp_ScreenResolutionChanged);
+	}
 
 #ifdef DEBUG
 	_SHOW_REF("*ref +CRenderDevice::ResetTotal: DeviceREF:",HW.pDevice);
