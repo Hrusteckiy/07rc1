@@ -63,7 +63,8 @@ public:
 #ifndef _EDITOR
 	IGame_ObjectPool				ObjectPool;
 #endif
-	IMainMenu*						m_pMainMenu;	
+	IMainMenu*						m_pMainMenu;
+			bool 					IsMainMenuActive();
 
 	CEnvironment*					pEnvironment;
 	CEnvironment&					Environment()	{return *pEnvironment;};

@@ -31,6 +31,8 @@ private:
 	bool	m_bNeedUpdate;
 	u32		m_dwLastUpdateTime;
 
+	u32		m_last_time;
+
 	CServerInfo server_info;
 
 public:
@@ -46,7 +48,7 @@ public:
 	virtual void	OnRender			(void);
 	virtual void	OnFrame				(void);
 
-	virtual void	IR_OnKeyboardPress		(int dik);
+//	virtual void	IR_OnKeyboardPress		(int dik);
 };
 
 //extern ENGINE_API CTextConsole* TextConsole;

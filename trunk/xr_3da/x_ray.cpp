@@ -272,8 +272,6 @@ Memory.mem_usage();
 	Engine.Event.Dump			( );
 
 	// Destroying
-	destroySound();
-	destroyInput();
 
 	if(!g_bBenchmark)
 		destroySettings();
@@ -283,9 +281,11 @@ Memory.mem_usage();
 	if(!g_bBenchmark)
 		destroyConsole();
 	else
-		Console->Reset();
+		Console->Destroy();
 
 	destroyEngine();
+	destroySound();
+	destroyInput();
 }
 
 static BOOL CALLBACK logDlgProc( HWND hw, UINT msg, WPARAM wp, LPARAM lp )

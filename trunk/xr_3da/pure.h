@@ -19,6 +19,7 @@ DECLARE_MESSAGE(AppDeactivate);
 DECLARE_MESSAGE(AppStart);
 DECLARE_MESSAGE(AppEnd);
 DECLARE_MESSAGE(DeviceReset);
+DECLARE_MESSAGE(ScreenResolutionChanged);
 
 
 
@@ -29,11 +30,16 @@ struct _REG_INFO {
 	u32		Flags;
 };
 
-ENGINE_API extern int	__cdecl	_REG_Compare(const void *, const void *);
+//ENGINE_API extern int	__cdecl	_REG_Compare(const void *, const void *);
 
 template <class T> class CRegistrator		// the registrator itself
 {
-	friend ENGINE_API int	__cdecl	_REG_Compare(const void *, const void *);
+	static int	__cdecl	_REG_Compare(const void* e1, const void* e2)
+	{
+		_REG_INFO* p1 = (_REG_INFO*)e1;
+		_REG_INFO* p2 = (_REG_INFO*)e2;
+		return (p2->Prio - p1->Prio);
+	}
 public:
 	xr_vector<_REG_INFO>	R;
 	// constructor

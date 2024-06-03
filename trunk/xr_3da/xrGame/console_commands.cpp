@@ -235,6 +235,32 @@ public:
 			Level().Server->game->SetGameTimeFactor(id1);
 		}
 	}
+
+	virtual void	Save(IWriter* F) {};
+	virtual void	Status(TStatus& S)
+	{
+		if (!g_pGameLevel)	return;
+
+		float v = Level().GetGameTimeFactor();
+		xr_sprintf(S, sizeof(S), "%3.5f", v);
+		while (xr_strlen(S) && ('0' == S[xr_strlen(S) - 1]))	S[xr_strlen(S) - 1] = 0;
+	}
+	virtual void	Info(TInfo& I)
+	{
+		if (!OnServer())	return;
+		float v = Level().GetGameTimeFactor();
+		xr_sprintf(I, sizeof(I), " value = %3.5f", v);
+	}
+	virtual void	fill_tips(vecTips& tips, u32 mode)
+	{
+		if (!OnServer())	return;
+		float v = Level().GetGameTimeFactor();
+
+		TStatus  str;
+		xr_sprintf(str, sizeof(str), "%3.5f  (current)  [0.0,1000.0]", v);
+		tips.push_back(str);
+		IConsole_Command::fill_tips(tips, mode);
+	}
 };
 
 class CCC_ALifeSwitchDistance : public IConsole_Command {
@@ -321,6 +347,23 @@ public:
 		clamp				(time_factor,.001f,1000.f);
 		Device.time_factor	(time_factor);
 	}
+	virtual void	Status(TStatus& S)
+	{
+		xr_sprintf(S, sizeof(S), "%f", Device.time_factor());
+	}
+
+	virtual void	Info(TInfo& I)
+	{
+		xr_strcpy(I, "[0.001 - 1000.0]");
+	}
+
+	virtual void	fill_tips(vecTips& tips, u32 mode)
+	{
+		TStatus  str;
+		xr_sprintf(str, sizeof(str), "%3.3f  (current)  [0.001 - 1000.0]", Device.time_factor());
+		tips.push_back(str);
+		IConsole_Command::fill_tips(tips, mode);
+	}
 };
 
 class CCC_Spawn_to_inv : public IConsole_Command {
@@ -364,13 +407,13 @@ public:
 		strcpy(I, "name,team,squad,group");
 	}
 
-	/*virtual void fill_tips(vecTips& tips, u32 mode)
+	virtual void fill_tips(vecTips& tips, u32 mode)
 	{
 		for (auto sect : pSettings->sections()) {
 			if (sect->line_exist("class") && sect->line_exist("inv_weight"))
 				tips.push_back(sect->Name.c_str());
 		}
-	}*/
+	}
 };
 //#endif // MASTER_GOLD
 
@@ -442,7 +485,7 @@ public:
 			HUD().GetUI()->UIGame()->HideShownDialogs(); //реинит диалоговых окон вроде talk wnd
 			HUD().GetUI()->UIGame()->ReInitShownUI();
 			HUD().GetUI()->UIGame()->ReinitDialogs();
-			g_pGameLevel->pHUD->OnScreenRatioChanged();
+			g_pGameLevel->pHUD->OnScreenResolutionChanged();
 		}
 	}
 };
@@ -460,6 +503,37 @@ bool valid_file_name(LPCSTR file_name)
 	};
 
 	return		(true);
+}
+
+void get_files_list(xr_vector<shared_str>& files, LPCSTR dir, LPCSTR file_ext)
+{
+	VERIFY(dir && file_ext);
+	files.clear_not_free();
+
+	FS_Path* P = FS.get_path(dir);
+	P->m_Flags.set(FS_Path::flNeedRescan, TRUE);
+	FS.m_Flags.set(CLocatorAPI::flNeedCheck, TRUE);
+	FS.rescan_pathes();
+
+	LPCSTR fext;
+	STRCONCAT(fext, "*", file_ext);
+
+	FS_FileSet  files_set;
+	FS.file_list(files_set, dir, FS_ListFiles, fext);
+	u32 len_str_ext = xr_strlen(file_ext);
+
+	FS_FileSetIt itb = files_set.begin();
+	FS_FileSetIt ite = files_set.end();
+
+	for (; itb != ite; ++itb)
+	{
+		LPCSTR fn_ext = (*itb).name.c_str();
+		VERIFY(xr_strlen(fn_ext) > len_str_ext);
+		string_path fn;
+		strncpy_s(fn, sizeof(fn), fn_ext, xr_strlen(fn_ext) - len_str_ext);
+		files.push_back(fn);
+	}
+	FS.m_Flags.set(CLocatorAPI::flNeedCheck, FALSE);
 }
 
 
@@ -535,6 +609,11 @@ public:
 		Msg						("Screenshot overhead : %f milliseconds",timer.GetElapsed_sec()*1000.f);
 #endif
 	}
+
+	virtual void fill_tips(vecTips& tips, u32 mode)
+	{
+		get_files_list(tips, "$game_saves$", SAVE_EXTENSION);
+	}
 };
 
 class CCC_ALifeLoadFrom : public IConsole_Command {
@@ -590,6 +669,11 @@ public:
 		net_packet.w_begin			(M_LOAD_GAME);
 		net_packet.w_stringZ		(saved_game);
 		Level().Send				(net_packet,net_flags(TRUE));
+	}
+
+	virtual void fill_tips(vecTips& tips, u32 mode)
+	{
+		get_files_list(tips, "$game_saves$", SAVE_EXTENSION);
 	}
 };
 
@@ -714,6 +798,17 @@ public:
 				ai().script_engine().script_process(ScriptEngine::eScriptProcessorLevel)->add_script(S,false,true);
 		}
 	}
+
+	virtual void Status(TStatus& S)
+	{
+		xr_strcpy(S, "<script_name> (Specify script name!)");
+	}
+	virtual void Save(IWriter* F) {}
+
+	virtual void fill_tips(vecTips& tips, u32 mode)
+	{
+		get_files_list(tips, "$game_scripts$", ".script");
+	}
 };
 
 class CCC_ScriptCommand : public IConsole_Command {
@@ -744,6 +839,23 @@ public:
 			}
 #endif
 		}
+	}
+
+	virtual void Status(TStatus& S)
+	{
+		xr_strcpy(S, "<script_name.function()> (Specify script and function name!)");
+	}
+	virtual void Save(IWriter* F) {}
+
+	virtual void fill_tips(vecTips& tips, u32 mode)
+	{
+		if (mode == 1)
+		{
+			get_files_list(tips, "$game_scripts$", ".script");
+			return;
+		}
+
+		IConsole_Command::fill_tips(tips, mode);
 	}
 };
 //#endif // MASTER_GOLD
@@ -1091,6 +1203,23 @@ struct CCC_JumpToLevel : public IConsole_Command {
 				return;
 			}
 		Msg							("! There is no level \"%s\" in the game graph!",level);
+	}
+
+	virtual void	Save	(IWriter *F)	{};
+	virtual void	fill_tips(vecTips& tips, u32 mode)
+	{
+		if ( !ai().get_alife() )
+		{
+			Msg				("! ALife simulator is needed to perform specified command!");
+			return;
+		}
+
+		GameGraph::LEVEL_MAP::const_iterator	itb = ai().game_graph().header().levels().begin();
+		GameGraph::LEVEL_MAP::const_iterator	ite = ai().game_graph().header().levels().end();
+		for ( ; itb != ite; ++itb )
+		{
+			tips.push_back( (*itb).second.name() );
+		}
 	}
 };
 //#endif // MASTER_GOLD
