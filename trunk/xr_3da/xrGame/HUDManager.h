@@ -26,6 +26,7 @@ struct CFontManager :public pureDeviceReset			{
 	CGameFont*				pFontLetterica16Russian;
 	CGameFont*				pFontLetterica18Russian;
 	CGameFont*				pFontGraffiti32Russian;
+	CGameFont*				pFontGraffiti40Russian;
 	CGameFont*				pFontGraffiti50Russian;
 	CGameFont*				pFontLetterica25;
 	CGameFont*				pFontStat;
