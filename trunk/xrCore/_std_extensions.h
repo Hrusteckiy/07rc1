@@ -58,6 +58,26 @@ IC int sprintf_s(char* dest, size_t sizeOfBuffer, const char* format, ...)
     dest		[sizeOfBuffer-1]=0;
     va_end		(mark);
 }
+
+IC char* xr_strcat(char* strDestination,   size_t sizeInBytes,   const char *strSource)
+{
+	return strncat(strDestination, strSource, sizeInBytes);
+}
+
+IC char* xr_strcat(char* strDestination,  const char *strSource)
+{
+	return strcat(strDestination, strSource);
+}
+
+IC int xr_sprintf(char* dest, size_t sizeOfBuffer, const char* format, ...)
+{
+	va_list 	mark;
+	va_start	(mark, format );
+	int sz		= _vsnprintf(dest, sizeOfBuffer, format, mark );
+    dest		[sizeOfBuffer-1]=0;
+    va_end		(mark);
+    return 		sz;
+}
 #endif
 
 // token type definition
@@ -166,101 +186,68 @@ IC s64		_max	(s64 x, s64 y)	{ return x - ((x - y) & ((x - y) >> (sizeof(s64) * 8
 IC u32							xr_strlen				( const char* S );
 
 #ifndef  _EDITOR
-// string management
-IC LPCSTR						strconcat				( int dest_sz, char* dest, const char* S1, const char* S2)
+
+inline errno_t xr_strcpy		( LPSTR destination, size_t const destination_size, LPCSTR source )
 {
-	u32 l1 = xr_strlen(S1);
-	strcpy_s(dest,dest_sz,S1);
-	strcat_s(dest,dest_sz-l1,S2);
-	return dest;
-//.	return strcat(strcpy(dest,S1),S2);
+	return						strcpy_s( destination, destination_size, source );
 }
 
-// dest = S1+S2+S3
-IC LPCSTR						strconcat				( int dest_sz, char* dest, const char* S1, const char* S2, const char* S3)
+inline errno_t xr_strcat		( LPSTR destination, size_t const buffer_size, LPCSTR source )
 {
-	u32 l1 = xr_strlen(S1);
-	u32 l2 = xr_strlen(S2);
-	strcpy_s(dest,dest_sz,S1);
-	strcat_s(dest,dest_sz-l1,S2);
-	strcat_s(dest,dest_sz-l1-l2,S3);
-
-	return dest;
-//.	return strcat(strcat(strcpy(dest,S1),S2),S3);
+	return						strcat_s( destination, buffer_size, source );
 }
 
-// dest = S1+S2+S3+S4
-IC LPCSTR						strconcat				( int dest_sz, char* dest, const char* S1, const char* S2, const char* S3, const char* S4)
+inline int __cdecl xr_sprintf	( LPSTR destination, size_t const buffer_size, LPCSTR format_string, ... )
 {
-	u32 l1 = xr_strlen(S1);
-	u32 l2 = xr_strlen(S2);
-	u32 l3 = xr_strlen(S3);
-	strcpy_s(dest,dest_sz,S1);
-	strcat_s(dest,dest_sz-l1,S2);
-	strcat_s(dest,dest_sz-l1-l2,S3);
-	strcat_s(dest,dest_sz-l1-l2-l3,S4);
-
-	return dest;
-//.	return strcat(strcat(strcat(strcpy(dest,S1),S2),S3),S4);
+	va_list args;
+	va_start					( args, format_string);
+	return						vsprintf_s( destination, buffer_size, format_string, args );
 }
 
-// dest = S1+S2+S3+S4+S5
-IC LPCSTR						strconcat				( int dest_sz, char* dest, const char* S1, const char* S2, const char* S3, const char* S4, const char* S5)
+template <int count>
+inline int __cdecl xr_sprintf	( char (&destination)[count], LPCSTR format_string, ... )
 {
-	u32 l1 = xr_strlen(S1);
-	u32 l2 = xr_strlen(S2);
-	u32 l3 = xr_strlen(S3);
-	u32 l4 = xr_strlen(S4);
-	strcpy_s(dest,dest_sz,S1);
-	strcat_s(dest,dest_sz-l1,S2);
-	strcat_s(dest,dest_sz-l1-l2,S3);
-	strcat_s(dest,dest_sz-l1-l2-l3,S4);
-	strcat_s(dest,dest_sz-l1-l2-l3-l4,S5);
-
-	return dest;
-//.	return strcat(strcat(strcat(strcat(strcpy(dest,S1),S2),S3),S4),S5);
-}
-
-// dest = S1+S2+S3+S4+S5+S6
-IC LPCSTR						strconcat				( int dest_sz, char* dest, const char* S1, const char* S2, const char* S3, const char* S4, const char* S5, const char* S6)
-{
-	u32 l1 = xr_strlen(S1);
-	u32 l2 = xr_strlen(S2);
-	u32 l3 = xr_strlen(S3);
-	u32 l4 = xr_strlen(S4);
-	u32 l5 = xr_strlen(S5);
-	strcpy_s(dest,dest_sz,S1);
-	strcat_s(dest,dest_sz-l1,S2);
-	strcat_s(dest,dest_sz-l1-l2,S3);
-	strcat_s(dest,dest_sz-l1-l2-l3,S4);
-	strcat_s(dest,dest_sz-l1-l2-l3-l4,S5);
-	strcat_s(dest,dest_sz-l1-l2-l3-l4-l5,S6);
-
-	return dest;
-	//.	return strcat(strcat(strcat(strcat(strcat(strcpy(dest,S1),S2),S3),S4),S5),S6);
+	va_list args;
+	va_start					( args, format_string);
+	return						vsprintf_s( destination, count, format_string, args );
 }
 
 #else
 
-IC char*						strconcat				( int dest_sz,  char* dest, const char* S1, const char* S2)
-{	return strcat(strcpy(dest,S1),S2); }
+inline errno_t xr_strcpy	( LPSTR destination, size_t const destination_size, LPCSTR source )
+{
+	return						strncpy_s( destination, destination_size, source, destination_size );
+}
 
-// dest = S1+S2+S3
-IC char*						strconcat				( int dest_sz,  char* dest, const char* S1, const char* S2, const char* S3)
-{	return strcat(strcat(strcpy(dest,S1),S2),S3); }
+inline errno_t xr_strcat		( LPSTR destination, size_t const buffer_size, LPCSTR source )
+{
+	size_t const destination_length	= xr_strlen(destination);
+	LPSTR i						= destination + destination_length;
+	LPSTR const e				= destination + buffer_size - 1;
+	if ( i > e )
+		return					0;
 
-// dest = S1+S2+S3+S4
-IC char*						strconcat				( int dest_sz,  char* dest, const char* S1, const char* S2, const char* S3, const char* S4)
-{	return strcat(strcat(strcat(strcpy(dest,S1),S2),S3),S4); }
+	for ( LPCSTR j = source; *j && (i != e); ++i, ++j )
+		*i						= *j;
 
-// dest = S1+S2+S3+S4+S5
-IC char*						strconcat				( int dest_sz,  char* dest, const char* S1, const char* S2, const char* S3, const char* S4, const char* S5)
-{	return strcat(strcat(strcat(strcat(strcpy(dest,S1),S2),S3),S4),S5); }
+	*i							= 0;
+	return						0;
+}
 
-// dest = S1+S2+S3+S4+S5+S6
-IC char*						strconcat				( int dest_sz,  char* dest, const char* S1, const char* S2, const char* S3, const char* S4, const char* S5, const char* S6)
-{	return strcat(strcat(strcat(strcat(strcat(strcpy(dest,S1),S2),S3),S4),S5),S6); }
+inline int __cdecl xr_sprintf	( LPSTR destination, size_t const buffer_size, LPCSTR format_string, ... )
+{
+	va_list args;
+	va_start					( args, format_string);
+	return						vsnprintf_s( destination, buffer_size, buffer_size - 1, format_string, args );
+}
 
+template <int count>
+inline int __cdecl xr_sprintf	( char (&destination)[count], LPCSTR format_string, ... )
+{
+	va_list args;
+	va_start					( args, format_string);
+	return						vsnprintf_s( destination, count, count - 1, format_string, args );
+}
 #endif
 // return pointer to ".ext"
 IC char*						strext					( const char* S )
@@ -278,6 +265,18 @@ XRCORE_API	int					xr_strcmp				( const char* S1, const char* S2 );
 IC int							xr_strcmp				( const char* S1, const char* S2 )
 {	return (int)strcmp(S1,S2);  }
 #endif
+
+template <int count>
+inline errno_t xr_strcpy(char(&destination)[count], LPCSTR source)
+{
+	return						xr_strcpy(destination, count, source);
+}
+
+template <int count>
+inline errno_t xr_strcat(char(&destination)[count], LPCSTR source)
+{
+	return						xr_strcat(destination, count, source);
+}
 
 XRCORE_API	char*				timestamp				(string64& dest);
 

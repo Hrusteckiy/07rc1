@@ -199,6 +199,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\GitLab\OLR3-OBT\trunk\xray\xrCore\os_clipboard.cpp" />
     <ClCompile Include="FTimer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -206,6 +207,7 @@
       <ShowIncludes Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">false</ShowIncludes>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="string_concatenations.cpp" />
     <ClCompile Include="xrCore.cpp" />
     <ClCompile Include="_compressed_normal.cpp" />
     <ClCompile Include="_math.cpp" />
@@ -385,9 +387,14 @@
     <ClCompile Include="xrSyncronize.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\GitLab\OLR3-OBT\trunk\xray\xrCore\os_clipboard.h" />
+    <ClInclude Include="buffer_vector.h" />
+    <ClInclude Include="buffer_vector_inline.h" />
     <ClInclude Include="FTimer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="string_concatenations.h" />
+    <ClInclude Include="string_concatenations_inline.h" />
     <ClInclude Include="xrCore.h" />
     <ClInclude Include="xrCore_platform.h" />
     <ClInclude Include="_bitwise.h" />

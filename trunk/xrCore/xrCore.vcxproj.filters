@@ -70,6 +70,12 @@
     <Filter Include="Compression\lzo">
       <UniqueIdentifier>{a24002b4-9c43-42ae-894a-36be57dc14da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OS">
+      <UniqueIdentifier>{88cce0ad-80ea-498b-b6fb-771a34fd2529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Extensions\buffer_vector">
+      <UniqueIdentifier>{66b09904-18f4-4c61-8695-b4c755e61395}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FTimer.cpp">
@@ -250,6 +256,12 @@
       <Filter>Compression\lzo</Filter>
     </ClCompile>
     <ClCompile Include="xrSyncronize.cpp" />
+    <ClCompile Include="..\..\..\..\GitLab\OLR3-OBT\trunk\xray\xrCore\os_clipboard.cpp">
+      <Filter>OS</Filter>
+    </ClCompile>
+    <ClCompile Include="string_concatenations.cpp">
+      <Filter>Math\Extensions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FTimer.h">
@@ -520,6 +532,21 @@
       <Filter>Compression\lzo</Filter>
     </ClInclude>
     <ClInclude Include="xrSyncronize.h" />
+    <ClInclude Include="..\..\..\..\GitLab\OLR3-OBT\trunk\xray\xrCore\os_clipboard.h">
+      <Filter>OS</Filter>
+    </ClInclude>
+    <ClInclude Include="buffer_vector_inline.h">
+      <Filter>Math\Extensions\buffer_vector</Filter>
+    </ClInclude>
+    <ClInclude Include="buffer_vector.h">
+      <Filter>Math\Extensions\buffer_vector</Filter>
+    </ClInclude>
+    <ClInclude Include="string_concatenations.h">
+      <Filter>Math\Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="string_concatenations_inline.h">
+      <Filter>Math\Extensions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="xrCore.rc">

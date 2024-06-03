@@ -19,6 +19,11 @@
 
 ENGINE_API	IGame_Persistent*		g_pGamePersistent	= NULL;
 
+bool IGame_Persistent::IsMainMenuActive()
+{
+	return  g_pGamePersistent && g_pGamePersistent->m_pMainMenu && g_pGamePersistent->m_pMainMenu->IsActive();
+}
+
 IGame_Persistent::IGame_Persistent	()
 {
 	Device.seqAppStart.Add			(this);
