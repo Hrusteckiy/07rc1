@@ -44,11 +44,9 @@
 #include "GameSpy/GameSpy_Full.h"
 #include "GameSpy/GameSpy_Patching.h"
 
-#ifdef DEBUG
 #	include "PHDebug.h"
 #	include "ui/UIDebugFonts.h" 
 #	include "game_graph.h"
-#endif // DEBUG
 
 #include "hudmanager.h"
 
@@ -1016,16 +1014,6 @@ public:
 
 };
 
-
-
-class CCC_DebugFonts : public IConsole_Command {
-public:
-	CCC_DebugFonts (LPCSTR N) : IConsole_Command(N) {bEmptyArgsHandled = true; }
-	virtual void Execute				(LPCSTR args) {
-		HUD().GetUI()->StartStopMenu( xr_new<CUIDebugFonts>(), true);		
-	}
-};
-
 class CCC_DebugNode : public IConsole_Command {
 public:
 	CCC_DebugNode(LPCSTR N) : IConsole_Command(N)  { };
@@ -1093,6 +1081,22 @@ public:
 	//}
 };
 #endif
+
+class CCC_DebugFonts : public IConsole_Command {
+public:
+	CCC_DebugFonts(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = true; }
+	virtual void Execute(LPCSTR args)
+	{
+		if (g_pGamePersistent && g_pGameLevel && Level().game)
+			HUD().GetUI()->StartStopMenu(xr_new<CUIDebugFonts>(), true);
+		else if (MainMenu() && MainMenu()->IsActive())
+			MainMenu()->StartStopMenu(xr_new<CUIDebugFonts>(), true);
+	}
+	virtual void	Info	(TInfo& I)		
+	{
+		strcpy_s(I,"draw all existing fonts"); 
+	}
+};
 
 class CCC_PHIterations : public CCC_Integer {
 public:
@@ -1601,6 +1605,7 @@ void CCC_RegisterCommands()
 	// Demo
 	CMD1(CCC_DemoPlay,			"demo_play"				);
 	CMD1(CCC_DemoRecord,		"demo_record"			);
+	CMD1(CCC_DebugFonts,		"debug_fonts"			);
 	CMD1(CCC_UIReload,			"ui_reload"				);
 
 #ifndef MASTER_GOLD
@@ -1669,7 +1674,6 @@ void CCC_RegisterCommands()
 	CMD1(CCC_ScriptDbg,			"script_debug_restart");
 	
 	CMD1(CCC_ShowMonsterInfo,	"ai_monster_info");
-	CMD1(CCC_DebugFonts,		"debug_fonts");
 	CMD1(CCC_TuneAttachableItem,"dbg_adjust_attachable_item");
 
 	// adjust mode support
