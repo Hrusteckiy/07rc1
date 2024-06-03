@@ -41,6 +41,7 @@ extern int keyname_to_dik(LPCSTR);
 #define GRAFFITI19_FONT_NAME	"graffiti19"
 #define GRAFFITI22_FONT_NAME	"graffiti22"
 #define GRAFFITI32_FONT_NAME	"graffiti32"
+#define GRAFFITI40_FONT_NAME	"graffiti40"
 #define GRAFFITI50_FONT_NAME	"graffiti50"
 
 #define LETTERICA16_FONT_NAME	"letterica16"
@@ -666,6 +667,10 @@ bool CUIXmlInit::InitFont(CUIXml &xml_doc, LPCSTR path, int index, u32 &color, C
 		else if(!xr_strcmp(*font_name, GRAFFITI32_FONT_NAME))
 		{
 			pFnt = UI()->Font()->pFontGraffiti32Russian;
+		}
+		else if(!xr_strcmp(*font_name, GRAFFITI40_FONT_NAME))
+		{
+			pFnt = UI()->Font()->pFontGraffiti40Russian;
 		}
 		else if(!xr_strcmp(*font_name, GRAFFITI50_FONT_NAME))
 		{
