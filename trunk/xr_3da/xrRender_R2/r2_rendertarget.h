@@ -68,8 +68,8 @@ public:
 	IDirect3DVolumeTexture9*	t_material_surf;
 	ref_texture					t_material;
 
-	IDirect3DTexture9*			t_noise_surf	[TEX_jitter_count];
-	ref_texture					t_noise			[TEX_jitter_count];
+	IDirect3DTexture9*			t_noise_surf	[TEX_jitter_count + 1];
+	ref_texture					t_noise			[TEX_jitter_count + 1];
 private:
 	// OCCq
 	ref_shader					s_occq;
