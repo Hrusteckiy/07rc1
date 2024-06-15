@@ -359,7 +359,7 @@ void CRender::Render		()
 	// Wall marks
 	if(Wallmarks)	{
 		Target->phase_wallmarks					();
-		g_r										= 0;
+		if (!ps_common_flags.test(RFLAG_BLOODMARKS)) g_r = 0;
 		Wallmarks->Render						();				// wallmarks has priority as normal geometry
 	}
 
