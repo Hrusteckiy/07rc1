@@ -121,10 +121,26 @@ enum
 	R2FLAG_USE_NVSTENCIL		= (1<<16),
 
 	R2FLAG_EXP_MT_CALC			= (1<<17),
+
+	// KD
+	R2FLAG_TRUE_SHADOWS			= (1<<18),
+	R2FLAG_SOFT_WATER			= (1<<19),
+	R2FLAG_SOFT_PARTICLES		= (1<<20),
 };
 
 extern void						xrRender_initconsole	();
 extern BOOL						xrRender_test_hw		();
 extern void						xrRender_apply_tf		();
+
+// KD
+
+extern ECORE_API Flags32		ps_common_flags;				// r1+r2
+extern ECORE_API u32			ps_steep_parallax;
+extern ECORE_API int			ps_r__detail_radius;
+
+enum
+{
+	RFLAG_BLOODMARKS					= (1<<0),
+};
 
 #endif

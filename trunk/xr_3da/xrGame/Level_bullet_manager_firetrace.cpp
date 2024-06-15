@@ -206,18 +206,19 @@ void CBulletManager::FireShotmark (SBullet* bullet, const Fvector& vDir, const F
 		//на текущем актере отметок не ставим
 		if(Level().CurrentEntity() && Level().CurrentEntity()->ID() == R.O->ID()) return;
 
-		ref_shader* pWallmarkShader = (!mtl_pair || mtl_pair->CollideMarks.empty())?
-						NULL:&mtl_pair->CollideMarks[::Random.randI(0,mtl_pair->CollideMarks.size())];;
+		ref_shader* pWallmarkShader = (!mtl_pair || mtl_pair->CollideMarks.empty()) ?
+			NULL : &mtl_pair->CollideMarks[::Random.randI(0, mtl_pair->CollideMarks.size())];;
 
 		if (pWallmarkShader && ShowMark)
 		{
 			//добавить отметку на материале
 			Fvector p;
 			p.mad(bullet->pos,bullet->dir,R.range-0.01f);
-			::Render->add_SkeletonWallmark	(&R.O->renderable.xform, 
+			if(!g_dedicated_server)
+				::Render->add_SkeletonWallmark	(&R.O->renderable.xform, 
 							PKinematics(R.O->Visual()), *pWallmarkShader,
 							p, bullet->dir, bullet->wallmark_size);
-		}		
+		}
 	} 
 	else 
 	{
@@ -225,7 +226,6 @@ void CBulletManager::FireShotmark (SBullet* bullet, const Fvector& vDir, const F
 		particle_dir		= vNormal;
 		Fvector*	pVerts	= Level().ObjectSpace.GetStaticVerts();
 		CDB::TRI*	pTri	= Level().ObjectSpace.GetStaticTris()+R.element;
-
 		ref_shader* pWallmarkShader =	(!mtl_pair || mtl_pair->CollideMarks.empty())?
 										NULL:&mtl_pair->CollideMarks[::Random.randI(0,mtl_pair->CollideMarks.size())];;
 
@@ -247,28 +247,35 @@ void CBulletManager::FireShotmark (SBullet* bullet, const Fvector& vDir, const F
 		bullet->m_mtl_snd.play_at_pos(O, vEnd, 0);
 	}
 
-	LPCSTR ps_name = (!mtl_pair || mtl_pair->CollideParticles.empty())?
-NULL:*mtl_pair->CollideParticles[::Random.randI(0,mtl_pair->CollideParticles.size())];
+	LPCSTR ps_name = ( !mtl_pair || mtl_pair->CollideParticles.empty() ) ? NULL : 
+		*mtl_pair->CollideParticles[ ::Random.randI(0,mtl_pair->CollideParticles.size()) ];
 
 	SGameMtl*	tgt_mtl = GMLib.GetMaterialByIdx(target_material);
 	BOOL bStatic = !tgt_mtl->Flags.test(SGameMtl::flDynamic);
 
 	if( (ps_name && ShowMark) || (bullet->flags.explosive && bStatic) )
 	{
-		Fmatrix pos;
+		VERIFY2					(
+			(particle_dir.x*particle_dir.x+particle_dir.y*particle_dir.y+particle_dir.z*particle_dir.z) > flt_zero,
+			make_string("[%f][%f][%f]", VPUSH(particle_dir))
+		);
+		Fmatrix pos{ 0.f, 0.f, 0.f, 0.f };
 		pos.k.normalize(particle_dir);
 		Fvector::generate_orthonormal_basis(pos.k, pos.j, pos.i);
 		pos.c.set(vEnd);
-		if(ps_name && ShowMark){
+		if (ps_name && ShowMark)
+		{
 			//отыграть партиклы попадания в материал
 			CParticlesObject* ps = CParticlesObject::Create(ps_name,TRUE);
 
-			ps->UpdateParent(pos,zero_vel);
+			ps->UpdateParent(pos, zero_vel);
 			GamePersistent().ps_needtoplay.push_back(ps);
 		}
 
-		if(bullet->flags.explosive&&bStatic)
+		if (bullet->flags.explosive && bStatic)
+		{
 			PlayExplodePS(pos);
+		}
 	}
 }
 
