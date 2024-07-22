@@ -107,21 +107,21 @@
     <ExtensionsToDeleteOnClean>*.idb%3b*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Priquel|Win32'">
@@ -130,21 +130,21 @@
     <ExtensionsToDeleteOnClean>*.idb%3b*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_Priquel|Win32'">
     <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Priquel|Win32'">
     <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;..\..\..\3rd party\loki;..\..\xrLua\src;..\..\Luabind;..\..\..\3rd party\boost;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

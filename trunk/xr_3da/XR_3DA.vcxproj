@@ -106,21 +106,21 @@
     <ExtensionsToDeleteOnClean>*.idb%3b*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Dedicated|Win32'">
@@ -129,21 +129,21 @@
     <ExtensionsToDeleteOnClean>*.idb%3b*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b$(TargetPath)</ExtensionsToDeleteOnClean>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_Dedicated|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Dedicated|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;..\Luabind\;..\..\3rd party\boost\;..\LuaJIT\src\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

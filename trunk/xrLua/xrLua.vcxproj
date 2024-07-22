@@ -61,19 +61,19 @@
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\boost\;..\LuaJIT\src\;..\Luabind\;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\boost\;..\LuaJIT\src\;..\Luabind\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\3rd party\boost\;..\LuaJIT\src\;..\Luabind\;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\boost\;..\LuaJIT\src\;..\Luabind\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\3rd party\boost\;..\LuaJIT\src\;..\Luabind\;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\boost\;..\LuaJIT\src\;..\Luabind\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
