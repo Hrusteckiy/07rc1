@@ -60,16 +60,16 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;..\..\3rd party\boost\;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;..\..\3rd party\boost\;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <IncludePath>..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;..\..\3rd party\boost\;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;..\..\3rd party\boost\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <IncludePath>..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;..\..\3rd party\boost\;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\DPlay;..\..\3rd party\dxsdk\Include\;..\xrCore;..\..\3rd party\boost\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Platform)'=='Win32'">
     <ClCompile>

@@ -61,7 +61,7 @@
     <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -70,14 +70,14 @@
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>..\..\..\libraries\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
-    <IncludePath>..\..\..\3rd party\DPlay;..\..\xrCore;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\..\3rd party\DPlay;..\..\xrCore;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>

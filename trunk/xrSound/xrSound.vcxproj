@@ -60,7 +60,7 @@
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\dxsdk\Include;..\..\3rd party\eax\Include;..\xrCore;..\..\3rd party\OpenAL\Include;..\..\3rd party\Xiph\libvorbis\include;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\dxsdk\Include;..\..\3rd party\eax\Include;..\xrCore;..\..\3rd party\OpenAL\Include;..\..\3rd party\Xiph\libvorbis\include;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\eax\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,13 +68,13 @@
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\eax\;$(LibraryPath)</LibraryPath>
-    <IncludePath>..\..\3rd party\dxsdk\Include;..\..\3rd party\eax\Include;..\xrCore;..\..\3rd party\OpenAL\Include;..\..\3rd party\Xiph\libvorbis\include;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\dxsdk\Include;..\..\3rd party\eax\Include;..\xrCore;..\..\3rd party\OpenAL\Include;..\..\3rd party\Xiph\libvorbis\include;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\3rd party\dxsdk\Include;..\..\3rd party\eax\Include;..\xrCore;..\..\3rd party\OpenAL\Include;..\..\3rd party\Xiph\libvorbis\include;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;$(IncludePath)</IncludePath>
+    <IncludePath>.\;..\..\3rd party\dxsdk\Include;..\..\3rd party\eax\Include;..\xrCore;..\..\3rd party\OpenAL\Include;..\..\3rd party\Xiph\libvorbis\include;..\..\3rd party\Xiph\libogg\include;..\..\3rd party\Xiph\libtheora\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;..\..\libraries\$(Platform)\$(Configuration)\;..\..\3rd party\eax\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
