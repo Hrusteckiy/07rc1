@@ -342,7 +342,7 @@ void CGameFont::MasterOut(
 	rs.height = fCurrentHeight;
 	rs.align = eCurrentAlignment;
 
-	int vs_sz = _vsnprintf( rs.string , sizeof( rs.string ) - 1 , fmt , p );
+	int vs_sz = sprintf_s( rs.string , sizeof( rs.string ) - 1 , fmt , p );
 
 	VERIFY( ( vs_sz != -1 ) && ( rs.string[ vs_sz ] == '\0' ) );
 

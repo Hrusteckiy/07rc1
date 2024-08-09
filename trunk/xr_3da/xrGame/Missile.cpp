@@ -180,7 +180,7 @@ void CMissile::OnH_B_Independent(bool just_before_destroy)
 
 bool CMissile::TryPlayAnimIdle()
 {
-	VERIFY(GetState() == eIdle);
+	VERIFY(GetState() == MS_IDLE);
 	CActor* pActor = smart_cast<CActor*>(H_Parent());
 	if (pActor)
 	{
@@ -234,7 +234,7 @@ void CMissile::PlayAnimIdle()
 {
 	if (TryPlayAnimIdle()) return;
 
-	VERIFY(GetState() == eIdle);
+	VERIFY(GetState() == MS_IDLE);
 	CActor* pActor = smart_cast<CActor*>(H_Parent());
 	if (pActor)
 	{

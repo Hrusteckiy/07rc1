@@ -231,7 +231,7 @@ int mytest(char *fmt, ...)
   va_list ap;
 
   va_start(ap, fmt);
-  vsnprintf(buf, sizeof(buf), fmt, ap);
+  sprintf_s(buf, sizeof(buf), fmt, ap);
   va_end(ap);
   return 0;
 }
@@ -256,7 +256,7 @@ int mytest(char *fmt, ...)
   va_list ap;
 
   va_start(ap, fmt);
-  n = vsnprintf(buf, sizeof(buf), fmt, ap);
+  n = sprintf_s(buf, sizeof(buf), fmt, ap);
   va_end(ap);
   return n;
 }

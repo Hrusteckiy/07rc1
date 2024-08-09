@@ -620,11 +620,11 @@ int ZEXPORTVA gzprintf (gzFile file, const char *format, /* args */ ...)
 #  endif
 #else
 #  ifdef HAS_vsnprintf_void
-    (void)vsnprintf(buf, sizeof(buf), format, va);
+    (void)sprintf_s(buf, sizeof(buf), format, va);
     va_end(va);
     len = strlen(buf);
 #  else
-    len = vsnprintf(buf, sizeof(buf), format, va);
+    len = sprintf_s(buf, sizeof(buf), format, va);
     va_end(va);
 #  endif
 #endif

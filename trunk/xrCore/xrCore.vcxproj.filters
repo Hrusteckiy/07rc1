@@ -256,7 +256,7 @@
       <Filter>Compression\lzo</Filter>
     </ClCompile>
     <ClCompile Include="xrSyncronize.cpp" />
-    <ClCompile Include="..\..\..\..\GitLab\OLR3-OBT\trunk\xray\xrCore\os_clipboard.cpp">
+    <ClCompile Include="os_clipboard.cpp">
       <Filter>OS</Filter>
     </ClCompile>
     <ClCompile Include="string_concatenations.cpp">
@@ -532,7 +532,7 @@
       <Filter>Compression\lzo</Filter>
     </ClInclude>
     <ClInclude Include="xrSyncronize.h" />
-    <ClInclude Include="..\..\..\..\GitLab\OLR3-OBT\trunk\xray\xrCore\os_clipboard.h">
+    <ClInclude Include="os_clipboard.h">
       <Filter>OS</Filter>
     </ClInclude>
     <ClInclude Include="buffer_vector_inline.h">

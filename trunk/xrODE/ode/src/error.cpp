@@ -131,7 +131,7 @@ void _cdecl dError (int num, const char *msg, ...)
   else {
     char s[1000],title[100];
     sprintf_s (title,sizeof(title),"ODE Error %d",num);
-    _vsnprintf (s,sizeof(s),msg,ap);
+    sprintf_s (s,sizeof(s),msg,ap);
     s[sizeof(s)-1] = 0;
     MessageBox(0,s,title,MB_OK | MB_ICONWARNING);
   }
@@ -147,7 +147,7 @@ void _cdecl dDebug (int num, const char *msg, ...)
   else {
     char s[1000],title[100];
     sprintf_s	(title,sizeof(title),"ODE INTERNAL ERROR %d",num);
-    _vsnprintf	(s,sizeof(s),msg,ap);
+    sprintf_s	(s,sizeof(s),msg,ap);
     s[sizeof(s)-1] = 0;
     MessageBox(0,s,title,MB_OK | MB_ICONSTOP);
   }
