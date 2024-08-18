@@ -31,9 +31,12 @@ CAviPlayerCustom::~CAviPlayerCustom( )
 //---------------------------------
 BOOL CAviPlayerCustom::Load (char* fname)
 {
+	char name_without_ext[256];
+	strcpy(name_without_ext, fname);
+	name_without_ext[strlen(fname) - strlen(".avi")] = '\0';
 	// Check for alpha
 	string_path		aname;
-	strconcat		(sizeof(aname),aname,fname,"_alpha");
+	strconcat		(sizeof(aname),aname, name_without_ext,"_alpha.avi");
 	if (FS.exist(aname))	
 	{
 		alpha		= xr_new<CAviPlayerCustom>	();
