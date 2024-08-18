@@ -257,6 +257,7 @@ public:
 	virtual void				IR_OnActivate			(void);
 	
 			int					get_RPID				(LPCSTR name);
+	collide::rq_result			GetPickResult			(Fvector pos, Fvector dir, float range, CObject* ignore);
 
 
 	// Game
