@@ -612,6 +612,59 @@ void ConsoleBindCmds::save(IWriter* F)
 	}
 }
 
+class CCC_GetDiks : public IConsole_Command
+{
+public:
+	CCC_GetDiks(LPCSTR N) : IConsole_Command(N)
+	{
+		bEmptyArgsHandled = true;
+	};
+
+	virtual void Execute(LPCSTR args)
+	{
+		int i1 = 0;
+		while (true)
+		{
+			_keyboard& _k1 = keyboards[i1];
+			if (_k1.key_name == NULL)	break;
+			int i2 = i1;
+			while (true)
+			{
+				_keyboard& _k2 = keyboards[i2];
+				if (_k2.key_name == NULL)	break;
+				if (_k1.dik == _k2.dik && i1 != i2)
+				{
+				}
+				++i2;
+				if (_k1.dik == _k2.dik)
+				{
+#define K_STR "k"
+#define LEN 1
+
+					string256 buff;
+					string256 srcbuff;
+					int k = 0;
+					const char* b;
+
+					while ((b = strstr(_k1.key_name + k, K_STR)) != 0) // remove K before key name
+					{
+						buff[0] = 0;
+						srcbuff[0] = 0;
+
+						int len = (int)(b - LEN);
+
+						strncpy_s(srcbuff, b + LEN, len);
+						break; //idk how to work with that shit, just stop the cycle
+#pragma todo("need to rewrite this")
+					};
+					LPCSTR key_name = srcbuff;
+					Msg("dik [%d] == key_name[%s]", _k1.dik, key_name);
+				}
+			}
+			++i1;
+		}
+	}
+};
 
 void CCC_RegisterInput()
 {
@@ -624,6 +677,7 @@ void CCC_RegisterInput()
 	CMD1(CCC_ListActions,		"list_actions"			);
 
 	CMD1(CCC_BindList,			"bind_list"				);
+	CMD1(CCC_GetDiks,			"get_diks"				);
 	CMD1(CCC_BindConsoleCmd,	"bind_console"			);
 	CMD1(CCC_UnBindConsoleCmd,	"unbind_console"		);
 };
