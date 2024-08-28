@@ -27,6 +27,11 @@ BOOL	GodMode	()
 	return FALSE;	
 }
 
+bool CActor::IsLimping()
+{
+	return m_entity_condition->IsLimping();
+}
+
 CActorCondition::CActorCondition(CActor *object) :
 	inherited	(object)
 {
