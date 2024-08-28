@@ -2293,6 +2293,9 @@
     <Filter Include="UI\Tutorial">
       <UniqueIdentifier>{cd2bb97e-96da-456f-906d-4ec0f03eb18a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Client\Objects\items &amp; weapons\Weapons\Bobbing">
+      <UniqueIdentifier>{88e6b8b7-3136-40c4-8ba8-f73a376a8649}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -6558,6 +6561,9 @@
     <ClInclude Include="ui\UIGameTutorial.h">
       <Filter>UI\Tutorial</Filter>
     </ClInclude>
+    <ClInclude Include="weapon_bobbing.h">
+      <Filter>Core\Client\Objects\items &amp; weapons\Weapons\Bobbing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -9706,6 +9712,9 @@
     </ClCompile>
     <ClCompile Include="ui\UIGameTutorialVideoItem.cpp">
       <Filter>UI\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="weapon_bobbing.cpp">
+      <Filter>Core\Client\Objects\items &amp; weapons\Weapons\Bobbing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

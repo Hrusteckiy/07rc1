@@ -82,10 +82,16 @@ CWeaponHUD::CWeaponHUD			(CHudItem* pHudItem)
 	m_bStopAtEndAnimIsRunning	= false;
 	m_pCallbackItem				= NULL;
 	m_Transform.identity		();
+#ifdef WPN_BOBBING
+	m_bobbing = xr_new<CWeaponBobbing>();
+#endif
 }
 
 CWeaponHUD::~CWeaponHUD()
 {
+#ifdef WPN_BOBBING
+	xr_delete(m_bobbing);
+#endif
 }
 
 void CWeaponHUD::Load(LPCSTR section)
@@ -109,7 +115,13 @@ void  CWeaponHUD::net_DestroyHud()
 
 void CWeaponHUD::UpdatePosition(const Fmatrix& trans)
 {
-	m_Transform.mul				(trans,m_shared_data.get_value()->m_offset);
+
+	Fmatrix xform = trans;
+#ifdef WPN_BOBBING
+	ApplyBobbing(xform);
+#endif
+
+	m_Transform.mul(xform, m_shared_data.get_value()->m_offset);
 	VERIFY						(!fis_zero(DET(m_Transform)));
 }
 
@@ -189,3 +201,13 @@ MotionID random_anim(MotionSVec& v)
 {
 	return v[Random.randI(v.size())];
 }
+
+#ifdef WPN_BOBBING
+extern Flags32 psActorFlags;
+void CWeaponHUD::ApplyBobbing(Fmatrix& m)
+{
+	if (psActorFlags.test(AF_WPN_BOBBING))
+		m_bobbing->Update(m);
+}
+
+#endif

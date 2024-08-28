@@ -1631,10 +1631,12 @@ void CCC_RegisterCommands()
 	CMD1(CCC_MemStats,			"stat_memory"			);
 	// game
 	psActorFlags.set(AF_ALWAYSRUN, true);
+	psActorFlags.set(AF_WPN_BOBBING, false);
 	CMD3(CCC_Mask,				"g_always_run",			&psActorFlags,	AF_ALWAYSRUN);
 	CMD1(CCC_GameDifficulty,	"g_game_difficulty"		);
 
 	CMD3(CCC_Mask,				"g_backrun",			&psActorFlags,	AF_RUN_BACKWARD);
+	CMD3(CCC_Mask,				"weapon_bobbing",		&psActorFlags,	AF_WPN_BOBBING);
 
 	// alife
 #ifdef DEBUG
