@@ -153,11 +153,23 @@ void CUIItemInfo::InitItem(CInventoryItem* pInvItem)
 		UICost->SetText		(str);
 	}
 
-	if(UICondProgresBar)
+	bool use_cond = pInvItem->IsUsingCondition();
+
+	if (UICondProgresBar)
 	{
-		float cond							= pInvItem->GetConditionToShow();
-		UICondProgresBar->Show				(true);
-		UICondProgresBar->SetProgressPos	( cond*100.0f+1.0f-EPS );
+		if (use_cond)
+		{
+			float cond = pInvItem->GetConditionToShow();
+			UICondProgresBar->Show(true);
+			UICondProgresBar->SetProgressPos(cond * 100.0f + 1.0f - EPS);
+		}
+		else
+			UICondProgresBar->Show(false);
+	}
+
+	if (UICondition)
+	{
+		UICondition->Show(use_cond);
 	}
 
 	if(UIDesc)

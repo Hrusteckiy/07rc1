@@ -100,6 +100,10 @@
 		<texture>ui_hud_frame_buyM</texture>		
 	</desc_static>
 
+	<auto_static_hack x="394" y="50" width="105" height="14" stretch="1">
+		<texture>ui_inventory_descr_hack</texture>
+	</auto_static_hack>
+
 	<price_mt_static x="35" y="10" width="347" height="40">
 		<phrase x="0" y="0" width="170" font="graffiti22" r="238" g="153" b="26">ui_st_your_items</phrase>
 		<phrase x="175" y="0" font="graffiti22" r="220" g="185" b="140">ui_st_price</phrase>

@@ -8,10 +8,6 @@
 		<auto_static x="165" y="146" width="100" height="20">
 			<text  align="l" x="0" y="0" font="letterica16" r="240" g="217" b="182">st_base_cost</text>
 		</auto_static>
-
-		<auto_static x="165" y="166" width="100" height="20">
-			<text  align="l" x="0" y="0" font="letterica16" r="240" g="217" b="182">st_condition</text>
-		</auto_static>
 	</auto>
 
 	<static_name x="10" y="-4" width="220" height="60">
@@ -26,8 +22,8 @@
 		<text  align="r" x="0" y="0" font="letterica16" r="240" g="217" b="182" complex_mode="0"/>
 	</static_cost>
 
-	<static_condition x="170" y="166" width="110" height="18">
-		<text  align="r" x="0" y="0" font="letterica16" r="240" g="217" b="182" complex_mode="0"/>
+	<static_condition x="165" y="166" width="100" height="20">
+			<text  align="l" x="0" y="0" font="letterica16" r="240" g="217" b="182">st_condition</text>
 	</static_condition>
 
 	<descr_list x="15" y="225" width="261" height="190" always_show_scroll="0" left_ident="16">
