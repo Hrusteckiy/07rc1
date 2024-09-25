@@ -267,6 +267,8 @@ public:
 	virtual bool			natural_weapon		() const {return true;}
 	virtual bool			natural_detector	() const {return true;}
 	virtual bool			use_center_to_aim	() const {return false;}
+	// [12.11.07] Alexander Maniluk: added this method for moving object
+	virtual void			MoveTo				(Fvector const & position) {};
 
 public:
 	
