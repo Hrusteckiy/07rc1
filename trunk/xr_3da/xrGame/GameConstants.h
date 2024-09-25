@@ -3,4 +3,8 @@
 namespace GameConstants
 {
 	void LoadConstants();
+
+	bool GetDisableStopping();
+	bool GetDisableStoppingBolt();
+	bool GetDisableStoppingGrenade();
 };
