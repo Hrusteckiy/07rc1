@@ -135,7 +135,8 @@ public:
 };
 
 // Main configuration file
-extern XRCORE_API CInifile *pSettings;
+extern XRCORE_API CInifile* pSettings;
+extern XRCORE_API CInifile* pConstantsSettings;
 
 
 #endif //__XR_INI_H__

@@ -2296,6 +2296,9 @@
     <Filter Include="Core\Client\Objects\items &amp; weapons\Weapons\Bobbing">
       <UniqueIdentifier>{88e6b8b7-3136-40c4-8ba8-f73a376a8649}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Client\GameConstants">
+      <UniqueIdentifier>{63b9984e-3426-4e4f-b867-d95a15193700}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -6567,6 +6570,9 @@
     <ClInclude Include="xrServer_svclient_validation.h">
       <Filter>Core\Server\ServerProcess</Filter>
     </ClInclude>
+    <ClInclude Include="GameConstants.h">
+      <Filter>Core\Client\GameConstants</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -9721,6 +9727,9 @@
     </ClCompile>
     <ClCompile Include="xrServer_svclient_validation.cpp">
       <Filter>Core\Server\ServerProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="GameConstants.cpp">
+      <Filter>Core\Client\GameConstants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

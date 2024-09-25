@@ -135,6 +135,12 @@ void InitSettings	()
 	FS.update_path				(fname,"$game_config$","game.ltx");
 	pGameIni					= xr_new<CInifile>	(fname,TRUE);
 	CHECK_OR_EXIT				(!pGameIni->sections().empty(),make_string("Cannot find file %s.\nReinstalling application may fix this problem.",fname));
+
+	FS.update_path				(fname,"$game_config$","GameConstants.ltx");
+	if (FS.exist(fname))
+	{
+		pConstantsSettings		= xr_new<CInifile>(fname, TRUE);
+	}
 }
 void InitConsole	()
 {
