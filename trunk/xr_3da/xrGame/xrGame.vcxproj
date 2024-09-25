@@ -1274,6 +1274,7 @@
     <ClInclude Include="ai_space_inline.h" />
     <ClInclude Include="pch_script.h" />
     <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="xrServer_svclient_validation.h" />
     <ClInclude Include="xr_Client_BattlEye.h" />
     <ClInclude Include="CameraFirstEye.h" />
     <ClInclude Include="cameralook.h" />
@@ -4200,6 +4201,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="weapon_bobbing.cpp" />
+    <ClCompile Include="xrServer_svclient_validation.cpp" />
     <ClCompile Include="xr_Client_BattlEye.cpp" />
     <ClCompile Include="CameraFirstEye.cpp" />
     <ClCompile Include="cameralook.cpp" />

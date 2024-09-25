@@ -6564,6 +6564,9 @@
     <ClInclude Include="weapon_bobbing.h">
       <Filter>Core\Client\Objects\items &amp; weapons\Weapons\Bobbing</Filter>
     </ClInclude>
+    <ClInclude Include="xrServer_svclient_validation.h">
+      <Filter>Core\Server\ServerProcess</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -9715,6 +9718,9 @@
     </ClCompile>
     <ClCompile Include="weapon_bobbing.cpp">
       <Filter>Core\Client\Objects\items &amp; weapons\Weapons\Bobbing</Filter>
+    </ClCompile>
+    <ClCompile Include="xrServer_svclient_validation.cpp">
+      <Filter>Core\Server\ServerProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
