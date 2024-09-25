@@ -153,6 +153,7 @@ void CUITradeWnd::Init()
 	
 	AttachChild							(&m_uidata->UIDescWnd);
 	xml_init.InitStatic					(uiXml, "desc_static", 0, &m_uidata->UIDescWnd);
+	xml_init.InitAutoStatic				(uiXml, "auto_static_hack", &m_uidata->UIDescWnd);
 	m_uidata->UIDescWnd.AttachChild		(&m_uidata->UIItemInfo);
 	m_uidata->UIItemInfo.Init			(0,0, m_uidata->UIDescWnd.GetWidth(), m_uidata->UIDescWnd.GetHeight(), TRADE_ITEM_XML);
 
