@@ -2,13 +2,25 @@
 #include "UIWindow.h"
 #include "../inventory_space.h"
 
+#include "UIStatic.h"
+#include "UIDragDropListEx.h"
+#include "UIMultiTextStatic.h"
+#include "UI3tButton.h"
+#include "UICharacterInfo.h"
+#include "UIItemInfo.h"
+
 class CInventoryOwner;
 class CEatableItem;
 class CTrade;
-struct CUITradeInternal;
+struct SDrawStaticStruct;
 
 class CUIDragDropListEx;
 class CUICellItem;
+class CUIMultiTextStatic;
+class CUI3tButton;
+class CUIItemInfo;
+class CUICharacterInfo;
+class CUIXml;
 
 class CUITradeWnd: public CUIWindow
 {
@@ -37,9 +49,6 @@ public:
 	void 				StartTrade					();
 	void 				StopTrade					();
 protected:
-
-	CUITradeInternal*	m_uidata;
-
 	bool				bStarted;
 	bool 				ToOurTrade					();
 	bool 				ToOthersTrade				();
@@ -65,7 +74,7 @@ protected:
 
 	bool				CanMoveToOther				(PIItem pItem);
 
-	//��������� ������ � ���� � ��� �������
+	//указатели игрока и того с кем торгуем
 	CInventory*			m_pInv;
 	CInventory*			m_pOthersInv;
 	CInventoryOwner*	m_pInvOwner;
@@ -79,17 +88,48 @@ protected:
 
 	CUICellItem*		m_pCurrentCellItem;
 	TIItemContainer		ruck_list;
+	CUIStatic			UIStaticTop;
+	CUIStatic			UIStaticBottom;
 
+	CUIStatic			UIOurBagWnd;
+	CUIStatic			UIOurMoneyStatic;
+	CUIStatic			UIOthersBagWnd;
+	CUIStatic			UIOtherMoneyStatic;
+	CUIDragDropListEx	UIOurBagList;
+	CUIDragDropListEx	UIOthersBagList;
+
+	CUIStatic			UIOurTradeWnd;
+	CUIStatic			UIOthersTradeWnd;
+	CUIMultiTextStatic	UIOurPriceCaption;
+	CUIMultiTextStatic	UIOthersPriceCaption;
+	CUIDragDropListEx	UIOurTradeList;
+	CUIDragDropListEx	UIOthersTradeList;
+
+	//кнопки
+	CUI3tButton			UIPerformTradeButton;
+	CUI3tButton			UIToTalkButton;
+
+	//информация о персонажах
+	CUIStatic			UIOurIcon;
+	CUIStatic			UIOthersIcon;
+	CUICharacterInfo	UICharacterInfoLeft;
+	CUICharacterInfo	UICharacterInfoRight;
+
+	//информация о перетаскиваемом предмете
+	CUIStatic			UIDescWnd;
+	CUIItemInfo			UIItemInfo;
+
+	SDrawStaticStruct*	UIDealMsg;
 
 	void				SetCurrentItem				(CUICellItem* itm);
 	CUICellItem*		CurrentItem					();
 	PIItem				CurrentIItem				();
 
-	bool		xr_stdcall		OnItemDrop			(CUICellItem* itm);
-	bool		xr_stdcall		OnItemStartDrag		(CUICellItem* itm);
-	bool		xr_stdcall		OnItemDbClick		(CUICellItem* itm);
-	bool		xr_stdcall		OnItemSelected		(CUICellItem* itm);
-	bool		xr_stdcall		OnItemRButtonClick	(CUICellItem* itm);
+	bool	xr_stdcall	OnItemDrop					(CUICellItem* itm);
+	bool	xr_stdcall	OnItemStartDrag				(CUICellItem* itm);
+	bool	xr_stdcall	OnItemDbClick				(CUICellItem* itm);
+	bool	xr_stdcall	OnItemSelected				(CUICellItem* itm);
+	bool	xr_stdcall	OnItemRButtonClick			(CUICellItem* itm);
 
 	void				BindDragDropListEnents		(CUIDragDropListEx* lst);
 
