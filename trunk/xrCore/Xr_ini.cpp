@@ -3,7 +3,8 @@
 
 #include "fs_internal.h"
 
-XRCORE_API CInifile *pSettings	= NULL;
+XRCORE_API CInifile* pSettings			= nullptr;
+XRCORE_API CInifile* pConstantsSettings	= nullptr;
 
 CInifile* CInifile::Create(const char* szFileName, BOOL ReadOnly)
 {	return xr_new<CInifile>(szFileName,ReadOnly); }

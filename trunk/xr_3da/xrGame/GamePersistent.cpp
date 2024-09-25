@@ -15,6 +15,7 @@
 #include "weaponhud.h"
 #include "stalker_animation_data_storage.h"
 #include "stalker_velocity_holder.h"
+#include "GameConstants.h"
 
 #include "../CameraManager.h"
 #include "actor.h"
@@ -168,8 +169,9 @@ void CGamePersistent::Disconnect()
 void CGamePersistent::OnGameStart()
 {
 	__super::OnGameStart		();
-	
+
 	UpdateGameType				();
+	GameConstants::LoadConstants();
 
 }
 
