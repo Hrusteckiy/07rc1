@@ -24,6 +24,10 @@
 #include "UI/UIStatic.h"
 #include "CharacterPhysicsSupport.h"
 #include "InventoryBox.h"
+#include "Bolt.h"
+#include "Grenade.h"
+#include "GameConstants.h"
+#include "Weapon.h"
 
 bool g_bAutoClearCrouch = true;
 
@@ -39,12 +43,20 @@ void CActor::IR_OnKeyboardPress(int cmd)
 	{
 	case kWPN_FIRE:
 		{
-			mstate_wishful &=~mcSprint;
+			bool disable_stopping = GameConstants::GetDisableStopping();
+			bool disable_stopping_bolt = GameConstants::GetDisableStoppingBolt();
+			bool disable_stopping_gr = GameConstants::GetDisableStoppingGrenade();
+			CBolt* pBolt = smart_cast<CBolt*>(inventory().ActiveItem());
+			CGrenade* pGrenade = smart_cast<CGrenade*>(inventory().ActiveItem());
+			CWeapon* pWpn = smart_cast<CWeapon*>(inventory().ActiveItem());
+			u32 slot = inventory().GetActiveSlot();
+			if ((!disable_stopping_bolt && pBolt || !disable_stopping_gr && pGrenade) || !disable_stopping && !inventory().ActiveItem() || pWpn)
+				mstate_wishful &=~mcSprint;
 			//-----------------------------
 			if (OnServer())
 			{
 				NET_Packet P;
-				P.w_begin(M_PLAYER_FIRE); 
+				P.w_begin(M_PLAYER_FIRE);
 				P.w_u16(ID());
 				u_EventSend(P);
 			}
