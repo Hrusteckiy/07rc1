@@ -87,6 +87,7 @@ public:
 	virtual bool				IsSingleHanded		()	const	{return true;};	
 	virtual bool				Activate			();									// !!! Переопределить. (см. в Inventory.cpp)
 	virtual void				Deactivate			();								// !!! Переопределить. (см. в Inventory.cpp)
+	virtual bool				IsUsingCondition	() const { return !!m_flags.test(FUsingCondition); }
 	virtual bool				Action				(s32 cmd, u32 flags) {return false;}	// true если известная команда, иначе false
 
 	virtual bool				IsHidden			()	const	{return true;}

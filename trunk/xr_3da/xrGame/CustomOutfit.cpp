@@ -80,7 +80,10 @@ void CCustomOutfit::Load(LPCSTR section)
 	else
 		m_NightVisionSect = NULL;
 
-	m_full_icon_name								= pSettings->r_string(section,"full_icon_name");
+	// Added by Axel, to enable optional condition use on any item
+	m_flags.set						(FUsingCondition, READ_IF_EXISTS(pSettings, r_bool, section, "use_condition", TRUE));
+
+	m_full_icon_name				= pSettings->r_string(section,"full_icon_name");
 }
 
 void CCustomOutfit::Hit(float hit_power, ALife::EHitType hit_type)
