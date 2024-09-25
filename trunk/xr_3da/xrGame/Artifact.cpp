@@ -303,6 +303,18 @@ void CArtefact::Show()
 {
 	SwitchState(eShowing);
 }
+
+void CArtefact::MoveTo(Fvector const& position)
+{
+	if (!PPhysicsShell())
+		return;
+
+	Fmatrix	M = XFORM();
+	M.translate(position);
+	ForceTransform(M);
+	//m_bInInterpolation = false;	
+}
+
 #include "inventoryOwner.h"
 #include "Entity_alive.h"
 void CArtefact::UpdateXForm()

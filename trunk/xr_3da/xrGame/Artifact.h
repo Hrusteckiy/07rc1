@@ -91,7 +91,8 @@ public:
 		eActivating,
 	};
 	virtual	void					PlayAnimIdle		();
-public:
+	virtual void					MoveTo				(Fvector const & position);
+
 	virtual void					Hide				();
 	virtual void					Show				();
 	virtual	void					UpdateXForm			();
