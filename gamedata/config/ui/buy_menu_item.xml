@@ -5,10 +5,6 @@
 		<auto_static x="365" y="12" width="50" height="18">
 			<text font="letterica18" r="128" g="128" b="128">st_weight</text>
 		</auto_static>
-		
-		<auto_static x="510" y="12" width="65" height="20">
-			<text font="letterica18" r="128" g="128" b="128">st_condition</text>
-		</auto_static>
 	</auto>
 	
 	<static_name x="30" y="8" width="330" height="30">
@@ -18,6 +14,10 @@
 	<static_cost x="725" y="8" width="120" height="30">
 		<text align="c" vert_align="c" font="graffiti22" color="ui_clr_3"/>
 	</static_cost>
+		
+	<static_condition x="510" y="12" width="65" height="20">
+		<text font="letterica18" r="128" g="128" b="128">st_condition</text>
+	</static_condition>
 
 	<static_weight x="420" y="13" width="80" height="18">
 		<text  align="l" x="0" y="0" font="letterica18" r="240" g="217" b="182"/>
@@ -33,7 +33,7 @@
 		</progress>
 		<background>
 			<texture>ui_mg_progress_efficiency_empty</texture>
-		</background>     
+		</background>  
     </condition_progress>
 
 	<descr_list x="360" y="40" width="482" height="115" always_show_scroll="0" left_ident="16">

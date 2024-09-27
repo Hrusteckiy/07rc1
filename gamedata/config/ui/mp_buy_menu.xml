@@ -135,6 +135,10 @@
 	<tab_control x="0" y="0" width="65" height="565">
 		<window_name>tab_control</window_name>
 	</tab_control>
+
+	<auto_static_hack x="590" y="585" width="125" height="16" stretch="1">
+		<texture>ui_inventory_descr_hack</texture>
+	</auto_static_hack>
 	
 #include "ui\mp_buy_menu_buttons.xml"
 </w>

@@ -213,7 +213,9 @@ void CUIMpTradeWnd::Init(const shared_str& sectionName, const shared_str& sectio
 
 	m_static_money_change				= xr_new<CUIStatic>(); AttachChild(m_static_money_change); m_static_money_change->SetAutoDelete(true);
 	CUIXmlInit::InitStatic				(xml_doc, "static_money_change",					0, m_static_money_change);
-	
+
+	//Элементы автоматического добавления
+	CUIXmlInit::InitAutoStatic			(xml_doc, "auto_static_hack", this);
 	m_item_info							= xr_new<CUIItemInfo>();
 	AttachChild							(m_item_info); m_item_info->SetAutoDelete(true);
 	m_item_info->Init					(0, 0, 100, 100, "buy_menu_item.xml");

@@ -14,8 +14,17 @@
 		<texture>ui_slots_belt</texture>		
 	</belt_slots>
 	
-	<back x="10" y="243" width="1005" height="483">
+	<back x="10" y="243" width="697" height="483" stretch="1">
 		<texture>ui_inventory_main</texture>
+		<auto_static x="695" y="195" width="35" height="115" stretch="1">
+			<texture>ui_inventory_mid</texture>
+		</auto_static>
+		<auto_static x="715" y="315" width="283" height="163" stretch="1">
+			<texture>ui_inventory_right_bottom</texture>
+		</auto_static>
+		<auto_static x="715" y="0" width="283" height="320" stretch="1">
+			<texture>ui_inventory_right_top</texture>
+		</auto_static>
 	</back>
 
 	<bottom_static x="0" y="736" width="1024" height="32">
@@ -49,7 +58,7 @@
         <text x="30" y="8" font="graffiti22" r="231" g="153" b="22">ui_inv_bag</text>
     </bag_static>
     
-    <money_static x="744" y="530" width="108" height="33" stretch="1">
+    <money_static x="744" y="522" width="108" height="33" stretch="1">
 		<text font="graffiti22" r="238" g="153" b="26" align="c" vert_align="c"></text>
     </money_static>
 
@@ -67,13 +76,13 @@
         </title>
     </character_frame_window>
     
-	<outfit_info x="740" y="550" width="260" height="180">
-		<auto_static x="140" y="0">
+	<outfit_info x="740" y="530" width="260" height="180">
+		<auto_static x="140" y="6">
 			<text font="graffiti22" color="UI_orange" complex_mode="0">ui_st_params</text>
 		</auto_static>
-		
-		<scroll_view x="10" y="33" width="240" height="147" always_show_scroll="0"/>
-		
+
+		<scroll_view x="8" y="35" width="240" height="147" always_show_scroll="0"/>
+
 		<static_burn_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_burn_immunity</texture>
 			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
@@ -123,16 +132,16 @@
 
 	<static_personal x="1" y="285" width="80" height="240"/>
 
-    <rank x="736" y="272" width="75" height="65">
+    <rank x="736" y="272" width="70" height="60" stretch="1">
 		<texture>ui_inventory_rank</texture>
-		<pic x="14" y="17" width="46" height="47" />
+		<pic x="13" y="16" width="42" height="41" stretch="1"/>
     </rank>
     
-    <progress_background x="739" y="300" width="59" height="215">
+    <progress_background x="739" y="335" width="59" height="215">
 		<texture>ui_scale_three</texture>
     </progress_background>
     
-    <progress_back_rank x="784" y="340" width="38" height="215">
+    <progress_back_rank x="784" y="335" width="38" height="215">
 		<texture>ui_scale_one</texture>		
     </progress_back_rank>   
 
