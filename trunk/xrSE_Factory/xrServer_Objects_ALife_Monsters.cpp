@@ -38,7 +38,7 @@ void setup_location_types_section(GameGraph::TERRAIN_VECTOR &m_vertex_types, CIn
 	GameGraph::STerrainPlace		terrain_mask;
 	terrain_mask.tMask.resize		(GameGraph::LOCATION_TYPE_COUNT);
 
-	CInifile::Sect&	sect			= ini->r_section(section);
+	CInifile::Sect& sect			= ini->r_section(section);
 	CInifile::SectCIt				I = sect.Data.begin();
 	CInifile::SectCIt				E = sect.Data.end();
 	for ( ; I != E; ++I) {
@@ -137,8 +137,8 @@ CSE_ALifeTraderAbstract::CSE_ALifeTraderAbstract(LPCSTR caSection)
 CSE_Abstract *CSE_ALifeTraderAbstract::init	()
 {
 	string4096					S;
-	//sprintf						(S,"%s\r\n[game_info]\r\nname_id = default\r\n",!*base()->m_ini_string ? "" : *base()->m_ini_string);
-	sprintf						(S,"%s\r\n[game_info]\r\n",!*base()->m_ini_string ? "" : *base()->m_ini_string);
+	//sprintf_s						(S,"%s\r\n[game_info]\r\nname_id = default\r\n",!*base()->m_ini_string ? "" : *base()->m_ini_string);
+	sprintf_s						(S,"%s\r\n[game_info]\r\n",!*base()->m_ini_string ? "" : *base()->m_ini_string);
 	base()->m_ini_string		= S;
 
 	return						(base());
@@ -410,8 +410,8 @@ void CSE_ALifeTraderAbstract::set_specific_character	(shared_str new_spec_char)
 		//select name and lastname
 		xr_string subset			= m_character_name.c_str()+xr_strlen(gen_name);
 
-		string32					t1;
-		strconcat					(t1,"stalker_names_",subset.c_str());
+		string_path					t1;
+		strconcat					(sizeof(t1),t1,"stalker_names_",subset.c_str());
 		u32 name_cnt				= pSettings->r_u32(t1, "name_cnt");
 		u32 last_name_cnt			= pSettings->r_u32(t1, "last_name_cnt");
 		

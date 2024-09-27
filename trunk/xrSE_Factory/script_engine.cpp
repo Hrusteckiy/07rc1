@@ -6,12 +6,11 @@
 //	Description : XRay Script Engine
 ////////////////////////////////////////////////////////////////////////////
 
-#include "stdafx.h"
+#include "pch_script.h"
 #include "script_engine.h"
 #include "ai_space.h"
 #include "object_factory.h"
 #include "script_process.h"
-#include "script_space.h"
 
 #ifdef USE_DEBUGGER
 #	include "script_debugger.h"
@@ -43,7 +42,11 @@ CScriptEngine::~CScriptEngine			()
 {
 	while (!m_script_processes.empty())
 		remove_script_process(m_script_processes.begin()->first);
+
+#ifdef DEBUG
 	flush_log				();
+#endif // DEBUG
+
 #ifdef USE_DEBUGGER
 	xr_delete (m_scriptDebugger);
 #endif
@@ -56,13 +59,13 @@ void CScriptEngine::unload				()
 	*m_last_no_file			= 0;
 }
 
-int CScriptEngine::lua_panic			(CLuaVirtualMachine *L)
+int CScriptEngine::lua_panic			(lua_State *L)
 {
 	print_output	(L,"PANIC",LUA_ERRRUN);
 	return			(0);
 }
 
-void CScriptEngine::lua_error			(CLuaVirtualMachine *L)
+void CScriptEngine::lua_error			(lua_State *L)
 {
 	print_output			(L,"",LUA_ERRRUN);
 
@@ -73,7 +76,7 @@ void CScriptEngine::lua_error			(CLuaVirtualMachine *L)
 #endif
 }
 
-int  CScriptEngine::lua_pcall_failed	(CLuaVirtualMachine *L)
+int  CScriptEngine::lua_pcall_failed	(lua_State *L)
 {
 	print_output			(L,"",LUA_ERRRUN);
 #if !XRAY_EXCEPTIONS
@@ -84,7 +87,7 @@ int  CScriptEngine::lua_pcall_failed	(CLuaVirtualMachine *L)
 	return					(LUA_ERRRUN);
 }
 
-void lua_cast_failed					(CLuaVirtualMachine *L, LUABIND_TYPE_INFO info)
+void lua_cast_failed					(lua_State *L, LUABIND_TYPE_INFO info)
 {
 	CScriptEngine::print_output	(L,"",LUA_ERRRUN);
 
@@ -105,7 +108,9 @@ void CScriptEngine::setup_callbacks		()
 #if !XRAY_EXCEPTIONS
 		luabind::set_error_callback		(CScriptEngine::lua_error);
 #endif
+#ifndef MASTER_GOLD
 		luabind::set_pcall_callback		(CScriptEngine::lua_pcall_failed);
+#endif // MASTER_GOLD
 	}
 
 #if !XRAY_EXCEPTIONS
@@ -116,7 +121,7 @@ void CScriptEngine::setup_callbacks		()
 
 #ifdef DEBUG
 #	include "script_thread.h"
-void CScriptEngine::lua_hook_call		(CLuaVirtualMachine *L, lua_Debug *dbg)
+void CScriptEngine::lua_hook_call		(lua_State *L, lua_Debug *dbg)
 {
 	if (ai().script_engine().current_thread())
 		ai().script_engine().current_thread()->script_hook(L,dbg);
@@ -153,6 +158,8 @@ void CScriptEngine::setup_auto_load		()
 
 void CScriptEngine::init				()
 {
+	CScriptStorage::reinit				();
+
 	luabind::open						(lua());
 	setup_callbacks						();
 	export_classes						(lua());
@@ -247,7 +254,9 @@ void CScriptEngine::process_file_if_exists	(LPCSTR file_name, bool warn_if_not_e
 			add_no_file		(file_name,string_length);
 			return;
 		}
+#ifndef MASTER_GOLD
 		Msg					("* loading script %s",S1);
+#endif // MASTER_GOLD
 		m_reload_modules	= false;
 		load_file_into_namespace(S,*file_name ? file_name : "_G");
 	}

@@ -10,7 +10,7 @@
 
 #include "script_export_macroses.h"
 #include "xrEProps.h"
-#include "net_utils.h"
+#include "../../xrNetServer/net_utils.h"
 #include "ai_space.h"
 #include "script_engine.h"
 
@@ -39,16 +39,15 @@ class CALifeSmartTerrainTask;
 	DEFINE_LUA_WRAPPER_METHOD_R2P1_V1	(STATE_Write,	NET_Packet)\
 	DEFINE_LUA_WRAPPER_METHOD_R2P1_V2	(STATE_Read,	NET_Packet,	u16)\
 	DEFINE_LUA_WRAPPER_METHOD_R2P2_V2	(FillProps,		LPCSTR,	PropItemVec)\
-	DEFINE_LUA_WRAPPER_METHOD_R2P1_V4	(OnEvent,		NET_Packet, u16, u32, ClientID)\
 	DEFINE_LUA_WRAPPER_METHOD_0			(init,			CSE_Abstract*)
 
 #define INHERIT_ALIFE \
 	INHERIT_ABSTRACT\
-	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(used_ai_locations,	bool)\
-	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(can_save,			bool)\
-	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(can_switch_online,	bool)\
-	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(can_switch_offline,bool)\
-	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(interactive,		bool)
+	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(used_ai_locations,		bool)\
+	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(can_save,				bool)\
+	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(can_switch_online,		bool)\
+	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(can_switch_offline,	bool)\
+	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(interactive,			bool)
 
 #ifdef XRGAME_EXPORTS
 #	define INHERIT_DYNAMIC_ALIFE \
@@ -56,7 +55,8 @@ class CALifeSmartTerrainTask;
 	DEFINE_LUA_WRAPPER_METHOD_V0		(on_spawn)\
 	DEFINE_LUA_WRAPPER_METHOD_V0		(on_before_register)\
 	DEFINE_LUA_WRAPPER_METHOD_V0		(on_register)\
-	DEFINE_LUA_WRAPPER_METHOD_V0		(on_unregister)
+	DEFINE_LUA_WRAPPER_METHOD_V0		(on_unregister)\
+	DEFINE_LUA_WRAPPER_CONST_METHOD_0	(keep_saved_data_anyway,bool)
 #else
 #	define INHERIT_DYNAMIC_ALIFE \
 	INHERIT_ALIFE
@@ -190,7 +190,6 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,FillProps	) \
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,STATE_Write	) \
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,STATE_Read	) \
-	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,OnEvent		) \
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,init		)
 
 #define luabind_virtual_alife(a,b) \
@@ -205,7 +204,8 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,on_spawn			) \
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,on_before_register	) \
 	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,on_register			) \
-	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,on_unregister		)
+	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,on_unregister		) \
+	DEFINE_LUABIND_VIRTUAL_FUNCTION(a,b,keep_saved_data_anyway)
 #else
 #	define luabind_virtual_dynamic_alife(a,b)
 #endif

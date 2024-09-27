@@ -6,11 +6,8 @@
 //	Description : Script float vector script export
 ////////////////////////////////////////////////////////////////////////////
 
-#include "stdafx.h"
+#include "pch_script.h"
 #include "script_fvector.h"
-#include "script_space.h"
-#include <luabind/return_reference_to_policy.hpp>
-#include <luabind/out_value_policy.hpp>
 
 using namespace luabind;
 
@@ -66,14 +63,14 @@ void CScriptFvector::script_register(lua_State *L)
 //			.def("square_magnitude",			&Fvector::square_magnitude)
 			.def("magnitude",					&Fvector::magnitude)
 //			.def("normalize_magnitude",			&Fvector::normalize_magn)
-			.def("normalize",					(Fvector & (Fvector::*)())(&Fvector::normalize_safe),																			return_reference_to(_1))
-			.def("normalize",					(Fvector & (Fvector::*)(const Fvector &))(&Fvector::normalize_safe),															return_reference_to(_1))
+			.def("normalize",					(Fvector & (Fvector::*)())(&Fvector::normalize_safe),																	return_reference_to(_1))
+			.def("normalize",					(Fvector & (Fvector::*)(const Fvector &))(&Fvector::normalize_safe),													return_reference_to(_1))
 			.def("normalize_safe",				(Fvector & (Fvector::*)())(&Fvector::normalize_safe),																	return_reference_to(_1))
-			.def("normalize_safe",				(Fvector & (Fvector::*)(const Fvector &))(&Fvector::normalize_safe),														return_reference_to(_1))
+			.def("normalize_safe",				(Fvector & (Fvector::*)(const Fvector &))(&Fvector::normalize_safe),													return_reference_to(_1))
 //			.def("random_dir",					(Fvector & (Fvector::*)())(&Fvector::random_dir),																		return_reference_to(_1))
 //			.def("random_dir",					(Fvector & (Fvector::*)(const Fvector &, float))(&Fvector::random_dir),													return_reference_to(_1))
 //			.def("random_point",				(Fvector & (Fvector::*)(const Fvector &))(&Fvector::random_point),														return_reference_to(_1))
-//			.def("random_point",				(Fvector & (Fvector::*)(float))(&Fvector::random_point),																	return_reference_to(_1))
+//			.def("random_point",				(Fvector & (Fvector::*)(float))(&Fvector::random_point),																return_reference_to(_1))
 			.def("dotproduct",					&Fvector::dotproduct)
 			.def("crossproduct",				&Fvector::crossproduct,																									return_reference_to(_1))
 			.def("distance_to_xz",				&Fvector::distance_to_xz)

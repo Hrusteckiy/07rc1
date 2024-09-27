@@ -44,12 +44,11 @@ enum {
 	M_CLIENT_REQUEST_CONNECTION_DATA,
 
 	M_CHAT_MESSAGE,
+	M_CLIENT_WARN,
 	M_CHANGE_LEVEL_GAME,
 	//-----------------------------------------------------
 	M_CL_PING_CHALLENGE,
 	M_CL_PING_CHALLENGE_RESPOND,
-	//-----------------------------------------------------
-	M_PAUSE_GAME,
 	//-----------------------------------------------------
 	M_AUTH_CHALLENGE,
 	M_CL_AUTH,
@@ -64,6 +63,10 @@ enum {
 	M_MOVE_PLAYERS_RESPOND,
 	//-----------------------------------------------------
 	M_CHANGE_SELF_NAME,
+	M_REMOTE_CONTROL_AUTH,
+	M_REMOTE_CONTROL_CMD,
+	M_BATTLEYE,
+	M_MAP_SYNC,
 
 	MSG_FORCEDWORD				= u32(-1)
 };
@@ -115,35 +118,16 @@ enum {
 
 	GE_CHANGE_VISUAL,
 	GE_MONEY,
-/*
-	GEG_SIGNAL,
-	GEG_PLAYER_READY,
-	GEG_PLAYER_CHANGE_TEAM,
-	GEG_PLAYER_KILL,			//player wants to die
-	GEG_PLAYER_BUY_FINISHED,	//player end to buy items
-	GEG_PLAYER_CHANGE_SKIN,
-*/	
+
 	GEG_PLAYER_ACTIVATE_SLOT,
 	GEG_PLAYER_ITEM2SLOT,
 	GEG_PLAYER_ITEM2BELT,
 	GEG_PLAYER_ITEM2RUCK,
-	GEG_PLAYER_ITEMDROP,
 	GEG_PLAYER_ITEM_EAT,
 	GEG_PLAYER_ITEM_SELL,
 	GEG_PLAYER_ACTIVATEARTEFACT,
 
 	GEG_PLAYER_WEAPON_HIDE_STATE,
-	
-//	GEG_PLAYER_INVENTORYMENU_OPEN,
-//	GEG_PLAYER_INVENTORYMENU_CLOSE,
-//	GEG_PLAYER_BUYMENU_OPEN,
-//	GEG_PLAYER_BUYMENU_CLOSE,
-//	GEG_PLAYER_DEACTIVATE_CURRENT_SLOT,
-//	GEG_PLAYER_RESTORE_CURRENT_SLOT,
-//	GEG_PLAYER_SPRINT_START,
-//	GEG_PLAYER_SPRINT_END,
-//	GEG_PLAYER_ENTER_CAR,
-//	GEG_PLAYER_EXIT_CAR,
 	
 	GEG_PLAYER_ATTACH_HOLDER,
 	GEG_PLAYER_DETACH_HOLDER,
@@ -155,6 +139,7 @@ enum {
 	GE_KILL_SOMEONE,
 
 	GE_FREEZE_OBJECT,
+	GE_LAUNCH_ROCKET,
 
 	GE_FORCEDWORD				= u32(-1)
 };
@@ -211,6 +196,8 @@ enum EGameMessages {  //game_cl <----> game_sv messages
 
 	//-----------------------------------------
 	GAME_EVENT_PLAYERS_MONEY_CHANGED,
+	GAME_EVENT_SERVER_STRING_MESSAGE,
+	GAME_EVENT_SERVER_DIALOG_MESSAGE,
 
 	//-----------------------------------------
 	GAME_EVENT_SCRIPT_BEGINS_FROM,		// don't add messages after this
@@ -226,6 +213,7 @@ enum
 	M_SPAWN_VERSION				= (1<<5),	// control version
 	M_SPAWN_UPDATE				= (1<<6),	// + update packet
 	M_SPAWN_TIME				= (1<<7),	// + spawn time
+	M_SPAWN_DENIED				= (1<<8),	// don't spawn entity with this flag
 
 	M_SPAWN_OBJECT_FORCEDWORD	= u32(-1)
 };

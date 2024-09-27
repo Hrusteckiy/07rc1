@@ -6,11 +6,8 @@
 //	Description : Script float vector script export
 ////////////////////////////////////////////////////////////////////////////
 
-#include "stdafx.h"
+#include "pch_script.h"
 #include "script_fcolor.h"
-#include "script_space.h"
-#include <luabind/return_reference_to_policy.hpp>
-#include <luabind/out_value_policy.hpp>
 
 using namespace luabind;
 

@@ -54,7 +54,7 @@ void CSpecificCharacter::InitXmlIdToIndex()
 }
 
 
-void CSpecificCharacter::Load(SPECIFIC_CHARACTER_ID id)
+void CSpecificCharacter::Load(shared_str id)
 {
 	R_ASSERT(id.size());
 	m_OwnId = id;
@@ -68,7 +68,7 @@ void CSpecificCharacter::load_shared	(LPCSTR)
 	CTimer			timer;
 	timer.Start		();
 #endif
-	const id_to_index::ITEM_DATA& item_data = *id_to_index::GetById(m_OwnId);
+	const ITEM_DATA& item_data = *id_to_index::GetById(m_OwnId);
 
 	CUIXml*		pXML = item_data._xml;
 
@@ -115,8 +115,8 @@ void CSpecificCharacter::load_shared	(LPCSTR)
 		data()->m_ActorDialogs.push_back(dialog_name);
 	}
 
-	data()->m_iIconX		= pXML->ReadAttribInt("icon", 0, "x");
-	data()->m_iIconY		= pXML->ReadAttribInt("icon", 0, "y");
+	data()->m_icon_name		= pXML->Read("icon", 0, "ui_npc_u_barman");
+		
 
 	//игровое имя персонажа
 	data()->m_sGameName		= pXML->Read("name", 0, "");

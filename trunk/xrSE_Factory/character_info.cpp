@@ -8,19 +8,11 @@
 
 #ifdef XRGAME_EXPORTS
 #	include "ui/xrUIXmlParser.h"
-#else
+#	include "PhraseDialog.h"
+#	include "xrServer_Objects_ALife_Monsters.h"
+#else // XRGAME_EXPORTS
 #	include "xrUIXmlParser.h"
-#endif
-
-
-#ifdef XRGAME_EXPORTS
-
-#include "PhraseDialog.h"
-#include "alife_registry_container_composition.h"
-#include "xrServer_Objects_ALife_Monsters.h"
-
-#endif
-
+#endif // XRGAME_EXPORTS
 
 //////////////////////////////////////////////////////////////////////////
 SCharacterProfile::SCharacterProfile()
@@ -56,7 +48,7 @@ CCharacterInfo::~CCharacterInfo()
 }
 
 
-void CCharacterInfo::Load(PROFILE_ID id)
+void CCharacterInfo::Load(shared_str id)
 {
 	m_ProfileId = id;
 	inherited_shared::load_shared(m_ProfileId, NULL);
@@ -64,7 +56,7 @@ void CCharacterInfo::Load(PROFILE_ID id)
 
 #ifdef XRGAME_EXPORTS
 
-void CCharacterInfo::InitSpecificCharacter (SPECIFIC_CHARACTER_ID new_id)
+void CCharacterInfo::InitSpecificCharacter (shared_str new_id)
 {
 	R_ASSERT(new_id.size());
 	m_SpecificCharacterId = new_id;
@@ -85,7 +77,7 @@ void CCharacterInfo::InitSpecificCharacter (SPECIFIC_CHARACTER_ID new_id)
 
 void CCharacterInfo::load_shared	(LPCSTR)
 {
-	const id_to_index::ITEM_DATA& item_data = *id_to_index::GetById(m_ProfileId);
+	const ITEM_DATA& item_data = *id_to_index::GetById(m_ProfileId);
 
 	CUIXml*		pXML		= item_data._xml;
 	pXML->SetLocalRoot		(pXML->GetRoot());
@@ -132,7 +124,7 @@ void CCharacterInfo::Init	(CSE_ALifeTraderAbstract* trader)
 }
 
 
-PROFILE_ID CCharacterInfo::Profile()			const
+shared_str CCharacterInfo::Profile()			const
 {
 	return m_ProfileId;
 }
@@ -159,21 +151,17 @@ void CCharacterInfo::SetReputation (CHARACTER_REPUTATION_VALUE reputation)
 }
 
 
-int	 CCharacterInfo::TradeIconX() const
+const shared_str& CCharacterInfo::IconName() const
 {
 	R_ASSERT(m_SpecificCharacterId.size());
-	return m_SpecificCharacter.TradeIconX();
-}
-int	 CCharacterInfo::TradeIconY() const
-{
-	R_ASSERT(m_SpecificCharacterId.size());
-	return m_SpecificCharacter.TradeIconY();
+	return m_SpecificCharacter.IconName();
 }
 
 shared_str	CCharacterInfo::StartDialog	()	const
 {
 	return m_StartDialog;
 }
+
 const DIALOG_ID_VECTOR&	CCharacterInfo::ActorDialogs	()	const
 {
 	R_ASSERT(m_SpecificCharacterId.size());

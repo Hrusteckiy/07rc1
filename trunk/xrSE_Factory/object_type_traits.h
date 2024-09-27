@@ -153,8 +153,8 @@
 
 			enum { 
 				value = 
-					is_class<T1>::result && 
-					is_class<T2>::result && 
+					std::is_class<T1>::value && 
+					std::is_class<T2>::value && 
 					!is_same<T1,T2>::value &&
 					sizeof(detail::yes) == sizeof(select((T2*)(0)))
 			};
@@ -185,8 +185,8 @@
 
 		declare_has(iterator);
 		declare_has(const_iterator);
-		declare_has(reference);
-		declare_has(const_reference);
+//		declare_has(reference);
+//		declare_has(const_reference);
 		declare_has(value_type);
 		declare_has(size_type);
 //		declare_has(value_compare);
@@ -197,8 +197,8 @@
 				value = 
 					has_iterator<T>::value &&
 					has_const_iterator<T>::value &&
-					has_reference<T>::value &&
-					has_const_reference<T>::value &&
+//					has_reference<T>::value &&
+//					has_const_reference<T>::value &&
 					has_size_type<T>::value &&
 					has_value_type<T>::value
 			};
