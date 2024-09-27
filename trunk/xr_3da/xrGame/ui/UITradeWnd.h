@@ -1,6 +1,6 @@
 #pragma once
 #include "UIWindow.h"
-#include "../inventory_space.h"
+#include "inventory_space.h"
 
 #include "UIStatic.h"
 #include "UIDragDropListEx.h"

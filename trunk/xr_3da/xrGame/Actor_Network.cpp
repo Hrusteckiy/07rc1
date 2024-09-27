@@ -2,7 +2,7 @@
 #include "actor.h"
 #include "Actor_Flags.h"
 #include "inventory.h"
-#include "xrserver_objects_alife_monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "xrServer.h"
 
 #include "CameraLook.h"

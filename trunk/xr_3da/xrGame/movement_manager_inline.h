@@ -34,7 +34,7 @@ IC	bool CMovementManager::path_completed() const
 	return					((m_path_state == ePathStatePathCompleted) && actual());
 }
 
-IC	float CMovementManager::old_desirable_speed		() const
+IC	const float& CMovementManager::old_desirable_speed() const
 {
 	return					(m_old_desirable_speed);
 }

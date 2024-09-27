@@ -1,6 +1,5 @@
 #ifndef	STDAFX_3DA
 #define STDAFX_3DA
-
 #pragma once
 
 #ifdef _EDITOR
@@ -10,7 +9,7 @@
 #include "../xrCore/xrCore.h"
 
 #ifdef _DEBUG
-	#define D3D_DEBUG_INFO
+#	define D3D_DEBUG_INFO
 #endif
 
 #pragma warning(disable:4995)
@@ -39,10 +38,10 @@
 #include "engine.h"
 #include "defines.h"
 #ifndef NO_XRLOG
-#include "log.h"
+#include "../xrcore/log.h"
 #endif
 #include "device.h"
-#include "fs.h"
+#include "../xrcore/fs.h"
 
 #include "xrXRC.h"
 
@@ -53,7 +52,6 @@ extern ENGINE_API CInifile *pGameIni;
 #pragma comment( lib, "xrCore.lib"	)
 #pragma comment( lib, "xrCDB.lib"	)
 #pragma comment( lib, "xrSound.lib"	)
-#pragma comment( lib, "xrLUA.lib"	)
 
 #pragma comment( lib, "winmm.lib"		)
 
@@ -66,13 +64,14 @@ extern ENGINE_API CInifile *pGameIni;
 #endif
 
 #if	!defined(DEBUG) || defined(FORCE_NO_EXCEPTIONS)
-	// release: no error checking, no exceptions
-	#define LUABIND_NO_EXCEPTIONS
-	#define BOOST_THROW_EXCEPTION_HPP_INCLUDED
-	namespace std	{	class exception; }
-	namespace boost {	ENGINE_API	void throw_exception(const std::exception &A);	};
+#	define LUABIND_NO_EXCEPTIONS
+#	define BOOST_NO_EXCEPTIONS
 #endif
+
 #define LUABIND_DONT_COPY_STRINGS
+
+#define READ_IF_EXISTS(ltx,method,section,name,default_value)\
+	(((ltx)->line_exist(section, name)) ? ((ltx)->method(section, name)) : (default_value))
 
 #endif // !M_BORLAND
 #endif // !defined STDAFX_3DA

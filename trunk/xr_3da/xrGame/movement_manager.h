@@ -11,6 +11,7 @@
 #include "ai_monster_space.h"
 #include "graph_engine_space.h"
 #include "game_graph_space.h"
+#include <boost/noncopyable.hpp>
 
 namespace MovementManager {
 	enum EPathType;
@@ -203,7 +204,7 @@ public:
 			bool	actual_all				() const;
 	IC		void	set_path_type			(EPathType path_type);
 			void	set_game_dest_vertex	(const GameGraph::_GRAPH_ID &game_vertex_id);
-			void	set_level_dest_vertex	(const u32 level_vertex_id);
+	virtual	void	set_level_dest_vertex	(u32 const& level_vertex_id);
 	IC		void	set_build_path_at_once	();
 			void	enable_movement			(bool enabled);
 			EPathType path_type				() const;
@@ -211,7 +212,7 @@ public:
 			u32		level_dest_vertex_id	() const;
 	IC		bool	enabled					() const;
 	IC		bool	path_completed			() const;
-	IC		float	old_desirable_speed		() const;
+	IC		const float	&old_desirable_speed() const;
 	IC		void	set_desirable_speed		(float speed);
 			const xr_vector<CTravelPathPoint>	&path	() const;
 	IC		void	set_body_orientation	(const MonsterSpace::SBoneRotation &orientation);

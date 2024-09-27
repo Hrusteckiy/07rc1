@@ -6,7 +6,7 @@
 #include "hudmanager.h"
 #include "Entity.h"
 #include "actor.h"
-#include "xrserver_objects_alife_monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "entity.h"
 #include "level.h"
 #include "seniority_hierarchy_holder.h"

@@ -12,7 +12,7 @@
 #include "../InventoryOwner.h"
 
 #include "../InfoPortion.h"
-#include "../game_base_space.h"
+#include "game_base_space.h"
 #include "../actor.h"
 
 #define BUY_MENU_TEXTURE "ui\\ui_mp_buy_menu"

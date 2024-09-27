@@ -19,7 +19,7 @@
 #include "game_sv_single.h"
 #include "custommonster.h"
 #include "ai/stalker/ai_stalker.h"
-#include "xrserver_objects_alife_monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "cover_point.h"
 #include "cover_manager.h"
 #include "cover_evaluators.h"

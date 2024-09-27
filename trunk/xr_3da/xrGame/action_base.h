@@ -13,6 +13,7 @@
 #include "script_export_space.h"
 #include "operator_abstract.h"
 #include "alife_space.h"
+#include "NET_utils.h"
 
 class CScriptGameObject;
 

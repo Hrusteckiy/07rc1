@@ -3,11 +3,11 @@
 #include "UIWindow.h"
 #include "UIStatic.h"
 #include "UIXmlInit.h"
-#include "../object_broker.h"
+#include "object_broker.h"
 #include "../../xr_input.h"
 #include "../xr_level_controller.h"
-#include "../script_engine.h"
-#include "../ai_space.h"
+#include "script_engine.h"
+#include "ai_space.h"
 
 void CUISequenceItem::Load(CUIXml* xml, int idx)
 {

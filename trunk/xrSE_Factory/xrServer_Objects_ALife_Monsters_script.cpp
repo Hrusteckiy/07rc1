@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "pch_script.h"
-#include "xrServer_Objects_ALife_Monsters.h"
+#include "xrserver_objects_alife_monsters.h"
 #include "xrServer_script_macroses.h"
 
 using namespace luabind;

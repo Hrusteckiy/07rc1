@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "base_monster.h"
-#include "../../../ai_space.h"
+#include "ai_space.h"
 #include "../../../hit.h"
 #include "../../../PHDestroyable.h"
 #include "../../../CharacterPhysicsSupport.h"
@@ -20,12 +20,12 @@
 #include "../monster_home.h"
 #include "../../../ai_object_location.h"
 #include "../../../level.h"
-#include "../../../xrserver_objects_alife_monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "../../../alife_simulator.h"
 #include "../../../alife_object_registry.h"
 #include "../../../xrServer.h"
 #include "../../../inventory_item.h"
-#include "../../../xrServer_Objects_ALife.h"
+#include "xrServer_Objects_ALife.h"
 
 void CBaseMonster::Load(LPCSTR section)
 {
@@ -62,7 +62,7 @@ void CBaseMonster::Load(LPCSTR section)
 //	} else m_spawn_probability			= 0.f;
 
 	m_melee_rotation_factor			= READ_IF_EXISTS(pSettings,r_float,section,"Melee_Rotation_Factor", 1.5f);
-	berserk_always					= READ_IF_EXISTS(!!pSettings,r_bool,section,"berserk_always", false);
+	berserk_always					= !!READ_IF_EXISTS(pSettings,r_bool,section,"berserk_always", false);
 }
 
 // if sound is absent just do not load that one

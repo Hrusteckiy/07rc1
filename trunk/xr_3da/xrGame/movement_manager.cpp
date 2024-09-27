@@ -33,25 +33,6 @@ CMovementManager::CMovementManager	(CCustomMonster *object)
 {
 	VERIFY						(object);
 	m_object					= object;
-
-	m_restricted_object			= xr_new<CRestrictedObject>		 (m_object);
-	m_location_manager			= xr_new<CLocationManager>		 (m_object);
-
-	m_base_game_selector		= xr_new<CGameVertexParams>		 (locations().vertex_types());
-	m_base_level_selector		= xr_new<CBaseParameters>		 ();
-	
-	m_game_location_selector	= xr_new<CGameLocationSelector	>(m_restricted_object,m_location_manager);
-	m_game_path_manager			= xr_new<CGamePathManager		>(m_restricted_object);
-	m_level_path_manager		= xr_new<CLevelPathManager		>(m_restricted_object);
-	m_detail_path_manager		= xr_new<CDetailPathManager		>(m_restricted_object);
-	m_patrol_path_manager		= xr_new<CPatrolPathManager		>(m_restricted_object,m_object);
-
-	m_level_path_builder		= xr_new<CLevelPathBuilder>(this);
-	m_detail_path_builder		= xr_new<CDetailPathBuilder>(this);
-
-	extrapolate_path			(false);
-
-	m_wait_for_distributed_computation = false;
 }
 
 CMovementManager::~CMovementManager	()
@@ -74,7 +55,26 @@ CMovementManager::~CMovementManager	()
 
 void CMovementManager::Load			(LPCSTR section)
 {
-	locations().Load			(section);
+	m_restricted_object				= xr_new<CRestrictedObject>		(m_object);
+	m_location_manager				= xr_new<CLocationManager>		(m_object);
+
+	m_base_game_selector			= xr_new<CGameVertexParams>		(locations().vertex_types());
+	m_base_level_selector			= xr_new<CBaseParameters>		();
+	
+	m_game_location_selector		= xr_new<CGameLocationSelector	>(m_restricted_object,m_location_manager);
+	m_game_path_manager				= xr_new<CGamePathManager		>(m_restricted_object);
+	m_level_path_manager			= xr_new<CLevelPathManager		>(m_restricted_object);
+	m_detail_path_manager			= xr_new<CDetailPathManager		>(m_restricted_object);
+	m_patrol_path_manager			= xr_new<CPatrolPathManager		>(m_restricted_object,m_object);
+
+	m_level_path_builder			= xr_new<CLevelPathBuilder>(this);
+	m_detail_path_builder			= xr_new<CDetailPathBuilder>(this);
+
+	extrapolate_path				(false);
+
+	m_wait_for_distributed_computation = false;
+
+	locations().Load		  	(section);
 }
 
 void CMovementManager::reinit		()
@@ -131,11 +131,11 @@ GameGraph::_GRAPH_ID CMovementManager::game_dest_vertex_id() const
 	return					(GameGraph::_GRAPH_ID(game_path().dest_vertex_id()));
 }
 
-void CMovementManager::set_level_dest_vertex	(const u32 level_vertex_id)
+void CMovementManager::set_level_dest_vertex	(u32 const& level_vertex_id)
 {
-	VERIFY2					(restrictions().accessible(level_vertex_id),*object().cName());
-	level_path().set_dest_vertex(level_vertex_id);
-	m_path_actuality		= m_path_actuality && level_path().actual();
+	VERIFY2							(restrictions().accessible(level_vertex_id),*object().cName());
+	level_path().set_dest_vertex	(level_vertex_id);
+	m_path_actuality				= m_path_actuality && level_path().actual();
 }
 
 u32	 CMovementManager::level_dest_vertex_id		() const
@@ -193,6 +193,7 @@ void CMovementManager::update_path				()
 				break;
 			}
 			case ePathTypePatrolPath : {
+//				Msg				("[%6d][%s] actuality is false",Device.dwFrame,*object().cName());
 				m_path_state	= ePathStateSelectPatrolPoint;
 				break;
 			}

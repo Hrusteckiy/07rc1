@@ -7,13 +7,6 @@
 #pragma warning( 4 : 4244 )
 #pragma warning(disable:4505)
 
-// this include MUST be here, since smart_cast is used >1800 times in the project
-#include "smart_cast.h"
-
-#define READ_IF_EXISTS(ltx,method,section,name,default_value)\
-	((ltx->line_exist(section,name)) ? (ltx->method(section,name)) : (default_value))
-
-
 #if XRAY_EXCEPTIONS
 IC	xr_string	string2xr_string(LPCSTR s) {return *shared_str(s ? s : "");}
 IC	void		throw_and_log(const xr_string &s) {Msg("! %s",s.c_str()); throw *shared_str(s.c_str());}
@@ -29,6 +22,8 @@ IC	void		throw_and_log(const xr_string &s) {Msg("! %s",s.c_str()); throw *shared
 #include "../gamefont.h"
 #include "../xr_object.h"
 #include "../igame_level.h"
+
+#include "smart_cast.h"
 
 #define REGISTRY_VALUE_GSCDKEY	"InstallCDKEY"
 #define REGISTRY_VALUE_VERSION	"InstallVers"

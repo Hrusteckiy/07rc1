@@ -10,7 +10,7 @@
 #include "hit.h"
 #include "PHDestroyable.h"
 #include "Car.h"
-#include "xrserver_objects_alife_monsters.h"
+#include "xrServer_Objects_ALife_Monsters.h"
 #include "CameraLook.h"
 #include "CameraFirstEye.h"
 #include "effectorfall.h"
