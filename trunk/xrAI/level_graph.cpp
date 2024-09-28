@@ -22,11 +22,11 @@ CLevelGraph::CLevelGraph		()
 #ifdef DEBUG
 	sh_debug.create				("debug\\ai_nodes","$null");
 #endif
-	string256					file_name;
+	string_path					file_name;
 	FS.update_path				(file_name,"$level$",LEVEL_GRAPH_NAME);
 #else
-	string_path					file_name;
-	strconcat					(sizeof(file_name),file_name,filename,LEVEL_GRAPH_NAME);
+	string256					file_name;
+	strconcat					(file_name,filename,LEVEL_GRAPH_NAME);
 #endif
 	m_reader					= FS.r_open	(file_name);
 

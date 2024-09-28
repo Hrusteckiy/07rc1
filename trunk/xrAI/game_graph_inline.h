@@ -18,7 +18,7 @@ IC CGameGraph::CGameGraph											()
 #if defined(AI_COMPILER) || !defined(PRIQUEL)
 {
 #if !defined(AI_COMPILER) && !defined(PRIQUEL)
-	string256						file_name;
+	string_path						file_name;
 	FS.update_path					(file_name,"$game_data$",GRAPH_NAME);
 #endif // !defined(AI_COMPILER) && !defined(PRIQUEL)
 

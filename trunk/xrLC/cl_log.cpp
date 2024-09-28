@@ -122,7 +122,11 @@ void Phase			(const char *phase_name)
 HWND logWindow=0;
 void logThread(void *dummy)
 {
-	SetProcessPriorityBoost	(GetCurrentProcess(),TRUE);
+	#if (_MSC_VER >= 1500)
+		SetThreadPriorityBoost(GetCurrentThread(), TRUE);
+	#else
+		SetProcessPriorityBoost(GetCurrentProcess(), TRUE);
+	#endif
 
 	logWindow = CreateDialog(
 		HINSTANCE(GetModuleHandle(0)),
@@ -150,11 +154,14 @@ void logThread(void *dummy)
 	}
 
 	BOOL		bHighPriority	= FALSE;
+/*
 	string256	u_name;
 	unsigned long		u_size	= sizeof(u_name)-1;
 	GetUserName	(u_name,&u_size);
 	_strlwr		(u_name);
 	if ((0==xr_strcmp(u_name,"oles"))||(0==xr_strcmp(u_name,"alexmx")))	bHighPriority	= TRUE;
+*/
+	if (strstr(GetCommandLine(), "-p") != NULL)	bHighPriority	= TRUE; 	
 
 	// Main cycle
 	u32		LogSize = 0;

@@ -16,15 +16,15 @@ IC	CCoverPoint::CCoverPoint				(const Fvector &point, u32 level_vertex_id) :
 
 IC	const Fvector &CCoverPoint::position	() const
 {
-	return				(m_position);
+	return		(m_position);
 }
 
 IC	u32	CCoverPoint::level_vertex_id		() const
 {
-	return				(m_level_vertex_id);
+	return		(m_level_vertex_id);
 }
 
 IC	bool CCoverPoint::operator==			(const CCoverPoint &point) const
 {
-	return				(!!position().similar(point.position()));
+	return		(!!position().similar(point.position()));
 }

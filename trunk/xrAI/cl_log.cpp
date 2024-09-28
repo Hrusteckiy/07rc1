@@ -122,7 +122,11 @@ void Phase			(const char *phase_name)
 HWND logWindow=0;
 void logThread(void *dummy)
 {
-	SetProcessPriorityBoost	(GetCurrentProcess(),TRUE);
+#if (_MSC_VER >= 1500)
+	SetThreadPriorityBoost(GetCurrentThread(), TRUE);
+#else
+	SetProcessPriorityBoost(GetCurrentProcess(), TRUE);
+#endif
 
 	logWindow = CreateDialog(
 		HINSTANCE(GetModuleHandle(0)),

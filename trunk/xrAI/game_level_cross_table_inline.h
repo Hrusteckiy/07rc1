@@ -8,17 +8,15 @@
 
 #pragma once
 
+#ifndef PRIQUEL
 #ifdef AI_COMPILER
 IC CGameLevelCrossTable::CGameLevelCrossTable(LPCSTR fName)
 #else // AI_COMPILER
-#	ifndef PRIQUEL
-		IC CGameLevelCrossTable::CGameLevelCrossTable	()
-#	endif // PRIQUEL
+IC CGameLevelCrossTable::CGameLevelCrossTable	()
 #endif // AI_COMPILER
-#if defined(AI_COMPILER) || !defined(PRIQUEL)
 {
 #ifndef AI_COMPILER
-	string256			fName;
+	string_path			fName;
 	FS.update_path		(fName,"$level$",CROSS_TABLE_NAME);
 #endif // AI_COMPILER
 
@@ -36,9 +34,7 @@ IC CGameLevelCrossTable::CGameLevelCrossTable(LPCSTR fName)
 	R_ASSERT2			(m_chunk,"Cross table is corrupted!");
 	m_tpaCrossTable		= (CCell*)m_chunk->pointer();
 };
-#endif // defined(AI_COMPILER) || !defined(PRIQUEL)
-
-#ifdef PRIQUEL
+#else // PRIQUEL
 IC CGameLevelCrossTable::CGameLevelCrossTable	(const void *buffer, const u32 &buffer_size)
 {
 	Memory.mem_copy		(&m_tCrossTableHeader,buffer,sizeof(m_tCrossTableHeader));
