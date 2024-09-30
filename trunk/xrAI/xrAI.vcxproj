@@ -104,42 +104,42 @@
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;..\xrSE_Factory;..\xrNetServer;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\3rd party\MagicSoftware\Sdk\Library\ReleaseDLL;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;..\xrSE_Factory;..\xrNetServer;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\3rd party\MagicSoftware\Sdk\Library\ReleaseDLL;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;..\xrSE_Factory;..\xrNetServer;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\3rd party\MagicSoftware\Sdk\Library\ReleaseDLL;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_Priquel|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;..\xrSE_Factory;..\xrNetServer;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\3rd party\MagicSoftware\Sdk\Library\ReleaseDLL;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Priquel|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;..\xrSE_Factory;..\xrNetServer;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\3rd party\MagicSoftware\Sdk\Library\ReleaseDLL;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Priquel|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\FreeImage;..\..\3rd party\loki;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\dxsdk\Include;..\xrSE_Factory;..\xrNetServer;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\..\3rd party\dxsdk\Lib;..\..\3rd party\MagicSoftware\Sdk\Library\ReleaseDLL;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -466,7 +466,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="communicate.h" />
-    <ClInclude Include="defines.h" />
+    <ClInclude Include="..\xrSE_Factory\defines.h" />
     <ClInclude Include="factory_api.h" />
     <ClInclude Include="FastDelegate.h" />
     <ClInclude Include="StdAfx.h" />
@@ -490,7 +490,7 @@
     <ClInclude Include="LevelGameDef.h" />
     <ClInclude Include="motion_simulator.h" />
     <ClInclude Include="Shader_xrLC.h" />
-    <ClInclude Include="xrLevel.h" />
+    <ClInclude Include="..\xrSE_Factory\xrLevel.h" />
     <ClInclude Include="quadtree.h" />
     <ClInclude Include="quadtree_inline.h" />
     <ClInclude Include="cover_point.h" />
@@ -570,14 +570,14 @@
     <ClInclude Include="alife_artefact_order.h" />
     <ClInclude Include="alife_human_brain.h" />
     <ClInclude Include="alife_human_brain_inline.h" />
-    <ClInclude Include="alife_monster_brain.h" />
-    <ClInclude Include="alife_monster_brain_inline.h" />
-    <ClInclude Include="alife_space.h" />
+    <ClInclude Include="..\xrSE_Factory\alife_monster_brain.h" />
+    <ClInclude Include="..\xrSE_Factory\alife_monster_brain_inline.h" />
+    <ClInclude Include="..\xrSE_Factory\alife_space.h" />
     <ClInclude Include="bone.h" />
-    <ClInclude Include="character_info_defs.h" />
+    <ClInclude Include="..\xrSE_Factory\character_info_defs.h" />
     <ClInclude Include="ChooseTypes.h" />
     <ClInclude Include="DrawUtils.h" />
-    <ClInclude Include="InfoPortionDefs.h" />
+    <ClInclude Include="..\xrSE_Factory\InfoPortionDefs.h" />
     <ClInclude Include="inventory_space.h" />
     <ClInclude Include="ItemListTypes.h" />
     <ClInclude Include="PropertiesListHelper.h" />
@@ -588,7 +588,7 @@
     <ClInclude Include="ShapeData.h" />
     <ClInclude Include="WaveForm.h" />
     <ClInclude Include="xrEProps.h" />
-    <ClInclude Include="xrServer_Object_Base.h" />
+    <ClInclude Include="..\xrSE_Factory\xrServer_Object_Base.h" />
     <ClInclude Include="xrServer_Objects.h" />
     <ClInclude Include="xrServer_Objects_Abstract.h" />
     <ClInclude Include="xrServer_Objects_ALife.h" />
@@ -597,25 +597,25 @@
     <ClInclude Include="xrServer_Objects_ALife_Monsters.h" />
     <ClInclude Include="xrServer_Space.h" />
     <ClInclude Include="client_id.h" />
-    <ClInclude Include="game_base_space.h" />
+    <ClInclude Include="..\xrSE_Factory\game_base_space.h" />
     <ClInclude Include="NET_Compressor.h" />
     <ClInclude Include="NET_utils.h" />
     <ClInclude Include="PHNetState.h" />
     <ClInclude Include="PHSynchronize.h" />
-    <ClInclude Include="xrMessages.h" />
-    <ClInclude Include="object_broker.h" />
-    <ClInclude Include="object_cloner.h" />
-    <ClInclude Include="object_comparer.h" />
-    <ClInclude Include="object_destroyer.h" />
-    <ClInclude Include="object_interfaces.h" />
-    <ClInclude Include="object_loader.h" />
-    <ClInclude Include="object_saver.h" />
-    <ClInclude Include="object_type_traits.h" />
+    <ClInclude Include="..\xrSE_Factory\xrMessages.h" />
+    <ClInclude Include="..\xrSE_Factory\object_broker.h" />
+    <ClInclude Include="..\xrSE_Factory\object_cloner.h" />
+    <ClInclude Include="..\xrSE_Factory\object_comparer.h" />
+    <ClInclude Include="..\xrSE_Factory\object_destroyer.h" />
+    <ClInclude Include="..\xrSE_Factory\object_interfaces.h" />
+    <ClInclude Include="..\xrSE_Factory\object_loader.h" />
+    <ClInclude Include="..\xrSE_Factory\object_saver.h" />
+    <ClInclude Include="..\xrSE_Factory\object_type_traits.h" />
     <ClInclude Include="clsid_game.h" />
     <ClInclude Include="profiler.h" />
     <ClInclude Include="smart_cast.h" />
     <ClInclude Include="smart_cast_impl0.h" />
-    <ClInclude Include="smart_cast_impl1.h" />
+    <ClInclude Include="..\xrSE_Factory\smart_cast_impl1.h" />
     <ClInclude Include="smart_cast_impl2.h" />
     <ClInclude Include="intrusive_ptr.h" />
     <ClInclude Include="intrusive_ptr_inline.h" />
@@ -718,15 +718,15 @@
     <ClCompile Include="xr_graph_merge.cpp" />
     <ClCompile Include="alife_artefact_order.cpp" />
     <ClCompile Include="alife_human_brain.cpp" />
-    <ClCompile Include="alife_monster_brain.cpp" />
-    <ClCompile Include="alife_space.cpp" />
-    <ClCompile Include="xrServer_Object_Base.cpp" />
-    <ClCompile Include="xrServer_Objects.cpp" />
-    <ClCompile Include="xrServer_Objects_Abstract.cpp" />
-    <ClCompile Include="xrServer_Objects_ALife.cpp" />
-    <ClCompile Include="xrServer_Objects_ALife_Items.cpp" />
-    <ClCompile Include="xrServer_Objects_ALife_Monsters.cpp" />
-    <ClCompile Include="PHNetState.cpp" />
+    <ClCompile Include="..\xrSE_Factory\alife_monster_brain.cpp" />
+    <ClCompile Include="..\xrSE_Factory\alife_space.cpp" />
+    <ClCompile Include="..\xrSE_Factory\xrServer_Object_Base.cpp" />
+    <ClCompile Include="..\xrSE_Factory\xrServer_Objects.cpp" />
+    <ClCompile Include="..\xrSE_Factory\xrServer_Objects_Abstract.cpp" />
+    <ClCompile Include="..\xrSE_Factory\xrServer_Objects_ALife.cpp" />
+    <ClCompile Include="..\xrSE_Factory\xrServer_Objects_ALife_Items.cpp" />
+    <ClCompile Include="..\xrSE_Factory\xrServer_Objects_ALife_Monsters.cpp" />
+    <ClCompile Include="..\xrSE_Factory\PHNetState.cpp" />
     <ClCompile Include="PHSynchronize.cpp" />
     <ClCompile Include="smart_cast.cpp" />
     <ClCompile Include="smart_cast_stats.cpp" />

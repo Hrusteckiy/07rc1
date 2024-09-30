@@ -108,43 +108,43 @@
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\loki;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\loki;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\loki;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mixed_Priquel|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\loki;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Priquel|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\loki;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Priquel|Win32'">
     <OutDir>..\..\binaries\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\intermediate\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\..\3rd party\libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>..\xrCore;..\..\3rd party\dxsdk\Include;..\..\3rd party\FreeImage;..\..\3rd party\MagicSoftware\Sdk\Include;..\..\3rd party\loki;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\..\3rd party\libs;..\..\3rd party\dxsdk\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>

@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "xrThread.h"
 #include "xrSyncronize.h"
+#include <typelist.h>
 
 using namespace			std;
 
