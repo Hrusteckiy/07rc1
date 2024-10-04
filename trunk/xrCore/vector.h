@@ -102,6 +102,32 @@ IC float snapto	( float value, float snap )	{
 	return float(iFloor((value+(snap*0.5f)) / snap )) * snap;
 };
 
+// linear interpolation
+template <class T>
+inline constexpr T lerp(const T& _val_a, const T& _val_b, const float& _factor)
+{
+	return (_val_a * (1.0 - _factor)) + (_val_b * _factor);
+}
+
+// inertion
+IC float inertion(float _val_cur, float _val_trgt, float _friction)
+{
+	return _val_cur * _friction + _val_trgt * (1.f - _friction);
+}
+
+template <class T>
+inline constexpr T smoothstep(T min, T max, T res, T min_range = 0, T max_range = 1)
+{
+	res = clampr((res - min) / (max - min), min_range, max_range);
+	return res * res * (3 - 2 * res);
+}
+
+template <class T>
+inline constexpr T remapval(T value, T oldLow, T oldHigh, T newLow, T newHigh)
+{
+	return newLow + (value - oldLow) * (newHigh - newLow) / (oldHigh - oldLow);
+}
+
 // pre-definitions
 template <class T> struct _quaternion;
 
