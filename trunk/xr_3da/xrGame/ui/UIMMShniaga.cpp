@@ -12,8 +12,7 @@
 #include <math.h>
 #include "../Actor.h"
 #include "../saved_game_wrapper.h"
-
-extern string_path g_last_saved_game;
+#include "../x_ray.h"
 
 CUIMMShniaga::CUIMMShniaga(){
 	m_sound				= xr_new<CMMSound>();
@@ -86,7 +85,7 @@ void CUIMMShniaga::Init(CUIXml& xml_doc, LPCSTR path)
 
 	if (!g_pGameLevel) {
 		
-		if (!*g_last_saved_game || !CSavedGameWrapper::valid_saved_game(g_last_saved_game))
+		if (!*CApplication::m_SaveName || !CSavedGameWrapper::valid_saved_game(CApplication::m_SaveName))
 			CreateList		(m_buttons, xml_doc, "menu_main");
 		else
 			CreateList		(m_buttons, xml_doc, "menu_main_last_save");

@@ -32,7 +32,7 @@ CALifeStorageManager::~CALifeStorageManager	()
 
 void CALifeStorageManager::save	(LPCSTR save_name, bool update_name)
 {
-	strcpy_s					(g_last_saved_game,sizeof(g_last_saved_game),save_name);
+	strcpy_s					(CApplication::m_SaveName, sizeof(CApplication::m_SaveName), save_name);
 
 	string_path					save;
 	strcpy						(save,m_save_name);
@@ -82,6 +82,13 @@ void CALifeStorageManager::save	(LPCSTR save_name, bool update_name)
 
 	if (!update_name)
 		strcpy					(m_save_name,save);
+	
+	string_path					temp_usercfg;
+	FS.update_path				(temp_usercfg,"$app_data_root$","saves.ltx");
+	IWriter*					writer_usercfg = FS.w_open(temp_usercfg);
+	writer_usercfg->w_printf	("[savedgames]\r\n");
+	writer_usercfg->w_printf	("load_last_save = \"%s\"\r\n", save_name);
+	FS.w_close					(writer_usercfg);
 }
 
 void CALifeStorageManager::load	(void *buffer, const u32 &buffer_size, LPCSTR file_name)
@@ -131,6 +138,7 @@ bool CALifeStorageManager::load	(LPCSTR save_name)
 		strconcat				(sizeof(m_save_name),m_save_name,save_name,SAVE_EXTENSION);
 	string_path					file_name;
 	FS.update_path				(file_name,"$game_saves$",m_save_name);
+	strcpy_s					(CApplication::m_SaveName, save_name);
 
 	IReader						*stream;
 	stream						= FS.r_open(file_name);

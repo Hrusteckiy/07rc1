@@ -240,14 +240,37 @@ void Startup					( )
 //.	InitInput		();
 	InitSound		();
 
-	// ...command line for auto start
+	string_path					temp_usercfg;
+	FS.update_path(temp_usercfg, "$app_data_root$", "saves.ltx");
+	if (FS.exist(temp_usercfg))
 	{
-		LPCSTR	pStartup			= strstr				(Core.Params,"-start ");
-		if (pStartup)				Console->Execute		(pStartup+1);
+		CInifile* reader_usercfg = xr_new <CInifile>(temp_usercfg);
+		if (reader_usercfg->line_exist("savedgames", "load_last_save"))
+		{
+			xr_sprintf(CApplication::m_SaveName, "%s", reader_usercfg->r_string_wb("savedgames", "load_last_save").c_str());
+		}
 	}
+	// ...command line for auto start
+	LPCSTR pStartup = strstr(Core.Params, "-start ");
+	if (pStartup)
 	{
-		LPCSTR	pStartup			= strstr				(Core.Params,"-load ");
-		if (pStartup)				Console->Execute		(pStartup+1);
+		Console->Execute(pStartup + 1);
+	}
+	else
+	{
+		pStartup = strstr(Core.Params, "-load ");
+		if (pStartup)
+		{
+			Console->Execute(pStartup + 1);
+		}
+		else
+		{
+			pStartup = strstr(Core.Params, "-load_last_save");
+			if (pStartup)
+			{
+				Console->Execute("load_last_save");
+			}
+		}
 	}
 
 	// Initialize APP
@@ -926,6 +949,7 @@ void CApplication::OnEvent(EVENT E, u64 P1, u64 P2)
 
 static	CTimer	phase_timer		;
 extern	ENGINE_API BOOL			g_appLoaded = FALSE;
+string_path CApplication::m_SaveName = "";
 
 void CApplication::LoadBegin	()
 {

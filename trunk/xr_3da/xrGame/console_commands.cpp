@@ -46,13 +46,14 @@
 #include "GameSpy/GameSpy_Full.h"
 #include "GameSpy/GameSpy_Patching.h"
 
-#	include "PHDebug.h"
-#	include "ui/UIDebugFonts.h" 
-#	include "game_graph.h"
+#include "PHDebug.h"
+#include "ui/UIDebugFonts.h" 
+#include "game_graph.h"
 
-#include "hudmanager.h"
-
-string_path		g_last_saved_game;
+#include "HUDManager.h"
+#include "UIGameCustom.h"
+#include "GamePersistent.h"
+#include "../x_ray.h"
 
 extern void show_smart_cast_stats		();
 extern void clear_smart_cast_stats		();
@@ -546,7 +547,6 @@ public:
 	  }
 };
 
-#include "UIGameCustom.h"
 class CCC_UIReload : public IConsole_Command
 {
 public:
@@ -609,9 +609,6 @@ void get_files_list(xr_vector<shared_str>& files, LPCSTR dir, LPCSTR file_ext)
 	FS.m_Flags.set(CLocatorAPI::flNeedCheck, FALSE);
 }
 
-
-#include "UIGameCustom.h"
-#include "HUDManager.h"
 class CCC_ALifeSave : public IConsole_Command {
 public:
 	CCC_ALifeSave(LPCSTR N) : IConsole_Command(N)  { bEmptyArgsHandled = true; };
@@ -760,32 +757,32 @@ public:
 	virtual void	Execute				(LPCSTR args)
 	{
 		if (args && *args) {
-			strcpy_s				(g_last_saved_game,args);
+			strcpy_s				(CApplication::m_SaveName,args);
 			return;
 		}
 
-		if (!*g_last_saved_game) {
+		if (!*CApplication::m_SaveName) {
 			Msg					("! cannot load last saved game since it hasn't been specified");
 			return;
 		}
 
 		string512				command;
 		if (ai().get_alife()) {
-			strconcat			(sizeof(command),command,"load ",g_last_saved_game);
+			strconcat			(sizeof(command),command,"load ",CApplication::m_SaveName);
 			Console->Execute	(command);
 			return;
 		}
 
-		strconcat				(sizeof(command),command,"start server(",g_last_saved_game,"/single/alife/load)");
+		strconcat				(sizeof(command),command,"start server(",CApplication::m_SaveName,"/single/alife/load)");
 		Console->Execute		(command);
 	}
 	
 	virtual void	Save				(IWriter *F)
 	{
-		if (!*g_last_saved_game)
+		if (!*CApplication::m_SaveName)
 			return;
 
-		F->w_printf				("%s %s\r\n",cName,g_last_saved_game); 
+		F->w_printf				("%s %s\r\n",cName,CApplication::m_SaveName); 
 	}
 };
 
@@ -1302,9 +1299,6 @@ struct CCC_JumpToLevel : public IConsole_Command {
 	}
 };
 //#endif // MASTER_GOLD
-
-#include "GamePersistent.h"
-
 
 class CCC_MainMenu : public IConsole_Command {
 public:
@@ -1890,7 +1884,6 @@ void CCC_RegisterCommands()
 	CMD4(CCC_Integer,		"dbg_show_ani_info",	&g_ShowAnimationInfo,	0, 1)	;
 	CMD4(CCC_Integer,		"dbg_dump_physics_step", &g_bDebugDumpPhysicsStep, 0, 1);
 #endif
-	*g_last_saved_game	= 0;
 
 	register_mp_console_commands					();
 }
