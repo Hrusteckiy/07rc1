@@ -6045,6 +6045,9 @@
     <ClInclude Include="UI.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIFontDefines.h">
+      <Filter>UI</Filter>
+    </ClInclude>
     <ClInclude Include="ui_base.h">
       <Filter>UI</Filter>
     </ClInclude>
