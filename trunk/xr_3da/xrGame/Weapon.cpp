@@ -1816,3 +1816,39 @@ void CWeapon::ApplySilencerKoeffs	()
 	camDispersion		*= CD_k;
 	camDispersionInc	*= CD_k;
 }
+
+int CWeapon::GetAmmoCount(u32 ammo_type) const
+{
+	VERIFY(m_pCurrentInventory);
+	R_ASSERT(ammo_type < m_ammoTypes.size());
+
+	return GetAmmoCount_forType(m_ammoTypes[ammo_type]);
+}
+
+int CWeapon::GetAmmoCount_forType(shared_str const& ammo_type) const
+{
+	int res = 0;
+
+	TIItemContainer::iterator itb = m_pCurrentInventory->m_belt.begin();
+	TIItemContainer::iterator ite = m_pCurrentInventory->m_belt.end();
+	for (; itb != ite; ++itb)
+	{
+		CWeaponAmmo* pAmmo = smart_cast<CWeaponAmmo*>(*itb);
+		if (pAmmo && (pAmmo->cNameSect() == ammo_type))
+		{
+			res += pAmmo->m_boxCurr;
+		}
+	}
+
+	itb = m_pCurrentInventory->m_ruck.begin();
+	ite = m_pCurrentInventory->m_ruck.end();
+	for (; itb != ite; ++itb)
+	{
+		CWeaponAmmo* pAmmo = smart_cast<CWeaponAmmo*>(*itb);
+		if (pAmmo && (pAmmo->cNameSect() == ammo_type))
+		{
+			res += pAmmo->m_boxCurr;
+		}
+	}
+	return res;
+}

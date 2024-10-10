@@ -99,8 +99,8 @@ public:
 	virtual void	onMovementChanged	(ACTOR_DEFS::EMoveCommand cmd);
 	bool			IsAmmoAvailable	();
 	virtual void	UnloadMagazine	(bool spawn_ammo = true);
-
-	virtual void	GetBriefInfo				(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count);
+	
+	virtual bool	GetBriefInfo	(II_BriefInfo& info);
 
 
 	//////////////////////////////////////////////

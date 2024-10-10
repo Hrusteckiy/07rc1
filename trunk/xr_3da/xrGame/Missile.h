@@ -61,7 +61,7 @@ public:
 //.	IC u32		 			State						()				{return m_state;}
 	virtual void 			State						(u32 state);
 	virtual void 			OnStateSwitch				(u32 S);
-	virtual void			GetBriefInfo				(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count);
+	virtual bool			GetBriefInfo				(II_BriefInfo& info);
 
 protected:
 	virtual void			UpdateFireDependencies_internal	();
@@ -127,6 +127,7 @@ public:
 
 protected:
 	u32						m_ef_weapon_type;
+	bool					m_bUseBoltIcon;
 
 public:
 	virtual u32				ef_weapon_type			() const;

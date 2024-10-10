@@ -99,7 +99,7 @@ public:
 	virtual bool					Action				(s32 cmd, u32 flags);
 	virtual void					onMovementChanged	(ACTOR_DEFS::EMoveCommand cmd);
 	virtual void					OnStateSwitch		(u32 S);
-	virtual void					GetBriefInfo		(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count);
+	virtual bool					GetBriefInfo		(II_BriefInfo& info);
 	virtual void					OnAnimationEnd		(u32 state);
 	virtual bool					IsHidden			()	const	{return GetState()==eHidden;}
 	virtual u16						bone_count_to_synchronize	() const;

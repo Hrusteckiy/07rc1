@@ -464,14 +464,17 @@ u16	CArtefact::bone_count_to_synchronize	() const
 	return CInventoryItem::object().PHGetSyncItemsNumber();
 }
 
-void CArtefact::GetBriefInfo(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count)
+bool CArtefact::GetBriefInfo(II_BriefInfo& info)
 {
-	if (IsGameTypeSingle())
-	{
-		str_name = Name();
-		str_count = "";
-		icon_sect_name = "";
-	}
+	if (!IsGameTypeSingle())
+		return false;
+
+	info.name = Name();
+	info.cur_ammo = "";
+	info.icon = cNameSect();;
+
+	return true;
+
 }
 
 //---SArtefactActivation----

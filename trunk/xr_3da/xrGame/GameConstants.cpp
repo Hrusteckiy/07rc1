@@ -5,9 +5,10 @@
 #include "Actor.h"
 #include "Inventory.h"
 
-bool	m_DisableStopping				= true;
-bool	m_DisableStoppingBolt			= true;
-bool	m_DisableStoppingGrenade		= true;
+bool	m_bDisableStopping					= true;
+bool	m_bDisableStoppingBolt				= true;
+bool	m_bDisableStoppingGrenade			= true;
+bool	m_bMergeAmmoLineWithFiremode		= true;
 
 namespace GameConstants
 {
@@ -18,25 +19,31 @@ namespace GameConstants
 			Msg("# GameConstants file does not exists");
 			return;
 		}
-		m_DisableStopping				= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "disable_stopping_empty", true);
-		m_DisableStoppingBolt			= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "disable_stopping_bolt", true);
-		m_DisableStoppingGrenade		= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "disable_stopping_grenade", true);
+		m_bDisableStopping				= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "disable_stopping_empty", true);
+		m_bDisableStoppingBolt			= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "disable_stopping_bolt", true);
+		m_bDisableStoppingGrenade		= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "disable_stopping_grenade", true);
+		m_bMergeAmmoLineWithFiremode		= READ_IF_EXISTS(pConstantsSettings, r_bool, "gameplay", "merge_ammo_line_with_firemode", true);
 
 		Msg("# GameConstants are loaded");
 	}
 
 	bool GetDisableStopping()
 	{
-		return m_DisableStopping;
+		return m_bDisableStopping;
 	}
 
 	bool GetDisableStoppingBolt()
 	{
-		return m_DisableStoppingBolt;
+		return m_bDisableStoppingBolt;
 	}
 
 	bool GetDisableStoppingGrenade()
 	{
-		return m_DisableStoppingGrenade;
+		return m_bDisableStoppingGrenade;
+	}
+
+	bool GetMergedAmmoLineWithFiremodes()
+	{
+		return m_bDisableStoppingGrenade;
 	}
 }
