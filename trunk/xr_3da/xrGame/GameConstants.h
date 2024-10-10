@@ -7,4 +7,5 @@ namespace GameConstants
 	bool GetDisableStopping();
 	bool GetDisableStoppingBolt();
 	bool GetDisableStoppingGrenade();
+	bool GetMergedAmmoLineWithFiremodes();
 };

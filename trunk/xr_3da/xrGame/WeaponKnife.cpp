@@ -367,9 +367,12 @@ void CWeaponKnife::StartIdleAnim()
 			m_pHUD->animDisplay(mhud_idle[Random.randI(mhud_idle.size())], TRUE);
 	}
 }
-void CWeaponKnife::GetBriefInfo(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count)
+
+bool CWeaponKnife::GetBriefInfo(II_BriefInfo& info)
 {
-	str_name		= NameShort();
-	str_count		= "";
-	icon_sect_name	= *cNameSect();
+	info.clear		();
+	info.name._set	(m_nameShort);
+	info.icon._set	(*cNameSect());
+
+	return true;
 }

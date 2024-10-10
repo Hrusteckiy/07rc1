@@ -81,9 +81,9 @@ void CMissile::Load(LPCSTR section)
 	m_sAnimShow			= pSettings->r_string(*hud_sect, "anim_show");
 	m_sAnimHide			= pSettings->r_string(*hud_sect, "anim_hide");
 	m_sAnimIdle			= pSettings->r_string(*hud_sect, "anim_idle");
-	m_sAnimIdleSpr = nullptr;
+	m_sAnimIdleSpr		= nullptr;
 	if (pSettings->line_exist(*hud_sect, "anim_idle_sprint"))
-		m_sAnimIdleSpr		= pSettings->r_string(*hud_sect, "anim_idle_sprint");
+		m_sAnimIdleSpr	= pSettings->r_string(*hud_sect, "anim_idle_sprint");
 	m_sAnimPlaying		= pSettings->r_string(*hud_sect, "anim_playing");
 	m_sAnimThrowBegin	= pSettings->r_string(*hud_sect, "anim_throw_begin");
 	m_sAnimThrowIdle	= pSettings->r_string(*hud_sect, "anim_throw_idle");
@@ -93,7 +93,8 @@ void CMissile::Load(LPCSTR section)
 	if(pSettings->line_exist(section,"snd_playing"))
 		HUD_SOUND::LoadSound(section,"snd_playing",sndPlaying);
 
-	m_ef_weapon_type	= READ_IF_EXISTS(pSettings,r_u32,section,"ef_weapon_type",u32(-1));
+	m_ef_weapon_type	= READ_IF_EXISTS(pSettings, r_u32, section, "ef_weapon_type", u32(-1));
+	m_bUseBoltIcon		= READ_IF_EXISTS(pSettings, r_bool, section, "use_icon", FALSE);
 }
 
 BOOL CMissile::net_Spawn(CSE_Abstract* DC) 
@@ -746,11 +747,15 @@ void	 CMissile::ExitContactCallback(bool& do_colide,bool bo1,dContact& c,SGameMt
 																				do_colide=false;
 }
 
-void CMissile::GetBriefInfo(xr_string& str_name, xr_string& icon_sect_name, xr_string& str_count)
+bool CMissile::GetBriefInfo(II_BriefInfo& info)
 {
-	str_name		= NameShort();
-	str_count		= "";
-	icon_sect_name	= "";
+	info.name			= NameShort();
+	info.cur_ammo		= "";
+	info.section		= "";
+	if (m_bUseBoltIcon)
+		info.icon		= *cNameSect();
+
+	return true;
 }
 
 u16 CMissile::bone_count_to_synchronize	() const
