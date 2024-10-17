@@ -6285,6 +6285,9 @@
     <ClInclude Include="ui\UIProgressBar.h">
       <Filter>UI\UIWindows\ProgressBar</Filter>
     </ClInclude>
+    <ClInclude Include="ui\UIDoubleProgressBar.h">
+      <Filter>UI\UIWindows\ProgressBar</Filter>
+    </ClInclude>
     <ClInclude Include="ui\UIProgressShape.h">
       <Filter>UI\UIWindows\ProgressBar</Filter>
     </ClInclude>
@@ -9408,6 +9411,9 @@
       <Filter>UI\UIWindows\Windows</Filter>
     </ClCompile>
     <ClCompile Include="ui\UIProgressBar.cpp">
+      <Filter>UI\UIWindows\ProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\UIDoubleProgressBar.cpp">
       <Filter>UI\UIWindows\ProgressBar</Filter>
     </ClCompile>
     <ClCompile Include="ui\UIProgressBar_script.cpp">

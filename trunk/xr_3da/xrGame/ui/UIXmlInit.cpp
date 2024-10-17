@@ -513,8 +513,7 @@ bool CUIXmlInit::InitListWnd(CUIXml& xml_doc, LPCSTR path,
 
 //////////////////////////////////////////////////////////////////////////
 
-bool CUIXmlInit::InitProgressBar(CUIXml& xml_doc, LPCSTR path, 
-						int index, CUIProgressBar* pWnd)
+bool CUIXmlInit::InitProgressBar(CUIXml& xml_doc, LPCSTR path, int index, CUIProgressBar* pWnd)
 {
 	R_ASSERT3(xml_doc.NavigateToNode(path,index), "XML node not found", path);
 
@@ -527,9 +526,32 @@ bool CUIXmlInit::InitProgressBar(CUIXml& xml_doc, LPCSTR path,
 
 	float width = xml_doc.ReadAttribFlt(path, index, "width");
 	float height = xml_doc.ReadAttribFlt(path, index, "height");
-	bool is_horizontal = (xml_doc.ReadAttribInt(path, index, "horz")==1);
 
-	pWnd->Init(x, y, width, height, is_horizontal);
+	CUIProgressBar::EOrientMode mode = CUIProgressBar::om_vert;
+	int mode_horz = xml_doc.ReadAttribInt(path, index, "horz", 0);
+	LPCSTR mode_str = xml_doc.ReadAttrib(path, index, "mode");
+	if (mode_horz == 1) // om_horz
+	{
+		mode = CUIProgressBar::om_horz;
+	}
+	else if (stricmp(mode_str, "horz") == 0)
+	{
+		mode = CUIProgressBar::om_horz;
+	}
+	else if (stricmp(mode_str, "vert") == 0)
+	{
+		mode = CUIProgressBar::om_vert;
+	}
+	else if (stricmp(mode_str, "back") == 0)
+	{
+		mode = CUIProgressBar::om_back;
+	}
+	else if (stricmp(mode_str, "down") == 0)
+	{
+		mode = CUIProgressBar::om_down;
+	}
+
+	pWnd->Init(x, y, width, height, mode);
 
 	float min = xml_doc.ReadAttribFlt(path, index, "min");
 	float max = xml_doc.ReadAttribFlt(path, index, "max");
@@ -565,6 +587,14 @@ bool CUIXmlInit::InitProgressBar(CUIXml& xml_doc, LPCSTR path,
 	
 		u32 color = GetColor	(xml_doc, buf, index, 0xff);
 		pWnd->m_minColor.set(color);
+
+		strconcat(sizeof(buf), buf, path, ":middle_color");
+		if (xml_doc.NavigateToNode(buf, 0))
+		{
+			color = GetColor(xml_doc, buf, index, 0xff);
+			pWnd->m_bUseMiddleColor = true;
+			pWnd->m_middleColor.set(color);
+		}
 
 		strconcat(sizeof(buf),buf,path,":max_color");
 	

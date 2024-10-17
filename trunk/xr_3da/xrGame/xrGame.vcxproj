@@ -1814,6 +1814,7 @@
     <ClInclude Include="ui\UIFrameWindow.h" />
     <ClInclude Include="ui\UIWindow.h" />
     <ClInclude Include="ui\UIProgressBar.h" />
+    <ClInclude Include="ui\UIDoubleProgressBar.h" />
     <ClInclude Include="ui\UIProgressShape.h" />
     <ClInclude Include="ui\UITabButton.h" />
     <ClInclude Include="ui\UITabControl.h" />
@@ -6424,6 +6425,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <ClCompile Include="ui\UIProgressBar.cpp" />
+    <ClCompile Include="ui\UIDoubleProgressBar.cpp" />
     <ClCompile Include="ui\UIProgressBar_script.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug_Priquel|Win32'">pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug_Priquel|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
