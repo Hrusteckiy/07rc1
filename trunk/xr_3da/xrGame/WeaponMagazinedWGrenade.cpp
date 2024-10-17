@@ -252,13 +252,13 @@ bool CWeaponMagazinedWGrenade::Action(s32 cmd, u32 flags)
 	
 	switch(cmd) 
 	{
-	case kWPN_ZOOM: 
-	case kWPN_FUNC: 
-			{
-                if(flags&CMD_START) 
-					SwitchState(eSwitch);
-				return true;
-			}
+	case kWPN_ZOOM:
+	case kWPN_FUNC:
+		{
+			if (flags & CMD_START && !IsPending())
+				SwitchState(eSwitch);
+			return true;
+		}
 	}
 	return false;
 }
