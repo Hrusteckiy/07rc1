@@ -9,7 +9,7 @@
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
-#include "dxerr9.h"
+#include "dxerr.h"
 //#pragma warning(pop)
 
 const GUID CLSID_DirectPlay8Client =

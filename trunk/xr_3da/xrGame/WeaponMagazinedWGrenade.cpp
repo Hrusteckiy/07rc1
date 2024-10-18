@@ -14,6 +14,7 @@
 #include "object_broker.h"
 #include "game_base_space.h"
 #include "MathUtils.h"
+#include "GameConstants.h"
 #include "clsid_game.h"
 #ifdef DEBUG
 #include "phdebug.h"
@@ -758,4 +759,120 @@ bool CWeaponMagazinedWGrenade::IsNecessaryItem	    (const shared_str& item_sect)
 	return (	std::find(m_ammoTypes.begin(), m_ammoTypes.end(), item_sect) != m_ammoTypes.end() ||
 				std::find(m_ammoTypes2.begin(), m_ammoTypes2.end(), item_sect) != m_ammoTypes2.end() 
 			);
+}
+
+#include "string_table.h"
+
+bool CWeaponMagazinedWGrenade::GetBriefInfo(II_BriefInfo& info)
+{
+	VERIFY(m_pCurrentInventory);
+	/*
+		if(!inherited::GetBriefInfo(info))
+			return false;
+	*/
+	string32 int_str;
+
+	int ae = GetAmmoElapsed();
+	int ac = GetAmmoCurrent();
+
+	if (!unlimited_ammo())
+	{
+		xr_sprintf(int_str, "%d/%d", ae, ac - ae);
+	}
+	else
+	{
+		xr_sprintf(int_str, "%d/--", ae);
+	}
+
+	info.cur_ammo._set(int_str);
+
+	if (HasFireModes())
+	{
+		if (m_iQueueSize == WEAPON_ININITE_QUEUE)
+		{
+			info.fire_mode = "A";
+		}
+		else
+		{
+			xr_sprintf(int_str, "%d", m_iQueueSize);
+			info.fire_mode = int_str;
+		}
+	}
+	else
+		info.fire_mode = "";
+
+	u32 at_size = m_bGrenadeMode ? m_ammoTypes2.size() : m_ammoTypes.size();
+	if (unlimited_ammo() || at_size == 0)
+	{
+		info.fmj_ammo._set("--");
+		info.ap_ammo._set("--");
+	}
+	else
+	{
+		u8 ammo_type = m_bGrenadeMode ? m_ammoType2 : m_ammoType;
+		xr_sprintf(int_str, "%d", m_bGrenadeMode ? GetAmmoCount2(0) : GetAmmoCount(0));
+		if (ammo_type == 0)
+			info.fmj_ammo._set(int_str);
+		else
+			info.ap_ammo._set(int_str);
+
+		if (at_size == 2)
+		{
+			xr_sprintf(int_str, "%d", m_bGrenadeMode ? GetAmmoCount2(1) : GetAmmoCount(1));
+			if (ammo_type == 0)
+				info.ap_ammo._set(int_str);
+			else
+				info.fmj_ammo._set(int_str);
+		}
+		else
+			info.ap_ammo._set("");
+	}
+
+	if (ae != 0 && m_magazine.size() != 0)
+	{
+		LPCSTR ammo_type = m_ammoTypes[m_magazine.back().m_LocalAmmoType].c_str();
+		info.name._set(CStringTable().translate(pSettings->r_string(ammo_type, "inv_name_short")));
+		info.icon._set(ammo_type);
+	}
+	else
+	{
+		LPCSTR ammo_type = m_ammoTypes[m_ammoType].c_str();
+		info.name._set(CStringTable().translate(pSettings->r_string(ammo_type, "inv_name_short")));
+		info.icon._set(ammo_type);
+	}
+
+	if (!IsGrenadeLauncherAttached())
+	{
+		info.grenade = "";
+		return false;
+	}
+
+	int total2 = m_bGrenadeMode ? GetAmmoCount(0) : GetAmmoCount2(0);
+	if (unlimited_ammo())
+		xr_sprintf(int_str, "--");
+	else
+	{
+		if (total2)
+			xr_sprintf(int_str, "%d", total2);
+		else
+			xr_sprintf(int_str, "X");
+	}
+	info.grenade = int_str;
+
+	if (GameConstants::GetMergedAmmoLineWithFiremodes() && HasFireModes() && !m_bGrenadeMode)
+	{
+		string128 out_str = "";
+		xr_sprintf(out_str, "%s (%s)", info.name.c_str(), info.fire_mode.c_str());
+		info.name = out_str;
+	}
+
+	return true;
+}
+
+int CWeaponMagazinedWGrenade::GetAmmoCount2(u8 ammo2_type) const
+{
+	VERIFY(m_pCurrentInventory);
+	R_ASSERT(ammo2_type < m_ammoTypes2.size());
+
+	return GetAmmoCount_forType(m_ammoTypes2[ammo2_type]);
 }

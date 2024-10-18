@@ -44,7 +44,9 @@ public:
 	virtual void	OnShot			();
 	virtual void	SwitchState		(u32 S);
 	virtual void	OnEvent			(NET_Packet& P, u16 type);
-	virtual void	ReloadMagazine	();
+	virtual void	ReloadMagazine	();	
+	virtual bool	GetBriefInfo	(II_BriefInfo& info);
+			int		GetAmmoCount2	(u8 ammo2_type) const;
 
 	virtual bool	Action			(s32 cmd, u32 flags);
 
