@@ -106,7 +106,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/NODEFAULTLIB:LIBCMTD %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>libvorbis_static.lib;libogg_static.lib;OpenAL32.lib;libvorbisfile_static.lib;libtheora_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libvorbis_static.lib;libogg_static_d.lib;OpenAL32.lib;libvorbisfile_static.lib;libtheora_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>false</GenerateMapFile>
@@ -189,7 +189,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libvorbis_static.lib;libogg_static.lib;OpenAL32.lib;libvorbisfile_static.lib;libtheora_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libvorbis_static.lib;libogg_static_d.lib;OpenAL32.lib;libvorbisfile_static.lib;libtheora_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>false</GenerateMapFile>
       <MapFileName>$(OutDir)$(ProjectName).map</MapFileName>

@@ -290,16 +290,14 @@ LPCSTR xrDebug::error2string	(long code)
 	LPCSTR				result	= 0;
 	static	string1024	desc_storage;
 
-#ifdef _M_AMD64
-#else
-	result				= DXGetErrorDescription	(code);
-#endif
-	if (0==result) 
+	 result = DXGetErrorString(code);
+
+	if (0 == result)
 	{
-		FormatMessage	(FORMAT_MESSAGE_FROM_SYSTEM,0,code,0,desc_storage,sizeof(desc_storage)-1,0);
-		result			= desc_storage;
+		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, code, 0, desc_storage, sizeof(desc_storage) - 1, 0);
+		result = desc_storage;
 	}
-	return		result	;
+	return		result;
 }
 
 void xrDebug::error		(long hr, const char* expr, const char *file, int line, const char *function, bool &ignore_always)

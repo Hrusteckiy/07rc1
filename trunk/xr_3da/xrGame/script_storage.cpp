@@ -344,6 +344,7 @@ bool CScriptStorage::load_buffer	(lua_State *L, LPCSTR caBuffer, size_t tSize, L
 #ifdef DEBUG
 		print_output(L,caScriptName,l_iErrorCode);
 #endif
+		on_error(L);
 		return			(false);
 	}
 	return				(true);
@@ -387,14 +388,15 @@ bool CScriptStorage::do_file	(LPCSTR caScriptName, LPCSTR caNameSpaceName)
 //	luaJIT_setmode	(lua(),0,LUAJIT_MODE_ENGINE|LUAJIT_MODE_ON);						// Oles
 
 #ifdef USE_DEBUGGER
-	if( ai().script_engine().debugger() )
-		ai().script_engine().debugger()->UnPrepareLua(lua(),errFuncId);
+//	if( ai().script_engine().debugger() )
+//		ai().script_engine().debugger()->UnPrepareLua(lua(),errFuncId);
 #endif
 	if (l_iErrorCode) {
 
 #ifdef DEBUG
 		print_output(lua(),caScriptName,l_iErrorCode);
 #endif
+		on_error(lua());
 		lua_settop	(lua(),start);
 		return		(false);
 	}
@@ -583,3 +585,22 @@ void CScriptStorage::flush_log()
 	m_output.save_to	(log_file_name);
 }
 #endif // DEBUG
+
+int CScriptStorage::error_log(LPCSTR	format, ...)
+{
+	va_list			marker;
+	va_start(marker, format);
+
+	LPCSTR			S = "! [LUA][ERROR] ";
+	LPSTR			S1;
+	string4096		S2;
+	strcpy(S2, S);
+	S1 = S2 + xr_strlen(S);
+
+	int				result = vsprintf(S1, format, marker);
+	va_end(marker);
+
+	Msg("%s", S2);
+
+	return			(result);
+}

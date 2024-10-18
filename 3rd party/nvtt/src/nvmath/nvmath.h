@@ -85,7 +85,7 @@ inline float asinf_assert(const float f)
 }
 
 // Replace default functions with asserting ones.
-#if !NV_CC_MSVC || (NV_CC_MSVC && (_MSC_VER < 1700))    // IC: Apparently this was causing problems in Visual Studio 2012. See Issue 194: https://code.google.com/p/nvidia-texture-tools/issues/detail?id=194
+#if ! defined(_MSC_VER) || (defined(_MSC_VER) && (_MSC_VER<1700))
 #define sqrt sqrt_assert
 #define sqrtf sqrtf_assert
 #define acos acos_assert
@@ -115,9 +115,9 @@ inline bool isZero(const float f, const float epsilon = NV_EPSILON)
 
 inline bool isFinite(const float f)
 {
-#if NV_OS_WIN32
+#if NV_OS_WIN32 && !NV_CC_GNUC
 	return _finite(f) != 0;
-#elif NV_OS_DARWIN
+#elif NV_OS_DARWIN || NV_CC_GNUC
 	return isfinite(f);
 #elif NV_OS_LINUX
 	return finitef(f);
@@ -130,9 +130,9 @@ inline bool isFinite(const float f)
 
 inline bool isNan(const float f)
 {
-#if NV_OS_WIN32
+#if NV_OS_WIN32 && !NV_CC_GNUC
 	return _isnan(f) != 0;
-#elif NV_OS_DARWIN
+#elif NV_OS_DARWIN || NV_CC_GNUC
 	return isnan(f);
 #elif NV_OS_LINUX
 	return isnanf(f);

@@ -16,11 +16,14 @@ class ECORE_API CModelPool
 private:
 	friend class CRender;
 
-	struct str_pred : public std::binary_function<const shared_str&, const shared_str&, bool> 
-	{	
+	struct str_pred
+	{
 		IC bool operator()(const shared_str& x, const shared_str& y) const
-		{	return xr_strcmp(x,y)<0;}
+		{
+			return xr_strcmp(x, y) < 0;
+		}
 	};
+
 	struct ModelDef
 	{
 		shared_str			name;
