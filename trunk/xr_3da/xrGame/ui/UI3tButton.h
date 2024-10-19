@@ -29,7 +29,8 @@ public:
 			void 	SetTextColorH				(u32 color);
 			void 	SetTextColorD				(u32 color);
 			void 	SetTextColorT				(u32 color);
-	virtual void 	SetTextureOffset			(float x, float y);	
+	virtual void 	SetTextureOffset			(float x, float y);
+	virtual void 	SetBaseTextureOffset		(float x, float y);
 	virtual void 	SetWidth					(float width);
 	virtual void 	SetHeight					(float height);
 			void 	InitSoundH					(LPCSTR sound_file);
