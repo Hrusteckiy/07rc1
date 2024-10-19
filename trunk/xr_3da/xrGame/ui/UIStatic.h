@@ -59,8 +59,12 @@ public:
 			void		SetOriginalRect				(float x, float y, float width, float height)	{m_UIStaticItem.SetOriginalRect(x,y,width,height);}
 			void		SetHeadingPivot				(const Fvector2& p)			{m_UIStaticItem.SetHeadingPivot(p);}
 			void		SetMask						(CUIFrameWindow *pMask);
-	virtual void		SetTextureOffset			(float x, float y)			{ m_TextureOffset.set(x, y); }
-			Fvector2	GetTextureOffeset			() const					{ return m_TextureOffset; }
+	virtual void		SetTextureOffset			(float x, float y) { m_TextureOffset.set(x, y); }
+	virtual void		SetBaseTextureOffset		(float x, float y) { m_TextureOffset.set(x, y); m_BaseTextureOffset.set(x, y); }
+	virtual void		SetTextureOffset			(Fvector2 offset) { m_TextureOffset = offset; }
+	virtual void		SetBaseTextureOffset		(Fvector2 offset) { m_TextureOffset = offset; m_BaseTextureOffset = offset; }
+			Fvector2	GetTextureOffset			() const { return m_TextureOffset; }
+			Fvector2	GetBaseTextureOffset		() const { return m_BaseTextureOffset; }
 			void		TextureOn					()							{ m_bTextureEnable = true; }
 			void		TextureOff					()							{ m_bTextureEnable = false; }
 			void		TextureAvailable			(bool value)				{ m_bAvailableTexture = value; }
@@ -190,6 +194,7 @@ protected:
     // Для вывода текстуры с обрезанием по маске используем CUIFrameWindow
 	CUIFrameWindow	*m_pMask;
 	Fvector2		m_TextureOffset;
+	Fvector2		m_BaseTextureOffset;
 
 	// Обрезка надписи
 	EElipsisPosition	m_ElipsisPos;
