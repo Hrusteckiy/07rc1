@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "UIPdaContactsWnd.h"
 #include "UIPdaAux.h"
-#include "../Pda.h"
+#include "../PDA.h"
 #include "UIXmlInit.h"
-#include "../actor.h"
+#include "../Actor.h"
 #include "UIFrameWindow.h"
 #include "UIFrameLineWnd.h"
 #include "UIAnimatedStatic.h"
 #include "UIScrollView.h"
-#include "../actor.h"
 #include "../string_table.h"
+#include "../GameConstants.h"
 
 #define PDA_CONTACT_HEIGHT 70
 
@@ -155,13 +155,16 @@ extern CSE_ALifeTraderAbstract* ch_info_get_from_id (u16 id);
 void CUIPdaContactItem::SetSelected	(bool b)
 {
 	CUISelectable::SetSelected(b);
-	if(b){
+	if (b)
+	{
 		m_cw->UIDetailsWnd->Clear		();
-		CCharacterInfo				chInfo;
-		CSE_ALifeTraderAbstract*	T = ch_info_get_from_id(UIInfo->OwnerID());
-		chInfo.Init					(T);
+		CCharacterInfo					chInfo;
+		CSE_ALifeTraderAbstract*		T = ch_info_get_from_id(UIInfo->OwnerID());
+		chInfo.Init						(T);
 
-//.		ADD_TEXT_TO_VIEW2( *(chInfo.Bio()), m_cw->UIDetailsWnd);
+		if (!GameConstants::GetContactsBioShowing())
+			return;
+		ADD_TEXT_TO_VIEW2(*(chInfo.Bio()), m_cw->UIDetailsWnd);
 	}
 }
 

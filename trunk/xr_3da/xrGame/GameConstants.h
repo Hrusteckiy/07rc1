@@ -4,8 +4,9 @@ namespace GameConstants
 {
 	void LoadConstants();
 
-	bool GetDisableStopping();
-	bool GetDisableStoppingBolt();
-	bool GetDisableStoppingGrenade();
-	bool GetMergedAmmoLineWithFiremodes();
+	bool GetDisableStopping					();
+	bool GetDisableStoppingBolt				();
+	bool GetDisableStoppingGrenade			();
+	bool GetMergedAmmoLineWithFiremodes		();
+	bool GetContactsBioShowing				();
 };
