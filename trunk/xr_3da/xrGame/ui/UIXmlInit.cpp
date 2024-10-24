@@ -301,8 +301,6 @@ extern int keyname_to_dik(LPCSTR);
 bool CUIXmlInit::Init3tButton(CUIXml& xml_doc, const char* path, int index, CUI3tButton* pWnd){
 	R_ASSERT3(xml_doc.NavigateToNode(path,index), "XML node not found", path);
 
-//.	pWnd->SetFrameMode(xml_doc.ReadAttribInt(path, index, "frame_mode", 0) ? true : false);
-
 	InitWindow			(xml_doc, path, index, pWnd);
 	InitMultiText		(xml_doc, path, index, pWnd);
 	InitMultiTexture	(xml_doc, path, index, pWnd);
@@ -336,7 +334,7 @@ bool CUIXmlInit::Init3tButton(CUIXml& xml_doc, const char* path, int index, CUI3
 
 	int r = xml_doc.ReadAttribInt(path, index, "check_mode", -1);
 	if(r!=-1)
-	pWnd->SetCheckMode ( (r==1)?true : false);
+	pWnd->SetCheckMode ((r == 1));
 	
 	LPCSTR text_hint		= xml_doc.ReadAttrib	(path, index, "hint", NULL);
 	if(text_hint)
@@ -389,6 +387,9 @@ bool CUIXmlInit::InitButton(CUIXml& xml_doc, LPCSTR path,
 {
 	R_ASSERT3(xml_doc.NavigateToNode(path,index), "XML node not found", path);
 
+	bool stretch_flag = xml_doc.ReadAttribInt(path, index, "stretch") == 1;
+	pWnd->SetStretchTexture(stretch_flag);
+
 	InitStatic(xml_doc, path, index, pWnd);
 
 	LPCSTR accel		= xml_doc.ReadAttrib(path, index, "accel", NULL);
@@ -403,7 +404,6 @@ bool CUIXmlInit::InitButton(CUIXml& xml_doc, LPCSTR path,
 		int acc				= keyname_to_dik(accel);
 		pWnd->SetAccelerator(acc, 1);
 	}
-
 	
 	float shadowOffsetX		= xml_doc.ReadAttribFlt(path, index, "shadow_offset_x", 0);
 	float shadowOffsetY		= xml_doc.ReadAttribFlt(path, index, "shadow_offset_y", 0);
@@ -622,7 +622,7 @@ bool CUIXmlInit::InitProgressShape(CUIXml& xml_doc, const char* path, int index,
     InitStatic(xml_doc, strconcat(sizeof(_path),_path, path, ":front"), index, pWnd->m_pTexture);
 
 	pWnd->m_sectorCount	= xml_doc.ReadAttribInt(path, index, "sector_count", 8);
-	pWnd->m_bClockwise	= xml_doc.ReadAttribInt(path, index, "clockwise") ? true : false;
+	pWnd->m_bClockwise	= xml_doc.ReadAttribInt(path, index, "clockwise") == 1;
 
     return true;
 }
@@ -1027,10 +1027,10 @@ bool CUIXmlInit::InitTexture(CUIXml& xml_doc, const char* path, int index, IUISi
 
 	rect.x1			= xml_doc.ReadAttribFlt(buf, index, "x", 0);
 	rect.y1			= xml_doc.ReadAttribFlt(buf, index, "y", 0);
-	rect.x2			= rect.x1 + xml_doc.ReadAttribFlt(buf, index, "width", 0);	
+	rect.x2			= rect.x1 + xml_doc.ReadAttribFlt(buf, index, "width", 0);
 	rect.y2			= rect.y1 + xml_doc.ReadAttribFlt(buf, index, "height", 0);
 
-	bool stretch_flag = xml_doc.ReadAttribInt(path, index, "stretch") ? true : false;
+	bool stretch_flag = xml_doc.ReadAttribInt(path, index, "stretch") == 1;
 	pWnd->SetStretchTexture(stretch_flag);
 
 	u32 color = GetColor(xml_doc, buf, index, 0xff);
@@ -1063,6 +1063,9 @@ bool CUIXmlInit::InitMultiTexture(CUIXml &xml_doc, LPCSTR path, int index, CUI3t
 
 	strconcat(sizeof(buff),buff, path, ":texture");
 	shared_str texture = xml_doc.Read(buff, index, NULL);
+
+	bool stretch_flag = xml_doc.ReadAttribInt(path, index, "stretch") == 1;
+	pWnd->SetStretchTexture(stretch_flag);
 
 	if (texture.size() > 0)
 	{
@@ -1103,7 +1106,9 @@ bool CUIXmlInit::InitMultiTexture(CUIXml &xml_doc, LPCSTR path, int index, CUI3t
 	}
 
 	if (success)
-        pWnd->TextureOn();
+	{
+		pWnd->TextureOn();
+	}
 
 	return success;
 }

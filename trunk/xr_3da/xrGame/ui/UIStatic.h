@@ -67,8 +67,8 @@ public:
 			Fvector2	GetBaseTextureOffset		() const { return m_BaseTextureOffset; }
 			void		TextureOn					()							{ m_bTextureEnable = true; }
 			void		TextureOff					()							{ m_bTextureEnable = false; }
-			void		TextureAvailable			(bool value)				{ m_bAvailableTexture = value; }
-			bool		TextureAvailable			()							{ return m_bAvailableTexture;}
+	virtual void		TextureAvailable			(bool value)				{ m_bAvailableTexture = value; }
+	virtual bool		TextureAvailable			()							{ return m_bAvailableTexture;}
 
 
 	// own
@@ -132,8 +132,8 @@ public:
 			float GetTextX					()						{return m_TextOffset.x;}
 			float GetTextY					()						{return m_TextOffset.y;}
 
-	void		SetStretchTexture			(bool stretch_texture)	{m_bStretchTexture = stretch_texture;}
-	bool		GetStretchTexture			()						{return m_bStretchTexture;}
+	virtual	void SetStretchTexture			(bool stretch_texture)	{m_bStretchTexture = stretch_texture;}
+	virtual	bool GetStretchTexture			()						{return m_bStretchTexture;}
 
 	void		SetClipRect					(Frect r);
 	Frect		GetSelfClipRect				();

@@ -198,8 +198,9 @@ void CUI3tButton::SetBaseTextureOffset(Fvector2 offset)
 
 void CUI3tButton::DrawTexture()
 {
-	if(m_bTextureEnable)
+	if (m_bTextureEnable)
 	{
+		m_background.SetStretchTexture(GetStretchTexture());
 		m_background.Draw();
 	}
 }

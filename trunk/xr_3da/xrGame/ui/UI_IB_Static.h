@@ -19,4 +19,5 @@ public:
 	virtual void	SetBaseTextureOffset		(float x, float y);
 	virtual void	SetTextureOffset			(Fvector2 offset);
 	virtual void	SetBaseTextureOffset		(Fvector2 offset);
+	virtual void	SetStretchTexture			(bool stretch_texture);
 };

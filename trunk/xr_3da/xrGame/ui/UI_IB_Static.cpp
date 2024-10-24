@@ -81,3 +81,21 @@ void CUI_IB_Static::SetTextureOffset(Fvector2 offset)
 	if (m_stateTouched)
 		m_stateTouched->SetTextureOffset(offset);
 }
+
+void CUI_IB_Static::SetStretchTexture(bool stretch_texture)
+{
+	if (m_stateCurrent)
+		m_stateCurrent->SetStretchTexture(stretch_texture);
+
+	if (m_stateEnabled)
+		m_stateEnabled->SetStretchTexture(stretch_texture);
+
+	if (m_stateDisabled)
+		m_stateDisabled->SetStretchTexture(stretch_texture);
+
+	if (m_stateHighlighted)
+		m_stateHighlighted->SetStretchTexture(stretch_texture);
+
+	if (m_stateTouched)
+		m_stateTouched->SetStretchTexture(stretch_texture);
+}
