@@ -8,9 +8,9 @@
 // Copyright 2005 GSC Game World
 
 #include "StdAfx.h"
-#include "UI_IB_Static.h"
+#include "UIIBStatic.h"
 
-void CUI_IB_Static::SetBaseTextureOffset(float x, float y)
+void CUIIBStatic::SetBaseTextureOffset(float x, float y)
 {
 	if (m_stateCurrent)
 		m_stateCurrent->SetBaseTextureOffset(x,y);
@@ -28,7 +28,7 @@ void CUI_IB_Static::SetBaseTextureOffset(float x, float y)
 		m_stateTouched->SetBaseTextureOffset(x,y);
 }
 
-void CUI_IB_Static::SetTextureOffset(float x, float y)
+void CUIIBStatic::SetTextureOffset(float x, float y)
 {
 	if (m_stateCurrent)
 		m_stateCurrent->SetTextureOffset(x,y);
@@ -46,7 +46,7 @@ void CUI_IB_Static::SetTextureOffset(float x, float y)
 		m_stateTouched->SetTextureOffset(x,y);
 }
 
-void CUI_IB_Static::SetBaseTextureOffset(Fvector2 offset)
+void CUIIBStatic::SetBaseTextureOffset(Fvector2 offset)
 {
 	if (m_stateCurrent)
 		m_stateCurrent->SetBaseTextureOffset(offset);
@@ -64,7 +64,7 @@ void CUI_IB_Static::SetBaseTextureOffset(Fvector2 offset)
 		m_stateTouched->SetBaseTextureOffset(offset);
 }
 
-void CUI_IB_Static::SetTextureOffset(Fvector2 offset)
+void CUIIBStatic::SetTextureOffset(Fvector2 offset)
 {
 	if (m_stateCurrent)
 		m_stateCurrent->SetTextureOffset(offset);
@@ -82,7 +82,7 @@ void CUI_IB_Static::SetTextureOffset(Fvector2 offset)
 		m_stateTouched->SetTextureOffset(offset);
 }
 
-void CUI_IB_Static::SetStretchTexture(bool stretch_texture)
+void CUIIBStatic::SetStretchTexture(bool stretch_texture)
 {
 	if (m_stateCurrent)
 		m_stateCurrent->SetStretchTexture(stretch_texture);

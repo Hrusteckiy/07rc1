@@ -6189,7 +6189,7 @@
     <ClInclude Include="ui\UICharacterInfo.h">
       <Filter>UI\Common\CharacterInfo</Filter>
     </ClInclude>
-    <ClInclude Include="ui\ui_af_params.h">
+    <ClInclude Include="ui\UIArtefactParams.h">
       <Filter>UI\Common\ItemInfo</Filter>
     </ClInclude>
     <ClInclude Include="ui\UIItemInfo.h">
@@ -6321,7 +6321,7 @@
     <ClInclude Include="ui\UIComboBox.h">
       <Filter>UI\UIWindows\ComboBox</Filter>
     </ClInclude>
-    <ClInclude Include="ui\UI_IB_Static.h">
+    <ClInclude Include="ui\UIIBStatic.h">
       <Filter>UI\UIWindows\InteractiveBackground</Filter>
     </ClInclude>
     <ClInclude Include="ui\UIInteractiveBackground.h">
@@ -9173,7 +9173,7 @@
     <ClCompile Include="ui\UIInventoryWnd.cpp">
       <Filter>UI\Common\InventoryWnd</Filter>
     </ClCompile>
-    <ClCompile Include="ui\uiinventorywnd2.cpp">
+    <ClCompile Include="ui\UIInventoryWnd2.cpp">
       <Filter>UI\Common\InventoryWnd</Filter>
     </ClCompile>
     <ClCompile Include="ui\UIInventoryWnd3.cpp">
@@ -9314,7 +9314,7 @@
     <ClCompile Include="ui\IUWpnParams.cpp">
       <Filter>UI\Common\ItemInfo</Filter>
     </ClCompile>
-    <ClCompile Include="ui\ui_af_params.cpp">
+    <ClCompile Include="ui\UIArtefactParams.cpp">
       <Filter>UI\Common\ItemInfo</Filter>
     </ClCompile>
     <ClCompile Include="ui\UIItemInfo.cpp">
@@ -9464,7 +9464,7 @@
     <ClCompile Include="ui\UIComboBox_script.cpp">
       <Filter>UI\UIWindows\ComboBox</Filter>
     </ClCompile>
-    <ClCompile Include="ui\UI_IB_Static.cpp">
+    <ClCompile Include="ui\UIIBStatic.cpp">
       <Filter>UI\UIWindows\InteractiveBackground</Filter>
     </ClCompile>
     <ClCompile Include="ui\UITrackBar.cpp">

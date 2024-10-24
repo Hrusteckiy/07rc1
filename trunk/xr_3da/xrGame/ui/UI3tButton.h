@@ -9,7 +9,7 @@
 
 #pragma once
 #include "UIButton.h"
-#include "UI_IB_Static.h"
+#include "UIIBStatic.h"
 
 class CUI3tButton : public CUIButton 
 {
@@ -57,7 +57,7 @@ public:
 
 
 	CUIStatic			m_hint;
-	CUI_IB_Static		m_background;
+	CUIIBStatic		m_background;
 protected:
 	bool				m_bCheckMode;
 private:	

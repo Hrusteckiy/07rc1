@@ -1782,7 +1782,7 @@
     <ClInclude Include="ui\UIEditKeyBind.h" />
     <ClInclude Include="ui\UIKeyBinding.h" />
     <ClInclude Include="ui\UICharacterInfo.h" />
-    <ClInclude Include="ui\ui_af_params.h" />
+    <ClInclude Include="ui\UIArtefactParams.h" />
     <ClInclude Include="ui\UIItemInfo.h" />
     <ClInclude Include="ui\UIWpnParams.h" />
     <ClInclude Include="ui\UIOutfitInfo.h" />
@@ -1826,7 +1826,7 @@
     <ClInclude Include="ui\UICheckButton.h" />
     <ClInclude Include="ui\UIRadioButton.h" />
     <ClInclude Include="ui\UIComboBox.h" />
-    <ClInclude Include="ui\UI_IB_Static.h" />
+    <ClInclude Include="ui\UIIBStatic.h" />
     <ClInclude Include="ui\UIInteractiveBackground.h" />
     <ClInclude Include="ui\UITrackBar.h" />
     <ClInclude Include="ui\UITrackButton.h" />
@@ -6175,7 +6175,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_Priquel|Win32'">pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch_script.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="ui\uiinventorywnd2.cpp" />
+    <ClCompile Include="ui\UIInventoryWnd2.cpp" />
     <ClCompile Include="ui\UIInventoryWnd3.cpp" />
     <ClCompile Include="ui\UIOutfitSlot.cpp" />
     <ClCompile Include="ui\UITradeWnd.cpp" />
@@ -6297,7 +6297,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
-    <ClCompile Include="ui\ui_af_params.cpp" />
+    <ClCompile Include="ui\UIArtefactParams.cpp" />
     <ClCompile Include="ui\UIItemInfo.cpp" />
     <ClCompile Include="ui\UIOutfitInfo.cpp" />
     <ClCompile Include="ui\UITimeWnd.cpp">
@@ -6545,7 +6545,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
-    <ClCompile Include="ui\UI_IB_Static.cpp" />
+    <ClCompile Include="ui\UIIBStatic.cpp" />
     <ClCompile Include="ui\UITrackBar.cpp" />
     <ClCompile Include="ui\UITrackButton.cpp" />
     <ClCompile Include="ui\UIFrameLine.cpp" />
