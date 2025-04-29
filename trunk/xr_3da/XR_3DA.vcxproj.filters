@@ -366,15 +366,6 @@
     <ClInclude Include="WaveForm.h">
       <Filter>Render\Execution &amp; 3D\Shaders</Filter>
     </ClInclude>
-    <ClInclude Include="Blenders\Blender.h">
-      <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
-    </ClInclude>
-    <ClInclude Include="Blenders\Blender_CLSID.h">
-      <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
-    </ClInclude>
-    <ClInclude Include="Blenders\Blender_Recorder.h">
-      <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
-    </ClInclude>
     <ClInclude Include="tss.h">
       <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
     </ClInclude>
@@ -528,6 +519,9 @@
     <ClInclude Include="xr_input_xinput.h">
       <Filter>Interfaces\Input</Filter>
     </ClInclude>
+    <ClInclude Include="..\layers\blenders\Blender.h" />
+    <ClInclude Include="..\layers\blenders\Blender_CLSID.h" />
+    <ClInclude Include="..\layers\blenders\Blender_Recorder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="defines.cpp">
@@ -746,15 +740,6 @@
     <ClCompile Include="xr_effgamma.cpp">
       <Filter>Render\Execution &amp; 3D\Gamma</Filter>
     </ClCompile>
-    <ClCompile Include="Blenders\Blender.cpp">
-      <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
-    </ClCompile>
-    <ClCompile Include="Blenders\Blender_Palette.cpp">
-      <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
-    </ClCompile>
-    <ClCompile Include="Blenders\Blender_Recorder.cpp">
-      <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
-    </ClCompile>
     <ClCompile Include="Blender_Recorder_R2.cpp">
       <Filter>Render\Execution &amp; 3D\Shaders\Blender</Filter>
     </ClCompile>
@@ -923,6 +908,9 @@
     <ClCompile Include="XR_IOConsole_get.cpp">
       <Filter>Engine\Console</Filter>
     </ClCompile>
+    <ClCompile Include="..\layers\blenders\Blender.cpp" />
+    <ClCompile Include="..\layers\blenders\Blender_Palette.cpp" />
+    <ClCompile Include="..\layers\blenders\Blender_Recorder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="OutOfVirtError.RES">
