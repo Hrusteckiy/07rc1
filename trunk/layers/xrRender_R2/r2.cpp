@@ -48,11 +48,6 @@ ShaderElement*			CRender::rimp_select_sh_static	(IRender_Visual	*pVisual, float 
 	}
 	return pVisual->shader->E[id]._get();
 }
-static class cl_parallax		: public R_constant_setup		{	virtual void setup	(R_constant* C)
-{
-	float			h			=	ps_r2_df_parallax_h;
-	RCache.set_c	(C,h,-h/2.f,1.f/r_dtex_range,1.f/r_dtex_range);
-}}	binder_parallax;
 
 extern ENGINE_API BOOL r2_sun_static;
 //////////////////////////////////////////////////////////////////////////
@@ -202,9 +197,6 @@ void					CRender::create					()
 	o.distortion		= o.distortion_enabled;
 	o.disasm			= (strstr(Core.Params,"-disasm"))?		TRUE	:FALSE	;
 	o.forceskinw		= (strstr(Core.Params,"-skinw"))?		TRUE	:FALSE	;
-
-	// constants
-	::Device.Resources->RegisterConstantSetup	("parallax",	&binder_parallax);
 
 	c_lmaterial					= "L_material";
 	c_sbase						= "s_base";
