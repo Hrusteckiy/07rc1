@@ -101,6 +101,10 @@ jobs:
   publish_nightly:
     needs: build
     runs-on: ubuntu-latest
+    # избегаем гонок между параллельными запусками
+    concurrency:
+      group: nightly-release
+      cancel-in-progress: true
     if: |
       (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')) ||
       (github.event_name == 'pull_request' &&
@@ -129,15 +133,27 @@ jobs:
           done
           ls -la
 
-      - name: Create/Update Nightly Release
+      # Ключевой шаг: удаляем предыдущие релиз и тег, чтобы published_at был свежим
+      - name: Reset nightly release and tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          # удалить релиз, если есть
+          gh release view nightly >/dev/null 2>&1 && gh release delete nightly -y || true
+          # удалить тег на удалёнке (через API, без git checkout)
+          gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/nightly" || true
+
+      - name: Create Nightly Release (fresh)
         uses: ncipollo/release-action@v1
         with:
           tag: nightly
           name: Nightly (latest)
           prerelease: true
           draft: false
-          allowUpdates: true
-          removeArtifacts: true
+          # создаём с нуля, поэтому allowUpdates не нужен
+          allowUpdates: false
+          removeArtifacts: false
           makeLatest: true
           generateReleaseNotes: false
           artifacts: "artifacts/*.zip"
