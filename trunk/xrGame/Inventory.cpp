@@ -624,12 +624,12 @@ bool CInventory::Action(s32 cmd, u32 flags)
 	case kWPN_4:
 	case kWPN_5:
 	case kWPN_6:
-       {
+	   {
 		   if (cmd == kWPN_6 && !IsGameTypeSingle()) return false;
 
 			if(flags&CMD_START)
 			{
-                if((int)m_iActiveSlot == cmd - kWPN_1 &&
+				if((int)m_iActiveSlot == cmd - kWPN_1 &&
 					m_slots[m_iActiveSlot].m_pIItem )
 				{
 					if(IsGameTypeSingle())
@@ -650,7 +650,7 @@ bool CInventory::Action(s32 cmd, u32 flags)
 		{
 			if (flags & CMD_START)
 			{
-                if (m_slots[m_iActiveSlot].m_pIItem == ItemFromSlot(ARTEFACT_SLOT))
+				if (m_slots[m_iActiveSlot].m_pIItem == ItemFromSlot(ARTEFACT_SLOT))
 				{
 					b_send_event = Activate(NO_ACTIVE_SLOT);
 				}
@@ -675,7 +675,7 @@ void CInventory::Update()
 	
 	if(m_iActiveSlot == NO_ACTIVE_SLOT || 
 		!m_slots[m_iActiveSlot].m_pIItem ||
-        m_slots[m_iActiveSlot].m_pIItem->IsHidden())
+		m_slots[m_iActiveSlot].m_pIItem->IsHidden())
 	{ 
 		bActiveSlotVisible = false;
 	}
@@ -703,7 +703,7 @@ void CInventory::UpdateDropTasks()
 			UpdateDropItem		(m_slots[i].m_pIItem);
 	}
 
-	for(i = 0; i < 2; ++i)	
+	for(int i = 0; i < 2; ++i)	
 	{
 		TIItemContainer &list			= i?m_ruck:m_belt;
 		TIItemContainer::iterator it	= list.begin();
@@ -862,7 +862,7 @@ u32 CInventory::dwfGetSameItemCount(LPCSTR caSection, bool SearchAll)
 	{
 		PIItem	l_pIItem = *l_it;
 		if (l_pIItem && !xr_strcmp(l_pIItem->object().cNameSect(), caSection))
-            ++l_dwCount;
+			++l_dwCount;
 	}
 	
 	return		(l_dwCount);
@@ -893,7 +893,7 @@ bool CInventory::bfCheckForObject(ALife::_OBJECT_ID tObjectID)
 	return		(false);
 }
 
-CInventoryItem *CInventory::get_object_by_id(ALife::_OBJECT_ID tObjectID)
+PIItem CInventory::get_object_by_id(ALife::_OBJECT_ID tObjectID)
 {
 	TIItemContainer	&l_list = m_all;
 	for(TIItemContainer::iterator l_it = l_list.begin(); l_list.end() != l_it; ++l_it) 
@@ -994,14 +994,14 @@ u32	CInventory::dwfGetObjectCount()
 	return		(m_all.size());
 }
 
-CInventoryItem	*CInventory::tpfGetObjectByIndex(int iIndex)
+PIItem CInventory::tpfGetObjectByIndex(int iIndex)
 {
 	if ((iIndex >= 0) && (iIndex < (int)m_all.size())) {
 		TIItemContainer	&l_list = m_all;
 		int			i = 0;
 		for(TIItemContainer::iterator l_it = l_list.begin(); l_list.end() != l_it; ++l_it, ++i) 
 			if (i == iIndex)
-                return	(*l_it);
+				return	(*l_it);
 	}
 	else {
 		ai().script_engine().script_log	(ScriptStorage::eLuaMessageTypeError,"invalid inventory index!");
@@ -1011,7 +1011,7 @@ CInventoryItem	*CInventory::tpfGetObjectByIndex(int iIndex)
 	return		(0);
 }
 
-CInventoryItem	*CInventory::GetItemFromInventory(LPCSTR caItemName)
+PIItem CInventory::GetItemFromInventory(LPCSTR caItemName)
 {
 	TIItemContainer	&l_list = m_all;
 
@@ -1032,7 +1032,8 @@ bool CInventory::CanTakeItem(CInventoryItem *inventory_item) const
 
 	if(!inventory_item->CanTake()) return false;
 
-	for(TIItemContainer::const_iterator it = m_all.begin(); it != m_all.end(); it++)
+	TIItemContainer::const_iterator it = m_all.begin();
+	for(; it != m_all.end(); it++)
 		if((*it)->object().ID() == inventory_item->object().ID()) break;
 	VERIFY3(it == m_all.end(), "item already exists in inventory",*inventory_item->object().cName());
 

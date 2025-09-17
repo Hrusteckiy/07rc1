@@ -19,6 +19,7 @@ public:
 	virtual		void		Update							();
 	virtual		bool		OnMouseDown						(int mouse_btn);
 	virtual		void		OnFocusLost						();
+	virtual		void		EndXformAnimation				();
 };
 
 

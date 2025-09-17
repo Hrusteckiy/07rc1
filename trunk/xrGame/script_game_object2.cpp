@@ -340,6 +340,58 @@ void CScriptGameObject::SetActorDirection		(float dir)
 		ai().script_engine().script_log		(ScriptStorage::eLuaMessageTypeError,"ScriptGameObject : attempt to call SetActorDirection method for non-actor object");
 }
 
+void CScriptGameObject::ChangeCarPosition(Fvector pos)
+{
+	CCar* pCar = object().cast_car();
+	if (pCar)
+	{
+		pCar->MoveCar(pos, Fvector().set(0.f, 0.f, 0.f));
+	}
+	else
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "ScriptGameObject : attempt to call ChangeCarPosition method for non-car object");
+}
+
+void CScriptGameObject::ChangeCarDirection(Fvector pos)
+{
+	CCar* pCar = object().cast_car();
+	if (pCar)
+	{
+		pCar->MoveCar(Fvector().set(0.f, 0.f, 0.f), pos);
+	}
+	else
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "ScriptGameObject : attempt to call ChangeCarDirection method for non-car object");
+}
+
+void CScriptGameObject::SetCarPosition(Fvector pos)
+{
+	CCar* pCar = object().cast_car();
+	if (pCar)
+	{
+		Fmatrix mat;
+		mat.set(pCar->XFORM());
+		mat.c.set(pos);
+		pCar->ForceTransform(mat);
+	}
+	else
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "ScriptGameObject : attempt to call SetCarPosition method for non-car object");
+}
+
+void CScriptGameObject::SetCarDirection(Fvector dir)
+{
+	CCar* pCar = object().cast_car();
+	if (pCar)
+	{
+		Fmatrix mat;
+		mat.set(pCar->XFORM());
+		Fvector saved_pos = mat.c;
+		mat.setHPB(dir.y, dir.x, dir.z);
+		mat.c.set(saved_pos);
+		pCar->ForceTransform(mat);
+	}
+	else
+		ai().script_engine().script_log(ScriptStorage::eLuaMessageTypeError, "ScriptGameObject : attempt to call SetCarDirection method for non-car object");
+}
+
 CHolderCustom* CScriptGameObject::get_current_holder()
 {
 	CActor* actor = smart_cast<CActor*>(&object());
@@ -413,8 +465,9 @@ float CScriptGameObject::max_ignore_monster_distance	() const
 
 CCar* CScriptGameObject::get_car	()
 {
-	CCar		*car = smart_cast<CCar*>(&object());
-	if (!car) {
+	CCar		*car = object().cast_car();
+	if (!car)
+	{
 		ai().script_engine().script_log		(ScriptStorage::eLuaMessageTypeError,"CGameObject : cannot access class member get_car!");
 		NODEFAULT;
 	}

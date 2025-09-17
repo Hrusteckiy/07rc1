@@ -103,7 +103,7 @@ s32 SStatSectionData::GetTotalPoints() const
 		if((*it).str_value.size()!=0)
 			return -1;
 		
-		res		+= (*it).int_count*(*it).int_points;
+		res		+= (*it).int_points;
 	}
 	return res;
 

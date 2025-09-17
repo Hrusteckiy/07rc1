@@ -199,6 +199,11 @@ public:
 	// Actor only
 			void				SetActorPosition	(Fvector pos);
 			void				SetActorDirection	(float dir);
+
+			void				SetCarPosition		(Fvector pos);
+			void				SetCarDirection		(Fvector dir);
+			void				ChangeCarPosition	(Fvector pos);
+			void				ChangeCarDirection	(Fvector dir);
 	// CCustomMonster
 			bool				CheckObjectVisibility(const CScriptGameObject *tpLuaGameObject);
 			bool				CheckTypeVisibility	(const char *section_name);

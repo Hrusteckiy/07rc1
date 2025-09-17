@@ -9,5 +9,6 @@ class CEffectorFall : public CEffectorCam
 	float	fPhase;
 public:
 					CEffectorFall	(float power, float life_time=1);
+	virtual			~CEffectorFall	() {};
 	virtual BOOL	ProcessCam		(SCamEffectorInfo& info);
 };

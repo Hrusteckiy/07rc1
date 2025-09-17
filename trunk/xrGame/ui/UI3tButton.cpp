@@ -221,6 +221,7 @@ void CUI3tButton::SetTextColorT(u32 color)
 
 void CUI3tButton::SetBaseTextColor(u32 color)
 {
+	m_dwTextColor[E] = color;
 	m_dwBaseTextColor[E] = color;
 }
 
@@ -339,7 +340,7 @@ void CUI3tButton::Update()
 
 void CUI3tButton::SetBtnStaticClrE(u32 clr)
 {
-	m_BtnStaticParams.m_ClrStateD = clr;
+	m_BtnStaticParams.m_ClrStateE = clr;
 }
 
 void CUI3tButton::SetBtnStaticClrD(u32 clr)

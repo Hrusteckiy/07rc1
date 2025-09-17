@@ -1,0 +1,169 @@
+name: Build Engine
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      BASE_SHA: f0e211dbe3f46ef83ea1c
+
+    strategy:
+      matrix:
+        platform: [Win32]
+        config: [Mixed_CI, Release_CI]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.2.0
+
+      - name: Restore NuGet packages
+        run: nuget restore trunk/XR_3DA.sln
+
+      - name: Build Engine ${{ matrix.platform }} ${{ matrix.config }}
+        shell: pwsh
+        run: |
+          msbuild trunk/XR_3DA.sln /m /p:Configuration=${{ matrix.config }} /p:Platform=${{ matrix.platform }}
+
+      - name: Upload Engine Binaries ${{ matrix.config }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: engine-${{ matrix.platform }}-${{ matrix.config }}
+          path: |
+            binaries/${{ matrix.platform }}/${{ matrix.config }}/**/*
+            !**/3rdparty/**
+          if-no-files-found: error
+
+      # --------- собираем изменённые файлы только из gamedata ----------
+      - name: Collect Changed Resources
+        if: matrix.config == 'Mixed_CI'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $outDir = "changed_resources"
+          if (Test-Path $outDir) { Remove-Item -Recurse -Force $outDir }
+          New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+          
+          git fetch --prune --unshallow 2>$null; if ($LASTEXITCODE -ne 0) { git fetch --all --tags }
+          
+          $base = "${{ env.BASE_SHA }}"
+          git cat-file -e "$base^{commit}" 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            git fetch origin
+            git cat-file -e "$base^{commit}" 2>$null
+            if ($LASTEXITCODE -ne 0) { exit 0 }
+          }
+          
+          $changed = git diff --name-only $base HEAD | Where-Object { $_ -like "gamedata/*" }
+          if (-not $changed -or $changed.Count -eq 0) {
+            Write-Host ("No gamedata files changed relative to {0}." -f $base)
+            exit 0
+          }
+          
+          foreach ($file in $changed) {
+            if (Test-Path $file) {
+              $dest = Join-Path $outDir $file
+              New-Item -ItemType Directory -Force -Path (Split-Path $dest -Parent) | Out-Null
+              Copy-Item -Path $file -Destination $dest -Force
+            }
+          }
+          
+          Write-Host ("Contents of {0}:" -f $outDir)
+          Get-ChildItem -Recurse $outDir | ForEach-Object { Write-Host $_.FullName }
+
+      - name: Upload Changed Resources
+        if: matrix.config == 'Mixed_CI'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gamedata
+          path: changed_resources/**
+          if-no-files-found: ignore
+
+  # ---------- обновляем ОДИН релиз "nightly" для push и PR (не из форка) ----------
+  publish_nightly:
+    needs: build
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')) ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository)
+    steps:
+      - name: Download engine artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+          pattern: engine-*
+          merge-multiple: false
+
+      - name: Download gamedata (optional)
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          path: ./artifacts
+          pattern: gamedata
+          merge-multiple: false
+
+      - name: Zip artifacts
+        run: |
+          cd artifacts
+          for d in */ ; do
+            zip -r "${d%/}.zip" "$d"
+          done
+          ls -la
+
+      - name: Create/Update Nightly Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: nightly
+          name: Nightly (latest)
+          prerelease: true
+          draft: false
+          allowUpdates: true
+          removeArtifacts: true
+          makeLatest: true
+          generateReleaseNotes: false
+          artifacts: "artifacts/*.zip"
+          artifactErrorsFailBuild: true
+          body: |
+            Nightly build (auto-updated).
+            Event: ${{ github.event_name }}
+            Ref: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Run: ${{ github.run_id }}
+
+  # ---------- ОТДЕЛЬНЫЕ релизы НА ТЕГИ ----------
+  publish_tag_release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Download engine artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+          pattern: engine-*
+          merge-multiple: false
+
+      - name: Download gamedata (optional)
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          path: ./artifacts

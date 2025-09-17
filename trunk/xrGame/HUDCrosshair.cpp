@@ -88,20 +88,20 @@ void CHUDCrosshair::OnRender ()
 	float y_max							= x_max;
 
 	// 0
-	pv->set					(center.x+1,		center.y + y_min,	cross_color); pv++;
-	pv->set					(center.x+1,		center.y + y_max,	cross_color); pv++;
+	pv->set					(center.x,			center.y + y_min,	cross_color); pv++;
+	pv->set					(center.x,			center.y + y_max,	cross_color); pv++;
 	// 1
-	pv->set					(center.x+1,		center.y - y_min,	cross_color); pv++;
-	pv->set					(center.x+1,		center.y - y_max,	cross_color); pv++;
+	pv->set					(center.x,			center.y - y_min,	cross_color); pv++;
+	pv->set					(center.x,			center.y - y_max,	cross_color); pv++;
 	// 2
-	pv->set					(center.x + x_min+1, center.y,			cross_color); pv++;
-	pv->set					(center.x + x_max+1, center.y,			cross_color); pv++;
+	pv->set					(center.x + x_min,	center.y,			cross_color); pv++;
+	pv->set					(center.x + x_max,	center.y,			cross_color); pv++;
 	// 3
 	pv->set					(center.x - x_min,	center.y,			cross_color); pv++;
 	pv->set					(center.x - x_max,	center.y,			cross_color); pv++;
 	// 4
-	pv->set					(center.x,			center.y,			cross_color); pv++;
-	pv->set					(center.x+1,		center.y,			cross_color); pv++;
+	pv->set					(center.x-0.5f,		center.y,			cross_color); pv++;
+	pv->set					(center.x+0.5f,		center.y,			cross_color); pv++;
 //*/
 	// render	
 	RCache.Vertex.Unlock	(dwCount,hGeomLine->vb_stride);

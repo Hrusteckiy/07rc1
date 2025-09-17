@@ -46,15 +46,22 @@ public:
 
 			void			SetTextComplexMode							(bool mode = true);
 			bool			GetTextComplexMode							() const;
+			void			SetTextColoringMode							(bool mode = true);
+			bool			GetTextColoringMode							() const;
 			void			SetPasswordMode								(bool mode = true);
 			void			SetColoringMode								(bool mode);
+			bool			IsColoringMode								() const { return !!uFlags.test(flColoringMode); };
 			void			SetCutWordsMode								(bool mode);
+			bool			IsCutWordsMode								() const { return !!uFlags.test(flCutWordsMode); }
+
 			void			SetUseNewLineMode							(bool mode);
 
 	// IUISimpleWindow methods
 	virtual void			Init										(float x, float y, float width, float height);
 	virtual void			Draw										();
 	virtual void			Draw										(float x, float y);
+			void			SetTextRotation								(float angle) { m_fTextRotation = angle; }
+			float			GetTextRotation								()/* const*/ { return m_fTextRotation; }
 	virtual void			Update										();
 IC			void			SetWndSize_inline							(const Fvector2& wnd_size);
 
@@ -95,6 +102,7 @@ protected:
 	u32						m_dwTextColor;
 	u32						m_dwBaseTextColor;
 	u32						m_dwCursorColor;
+	float					m_fTextRotation;
 
 	CGameFont*				m_pFont;
 

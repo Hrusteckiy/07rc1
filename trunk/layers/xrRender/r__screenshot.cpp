@@ -32,10 +32,17 @@ IC void MouseRayFromPoint	( Fvector& direction, int x, int y, Fmatrix& m_CamMat 
 
 void CRender::Screenshot		(IRender_interface::ScreenshotMode mode, LPCSTR name)
 {
-	if (!Device.b_is_Ready)			return;
-	if ((psDeviceFlags.test(rsFullscreen)) == 0) {
-		Log("~ Can't capture screen while in windowed mode...");
+	if (!Device.b_is_Ready)
 		return;
+	//if ((psDeviceFlags.test(rsFullscreen)) == 0)
+	//{
+	//	Log("~ Can't capture screen while in windowed mode...");
+	//	return;
+	//}
+
+	if (mode == IRender_interface::SM_FOR_GAMESAVE && name && FS.exist(name)) //delete old file before creating new one
+	{
+		FS.file_delete(0, name);
 	}
 
 	// Create temp-surface
@@ -120,9 +127,9 @@ void CRender::Screenshot		(IRender_interface::ScreenshotMode mode, LPCSTR name)
 				_RELEASE			(saved);
 				if (strstr(Core.Params,"-ss_tga"))	{ // hq
 					sprintf_s			(buf,sizeof(buf),"ssq_%s_%s_(%s).tga",Core.UserName,timestamp(t_stemp),(g_pGameLevel)?g_pGameLevel->name().c_str():"mainmenu");
-					ID3DXBuffer*		saved	= 0;
+					saved				= 0;
 					CHK_DX				(D3DXSaveSurfaceToFileInMemory (&saved,D3DXIFF_TGA,pFB,0,0));
-					IWriter*		fs	= FS.w_open	("$screenshots$",buf); R_ASSERT(fs);
+					fs					= FS.w_open	("$screenshots$",buf); R_ASSERT(fs);
 					fs->w				(saved->GetBufferPointer(),saved->GetBufferSize());
 					FS.w_close			(fs);
 					_RELEASE			(saved);

@@ -327,4 +327,16 @@
 	<string id="ui_st_sell_all">
 		<text>Продать все</text>
 	</string>
+	<string id="ui_mm_hud_behaviour">
+		<text>Поведение рук</text>
+	</string>
+	<string id="ui_mm_inertion_vanilla">
+		<text>Инерция</text>
+	</string>
+	<string id="ui_mm_inertion_bobbing">
+		<text>Раскачка</text>
+	</string>
+	<string id="ui_mm_inertion_both">
+		<text>Раскачка с инерцией</text>
+	</string>
 </string_table>

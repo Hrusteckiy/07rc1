@@ -37,6 +37,7 @@
 #include "zone_effector.h"
 #include "GameTask.h"
 #include "MainMenu.h"
+#include "HudItem.h"
 #include "saved_game_wrapper.h"
 #include "level_graph.h"
 #include "../xr_3da/ResourceManager.h"
@@ -183,6 +184,20 @@ public:
 	virtual void	Info	(TInfo& I)		
 	{
 		strcpy_s(I,"game difficulty"); 
+	}
+};
+
+class CCC_BobbingMode : public CCC_Token
+{
+public:
+	CCC_BobbingMode(LPCSTR N) : CCC_Token(N,(u32*)&g_BobbingMode,bobbing_mode_token)  {};
+	virtual void Execute(LPCSTR args)
+	{
+		CCC_Token::Execute(args);
+	}
+	virtual void	Info	(TInfo& I)
+	{
+		strcpy_s(I,"bobbing/inertion mode");
 	}
 };
 
@@ -1608,6 +1623,7 @@ public:
 	  }
 };
 
+extern float psBobMult;
 
 void CCC_RegisterCommands()
 {
@@ -1617,12 +1633,13 @@ void CCC_RegisterCommands()
 	CMD1(CCC_MemStats,			"stat_memory"			);
 	// game
 	psActorFlags.set(AF_ALWAYSRUN, true);
-	psActorFlags.set(AF_WPN_BOBBING, false);
 	CMD3(CCC_Mask,				"g_always_run",			&psActorFlags,	AF_ALWAYSRUN);
 	CMD1(CCC_GameDifficulty,	"g_game_difficulty"		);
+	CMD1(CCC_BobbingMode,		"g_bobbing_mode"		);
 
 	CMD3(CCC_Mask,				"g_backrun",			&psActorFlags,	AF_RUN_BACKWARD);
-	CMD3(CCC_Mask,				"weapon_bobbing",		&psActorFlags,	AF_WPN_BOBBING);
+
+	CMD4(CCC_Float,				"bobbing_mult",			&psBobMult,		0.0f,	2.0f);
 
 	// alife
 #ifdef DEBUG
@@ -1692,6 +1709,7 @@ void CCC_RegisterCommands()
 	CMD3(CCC_Mask,				"ai_dbg_frustum",		&psAI_Flags,	aiFrustum);
 	CMD3(CCC_Mask,				"ai_dbg_funcs",			&psAI_Flags,	aiFuncs);
 	CMD3(CCC_Mask,				"ai_dbg_alife",			&psAI_Flags,	aiALife);
+	CMD3(CCC_Mask,				"ai_dbg_onoffline",		&psAI_Flags,	aiOnlineOffline);
 	CMD3(CCC_Mask,				"ai_dbg_lua",			&psAI_Flags,	aiLua);
 	CMD3(CCC_Mask,				"ai_dbg_goap",			&psAI_Flags,	aiGOAP);
 	CMD3(CCC_Mask,				"ai_dbg_goap_script",	&psAI_Flags,	aiGOAPScript);
@@ -1746,9 +1764,9 @@ void CCC_RegisterCommands()
 	CMD1(CCC_ShowAnimationStats,"ai_show_animation_stats");
 #endif // DEBUG
 	
-#ifndef MASTER_GOLD
+//#ifndef MASTER_GOLD
 	CMD3(CCC_Mask,				"ai_ignore_actor",		&psAI_Flags,	aiIgnoreActor);
-#endif // MASTER_GOLD
+//#endif // MASTER_GOLD
 
 	// Physics
 	CMD1(CCC_PHFps,				"ph_frequency"																					);
@@ -1782,19 +1800,20 @@ void CCC_RegisterCommands()
 	CMD1(CCC_LuaHelp,				"lua_help");
 	CMD1(CCC_ShowSmartCastStats,	"show_smart_cast_stats");
 	CMD1(CCC_ClearSmartCastStats,	"clear_smart_cast_stats");
-
-	CMD3(CCC_Mask,		"dbg_draw_actor_alive",		&dbg_net_Draw_Flags,	(1<<0));
-	CMD3(CCC_Mask,		"dbg_draw_actor_dead",		&dbg_net_Draw_Flags,	(1<<1));
-	CMD3(CCC_Mask,		"dbg_draw_customzone",		&dbg_net_Draw_Flags,	(1<<2));
-	CMD3(CCC_Mask,		"dbg_draw_teamzone",		&dbg_net_Draw_Flags,	(1<<3));
-	CMD3(CCC_Mask,		"dbg_draw_invitem",			&dbg_net_Draw_Flags,	(1<<4));
-	CMD3(CCC_Mask,		"dbg_draw_actor_phys",		&dbg_net_Draw_Flags,	(1<<5));
-	CMD3(CCC_Mask,		"dbg_draw_customdetector",	&dbg_net_Draw_Flags,	(1<<6));
-	CMD3(CCC_Mask,		"dbg_destroy",				&dbg_net_Draw_Flags,	(1<<7));
-	CMD3(CCC_Mask,		"dbg_draw_autopickupbox",	&dbg_net_Draw_Flags,	(1<<8));
-	CMD3(CCC_Mask,		"dbg_draw_rp",				&dbg_net_Draw_Flags,	(1<<9));
-	CMD3(CCC_Mask,		"dbg_draw_climbable",		&dbg_net_Draw_Flags,	(1<<10));
-	CMD3(CCC_Mask,		"dbg_draw_skeleton",		&dbg_net_Draw_Flags,	(1<<11));
+	
+	CMD3(CCC_Mask,		"dbg_draw_actor_alive",			&dbg_net_Draw_Flags, dbg_draw_actor_alive);
+	CMD3(CCC_Mask,		"dbg_draw_actor_dead",			&dbg_net_Draw_Flags, dbg_draw_actor_dead);
+	CMD3(CCC_Mask,		"dbg_draw_customzone",			&dbg_net_Draw_Flags, dbg_draw_customzone);
+	CMD3(CCC_Mask,		"dbg_draw_lchanger",			&dbg_net_Draw_Flags, dbg_draw_lchanger);
+	CMD3(CCC_Mask,		"dbg_draw_teamzone",			&dbg_net_Draw_Flags, dbg_draw_teamzone);
+	CMD3(CCC_Mask,		"dbg_draw_invitem",				&dbg_net_Draw_Flags, dbg_draw_invitem);
+	CMD3(CCC_Mask,		"dbg_draw_actor_phys",			&dbg_net_Draw_Flags, dbg_draw_actor_phys);
+	CMD3(CCC_Mask,		"dbg_draw_customdetector",		&dbg_net_Draw_Flags, dbg_draw_customdetector);
+	CMD3(CCC_Mask,		"dbg_destroy",					&dbg_net_Draw_Flags, dbg_destroy);
+	CMD3(CCC_Mask,		"dbg_draw_autopickupbox",		&dbg_net_Draw_Flags, dbg_draw_autopickupbox);
+	CMD3(CCC_Mask,		"dbg_draw_rp",					&dbg_net_Draw_Flags, dbg_draw_rp);
+	CMD3(CCC_Mask,		"dbg_draw_climbable",			&dbg_net_Draw_Flags, dbg_draw_climbable);
+	CMD3(CCC_Mask,		"dbg_draw_skeleton",			&dbg_net_Draw_Flags, dbg_draw_skeleton);
 
 
 	CMD3(CCC_Mask,		"dbg_draw_ph_contacts",			&ph_dbg_draw_mask,	phDbgDrawContacts);

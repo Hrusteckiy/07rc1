@@ -36,7 +36,7 @@ void CActor::attach_Vehicle(CHolderCustom* vehicle)
 		return;
 	}
 	// temp play animation
-	CCar*	car						= smart_cast<CCar*>(m_holder);
+	CCar*	car						= GetCarHolder();
 	u16 anim_type					= car->DriverAnimationType();
 	SVehicleAnimCollection& anims	= m_vehicle_anims->m_vehicles_type_collections[anim_type];
 	V->PlayCycle					(anims.idles[0],FALSE);
@@ -56,25 +56,30 @@ void CActor::attach_Vehicle(CHolderCustom* vehicle)
 
 void CActor::detach_Vehicle()
 {
-	if(!m_holder) return;
-	CCar* car=smart_cast<CCar*>(m_holder);
-	if(!car)return;
-	CPHShellSplitterHolder*sh= car->PPhysicsShell()->SplitterHolder();
-	if(sh)sh->Deactivate();
+	if (!m_holder)
+		return;
+	CCar* car = GetCarHolder();
+	if (!car)
+		return;
+	CPHShellSplitterHolder*sh = car->PPhysicsShell()->SplitterHolder();
+	if (sh)
+		sh->Deactivate();
 	if(!character_physics_support()->movement()->ActivateBoxDynamic(0))
 	{
-		if(sh)sh->Activate();
+		if(sh)
+			sh->Activate();
 		return;
 	}
-	if(sh)sh->Activate();
+	if (sh)
+		sh->Activate();
 	m_holder->detach_Actor();//
 
 	character_physics_support()->movement()->SetPosition(m_holder->ExitPosition());
 	character_physics_support()->movement()->SetVelocity(m_holder->ExitVelocity());
 
-	r_model_yaw=-m_holder->Camera()->yaw;
-	r_torso.yaw=r_model_yaw;
-	r_model_yaw_dest=r_model_yaw;
+	r_model_yaw = -m_holder->Camera()->yaw;
+	r_torso.yaw = r_model_yaw;
+	r_model_yaw_dest = r_model_yaw;
 	m_holder=NULL;
 	SetCallbacks		();
 	CKinematicsAnimated* V= smart_cast<CKinematicsAnimated*>(Visual()); R_ASSERT(V);
@@ -121,6 +126,6 @@ bool CActor::use_Vehicle(CHolderCustom* object)
 
 void CActor::on_requested_spawn(CObject *object)
 {
-	CCar * car= smart_cast<CCar*>(object);
+	CCar* car = smart_cast<CCar*>(object);
 	attach_Vehicle(car);
 }

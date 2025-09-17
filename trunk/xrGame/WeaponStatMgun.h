@@ -27,7 +27,8 @@ private:
 	void					ResetBoneCallbacks	();
 //casts
 public:
-	virtual CHolderCustom	*cast_holder_custom	()				{return this;}
+	virtual CHolderCustom*	cast_holder_custom	()				{ return this;}
+	virtual CWeaponStatMgun*cast_weapon_statmgun()				{ return this; }
 
 //general
 public:

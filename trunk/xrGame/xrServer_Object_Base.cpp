@@ -12,6 +12,9 @@
 #include "game_base_space.h"
 #include "script_value_container_impl.h"
 #include "clsid_game.h"
+#ifdef DEBUG
+#include "ai_debug.h"
+#endif
 
 #pragma warning(push)
 #pragma warning(disable:4995)
@@ -257,7 +260,7 @@ BOOL CSE_Abstract::Spawn_Read				(NET_Packet	&tNetPacket)
 	if (0==m_wVersion) {
 		tNetPacket.r_pos		-= sizeof(u16);
 		m_wVersion				= 0;
-        return					FALSE;
+		return					FALSE;
 	}
 
 	if (m_wVersion > 69)
@@ -322,10 +325,10 @@ void	CSE_Abstract::load			(NET_Packet	&tNetPacket)
 	}
 	else {
 #ifdef DEBUG
-		if (!client_data.empty())
+		if (!client_data.empty() && psAI_Flags.test(aiDebug))
 			Msg					("CSE_Abstract::load: client_data is cleared for [%d][%s]",ID,name_replace());
 #endif // DEBUG
-        client_data.clear		();
+		client_data.clear		();
 	}
 }
 
@@ -386,7 +389,7 @@ void CSE_Abstract::FillProps				(LPCSTR pref, PropItemVec& items)
 #ifdef XRGAME_EXPORTS
 #	ifdef DEBUG
 	PHelper().CreateToken8		(items,	PrepareKey(pref,"Game Type"),			&s_gameid,		game_types);
-    PHelper().CreateU16			(items,	PrepareKey(pref, "Respawn Time (s)"),	&RespawnTime,	0,43200);
+	PHelper().CreateU16			(items,	PrepareKey(pref, "Respawn Time (s)"),	&RespawnTime,	0,43200);
 
 //	LPCSTR						gcs = pSettings->r_string(s_name,"GroupControlSection");
 //	PHelper().CreateChoose		(items,PrepareKey(pref,*s_name,"Spawn\\group control"),				&m_spawn_control,		smSpawnItem,	0,	(void*)gcs,	16);

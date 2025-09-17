@@ -71,7 +71,7 @@ bool CUIOptionsItem::GetOptBoolValue()
 void CUIOptionsItem::SaveOptBoolValue(bool val)
 {
 	string512			command;
-	sprintf_s				(command, "%s %s", m_entry.c_str(), (val)?"on":"off");
+	sprintf_s			(command, "%s %s", m_entry.c_str(), (val) ? "1" : "0");
 	Console->Execute	(command);
 }
 

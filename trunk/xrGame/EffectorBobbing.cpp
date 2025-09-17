@@ -11,6 +11,7 @@
 #define CROUCH_FACTOR	0.75f
 #define SPEED_REMINDER	5.f 
 
+float psBobMult = 1.0f;
 
 
 //////////////////////////////////////////////////////////////////////
@@ -69,17 +70,17 @@ BOOL CEffectorBobbing::ProcessCam(SCamEffectorInfo& info)
 
 		if(isActorAccelerated(dwMState, m_bZoomMode))
 		{
-			A	= m_fAmplitudeRun*k;
+			A	= m_fAmplitudeRun*k * psBobMult;
 			ST	= m_fSpeedRun*fTime*k;
 		}
 		else if(is_limping)
 		{
-			A	= m_fAmplitudeLimp*k;
+			A	= m_fAmplitudeLimp*k * psBobMult;
 			ST	= m_fSpeedLimp*fTime*k;
 		}
 		else
 		{
-			A	= m_fAmplitudeWalk*k;
+			A	= m_fAmplitudeWalk*k * psBobMult;
 			ST	= m_fSpeedWalk*fTime*k;
 		}
 	

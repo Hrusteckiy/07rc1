@@ -45,10 +45,10 @@ void	CPortsDlg::FillPortsList()
 	service.sin_family = AF_INET;
 	service.sin_addr.s_addr = inet_addr("127.0.0.1");
 	
-
+	int p = 0;
 	for (int i=START_PORT; i<= END_PORT; i++)
 	{
-		for (int p=0; p<m_iNumPorts; p++)
+		for (; p<m_iNumPorts; p++)
 		{
 			if (m_pUsedPorts[p] == i) break;
 		}

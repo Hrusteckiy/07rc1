@@ -226,7 +226,7 @@ void CLevelGraph::draw_stalkers		(const int &vertex_id)
 			if (!first_time)
 				continue;
 
-			Fvector				position = convert_position(graph.vertex(stalker->m_tGraphID)->game_point());
+			position = convert_position(graph.vertex(stalker->m_tGraphID)->game_point());
 			render.draw_aabb	(position,radius,radius,radius,color);
 			first_time			= false;
 			continue;
@@ -370,7 +370,7 @@ void CLevelGraph::draw_objects		(const int &vertex_id)
 			if (!first_time)
 				continue;
 
-			Fvector				position = convert_position(graph.vertex(monster->m_tGraphID)->game_point());
+			position = convert_position(graph.vertex(monster->m_tGraphID)->game_point());
 			render.draw_aabb	(position,radius,radius,radius,color);
 			first_time			= false;
 			continue;

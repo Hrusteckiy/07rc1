@@ -106,3 +106,9 @@ void CUIMessagesWindow::Update()
 {
 	CUIWindow::Update();
 }
+
+void CUIMessagesWindow::Show(bool status)
+{
+	CUIWindow::Show(status);
+	m_pGameLog->Show(status);
+}

@@ -227,7 +227,7 @@ bool CGrenade::Action(s32 cmd, u32 flags)
 	//переключение типа гранаты
 	case kWPN_NEXT:
 		{
-            if(flags&CMD_START) 
+			if(flags&CMD_START) 
 			{
 				if(m_pCurrentInventory)
 				{
@@ -270,7 +270,7 @@ ALife::_TIME_ID	 CGrenade::TimePassedAfterIndependant()	const
 BOOL CGrenade::UsedAI_Locations		()
 {
 #pragma todo("Dima to Yura : It crashes, because on net_Spawn object doesn't use AI locations, but on net_Destroy it does use them")
-	return TRUE;//m_dwDestroyTime == 0xffffffff;
+	return inherited::UsedAI_Locations();
 }
 
 void CGrenade::net_Relcase(CObject* O )

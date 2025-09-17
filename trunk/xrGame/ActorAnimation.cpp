@@ -259,10 +259,10 @@ void SVehicleAnimCollection::Create(CKinematicsAnimated* V,u16 num)
 	}
 }
 
-void CActor::steer_Vehicle(float angle)	
+void CActor::steer_Vehicle(float angle)
 {
 	if(!m_holder)		return;
-	CCar*	car			= smart_cast<CCar*>(m_holder);
+	CCar*	car			= GetCarHolder();
 	u16 anim_type       = car->DriverAnimationType();
 	SVehicleAnimCollection& anims=m_vehicle_anims->m_vehicles_type_collections[anim_type];
 	if(angle==0.f) 		smart_cast<CKinematicsAnimated*>	(Visual())->PlayCycle(anims.idles[0]);

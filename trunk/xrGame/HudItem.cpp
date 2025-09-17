@@ -15,6 +15,13 @@
 #include "inventory.h"
 #include "../xr_3da/CameraBase.h"
 
+xr_token	bobbing_mode_token[] = {
+	{ "ui_mm_inertion_vanilla",						ebmInertion	},
+	{ "ui_mm_inertion_bobbing",						ebmBobbing	},
+	{ "ui_mm_inertion_both",						ebmBoth		},
+	{ 0,							0							}
+};
+EBobbingMode g_BobbingMode;
 
 CHudItem::CHudItem(void)
 {
@@ -165,23 +172,44 @@ void CHudItem::Deactivate()
 	OnHiddenItem ();
 }
 
-
-
-void CHudItem::UpdateHudPosition	()
+void CHudItem::UpdateHudPosition()
 {
-	if (m_pHUD && GetHUDmode()){
-		if(item().IsHidden()) 
-			SetHUDmode(FALSE);
+	if (!m_pHUD || !GetHUDmode()) return;
+	if (item().IsHidden()) SetHUDmode(FALSE);
 
-		Fmatrix							trans;
+	if (auto* pActor = smart_cast<CActor*>(object().H_Parent()))
+	{
+		Fmatrix M_cam, M_aff, M_unaff;
+		pActor->Cameras().camera_Matrix(M_cam);
+		pActor->Cameras().affected_Matrix(M_aff);
+		pActor->Cameras().unaffected_Matrix(M_unaff);
 
-		CActor* pActor = smart_cast<CActor*>(object().H_Parent());
-		if(pActor){
-			pActor->Cameras().camera_Matrix				(trans);
-			UpdateHudInertion							(trans);
-			UpdateHudAdditonal							(trans);
-			m_pHUD->UpdatePosition						(trans);
+		Fmatrix trans;
+
+		switch (g_BobbingMode)
+		{
+		case ebmInertion:
+			trans = M_cam;
+			UpdateHudInertion(trans, M_cam);
+			break;
+
+		case ebmBobbing:
+			trans = M_aff;
+			// без инерции
+			break;
+
+		case ebmBoth:
+			trans = M_aff;              // база с боббингом
+			UpdateHudInertion(trans, M_unaff); // инерция по «чистой» ориентации
+			break;
+
+		default:
+			trans = M_cam;
+			break;
 		}
+
+		UpdateHudAdditonal(trans);
+		m_pHUD->UpdatePosition(trans);
 	}
 }
 
@@ -204,41 +232,34 @@ static const float PITCH_OFFSET_D	= 0.02f;
 static const float ORIGIN_OFFSET	= -0.05f;
 static const float TENDTO_SPEED		= 5.f;
 
-void CHudItem::UpdateHudInertion		(Fmatrix& hud_trans)
+void CHudItem::UpdateHudInertion(Fmatrix& hud_trans, const Fmatrix& ref_cam)
 {
-	if (m_pHUD && m_bInertionAllow && m_bInertionEnable){
-		Fmatrix								xform;//,xform_orig; 
-		Fvector& origin						= hud_trans.c; 
-		xform								= hud_trans;
+	if (!(m_pHUD && m_bInertionAllow && m_bInertionEnable)) return;
+	if (!smart_cast<CActor*>(object().H_Parent())) return;
 
-		static Fvector						m_last_dir={0,0,0};
+	Fvector& origin = hud_trans.c;
 
-		// calc difference
-		Fvector								diff_dir;
-		diff_dir.sub						(xform.k, m_last_dir);
+	// === как у тебя было ===
+	Fvector diff_dir; diff_dir.sub(ref_cam.k, m_last_dir);
 
-		// clamp by PI_DIV_2
-		Fvector last;						last.normalize_safe(m_last_dir);
-		float dot							= last.dotproduct(xform.k);
-		if (dot<EPS){
-			Fvector v0;
-			v0.crossproduct			(m_last_dir,xform.k);
-			m_last_dir.crossproduct	(xform.k,v0);
-			diff_dir.sub			(xform.k, m_last_dir);
-		}
-
-		// tend to forward
-		m_last_dir.mad	(diff_dir,TENDTO_SPEED*Device.fTimeDelta);
-		origin.mad		(diff_dir,ORIGIN_OFFSET);
-
-		// pitch compensation
-		float pitch		= angle_normalize_signed(xform.k.getP());
-		origin.mad		(xform.k,	-pitch * PITCH_OFFSET_D);
-		origin.mad		(xform.i,	-pitch * PITCH_OFFSET_R);
-		origin.mad		(xform.j,	-pitch * PITCH_OFFSET_N);
-
-		// calc moving inertion
+	Fvector last = m_last_dir; last.normalize_safe();
+	float dot = last.dotproduct(ref_cam.k);
+	if (dot < EPS)
+	{
+		Fvector v0; v0.crossproduct(m_last_dir, ref_cam.k);
+		m_last_dir.crossproduct(ref_cam.k, v0);
+		diff_dir.sub(ref_cam.k, m_last_dir);
 	}
+
+	m_last_dir.mad(diff_dir, TENDTO_SPEED * Device.fTimeDelta);
+	origin.mad(diff_dir, ORIGIN_OFFSET);
+
+	float pitch = angle_normalize_signed(ref_cam.k.getP());
+	origin.mad(ref_cam.k, -pitch * PITCH_OFFSET_D);
+	origin.mad(ref_cam.i, -pitch * PITCH_OFFSET_R);
+	origin.mad(ref_cam.j, -pitch * PITCH_OFFSET_N);
+
+	// TODO: moving inertia при ходьбе — по желанию
 }
 
 void CHudItem::UpdateCL()

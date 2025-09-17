@@ -111,15 +111,15 @@ BOOL CMissile::net_Spawn(CSE_Abstract* DC)
 
 void CMissile::net_Destroy() 
 {
-	inherited::net_Destroy();
 	m_fake_missile = 0;
+	inherited::net_Destroy();
 }
 
 void CMissile::OnActiveItem		()
 {
 	inherited::OnActiveItem	();
 	SetState				( MS_IDLE );
-	SetNextState			( MS_IDLE );	
+	SetNextState			( MS_IDLE );
 	if (m_pHUD) m_pHUD->Show();
 }
 
@@ -272,7 +272,7 @@ void CMissile::State(u32 state)
 	switch(GetState()) 
 	{
 	case MS_SHOWING:
-        {
+		{
 			m_bPending = true;
 			m_pHUD->animPlay(m_pHUD->animGet(*m_sAnimShow), FALSE, this, GetState());
 		} break;
@@ -404,7 +404,7 @@ void CMissile::UpdateXForm	()
 
 		// Get access to entity and its visual
 		CEntityAlive*		E		= smart_cast<CEntityAlive*>(H_Parent());
-        
+		
 		if(!E)				return	;
 
 		const CInventoryOwner	*parent = smart_cast<const CInventoryOwner*>(E);
@@ -574,7 +574,7 @@ bool CMissile::Action(s32 cmd, u32 flags)
 	case kWPN_ZOOM:
 		{
 			m_constpower = false;
-        	if(flags&CMD_START) 
+			if(flags&CMD_START) 
 			{
 				m_throw = false;
 				if(GetState() == MS_IDLE) 
@@ -600,7 +600,7 @@ void  CMissile::UpdateFireDependencies_internal	()
 {
 	if (0==H_Parent())		return;
 
-    if (Device.dwFrame!=dwFP_Frame){
+	if (Device.dwFrame!=dwFP_Frame){
 		dwFP_Frame = Device.dwFrame;
 
 		UpdateXForm			();

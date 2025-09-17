@@ -58,7 +58,7 @@
         <text x="30" y="8" font="graffiti22" r="231" g="153" b="22">ui_inv_bag</text>
     </bag_static>
     
-    <money_static x="744" y="522" width="108" height="33" stretch="1">
+    <money_static x="737" y="516" width="109" height="32" stretch="1">
 		<text font="graffiti22" r="238" g="153" b="26" align="c" vert_align="c"></text>
     </money_static>
 
@@ -171,11 +171,11 @@
     
     <time_static x="15" y="730" width="200" height="30">        
 		<texture x="0" y="0" width="190" height="36">ui\ui_dg_time</texture>
-        <text x="20" y="8" font="letterica16" r="240" g="217" b="182" a="255">ui_inv_time</text>
+        <text x="20" vert_align="c" font="letterica16" r="240" g="217" b="182" a="255">ui_inv_time</text>
 	</time_static>
 
-    <time_static_str x="115" y="7" width="107" height="30">        
-        <text font="letterica16" r="240" g="217" b="182" a="255"/>
+    <time_static_str x="107" y="7" width="62" height="18">        
+        <text align="c" vert_align="c" font="letterica16" r="240" g="217" b="182" a="255"/>
 	</time_static_str>
 
     <exit_button x="870" y="725" width="157" height="48">

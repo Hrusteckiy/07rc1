@@ -29,9 +29,9 @@ Comments:
 // should be in ddraw.h
 
 #ifndef MAKEFOURCC
-    #define MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
-                ((DWORD)(BYTE)(ch0) | ((DWORD)(BYTE)(ch1) << 8) |   \
-                ((DWORD)(BYTE)(ch2) << 16) | ((DWORD)(BYTE)(ch3) << 24 ))
+	#define MAKEFOURCC(ch0, ch1, ch2, ch3)                              \
+				((DWORD)(BYTE)(ch0) | ((DWORD)(BYTE)(ch1) << 8) |   \
+				((DWORD)(BYTE)(ch2) << 16) | ((DWORD)(BYTE)(ch3) << 24 ))
 #endif //defined(MAKEFOURCC)
 
 /////////////////////////////////////
@@ -142,26 +142,26 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 	// from Microsoft's mssdk D3DIM example "Compress"
 
 	DDS_HEADER		    ddsd;
-    DWORD				dwMagic;
+	DWORD				dwMagic;
 
 
-    // Read magic number
-    fread( &dwMagic, sizeof(DWORD), 1, file );
+	// Read magic number
+	fread( &dwMagic, sizeof(DWORD), 1, file );
 
-    if( dwMagic != MAKEFOURCC('D','D','S',' ') )
-    {
-        fclose( file );
-        return( false);
-    }
+	if( dwMagic != MAKEFOURCC('D','D','S',' ') )
+	{
+		fclose( file );
+		return( false);
+	}
 	
-    // Read the surface description
-    fread( &ddsd, sizeof(DDS_HEADER), 1, file );
+	// Read the surface description
+	fread( &ddsd, sizeof(DDS_HEADER), 1, file );
 
 
-    // Does texture have mipmaps?
-    m_bMipTexture = ( ddsd.dwMipMapCount > 0 ) ? TRUE : FALSE;
+	// Does texture have mipmaps?
+	m_bMipTexture = ( ddsd.dwMipMapCount > 0 ) ? TRUE : FALSE;
 
-    // Clear unwanted flags
+	// Clear unwanted flags
 	// Can't do this!!!  surface not re-created here
 	//    ddsd.dwFlags &= (~DDSD_PITCH);
 	//    ddsd.dwFlags &= (~DDSD_LINEARSIZE);
@@ -192,10 +192,10 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 	//TRACE("ddsd.dwWidth:            %d\n", ddsd.dwWidth  );
 	//TRACE("w * h					%d\n", ddsd.dwWidth * ddsd.dwHeight );
 
-    
+	
 
-    // Store the return copy of this surfacedesc
-    m_DDSD = ddsd;
+	// Store the return copy of this surfacedesc
+	m_DDSD = ddsd;
 
 
 	m_nHeight = ddsd.dwHeight;
@@ -204,8 +204,8 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 
 	// Read only first mip level for now:
 
-    if( ddsd.dwHeaderFlags & DDSD_LINEARSIZE )
-    {
+	if( ddsd.dwHeaderFlags & DDSD_LINEARSIZE )
+	{
 		//TRACE("dwFlags  has DDSD_LINEARSIZE\n");
 
 		m_pCompBytes = (BYTE*)calloc( ddsd.dwPitchOrLinearSize, sizeof(BYTE) );
@@ -216,13 +216,13 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 			return( false );
 		}
 
-        fread( m_pCompBytes, ddsd.dwPitchOrLinearSize, 1, file );
-    }
-    else
-    {
+		fread( m_pCompBytes, ddsd.dwPitchOrLinearSize, 1, file );
+	}
+	else
+	{
 		//TRACE("dwFlags  file doesn't have linearsize set\n");
 
-        DWORD dwBytesPerRow = ddsd.dwWidth * ddsd.ddspf.dwRGBBitCount / 8;
+		DWORD dwBytesPerRow = ddsd.dwWidth * ddsd.ddspf.dwRGBBitCount / 8;
 
 		m_pCompBytes = (BYTE*) calloc( ddsd.dwPitchOrLinearSize * ddsd.dwHeight, sizeof(BYTE) );
 
@@ -236,14 +236,14 @@ bool Image_DXTC::LoadFromFile(LPCSTR filename )
 			return( false );
 		}
 
-        BYTE* pDest = m_pCompBytes;
+		BYTE* pDest = m_pCompBytes;
 
-        for( DWORD yp = 0; yp < ddsd.dwHeight; yp++ )
-        {
-            fread( pDest, dwBytesPerRow, 1, file );
-            pDest += ddsd.dwPitchOrLinearSize;
-        }
-    }
+		for( DWORD yp = 0; yp < ddsd.dwHeight; yp++ )
+		{
+			fread( pDest, dwBytesPerRow, 1, file );
+			pDest += ddsd.dwPitchOrLinearSize;
+		}
+	}
 
 
 	// done reading file
@@ -973,35 +973,35 @@ void Image_DXTC::DecompressDXT5()
 
 /*
 typedef struct _DDSURFACEDESC2 {
-    DWORD         dwSize;
-    DWORD         dwFlags;
-    DWORD         dwHeight;
-    DWORD         dwWidth;
-    union
-    {
-        LONG      lPitch;
-        DWORD     dwLinearSize;
-    } DUMMYUNIONNAMEN(1);
-    DWORD         dwBackBufferCount;
-    union
-    {
-        DWORD     dwMipMapCount;
-        DWORD     dwRefreshRate;
-    } DUMMYUNIONNAMEN(2);
-    DWORD         dwAlphaBitDepth;
-    DWORD         dwReserved;
-    LPVOID        lpSurface;
-    union
-    {
-        DDCOLORKEY    ddckCKDestOverlay;
-        DWORD         dwEmptyFaceColor;
-    } DUMMYUNIONNAMEN(3);
-    DDCOLORKEY    ddckCKDestBlt;
-    DDCOLORKEY    ddckCKSrcOverlay;
-    DDCOLORKEY    ddckCKSrcBlt;
-    DDPIXELFORMAT ddpfPixelFormat;
-    DDSCAPS2      ddsCaps;
-    DWORD         dwTextureStage;
+	DWORD         dwSize;
+	DWORD         dwFlags;
+	DWORD         dwHeight;
+	DWORD         dwWidth;
+	union
+	{
+		LONG      lPitch;
+		DWORD     dwLinearSize;
+	} DUMMYUNIONNAMEN(1);
+	DWORD         dwBackBufferCount;
+	union
+	{
+		DWORD     dwMipMapCount;
+		DWORD     dwRefreshRate;
+	} DUMMYUNIONNAMEN(2);
+	DWORD         dwAlphaBitDepth;
+	DWORD         dwReserved;
+	LPVOID        lpSurface;
+	union
+	{
+		DDCOLORKEY    ddckCKDestOverlay;
+		DWORD         dwEmptyFaceColor;
+	} DUMMYUNIONNAMEN(3);
+	DDCOLORKEY    ddckCKDestBlt;
+	DDCOLORKEY    ddckCKSrcOverlay;
+	DDCOLORKEY    ddckCKSrcBlt;
+	DDPIXELFORMAT ddpfPixelFormat;
+	DDSCAPS2      ddsCaps;
+	DWORD         dwTextureStage;
 } DDSURFACEDESC2, FAR* LPDDSURFACEDESC2; 
 
 
@@ -1016,48 +1016,48 @@ typedef struct _DDSURFACEDESC2 {
 //-----------------------------------------------------------------------------
 VOID Image_DXTC::DecodePixelFormat( CHAR* strPixelFormat, DDS_PIXELFORMAT* pddpf )
 {
-    switch( pddpf->dwFourCC )
-    {
-        case 0:
-            // This dds texture isn't compressed so write out ARGB format
-            sprintf( strPixelFormat, "ARGB-%d%d%d%d%s", 
-                     GetNumberOfBits( pddpf->dwRGBAlphaBitMask ), 
-                     GetNumberOfBits( pddpf->dwRBitMask ),
-                     GetNumberOfBits( pddpf->dwGBitMask ),
-                     GetNumberOfBits( pddpf->dwBBitMask ),
-                     /*pddpf->dwBBitMask & DDPF_ALPHAPREMULT ? "-premul" : */"" );		//KD: this code must be wrong, DDPF_ALPHAPREMULT is stored in dwFlags
+	switch( pddpf->dwFourCC )
+	{
+		case 0:
+			// This dds texture isn't compressed so write out ARGB format
+			sprintf( strPixelFormat, "ARGB-%d%d%d%d%s", 
+					 GetNumberOfBits( pddpf->dwRGBAlphaBitMask ), 
+					 GetNumberOfBits( pddpf->dwRBitMask ),
+					 GetNumberOfBits( pddpf->dwGBitMask ),
+					 GetNumberOfBits( pddpf->dwBBitMask ),
+					 /*pddpf->dwBBitMask & DDPF_ALPHAPREMULT ? "-premul" : */"" );		//KD: this code must be wrong, DDPF_ALPHAPREMULT is stored in dwFlags
 			m_CompFormat = PF_ARGB;
-            break;
+			break;
 
-        case MAKEFOURCC('D','X','T','1'):
-            strcpy( strPixelFormat, "DXT1" );
+		case MAKEFOURCC('D','X','T','1'):
+			strcpy( strPixelFormat, "DXT1" );
 			m_CompFormat = PF_DXT1;
-            break;
+			break;
 
-        case MAKEFOURCC('D','X','T','2'):
-            strcpy( strPixelFormat, "DXT2" );
+		case MAKEFOURCC('D','X','T','2'):
+			strcpy( strPixelFormat, "DXT2" );
 			m_CompFormat = PF_DXT2;
-            break;
+			break;
 
-        case MAKEFOURCC('D','X','T','3'):
-            strcpy( strPixelFormat, "DXT3" );
+		case MAKEFOURCC('D','X','T','3'):
+			strcpy( strPixelFormat, "DXT3" );
 			m_CompFormat = PF_DXT3;
-            break;
+			break;
 
-        case MAKEFOURCC('D','X','T','4'):
-            strcpy( strPixelFormat, "DXT4" );
+		case MAKEFOURCC('D','X','T','4'):
+			strcpy( strPixelFormat, "DXT4" );
 			m_CompFormat = PF_DXT4;
-            break;
+			break;
 
-        case MAKEFOURCC('D','X','T','5'):
-            strcpy( strPixelFormat, "DXT5" );
+		case MAKEFOURCC('D','X','T','5'):
+			strcpy( strPixelFormat, "DXT5" );
 			m_CompFormat = PF_DXT5;
-            break;
+			break;
 		default:
 			strcpy( strPixelFormat, "Format Unknown");
 			m_CompFormat = PF_UNKNOWN;
 			break;
-    }
+	}
 }
 
 
@@ -1564,10 +1564,11 @@ inline void GetColorBlockColors_m1( DXTColBlock * pBlock, Color8888 * col_0, Col
 //-----------------------------------------------------------------------------
 WORD GetNumberOfBits( DWORD dwMask )
 {
-    for( WORD wBits = 0; dwMask; wBits++ )
-        dwMask = dwMask & ( dwMask - 1 );  
+	WORD wBits = 0;
+	for (; dwMask; wBits++)
+		dwMask = dwMask & (dwMask - 1);
 
-    return wBits;
+	return wBits;
 }
 
 

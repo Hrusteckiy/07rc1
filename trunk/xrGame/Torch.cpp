@@ -152,7 +152,7 @@ void CTorch::SwitchNightVision(bool vision_on)
 			}
 		}
 	}else{
- 		CEffectorPP* pp = pA->Cameras().GetPPEffector((EEffectorPPType)effNightvision);
+		CEffectorPP* pp = pA->Cameras().GetPPEffector((EEffectorPPType)effNightvision);
 		if(pp){
 			pp->Stop			(1.0f);
 			HUD_SOUND::PlaySound(m_NightVisionOffSnd, pA->Position(), pA, bPlaySoundFirstPerson);
@@ -208,9 +208,8 @@ void CTorch::Switch	(bool light_on)
 		u16 bi								= pVisual->LL_BoneID(light_trace_bone);
 
 		pVisual->LL_SetBoneVisible			(bi,	light_on,	TRUE);
-		pVisual->CalculateBones				();
-
-		pVisual->LL_SetBoneVisible			(bi,	light_on,	TRUE); //hack
+		pVisual->CalculateBones				(TRUE);
+//.		pVisual->LL_SetBoneVisible			(bi,	light_on,	TRUE); //hack
 	}
 }
 
@@ -323,8 +322,16 @@ void CTorch::UpdateCL()
 
 		if (actor) 
 		{
-			m_prev_hp.x		= angle_inertion_var(m_prev_hp.x,-actor->cam_FirstEye()->yaw,TORCH_INERTION_SPEED_MIN,TORCH_INERTION_SPEED_MAX,TORCH_INERTION_CLAMP,Device.fTimeDelta);
-			m_prev_hp.y		= angle_inertion_var(m_prev_hp.y,-actor->cam_FirstEye()->pitch,TORCH_INERTION_SPEED_MIN,TORCH_INERTION_SPEED_MAX,TORCH_INERTION_CLAMP,Device.fTimeDelta);
+			if (actor->active_cam() == eacLookAt)
+			{
+				m_prev_hp.x = angle_inertion_var(m_prev_hp.x, -actor->cam_Active()->yaw, TORCH_INERTION_SPEED_MIN, TORCH_INERTION_SPEED_MAX, TORCH_INERTION_CLAMP, Device.fTimeDelta);
+				m_prev_hp.y = angle_inertion_var(m_prev_hp.y, -actor->cam_Active()->pitch, TORCH_INERTION_SPEED_MIN, TORCH_INERTION_SPEED_MAX, TORCH_INERTION_CLAMP, Device.fTimeDelta);
+			}
+			else
+			{
+				m_prev_hp.x = angle_inertion_var(m_prev_hp.x, -actor->cam_FirstEye()->yaw, TORCH_INERTION_SPEED_MIN, TORCH_INERTION_SPEED_MAX, TORCH_INERTION_CLAMP, Device.fTimeDelta);
+				m_prev_hp.y = angle_inertion_var(m_prev_hp.y, -actor->cam_FirstEye()->pitch, TORCH_INERTION_SPEED_MIN, TORCH_INERTION_SPEED_MAX, TORCH_INERTION_CLAMP, Device.fTimeDelta);
+			}
 
 			Fvector			dir,right,up;	
 			dir.setHP		(m_prev_hp.x+m_delta_h,m_prev_hp.y);
@@ -501,4 +508,13 @@ void CTorch::afterDetach			()
 void CTorch::renderable_Render()
 {
 	inherited::renderable_Render();
+}
+
+void CTorch::enable(bool value)
+{
+	inherited::enable(value);
+
+	if(!enabled() && m_switched_on)
+		Switch				(false);
+
 }

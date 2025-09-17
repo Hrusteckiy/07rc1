@@ -271,6 +271,7 @@ public:
 	void					attach_Vehicle			(CHolderCustom* vehicle);
 
 	virtual bool			can_attach				(const CInventoryItem *inventory_item) const;
+			CCar*			GetCarHolder			() const;
 protected:
 	CHolderCustom*			m_holder;
 	u16						m_holderID;
@@ -341,9 +342,10 @@ public:
 	// Cameras and effectors
 	//////////////////////////////////////////////////////////////////////////
 public:
-	CActorCameraManager&	Cameras				() 	{VERIFY(m_pActorEffector); return *m_pActorEffector;}
-	IC CCameraBase*			cam_Active			()	{return cameras[cam_active];}
-	IC CCameraBase*			cam_FirstEye		()	{return cameras[eacFirstEye];}
+	CActorCameraManager&	Cameras				() { VERIFY(m_pActorEffector); return *m_pActorEffector; }
+	IC CCameraBase*			cam_Active			() { return cameras[cam_active]; }
+	IC CCameraBase*			cam_FirstEye		() { return cameras[eacFirstEye]; }
+	IC EActorCameras		active_cam			() { return cam_active; }
 
 protected:
 	void					cam_Set					(EActorCameras style);

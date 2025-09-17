@@ -514,8 +514,10 @@ void	CRender::Render		()
 	o.vis_intersect								= TRUE			;
 	HOM.Disable									();
 	L_Dynamic->render							();				// addititional light sources
-	if(Wallmarks){
-		g_r										= 0;
+	if (Wallmarks)
+	{
+		if (!ps_common_flags.test(RFLAG_BLOODMARKS))
+			g_r = 0;
 		Wallmarks->Render						();				// wallmarks has priority as normal geometry
 	}
 	HOM.Enable									();

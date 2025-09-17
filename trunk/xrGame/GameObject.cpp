@@ -83,7 +83,7 @@ void CGameObject::reinit	()
 {
 	m_visual_callback.clear	();
 	if (!g_dedicated_server)
-        ai_location().reinit	();
+		ai_location().reinit	();
 
 	// clear callbacks	
 	for (CALLBACK_MAP_IT it = m_callbacks->begin(); it != m_callbacks->end(); ++it) it->second.clear();
@@ -352,7 +352,7 @@ BOOL CGameObject::net_Spawn		(CSE_Abstract*	DC)
 				Position().y		= EPS_L + ai().level_graph().vertex_plane_y(*ai_location().level_vertex(),Position().x,Position().z);
 		
 		}
- 		inherited::net_Spawn	(DC);
+		inherited::net_Spawn	(DC);
 	}
 
 	m_bObjectRemoved			= false;
@@ -618,13 +618,21 @@ void			CGameObject::dbg_DrawSkeleton	()
 				Level().debug_renderer().draw_obb	(M, h_size, color_rgba(0, 255, 0, 255));
 								   }break;
 			case SBoneShape::stCylinder:{
-				Fmatrix M;
-				M.c.set				(I->c_cylinder.m_center);
-				M.k.set				(I->c_cylinder.m_direction);
-				Fvector				h_size;
-				h_size.set			(I->c_cylinder.m_radius,I->c_cylinder.m_radius,I->c_cylinder.m_height*0.5f);
-				Fvector::generate_orthonormal_basis(M.k,M.j,M.i);
-				Level().debug_renderer().draw_obb	(M, h_size, color_rgba(0, 127, 255, 255));
+				const auto& cyl = I->c_cylinder;
+
+				// Построение базиса: направляем Z вдоль direction
+				Fmatrix basis, scale, result;
+				basis.identity();
+				basis.k = cyl.m_direction;
+				Fvector::generate_orthonormal_basis(basis.k, basis.j, basis.i);
+				basis.c = cyl.m_center;
+
+				// масштабируем радиус по XY, высоту по Z
+				scale.scale(cyl.m_radius, cyl.m_radius, cyl.m_height * 0.5f);
+
+				result.mul_43(basis, scale);
+
+				Level().debug_renderer().draw_cylinder(result, color_rgba(0, 127, 255, 255));
 										}break;
 			case SBoneShape::stSphere:{
 				Fmatrix				l_ball;

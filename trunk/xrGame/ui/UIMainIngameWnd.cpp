@@ -900,11 +900,15 @@ bool CUIMainIngameWnd::OnKeyboardPress(int dik)
 		case DIK_NUMPADMINUS:
 			//.HideAll();
 			HUD().GetUI()->HideGameIndicators();
+			HUD().GetUI()->HideCrosshair();
+			HUD().GetUI()->m_pMessagesWnd->Show(false);
 			return true;
 			break;
 		case DIK_NUMPADPLUS:
 			//.ShowAll();
 			HUD().GetUI()->ShowGameIndicators();
+			HUD().GetUI()->ShowCrosshair();
+			HUD().GetUI()->m_pMessagesWnd->Show(true);
 			return true;
 			break;
 		}

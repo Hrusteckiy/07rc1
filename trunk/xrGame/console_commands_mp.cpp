@@ -187,7 +187,7 @@ public:
 
 		u32 CLObjNum	= Level().Objects.o_count();
 		xr_vector<u16>	CObjID;
-		for (i=0; i<CLObjNum; i++)
+		for (u32 i=0; i<CLObjNum; i++)
 		{
 			CObjID.push_back(Level().Objects.o_get_by_iterator(i)->ID());
 		};
@@ -271,7 +271,8 @@ public:
 
 		Level().Server->clients_Lock();
 		u32	cnt					= Level().Server->game->get_players_count();
-		for(u32 it=0; it<cnt; it++)	
+		u32 it = 0;
+		for(it=0; it<cnt; it++)
 		{
 			xrClientData *l_pC = (xrClientData*)	Level().Server->client_Get	(it);
 			if (l_pC)
@@ -350,7 +351,8 @@ public:
 
 		Level().Server->clients_Lock();
 		u32	cnt					= Level().Server->game->get_players_count();
-		for(u32 it=0; it<cnt; it++)	
+		u32 it = 0;
+		for(it=0; it<cnt; it++)	
 		{
 			xrClientData *l_pC = (xrClientData*)	Level().Server->client_Get	(it);
 			if (l_pC)

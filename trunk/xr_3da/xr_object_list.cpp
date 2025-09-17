@@ -17,6 +17,9 @@ public:
 	fClassEQ(CLASS_ID C) : cls(C) {};
 	IC bool operator() (CObject* O) { return cls==O->CLS_ID; }
 };
+#ifdef	DEBUG
+BOOL debug_destroy = FALSE;
+#endif
 
 CObjectList::CObjectList	( )
 {
@@ -201,7 +204,8 @@ void CObjectList::Update		(bool bForce)
 			CObject*		O	= destroy_queue[it];
 //			Msg				("Object [%x]", O);
 #ifdef DEBUG
-			Msg				("Destroying object[%x] [%d][%s] frame[%d]",O, O->ID(),*O->cName(), Device.dwFrame);
+			if (debug_destroy)
+				Msg("Destroying object[%x] [%d][%s] frame[%d]", O, O->ID(), *O->cName(), Device.dwFrame);
 #endif // DEBUG
 			O->net_Destroy	( );
 			Destroy			(O);
@@ -316,7 +320,8 @@ void CObjectList::Unload	( )
 		O->setDestroy	( TRUE );
 		
 #ifdef DEBUG
-		Msg				("Destroying object [%d][%s]",O->ID(),*O->cName());
+		if (debug_destroy)
+			Msg("Destroying object [%d][%s]", O->ID(), *O->cName());
 #endif
 		O->net_Destroy	(   );
 		Destroy			( O );
@@ -328,7 +333,8 @@ void CObjectList::Unload	( )
 		O->setDestroy	( TRUE );
 
 #ifdef DEBUG
-		Msg				("Destroying object [%d][%s]",O->ID(),*O->cName());
+		if (debug_destroy)
+			Msg("Destroying object [%d][%s]", O->ID(), *O->cName());
 #endif
 		O->net_Destroy	(   );
 		Destroy			( O );

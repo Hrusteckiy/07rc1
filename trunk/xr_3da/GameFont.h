@@ -39,6 +39,7 @@ protected:
 	float					fXStep;
 	float					fYStep;
 	float					fTCHeight;
+	float					fRotationAngle;
 	xr_vector<String>		strings;
 
 	ref_shader				pShader;
@@ -79,6 +80,10 @@ public:
 	IC void					SetInterval		(float x, float y) {vInterval.set(x,y);};
 	IC void					SetInterval		(const Fvector2& v) {vInterval.set(v);};
 	IC void					SetAligment		(EAligment aligment){ eCurrentAlignment=aligment; }
+	IC EAligment			GetAligment		()	{ return eCurrentAlignment; }
+
+	void					SetRotation		(float angle) { fRotationAngle = angle; }
+	float					GetRotation		() const { return fRotationAngle; }
 
 	float					SizeOf_			( LPCSTR s );
 	float					SizeOf_			( const wide_char *wsStr );
@@ -93,19 +98,21 @@ public:
 	void 					MasterOut( 	BOOL bCheckDevice , BOOL bUseCoords , BOOL bScaleCoords , BOOL bUseSkip ,
 										float _x , float _y , float _skip , LPCSTR fmt , va_list p );
 
-	u32						smart_strlen( const char* S );
-	BOOL					IsMultibyte() { return ( uFlags & fsMultibyte ); };
-	u16						SplitByWidth( u16 * puBuffer , u16 uBufferSize , float fTargetWidth , const char * pszText );
-	u16						GetCutLengthPos( float fTargetWidth , const char * pszText );
+	u32						smart_strlen	( const char* S );
+	BOOL					IsMultibyte		() { return ( uFlags & fsMultibyte ); };
+	u16						SplitByWidth	( u16 * puBuffer , u16 uBufferSize , float fTargetWidth , const char * pszText );
+	u16						GetCutLengthPos	( float fTargetWidth , const char * pszText );
 
-	void  					OutI			( float _x , float _y , LPCSTR fmt , ... );
-	void  					Out				( float _x , float _y , LPCSTR fmt , ... );
-	void             		OutNext			( LPCSTR fmt , ... );
-	void             		OutPrev			( LPCSTR fmt , ... );
+	void					OutI			( float _x , float _y , LPCSTR fmt , ... );
+	void					Out				( float _x , float _y , LPCSTR fmt , ... );
+	void					OutNext			( LPCSTR fmt , ... );
+	void					OutPrev			( LPCSTR fmt , ... );
 
 	void					OutSkip			(float val=1.f);
 
 	virtual void			OnRender		();
+
+			void			RenderFragment	(u32& i, bool shadowMode, float dX, float dY, u32 length, u32 last);
 
 	IC	void				Clear			()  { strings.clear(); };
 

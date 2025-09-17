@@ -64,7 +64,8 @@ protected:
 	// Generic
 	/////////////////////////////////////////////////
 public:
-	virtual CHolderCustom	*cast_holder_custom	()				{return this;}
+	virtual CHolderCustom*	cast_holder_custom	()				{ return this; }
+	virtual CWeaponMounted*	cast_weapon_mounted	()				{ return this; }
 	virtual void			Load				(LPCSTR section);
 
 	virtual BOOL			net_Spawn			(CSE_Abstract* DC);

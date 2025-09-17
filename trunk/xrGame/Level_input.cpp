@@ -8,7 +8,8 @@
 #include "alife_simulator_header.h"
 #include "level_graph.h"
 #include "../xr_3da/FDemoRecord.h"
-#include "level.h"
+#include "../xr_3da/CameraManager.h"
+#include "Level.h"
 #include "xr_level_controller.h"
 #include "game_cl_base.h"
 #include "stalker_movement_manager.h"
@@ -17,7 +18,7 @@
 #include "xrServer.h"
 #include "autosave_manager.h"
 
-#include "actor.h"
+#include "Actor.h"
 #include "Car.h"
 #include "GameMtlLib.h"
 #include "huditem.h"
@@ -170,8 +171,9 @@ void CLevel::IR_OnKeyboardPress	(int key)
 		return;
 	}
 
-#ifndef MASTER_GOLD
-	switch (key) {
+//#ifndef MASTER_GOLD
+	switch (key)
+	{
 	case DIK_NUMPAD5: 
 		{
 			if (GameID() != GAME_SINGLE) 
@@ -179,12 +181,19 @@ void CLevel::IR_OnKeyboardPress	(int key)
 				Msg("For this game type Demo Record is disabled.");
 ///				return;
 			};
-			Console->Hide	();
-			Console->Execute("demo_record 1");
+			if (!pInput->iGetAsyncKeyState(DIK_LSHIFT))
+			{
+				Console->Hide();
+				Console->Execute("demo_record 1");
+				return;
+			}
 		}
 		break;
-#endif // MASTER_GOLD
+	}
+//#endif // MASTER_GOLD
 #ifdef DEBUG
+	switch (key)
+	{
 	case DIK_RETURN:
 			bDebug	= !bDebug;
 		return;
@@ -276,7 +285,8 @@ void CLevel::IR_OnKeyboardPress	(int key)
 
 
 	case DIK_DIVIDE:
-		if( OnServer() ){
+		if (OnServer() && !Level().Cameras().GetCamEffector(cefDemo))
+		{
 //			float NewTimeFactor				= pSettings->r_float("alife","time_factor");
 			
 			if (GameID() == GAME_SINGLE)
@@ -289,7 +299,8 @@ void CLevel::IR_OnKeyboardPress	(int key)
 		}
 		break;	
 	case DIK_MULTIPLY:
-		if( OnServer() ){
+		if (OnServer() && !Level().Cameras().GetCamEffector(cefDemo))
+		{
 			float NewTimeFactor				= 1000.f;
 			if (GameID() == GAME_SINGLE)
 				Server->game->SetGameTimeFactor(NewTimeFactor);

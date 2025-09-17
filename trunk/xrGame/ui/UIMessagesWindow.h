@@ -32,7 +32,8 @@ public:
 	void				SetChatOwner					(game_cl_GameState* owner);
 	CUIChatWnd*			GetChatWnd						() {return m_pChatWnd;}
 
-	virtual void		Update();
+	virtual void		Update							();
+	virtual void		Show							(bool status);
 
 
 protected:

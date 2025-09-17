@@ -290,6 +290,9 @@ bool CAI_Stalker::non_conflicted					(const CInventoryItem *item, const CWeapon 
 		return				(true);
 
 	switch (weapon->ef_weapon_type()) {
+		// binoculars
+		case 0 : 
+			return			(true);
 		// knives
 		case 1 : {
 			if (weapon->ef_weapon_type() != new_weapon->ef_weapon_type())

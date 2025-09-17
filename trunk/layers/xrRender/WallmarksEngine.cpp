@@ -152,7 +152,7 @@ void CWallmarksEngine::RecurseTri(u32 t, Fmatrix &mView, CWallmarksEngine::stati
 		}
 		
 		// recurse
-		for (i=0; i<3; i++)
+		for (u32 i=0; i<3; i++)
 		{
 			u32 adj					= sml_adjacency[3*t+i];
 			if (0xffffffff==adj)	continue;
@@ -172,7 +172,7 @@ void CWallmarksEngine::BuildMatrix	(Fmatrix &mView, float invsz, const Fvector& 
 {
 	// build projection
 	Fmatrix				mScale;
-    Fvector				at,up,right,y;
+	Fvector				at,up,right,y;
 	at.sub				(from,sml_normal);
 	y.set				(0,1,0);
 	if (_abs(sml_normal.y)>.99f) y.set(1,0,0);

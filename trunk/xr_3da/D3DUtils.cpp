@@ -145,9 +145,9 @@ void CDrawUtilities::UpdateGrid(int number_of_cell, float square_size, int subdi
 
 	FVF::L left,right;
 	left.p.y = right.p.y = 0;
-
+	int i = 0;
 	for(int thin=0; thin<2; thin++){
-		for(int i=-m_GridCounts[0]; i<=m_GridCounts[0]; i++){
+		for(i =-m_GridCounts[0]; i<=m_GridCounts[0]; i++){
 			if( (!!thin) != !!(i%m_GridSubDiv[0]) ){
 				left.p.z = -m_GridCounts[1]*m_GridStep.y;
 				right.p.z = m_GridCounts[1]*m_GridStep.y;
@@ -205,7 +205,7 @@ void CDrawUtilities::OnDeviceCreate()
 	// initialize identity box
 	Fbox bb;
 	bb.set(-0.505f,-0.505f,-0.505f, 0.505f,0.505f,0.505f);
-	for (i=0; i<8; i++){
+	for (int i=0; i<8; i++){
 		Fvector S;
 		Fvector p;
 		bb.getpoint(i,p);
@@ -469,7 +469,7 @@ void CDrawUtilities::DrawIdentSphere	(BOOL bSolid, BOOL bWire, u32 clr_s, u32 cl
 {
 	if (bWire){
 		DU_DRAW_SH_C	(Device.m_WireShader,clr_w);
-	 	m_WireSphere.Render	();
+		m_WireSphere.Render	();
 	}
 	if (bSolid){
 		DU_DRAW_SH_C	(color_get_A(clr_s)>=254?Device.m_WireShader:Device.m_SelectionShader,clr_s);
@@ -482,7 +482,7 @@ void CDrawUtilities::DrawIdentSpherePart(BOOL bSolid, BOOL bWire, u32 clr_s, u32
 {
 	if (bWire){
 		DU_DRAW_SH_C	(Device.m_WireShader,clr_w);
-	 	m_WireSpherePart.Render	();
+		m_WireSpherePart.Render	();
 	}
 	if (bSolid){
 		DU_DRAW_SH_C	(color_get_A(clr_s)>=254?Device.m_WireShader:Device.m_SelectionShader,clr_s);
@@ -995,7 +995,7 @@ void CDrawUtilities::DrawAxis(const Fmatrix& T)
 	c[0]=c[2]=c[4]=0x00222222; c[1]=0x00FF0000; c[3]=0x0000FF00; c[5]=0x000000FF;
 
 	// position
-  	p[0].mad(T.c,T.k,0.25f);
+	p[0].mad(T.c,T.k,0.25f);
 	p[1].set(p[0]); p[1].x+=.015f;
 	p[2].set(p[0]);
 	p[3].set(p[0]); p[3].y+=.015f;
@@ -1169,7 +1169,7 @@ void CDrawUtilities::DrawLink(const Fvector& p0, const Fvector& p1, float sz, u3
 	R.invert();
 	pp[1].add(R,D); pp[1].mul(sz*-0.5f);	pp[1].add(p1);
 	DrawLine(p1,pp[0],clr);
- 	DrawLine(p1,pp[1],clr);
+	DrawLine(p1,pp[1],clr);
 	// UB
 	pp[0].add(N,D); pp[0].mul(sz*-0.5f);	pp[0].add(p1);
 	N.invert();

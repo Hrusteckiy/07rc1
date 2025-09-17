@@ -127,7 +127,7 @@ void CUITrackBar::InitTrackBar(Fvector2 pos, Fvector2 size)
 	m_pSlider->Init				(0, (size.y - item_height) / 2, item_width, item_height);
 	m_pSlider->InitTexture		(SLIDER_TEXTURE);
 	
-	if (GameConstants::GetTrackBarValuesShowing())
+	if (GameConstants::GetTrackBarValuesShowing() || IsTokenMode())
 	{
 		m_pSlider->AddStatic				();
 		m_pSlider->SetStaticColorChanging	(true);

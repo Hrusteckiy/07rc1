@@ -20,4 +20,6 @@ public:
 	virtual bool	NeedCenterCursor	() const { return false; }
 
 	CUIMessageBox*	m_pMessageBox;
+
+	virtual bool	IR_OnKeyboardPress	(int dik);
 };

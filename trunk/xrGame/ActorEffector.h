@@ -75,6 +75,7 @@ public:
 	virtual	BOOL		Valid					();
 	virtual BOOL		AllowProcessingIfInvalid()	{return m_bAbsolutePositioning;}
 	virtual	void		ProcessIfInvalid		(SCamEffectorInfo& info);
+	virtual bool		IsScripted				()	{return !m_bAbsolutePositioning;}
 };
 
 class CAnimatorCamLerpEffector :public CAnimatorCamEffector

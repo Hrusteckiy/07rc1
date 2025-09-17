@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
+    <file url="file://$PROJECT_DIR$/../Luabind/luabind/config.hpp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xrGame/xrServer_Objects_ALife_Monsters.cpp" charset="windows-1251" />
+  </component>
+</project>

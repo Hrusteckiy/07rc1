@@ -334,7 +334,8 @@ void CUIMapWnd::SetTargetMap			(CUICustomMap* m, const Fvector2& pos, bool bZoom
 		if(bZoomIn && fsimilar(GlobalMap()->GetCurrentZoom(), GlobalMap()->GetMinZoom(),EPS_L ))
 			SetZoom(GlobalMap()->GetMaxZoom());
 
-		m_tgtCenter						= m->ConvertRealToLocalNoTransform(pos);
+//		m_tgtCenter						= m->ConvertRealToLocalNoTransform(pos, m->BoundRect());Add commentMore actions
+		m_tgtCenter						= m->ConvertRealToLocal(pos, true);
 		m_tgtCenter.add					(m->GetWndPos()).div(GlobalMap()->GetCurrentZoom());
 	}
 	ResetActionPlanner				();

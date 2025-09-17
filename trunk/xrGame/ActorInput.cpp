@@ -285,41 +285,49 @@ bool CActor::use_Holder				(CHolderCustom* holder)
 		bool b = false;
 		CGameObject* holderGO			= smart_cast<CGameObject*>(m_holder);
 		
-		if(smart_cast<CCar*>(holderGO))
+		if(holderGO->cast_car())
 			b = use_Vehicle(0);
 		else
 			if (holderGO->CLS_ID==CLSID_OBJECT_W_MOUNTED ||
 				holderGO->CLS_ID==CLSID_OBJECT_W_STATMGUN)
 				b = use_MountedWeapon(0);
 
-		if(inventory().ActiveItem()){
+		if (inventory().ActiveItem())
+		{
 			CHudItem* hi = smart_cast<CHudItem*>(inventory().ActiveItem());
-			if(hi) hi->OnAnimationEnd(hi->GetState());
+			if(hi)
+				hi->OnAnimationEnd(hi->GetState());
 		}
 
 		return b;
-	}else{
+	}
+	else
+	{
 		bool b = false;
 		CGameObject* holderGO			= smart_cast<CGameObject*>(holder);
-		if(smart_cast<CCar*>(holder))
+		if (holder->cast_car())
 			b = use_Vehicle(holder);
 
 		if (holderGO->CLS_ID==CLSID_OBJECT_W_MOUNTED ||
 			holderGO->CLS_ID==CLSID_OBJECT_W_STATMGUN)
 			b = use_MountedWeapon(holder);
 		
-		if(b){//used succesfully
+		if (b)
+		{//used succesfully
 			// switch off torch...
 			CAttachableItem *I = CAttachmentOwner::attachedItem(CLSID_DEVICE_TORCH);
-			if (I){
+			if (I)
+			{
 				CTorch* torch = smart_cast<CTorch*>(I);
 				if (torch) torch->Switch(false);
 			}
 		}
 
-		if(inventory().ActiveItem()){
+		if(inventory().ActiveItem())
+		{
 			CHudItem* hi = smart_cast<CHudItem*>(inventory().ActiveItem());
-			if(hi) hi->OnAnimationEnd(hi->GetState());
+			if (hi)
+				hi->OnAnimationEnd(hi->GetState());
 		}
 
 		return b;
@@ -438,8 +446,9 @@ void	CActor::OnNextWeaponSlot()
 	if (ActiveSlot == NO_ACTIVE_SLOT) 
 		ActiveSlot = KNIFE_SLOT;
 	
-	u32 NumSlotsToCheck = sizeof(SlotsToCheck)/sizeof(u32);	
-	for (u32 CurSlot=0; CurSlot<NumSlotsToCheck; CurSlot++)
+	u32 NumSlotsToCheck = sizeof(SlotsToCheck)/sizeof(u32);
+	u32 CurSlot = 0;
+	for (CurSlot = 0; CurSlot<NumSlotsToCheck; CurSlot++)
 	{
 		if (SlotsToCheck[CurSlot] == ActiveSlot) break;
 	};
@@ -468,8 +477,9 @@ void	CActor::OnPrevWeaponSlot()
 	if (ActiveSlot == NO_ACTIVE_SLOT) 
 		ActiveSlot = KNIFE_SLOT;
 
-	u32 NumSlotsToCheck = sizeof(SlotsToCheck)/sizeof(u32);	
-	for (u32 CurSlot=0; CurSlot<NumSlotsToCheck; CurSlot++)
+	u32 NumSlotsToCheck = sizeof(SlotsToCheck)/sizeof(u32);
+	u32 CurSlot = 0;
+	for (CurSlot = 0; CurSlot < NumSlotsToCheck; CurSlot++)
 	{
 		if (SlotsToCheck[CurSlot] == ActiveSlot) break;
 	};

@@ -131,7 +131,7 @@ ICF BOOL test_point(xrXRC& xrc, const Fmatrix& xform, const Fmatrix33& mat, cons
 #include "debug_renderer.h"
 void CActor::cam_Update(float dt, float fFOV)
 {
-	if(m_holder)		return;
+	if(m_holder && !Level().Cameras().GetCamEffector(cefDemo))		return;
 
 	if(mstate_real & mcClimb&&cam_active!=eacFreeLook)
 		camUpdateLadder(dt);
@@ -189,7 +189,8 @@ void CActor::cam_Update(float dt, float fFOV)
 					da			= PI/1000.f;
 					if (!fis_zero(r_torso.roll))
 						da		*= r_torso.roll/_abs(r_torso.roll);
-					for (float angle=0.f; _abs(angle)<_abs(alpha); angle+=da)
+					float angle = 0.f;
+					for (angle=0.f; _abs(angle)<_abs(alpha); angle+=da)
 						if (test_point(xrc,xform,mat,ext,radius,angle)) { bIntersect=TRUE; break; } 
 						valid_angle	= bIntersect?angle:alpha;
 				} 
@@ -301,13 +302,7 @@ void CActor::cam_Update(float dt, float fFOV)
 		cameras[eacFirstEye]->f_fov		= fFOV;
 	}
 	
-	if( psActorFlags.test(AF_PSP) )
-	{
-		Cameras().UpdateFromCamera			(C);
-	}else
-	{
-		Cameras().UpdateFromCamera			(cameras[eacFirstEye]);
-	}
+	Cameras().UpdateFromCamera			(C);
 
 	fCurAVelocity			= vPrevCamDir.sub(cameras[eacFirstEye]->vDirection).magnitude()/Device.fTimeDelta;
 	vPrevCamDir				= cameras[eacFirstEye]->vDirection;
@@ -353,7 +348,7 @@ void CActor::OnRender	()
 {
 	if (!bDebug)				return;
 
-	if ((dbg_net_Draw_Flags.is_any((1<<5))))
+	if ((dbg_net_Draw_Flags.is_any(dbg_draw_actor_phys)))
 		character_physics_support()->movement()->dbg_Draw	();
 
 	OnRender_Network();

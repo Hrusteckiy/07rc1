@@ -12,7 +12,17 @@ struct HUD_SOUND;
 class CInventoryItem;
 
 #include "actor_defs.h"
-#include "weaponHUD.h"
+#include "WeaponHUD.h"
+
+// bobbing or inertion mode
+enum EBobbingMode {
+	ebmInertion = 0,
+	ebmBobbing = 1,
+	ebmBoth = 2,
+};
+
+extern	EBobbingMode g_BobbingMode;
+xr_token	bobbing_mode_token[];
 
 class CHudItem {
 protected: //чтоб нельзя было вызвать на прямую
@@ -84,7 +94,7 @@ public:
 	virtual void	UpdateHudPosition	();
 	
 	//просчет инерции для HUD 
-	virtual void	UpdateHudInertion		(Fmatrix& hud_trans);
+	void CHudItem::UpdateHudInertion(Fmatrix& hud_trans, const Fmatrix& ref_cam);
 	//просчет дополнительных вычислений (переопределяется в потомках)
 	virtual void	UpdateHudAdditonal		(Fmatrix&);
 
@@ -116,6 +126,7 @@ protected:
 private:
 	bool					m_bInertionEnable;
 	bool					m_bInertionAllow;
+	Fvector					m_last_dir {0, 0, 0};
 protected:
 	u32						m_animation_slot;
 public:

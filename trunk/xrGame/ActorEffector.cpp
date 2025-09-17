@@ -395,6 +395,10 @@ void CActorCameraManager::UpdateCamEffectors()
 	m_cam_info_hud.n.normalize			();
 	m_cam_info_hud.r.crossproduct		(m_cam_info_hud.n, m_cam_info_hud.d);
 	m_cam_info_hud.n.crossproduct		(m_cam_info_hud.d, m_cam_info_hud.r);
+	m_cam_info_hud.ad.normalize			();
+	m_cam_info_hud.an.normalize			();
+	m_cam_info_hud.ar.crossproduct		(m_cam_info_hud.n, m_cam_info_hud.d);
+	m_cam_info_hud.an.crossproduct		(m_cam_info_hud.d, m_cam_info_hud.r);
 }
 
 void cam_effector_sub(const SCamEffectorInfo& c1, const SCamEffectorInfo& c2, SCamEffectorInfo& dest)

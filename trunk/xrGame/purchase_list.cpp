@@ -48,12 +48,16 @@ void CPurchaseList::process	(const CGameObject &owner, const shared_str &name, c
 	const u32				&level_vertex_id = owner.ai_location().level_vertex_id();
 	const ALife::_OBJECT_ID	&id = owner.ID();
 	CRandom					random((u32)(CPU::QPC() & u32(-1)));
-	for (u32 i=0, j=0; i<count; ++i) {
+
+	u32 i = 0, j = 0;
+	for (; i < count; ++i)
+	{
 		if (random.randF() > probability)
 			continue;
 
 		++j;
-		Level().spawn_item		(*name,position,level_vertex_id,id,false);
+
+		Level().spawn_item(*name, position, level_vertex_id, id, false);
 	}
 
 	DEFICITS::const_iterator	I = m_deficits.find(name);

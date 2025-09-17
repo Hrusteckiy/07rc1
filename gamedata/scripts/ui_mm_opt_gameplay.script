@@ -16,12 +16,14 @@ function opt_gameplay:InitControls(x, y, xml, handler)
 	
 	xml:InitStatic("tab_gameplay:cap_difficulty",		self)
 	
-	xml:InitCheck("tab_gameplay:check_tips",			self)
 	xml:InitCheck("tab_gameplay:check_crosshair",		self)
 	xml:InitCheck("tab_gameplay:check_dyn_crosshair", 	self)
 	xml:InitCheck("tab_gameplay:check_show_weapon", 	self)
 	xml:InitCheck("tab_gameplay:check_dist", 			self)
+	xml:InitCheck("tab_gameplay:check_tips",			self)
 	xml:InitComboBox("tab_gameplay:list_difficulty",	self)
+	xml:InitStatic("tab_gameplay:cap_bobbing",		self)
+	xml:InitTrackBar("tab_gameplay:track_bobbing",		self)
 
 	local btn
 	btn = xml:Init3tButton	("tab_gameplay:btn_check_updates", self)

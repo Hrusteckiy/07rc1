@@ -64,7 +64,7 @@ void CALifeSwitchManager::add_online(CSE_ALifeDynamicObject *object, bool update
 	R_ASSERT3						(!object->used_ai_locations() || ai().level_graph().valid_vertex_id(object->m_tNodeID),"Invalid vertex for object ",object->name_replace());
 
 #ifdef DEBUG
-	if (psAI_Flags.test(aiALife))
+	if (psAI_Flags.test(aiDestroy))
 		Msg							("[LSS] Spawning object [%s][%s][%d]",object->name_replace(),*object->s_name,object->ID);
 #endif
 
@@ -97,7 +97,7 @@ void CALifeSwitchManager::remove_online(CSE_ALifeDynamicObject *object, bool upd
 	object->ID					= server().PerformIDgen(object_id);
 
 #ifdef DEBUG
-	if (psAI_Flags.test(aiALife))
+	if (psAI_Flags.test(aiDestroy))
 		Msg						("[LSS] Destroying object [%s][%s][%d]",object->name_replace(),*object->s_name,object->ID);
 #endif
 
@@ -109,7 +109,7 @@ void CALifeSwitchManager::switch_online(CSE_ALifeDynamicObject *object)
 {
 	START_PROFILE("ALife/switch/switch_online")
 #ifdef DEBUG
-//	if (psAI_Flags.test(aiALife))
+	if (psAI_Flags.test(aiOnlineOffline))
 		Msg						("[LSS][%d] Going online [%d][%s][%d] ([%f][%f][%f] : [%f][%f][%f]), on '%s'",Device.dwFrame,Device.dwTimeGlobal,object->name_replace(), object->ID,VPUSH(graph().actor()->o_Position),VPUSH(object->o_Position), "*SERVER*");
 #endif
 	object->switch_online		();
@@ -120,7 +120,7 @@ void CALifeSwitchManager::switch_offline(CSE_ALifeDynamicObject *object)
 {
 	START_PROFILE("ALife/switch/switch_offline")
 #ifdef DEBUG
-//	if (psAI_Flags.test(aiALife))
+	if (psAI_Flags.test(aiOnlineOffline))
 		Msg							("[LSS][%d] Going offline [%d][%s][%d] ([%f][%f][%f] : [%f][%f][%f]), on '%s'",Device.dwFrame,Device.dwTimeGlobal,object->name_replace(), object->ID,VPUSH(graph().actor()->o_Position),VPUSH(object->o_Position), "*SERVER*");
 #endif
 	object->switch_offline			();

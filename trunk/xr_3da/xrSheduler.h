@@ -27,6 +27,7 @@ private:
 	xr_vector<Item>			Items			;
 	xr_vector<Item>			ItemsProcessed	;
 	xr_vector<ItemReg>		Registration	;
+	ISheduled*				m_current_step_obj;
 	bool					m_processing_now;
 
 	IC void			Push	(Item& I);

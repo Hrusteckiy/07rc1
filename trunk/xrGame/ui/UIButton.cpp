@@ -35,6 +35,8 @@ CUIButton:: CUIButton()
 	SetTextAlignment			(CGameFont::alCenter); // this will create class instance for m_pLines
 	SetVTextAlignment			(valCenter);
 	m_bClickable				= true;
+
+	eMirrorMode					= tmNone;
 }
 
  CUIButton::~ CUIButton()
@@ -49,9 +51,15 @@ void CUIButton::Reset()
 	inherited::Reset			();
 }
 
+void CUIButton::Show(bool status)
+{
+	SetVisible(status);
+	if (!status)
+		m_bCursorOverWindow = false;
+}
 
-
-void CUIButton::Enable(bool status){
+void CUIButton::Enable(bool status)
+{
 	CUIStatic::Enable			(status);
 
 	if (!status)

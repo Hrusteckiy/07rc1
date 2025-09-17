@@ -10,7 +10,6 @@
 /trunk/.vs/
 /3rd party/FreeImage/FreeImage/.vs
 /_appdata_
-fsgame.ltx
 gamedata.db*
 *.db
 *.tlog

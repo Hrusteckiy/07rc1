@@ -84,6 +84,7 @@ public:
 			void		SetXformLightAnim			(LPCSTR lanim, bool bCyclic);
 			void		ResetClrAnimation			();
 			void		DisableColorAnimation		();
+	virtual void		EndXformAnimation			();
 			void		ResetXformAnimation			();
 			bool		IsClrAnimStoped				();
 			void		SetClrAnimDelay				(float delay);

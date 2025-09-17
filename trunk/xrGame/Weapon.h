@@ -292,7 +292,7 @@ public:
 	void					ZoomDynamicMod		(bool bIncrement, bool bForceLimit);
 	virtual	float			CurrentZoomFactor	();
 	//показывает, что оружие находится в соостоянии поворота для приближенного прицеливания
-			bool			IsRotatingToZoom	() const		{	return (m_zoom_params.m_fCurrentZoomFactor <1.f);}
+			bool			IsRotatingToZoom	() const		{	return (m_zoom_params.m_fZoomRotationFactor  <1.f);}
 
 			void			LoadZoomOffset		(LPCSTR section, LPCSTR prefix);
 

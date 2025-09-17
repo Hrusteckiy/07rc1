@@ -19,6 +19,10 @@ local function getname				(func)
 end
 
 local function hook					(context,line_number)
+	if debug == nil then
+		printf("profiler: debug library not available. Profiler disabled.")
+		return
+	end
 --	if nil ~= old_hook_func then
 --		if old_hook_func ~= hook then
 --			old_hook_func			(context,line_number)
@@ -114,6 +118,10 @@ end
 
 function setup_hook					(do_not_print_message)
 	if started == true then
+		return
+	end
+	if debug == nil then
+		printf("profiler: debug library not available. Profiler disabled.")
 		return
 	end
 	

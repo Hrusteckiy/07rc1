@@ -69,7 +69,7 @@ void CRestrictions::InitGroups()
 	{
 		sprintf_s				(rank,"rank_%d", i);
 		
-        AddRestriction4rank	(i, pSettings->r_string(rank, "amount_restriction"));
+		AddRestriction4rank	(i, pSettings->r_string(rank, "amount_restriction"));
 		m_names[i]			= CStringTable().translate( pSettings->r_string(rank, "rank_name"));
 	}
 
@@ -241,16 +241,16 @@ void CRestrictions::Dump() const
 	for(u32 i=0; i<_RANK_COUNT+1; ++i)
 	{
 		const rank_rest_vec& v = m_restrictions[i];
-		rank_rest_vec::const_iterator it		= v.begin();
-		rank_rest_vec::const_iterator it_e		= v.end();
+		rank_rest_vec::const_iterator itr		= v.begin();
+		rank_rest_vec::const_iterator itr_e		= v.end();
 		if(i<_RANK_COUNT)
 			Msg("---	for rank %d  ---count=[%d]", i, v.size());
 		else
 			Msg("---	base restrictions ---count=[%d]", v.size());
 
-		for(;it!=it_e;++it)
+		for(;itr!=itr_e;++itr)
 		{
-			Msg("	[%s]:[%d]", (*it).first.c_str(), (*it).second);
+			Msg("	[%s]:[%d]", (*itr).first.c_str(), (*itr).second);
 		}
 		Msg("-----------------------------------------");
 	}

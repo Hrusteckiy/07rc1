@@ -750,14 +750,14 @@ namespace
 		if (o.type() == LUA_TNUMBER)
 		{
 			s << object_cast<float>(o);
-			return s.str();
+			return { s.str().c_str() };
 		}
 
 		s << "<" << lua_typename(L, o.type()) << ">";
 #ifdef BOOST_NO_STRINGSTREAM
 		s << std::ends;
 #endif
-		return s.str();
+		return { s.str().c_str() };
 	}
 
 
@@ -809,7 +809,7 @@ namespace
 #ifdef BOOST_NO_STRINGSTREAM
 			s << std::ends;
 #endif
-			return s.str();
+			return { s.str().c_str() };
 		}
 
         return to_string(e);
@@ -851,7 +851,7 @@ string_class luabind::detail::class_rep::class_info_string(lua_State* L) const
 #ifdef BOOST_NO_STRINGSTREAM
 	ret << std::ends;
 #endif
-	return ret.str();
+	return { ret.str().c_str() };
 }
 #endif
 

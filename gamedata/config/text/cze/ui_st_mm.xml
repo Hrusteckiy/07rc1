@@ -327,4 +327,16 @@
 	<string id="ui_st_sell_all">
 		<text>Prodat vše</text>
 	</string>
+	<string id="ui_mm_hud_behaviour">
+		<text>?hování rukou</text>
+	</string>
+	<string id="ui_mm_inertion_vanilla">
+		<text>Setrvaènost pohybu zbranì</text>
+	</string>
+	<string id="ui_mm_inertion_bobbing">
+		<text>Pohupování zbranì</text>
+	</string>
+	<string id="ui_mm_inertion_both">
+		<text>Pohupování se setrvaèností</text>
+	</string>
 </string_table>

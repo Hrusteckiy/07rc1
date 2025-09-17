@@ -225,6 +225,18 @@ bool CUIXmlInit::InitStatic(CUIXml& xml_doc, LPCSTR path, int index, CUIStatic* 
 	if (bComplexMode)
 		pWnd->SetTextComplexMode(true);
 
+	bool bDisableColoring = (xml_doc.ReadAttribInt(path, index, "disable_coloring", 0) == 1);
+	if (bDisableColoring)
+		pWnd->m_pLines->SetTextColoringMode(false);
+
+	bool cut_words = xml_doc.ReadAttribInt(path, index, "cut_words", 0) ? true : false;
+	if (cut_words)
+		pWnd->m_pLines->SetCutWordsMode(true);
+
+	float text_rotate = xml_doc.ReadAttribFlt(path, index, "text_rotate", 0.f);
+	if (!fis_zero(text_rotate))
+		pWnd->m_pLines->SetTextRotation(deg2rad(text_rotate));
+
 	shared_str mirroring = xml_doc.ReadAttrib(path, index, "mirror", "");
 	if (0 == xr_strcmp(mirroring, "h"))
 		pWnd->GetStaticItem()->SetMirrorMode(tmMirrorHorisontal);
@@ -282,6 +294,18 @@ bool CUIXmlInit::InitText(CUIXml& xml_doc, LPCSTR path, int index, CUIStatic* pW
 	bool bComplexMode = (xml_doc.ReadAttribInt(path, index, "complex_mode", 0) == 1);
 	if (bComplexMode)
 		pWnd->SetTextComplexMode(true);
+
+	bool cut_words = xml_doc.ReadAttribInt(path, index, "cut_words", 0) ? true : false;
+	if (cut_words)
+		pWnd->m_pLines->SetCutWordsMode(true);
+
+	bool bDisableColoring = (xml_doc.ReadAttribInt(path, index, "disable_coloring", 0) == 1);
+	if (bDisableColoring)
+		pWnd->m_pLines->SetTextColoringMode(false);
+
+	float text_rotate = xml_doc.ReadAttribFlt(path, index, "text_rotate", 0.f);
+	if (!fis_zero(text_rotate))
+		pWnd->m_pLines->SetTextRotation(deg2rad(text_rotate));
 
 	// Text coordinates
 	float text_x = xml_doc.ReadAttribFlt(path, index, "x", 0);
@@ -367,10 +391,34 @@ bool CUIXmlInit::Init3tButton(CUIXml& xml_doc, LPCSTR path, int index, CUI3tButt
 
 	bool r					= (xml_doc.ReadAttribInt(path, index, "check_mode", 0) == 1);
 	pWnd->SetCheckMode 		(r);
+
+	bool cut_words = xml_doc.ReadAttribInt(path, index, "cut_words", 0) ? true : false;
+	if (cut_words)
+		pWnd->m_pLines->SetCutWordsMode(true);
+
+	bool bDisableColoring = (xml_doc.ReadAttribInt(path, index, "disable_coloring", 0) == 1);
+	if (bDisableColoring)
+		pWnd->m_pLines->SetTextColoringMode(false);
+
+	float text_rotate = xml_doc.ReadAttribFlt(path, index, "text_rotate", 0.f);
+	if (!fis_zero(text_rotate))
+		pWnd->m_pLines->SetTextRotation(deg2rad(text_rotate));
 	
 	LPCSTR text_hint		= xml_doc.ReadAttrib	(path, index, "hint", NULL);
 	if (text_hint)
 		pWnd->m_hint_text	= CStringTable().translate(text_hint);
+
+	bool flag_highlight_txt		= (xml_doc.ReadAttribInt(path, index, "highlight_text", 0) == 1);
+	if (flag_highlight_txt)
+	{
+		pWnd->HighlightText(true);
+
+		u32 hA = static_cast<u32>(xml_doc.ReadAttribInt(path, index, "hA", 255));
+		u32 hR = static_cast<u32>(xml_doc.ReadAttribInt(path, index, "hR", 255));
+		u32 hG = static_cast<u32>(xml_doc.ReadAttribInt(path, index, "hG", 255));
+		u32 hB = static_cast<u32>(xml_doc.ReadAttribInt(path, index, "hB", 255));
+		pWnd->SetHighlightColor(color_argb(hA, hR, hG, hB));
+	}
 
 	return true;
 }
@@ -454,6 +502,18 @@ bool CUIXmlInit::InitButton(CUIXml& xml_doc, LPCSTR path, int index, CUIButton* 
 	LPCSTR text_hint		= xml_doc.ReadAttrib	(path, index, "hint", NULL);
 	if (text_hint)
 		pWnd->m_hint_text	= CStringTable().translate(text_hint);
+
+	bool cut_words = xml_doc.ReadAttribInt(path, index, "cut_words", 0) ? true : false;
+	if (cut_words)
+		pWnd->m_pLines->SetCutWordsMode(true);
+
+	bool bDisableColoring = (xml_doc.ReadAttribInt(path, index, "disable_coloring", 0) == 1);
+	if (bDisableColoring)
+		pWnd->m_pLines->SetTextColoringMode(false);
+
+	float text_rotate = xml_doc.ReadAttribFlt(path, index, "text_rotate", 0.f);
+	if (!fis_zero(text_rotate))
+		pWnd->m_pLines->SetTextRotation(deg2rad(text_rotate));
 
 	pWnd->SetShadowOffset	(Fvector2().set(shadowOffsetX, shadowOffsetY));
 	pWnd->SetPushOffset		(Fvector2().set(pushOffsetX, pushOffsetY));

@@ -168,6 +168,8 @@ void CUIEventsWnd::ReloadList(bool bClearOnly)
 
 void CUIEventsWnd::Show(bool status)
 {
+	if (!GetDescriptionMode())
+		SetDescriptionMode(true);
 	inherited::Show			(status);
 	m_UIMapWnd->Show		(status);
 	m_UITaskInfoWnd->Show	(status);

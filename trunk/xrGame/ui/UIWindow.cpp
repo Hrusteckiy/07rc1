@@ -198,18 +198,18 @@ void CUIWindow::Update()
 		cursor_on_window	= !!r.in(temp);
 #ifndef NDEBUG
 		if(cursor_on_window&&g_show_wnd_rect){
-			Frect r;
-			GetAbsoluteRect(r);
-			add_rect_to_draw(r);
+			Frect r_;
+			GetAbsoluteRect(r_);
+			add_rect_to_draw(r_);
 		}
 #endif
 		// RECEIVE and LOST focus
 		if(m_bCursorOverWindow != cursor_on_window)
 		{
 			if(cursor_on_window)
-				OnFocusReceive();			
+				OnFocusReceive();
 			else
-				OnFocusLost();			
+				OnFocusLost();
 		}
 	}
 	

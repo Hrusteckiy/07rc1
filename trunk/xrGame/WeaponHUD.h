@@ -1,10 +1,6 @@
 #pragma once
-#define WPN_BOBBING // comment out this line to exclude the feature
 #include "../layers/xrRender/SkeletonAnimated.h"
 class CHudItem;
-#ifdef WPN_BOBBING
-#include "weapon_bobbing.h"
-#endif
 
 struct weapon_hud_value: public shared_value
 {
@@ -123,13 +119,6 @@ public:
 	void				dbg_SetFirePoint	(const Fvector &fp)			{((weapon_hud_value*)m_shared_data.get_value())->m_fp_offset.set(fp);}
 	void				dbg_SetFirePoint2	(const Fvector &fp)			{((weapon_hud_value*)m_shared_data.get_value())->m_fp2_offset.set(fp);}
 	void				dbg_SetShellPoint	(const Fvector &sp)			{((weapon_hud_value*)m_shared_data.get_value())->m_sp_offset.set(sp);}
-#endif
-	// lost alpha start
-#ifdef WPN_BOBBING
-private:
-	void ApplyBobbing(Fmatrix& m);
-private:
-	CWeaponBobbing* m_bobbing;
 #endif
 };
 

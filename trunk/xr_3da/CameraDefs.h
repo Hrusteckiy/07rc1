@@ -11,7 +11,7 @@ enum ECameraStyle       {
 	csCamDebug,
 	csFirstEye,
 	csLookAt,
-    csMax,
+	csMax,
 	csFixed,
 	cs_forcedword = u32(-1)
 };
@@ -27,6 +27,15 @@ struct ENGINE_API SCamEffectorInfo
 	Fvector		d;
 	Fvector		n;
 	Fvector		r;
+	Fvector		ap;
+	Fvector		ad;
+	Fvector		an;
+	Fvector		ar;
+	Fmatrix		uv;
+	Fvector		up;
+	Fvector		ud;
+	Fvector		un;
+	Fvector		ur;
 	float		fFov;
 	float		fFar;
 	float		fAspect;
@@ -43,6 +52,14 @@ struct ENGINE_API SCamEffectorInfo
 		d = other.d;
 		n = other.n;
 		r = other.r;
+		ap = other.ap;
+		ad = other.ad;
+		an = other.an;
+		ar = other.ar;
+		up = other.up;
+		ud = other.ud;
+		un = other.un;
+		ur = other.ur;
 		fFov = other.fFov;
 		fFar = other.fFar;
 		fAspect = other.fAspect;

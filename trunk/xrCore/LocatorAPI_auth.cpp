@@ -44,7 +44,8 @@ void	CLocatorAPI::auth_runtime		(void*	params)
 	if (!b_extern_auth)
 #endif // DEBUG
 	{
-		for (files_it it = files.begin(); it!=files.end(); ++it) {
+		for (files_it it = files.begin(); it!=files.end(); ++it)
+		{
 			const file&	f	=	*it;
 
 			// test for skip
@@ -58,16 +59,19 @@ void	CLocatorAPI::auth_runtime		(void*	params)
 				continue;
 
 			// test for important
-			for (s=0; s<_o->important.size(); s++) {
-				if ((f.size_real != 0) && strstr(f.name,_o->important[s].c_str())) {
-					// crc for file				
-					IReader*	r	= FS.r_open	(f.name);
-					if (!r) {
-						do_break	= true;
+			for (u32 s = 0; s < _o->important.size(); s++)
+			{
+				if ((f.size_real != 0) && strstr(f.name, _o->important[s].c_str()))
+				{
+					// crc for file
+					IReader* r = FS.r_open(f.name);
+					if (!r)
+					{
+						do_break = true;
 						break;
 					}
-					u32 crc			= crc32		(r->pointer(),r->length());
-					
+					u32 crc = crc32(r->pointer(), r->length());
+
 #ifdef DEBUG
 					if(strstr(Core.Params,"qwerty"))
 						Msg("auth %s = %d",f.name,crc);

@@ -207,3 +207,12 @@ void CUITabControl::ResetTab()
 	}
 	m_iPushedIndex=m_iPrevPushedIndex=-1;
 }
+
+void CUITabControl::Enable(bool status)
+{
+	inherited::Enable(status);
+	for (u32 i = 0; i < m_TabsArr.size(); ++i)
+	{
+		m_TabsArr[i]->Enable(status);
+	}
+}

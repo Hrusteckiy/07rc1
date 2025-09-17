@@ -206,7 +206,6 @@ virtual void ApplyDamage			(u16 level);
 		float lo_limit;
 		float hi_limit;
 		float steering_velocity;
-		float steering_torque;
 		bool  limited;			//zero limited for idle steering drive
 		float GetSteerAngle()
 		{
@@ -381,7 +380,9 @@ private:
 	CCameraBase*			camera[3];
 	CCameraBase*			active_camera;
 
-	Fvector					m_camera_position;
+	Fvector					m_fp_cam_pos;
+	Fvector					m_sp_cam_pos;
+	Fvector					m_tp_cam_pos;
 
 	////////////////////////////////////////////////////
 	friend struct SWheel;
@@ -605,10 +606,20 @@ protected:
 public:
 	CCar(void);
 	virtual ~CCar(void);
-	virtual BOOL					AlwaysTheCrow						();
+	virtual BOOL					AlwaysTheCrow				();
+	virtual void					MoveCar						(Fvector NewPos, Fvector NewDir);
+	virtual void					ForceTransform				(const Fmatrix& m);
 
 public:
-	virtual CEntity*					cast_entity				()						{return this;}
+	virtual CEntity*				cast_entity					() { return this; }
+	virtual CGameObject*			cast_game_object			() { return this; }
+	virtual CExplosive*				cast_explosive				() { return this; }
+	virtual CPhysicsShellHolder*	cast_physics_shell_holder	() { return this; }
+	virtual CParticlesPlayer*		cast_particles_player		() { return this; }
+	virtual CScriptEntity*			cast_script_entity			() { return this; }
+	virtual IDamageSource*			cast_IDamageSource			() { return this; }
+	virtual CHolderCustom*			cast_holder_custom			() { return this; }
+	virtual CCar*					cast_car					() { return this; }
 private:
 	template <class T> IC void fill_wheel_vector(LPCSTR S,xr_vector<T>& type_wheels);
 	IC void fill_exhaust_vector(LPCSTR S,xr_vector<SExhaust>& exhausts);
@@ -617,15 +628,8 @@ private:
 	//Inventory for the car
 	CInventory	*inventory;
 	
-	virtual	void reinit			();
-	virtual	void reload			(LPCSTR section);
-	virtual CGameObject			*cast_game_object			()	{return this;}
-	virtual CExplosive			*cast_explosive				()	{return this;}
-	virtual CPhysicsShellHolder	*cast_physics_shell_holder	()	{return this;}
-	virtual CParticlesPlayer	*cast_particles_player		()	{return this;}
-	virtual CScriptEntity		*cast_script_entity			()	{return this;}
-	virtual IDamageSource		*cast_IDamageSource			()	{return this;}
-	virtual CHolderCustom		*cast_holder_custom			()	{return this;}
+	virtual	void					reinit						();
+	virtual	void					reload						(LPCSTR section);
 
 private:
 	car_memory	*m_memory;

@@ -354,7 +354,10 @@ void CClimableObject::ObjectContactCallback(bool&	do_colide,bool bo1,dContact& c
 extern	Flags32	dbg_net_Draw_Flags;
 void CClimableObject ::OnRender()
 {
-	if (!dbg_net_Draw_Flags.test(1<<10)&&!ph_dbg_draw_mask.test(phDbgLadder)) return;
+	if (!dbg_net_Draw_Flags.test(dbg_draw_climbable)/*&&!ph_dbg_draw_mask.test(phDbgLadder)*/)
+		return;
+	if (Device.vCameraPosition.distance_to(XFORM().c) > 100.0f)
+		return;
 
 	Fmatrix form;m_box.xform_get(form);
 	//form.mulA(XFORM());

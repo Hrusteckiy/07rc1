@@ -53,7 +53,6 @@ extern ECORE_API	float		ps_r2_tf_Mipbias;
 
 // R2-specific
 extern ECORE_API Flags32		ps_r2_ls_flags;				// r2-only
-extern ECORE_API float			ps_r2_df_parallax_h;		// r2-only
 extern ECORE_API float			ps_r2_df_parallax_range;	// r2-only
 extern ECORE_API float			ps_r2_gmaterial;			// r2-only
 extern ECORE_API float			ps_r2_tonemap_middlegray;	// r2-only
@@ -126,5 +125,11 @@ enum
 extern void						xrRender_initconsole	();
 extern BOOL						xrRender_test_hw		();
 extern void						xrRender_apply_tf		();
+
+extern ECORE_API Flags32		ps_common_flags;				// r1+r2
+enum
+{
+	RFLAG_BLOODMARKS = 1 << 0,
+};
 
 #endif

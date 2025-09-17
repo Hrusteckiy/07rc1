@@ -36,12 +36,11 @@ void CUICursor::InitInternal()
 	m_static					= xr_new<CUIStatic>();
 	m_static->InitTextureEx		("ui\\ui_ani_cursor", "hud\\cursor");
 	Frect						rect;
-	rect.set					(0.0f,0.0f,40.0f,40.0f);
+	rect.set					(0.0f,0.0f,45.0f,45.0f);
 	m_static->SetOriginalRect	(rect);
 	Fvector2					sz;
 	sz.set						(rect.rb);
-	if(UI()->is_16_9_mode())
-		sz.x					/= 1.2f;
+	sz.x *= UI()->get_current_kx();
 
 	m_static->SetWndSize		(sz);
 	m_static->SetStretchTexture	(true);

@@ -1118,11 +1118,10 @@ void CWeapon::UpdateHUDAddonsVisibility()
 
 
 	bone_id = pHudVisual->LL_BoneID(wpn_grenade_launcher);
+	if(bone_id==BI_NONE)
+		bone_id = pHudVisual->LL_BoneID(wpn_launcher);
 	if(GrenadeLauncherAttachable())
 	{
-		if(bone_id==BI_NONE)
-			bone_id = pHudVisual->LL_BoneID(wpn_launcher);
-
 		VERIFY2(bone_id!=BI_NONE,"there are no grenade launcher bone.");
 		if(IsGrenadeLauncherAttached())
 		{
@@ -1307,9 +1306,11 @@ void CWeapon::OnZoomIn()
 	m_zoom_params.m_bIsZoomModeNow = true;
 
 	if (LastZoomFactor)
-		m_fRTZoomFactor = LastZoomFactor;
+		m_zoom_params.m_fCurrentZoomFactor = LastZoomFactor;
 	else
-		m_fRTZoomFactor = CurrentZoomFactor();
+		m_zoom_params.m_fCurrentZoomFactor = CurrentZoomFactor();
+
+	m_fRTZoomFactor = m_zoom_params.m_fCurrentZoomFactor;
 
 	if (m_zoom_params.m_sUseBinocularVision.size() && IsScopeAttached() && NULL == m_zoom_params.m_pVision)
 		m_zoom_params.m_pVision = xr_new<CBinocularsVision>(m_zoom_params.m_sUseBinocularVision);
@@ -1321,9 +1322,11 @@ void CWeapon::OnZoomOut()
 	m_zoom_params.m_bIsZoomModeNow = false;
 
 	if (LastZoomFactor)
-		m_fRTZoomFactor = LastZoomFactor;
+		m_zoom_params.m_fCurrentZoomFactor = LastZoomFactor;
 	else
-		m_fRTZoomFactor = CurrentZoomFactor();
+		m_zoom_params.m_fCurrentZoomFactor = CurrentZoomFactor();
+
+	m_fRTZoomFactor = m_zoom_params.m_fCurrentZoomFactor;
 
 	xr_delete(m_zoom_params.m_pVision);
 	StartHudInertion();

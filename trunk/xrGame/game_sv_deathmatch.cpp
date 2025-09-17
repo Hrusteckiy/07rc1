@@ -525,8 +525,8 @@ void	game_sv_Deathmatch::SM_SwitchOnNextActivePlayer()
 	u32		PossiblePlayers[32];
 	u32		cnt						= get_players_count	();
 	u32		PPlayersCount			= 0;
-
-	for(u32 it=0; it<cnt; ++it)	
+	u32 it = 0;
+	for(; it<cnt; ++it)	
 	{
 		xrClientData *l_pC			= (xrClientData*)	m_server->client_Get(it);
 		game_PlayerState* ps		= l_pC->ps;
@@ -912,7 +912,7 @@ void	game_sv_Deathmatch::OnPlayerBuyFinished		(ClientID id_who, NET_Packet& P)
 
 	if (!pActor) return;
 
- 	SpawnWeaponsForActor(e_Actor, ps);
+	SpawnWeaponsForActor(e_Actor, ps);
 };
 
 void	game_sv_Deathmatch::SpawnWeaponsForActor(CSE_Abstract* pE, game_PlayerState*	ps)

@@ -327,4 +327,16 @@
 	<string id="ui_st_sell_all">
 		<text>Sprzedaj</text>
 	</string>
+	<string id="ui_mm_hud_behaviour">
+		<text>Zachowanie r¹k</text>
+	</string>
+	<string id="ui_mm_inertion_vanilla">
+		<text>Inercj¹</text>
+	</string>
+	<string id="ui_mm_inertion_bobbing">
+		<text>Z ko³ysaniem</text>
+	</string>
+	<string id="ui_mm_inertion_both">
+		<text>Ko³ysanie z inercj¹</text>
+	</string>
 </string_table>

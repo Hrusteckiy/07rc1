@@ -327,4 +327,16 @@
 	<string id="ui_st_sell_all">
 		<text>Alles verkaufen</text>
 	</string>
+	<string id="ui_mm_hud_behaviour">
+		<text>HUD verhalten</text>
+	</string>
+	<string id="ui_mm_inertion_vanilla">
+		<text>Trägheit</text>
+	</string>
+	<string id="ui_mm_inertion_bobbing">
+		<text>Wippen</text>
+	</string>
+	<string id="ui_mm_inertion_both">
+		<text>Trägheit + Wippen</text>
+	</string>
 </string_table>

@@ -327,4 +327,16 @@
 	<string id="ui_st_sell_all">
 		<text>Sell all</text>
 	</string>
+	<string id="ui_mm_hud_behaviour">
+		<text>HUD behaviour</text>
+	</string>
+	<string id="ui_mm_inertion_vanilla">
+		<text>Inertion</text>
+	</string>
+	<string id="ui_mm_inertion_bobbing">
+		<text>Bobbing</text>
+	</string>
+	<string id="ui_mm_inertion_both">
+		<text>Bobbing with inertion</text>
+	</string>
 </string_table>

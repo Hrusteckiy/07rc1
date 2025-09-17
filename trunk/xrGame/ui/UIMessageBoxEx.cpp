@@ -3,6 +3,7 @@
 #include "UIMessageBox.h"
 #include "UIMessageBoxEx.h"
 #include "../UIDialogHolder.h"
+#include <dinput.h>
 
 CUIMessageBoxEx::CUIMessageBoxEx(
 ){
@@ -23,7 +24,8 @@ void CUIMessageBoxEx::Init(LPCSTR xml_template)
 	m_pMessageBox->Init(xml_template);
 }
 
-void CUIMessageBoxEx::SetText(LPCSTR text){
+void CUIMessageBoxEx::SetText(LPCSTR text)
+{
 	m_pMessageBox->SetText(text);
 
 }
@@ -33,7 +35,7 @@ LPCSTR CUIMessageBoxEx::GetText()
 	return m_pMessageBox->GetText();
 }
 
-void CUIMessageBoxEx::SendMessage(CUIWindow* pWnd, s16 msg, void* pData /* = NULL */)
+void CUIMessageBoxEx::SendMessage(CUIWindow* pWnd, s16 msg, void* pData /* = nullptr */)
 {
 	CUIWndCallback::OnEvent(pWnd, msg, pData);
 	if (pWnd == m_pMessageBox)
@@ -65,4 +67,19 @@ LPCSTR CUIMessageBoxEx::GetHost()
 LPCSTR CUIMessageBoxEx::GetPassword()
 {
 	return m_pMessageBox->GetPassword();
+}
+
+bool CUIMessageBoxEx::IR_OnKeyboardPress(int dik)
+{
+	if ( dik == DIK_NUMPADENTER || dik == DIK_RETURN || dik == DIK_SPACE)
+	{
+		m_pMessageBox->OnYesOk();
+		return true;
+	}
+	else if ( dik == DIK_ESCAPE)
+	{
+		GetHolder()->StartStopMenu(this, true);
+		return true;
+	}
+	return CUIDialogWnd::IR_OnKeyboardPress(dik);
 }

@@ -325,10 +325,15 @@ void CUIStatic::Update()
 		}
 		else
 		{
-			EnableHeading_int	(!!m_lanim_xform.m_lanimFlags.test(1 << 4));
-			SetWndSize			(m_lanim_xform.m_origSize);
+			EndXformAnimation();
 		}
 	}
+}
+
+void CUIStatic::EndXformAnimation()
+{
+	EnableHeading_int	(!!m_lanim_xform.m_lanimFlags.test(1 << 4));
+	SetWndSize			(m_lanim_xform.m_origSize);
 }
 
 void CUIStatic::ResetXformAnimation()

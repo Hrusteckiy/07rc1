@@ -20,9 +20,9 @@ public:
 	virtual void	SetActivePoint					(const Fvector &vNewPoint);
 
 	virtual void	Init							(shared_str name, CInifile& gameLtx, LPCSTR sh_name);
-	virtual Fvector2 ConvertRealToLocal				(const Fvector2& src);// meters->pixels (relatively own left-top pos)
-	Fvector2		ConvertLocalToReal				(const Fvector2& src);
-	Fvector2		ConvertRealToLocalNoTransform	(const Fvector2& src);// meters->pixels (relatively own left-top pos)
+	virtual Fvector2 ConvertRealToLocal				(const Fvector2& src, bool for_drawing);// meters->pixels (relatively own left-top pos)
+	Fvector2		ConvertLocalToReal				(const Fvector2& src, Frect const& bound_rect);
+	Fvector2		ConvertRealToLocalNoTransform	(const Fvector2& src, Frect const& bound_rect);// meters->pixels (relatively own left-top pos)
 
 	bool			GetPointerTo					(const Fvector2& src, float item_radius, Fvector2& pos, float& heading);//position and heading for drawing pointer to src pos
 
@@ -58,7 +58,7 @@ private:
 	float			m_max_zoom;
 public:
 
-	virtual Fvector2 ConvertRealToLocal		(const Fvector2& src);// pixels->pixels (relatively own left-top pos)
+	virtual Fvector2 ConvertRealToLocal		(const Fvector2& src, bool for_drawing);// pixels->pixels (relatively own left-top pos)
 
 					CUIGlobalMap			(CUIMapWnd*	pMapWnd);
 	virtual			~CUIGlobalMap			();

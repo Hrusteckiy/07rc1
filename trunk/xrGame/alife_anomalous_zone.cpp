@@ -55,7 +55,7 @@ void CSE_ALifeAnomalousZone::spawn_artefacts				()
 	float					m_max_start_power	= pSettings->r_float(name(),"max_start_power");
 	u32						m_min_artefact_count= pSettings->r_u32	(name(),"min_artefact_count");;
 	u32						m_max_artefact_count= pSettings->r_u32	(name(),"max_artefact_count");;
-    u32						m_artefact_count;
+	u32						m_artefact_count;
 
 	if (m_min_artefact_count == m_max_artefact_count)
 		m_artefact_count	= m_min_artefact_count;
@@ -84,15 +84,19 @@ void CSE_ALifeAnomalousZone::spawn_artefacts				()
 		new					(I) ARTEFACT_PAIR(temp0,(float)atof(temp1));
 	}
 
-	for (u32 ii=0; ii<m_artefact_count; ++ii) {
+	for (u32 ii=0; ii<m_artefact_count; ++ii)
+	{
 		float fProbability		= randF(1.f);
 		float fSum				= 0.f;
-		for (u16 p=0; p<n; ++p) {
+		u16 p = 0;
+		for (p = 0; p < n; ++p)
+		{
 			fSum			+= m_weights[p].second;
 			if (fSum > fProbability)
 				break;
 		}
-		if (p < n) {
+		if (p < n) 
+		{
 			CSE_Abstract		*l_tpSE_Abstract = alife().spawn_item(*m_weights[p].first,position(),m_tNodeID,m_tGraphID,0xffff);
 			R_ASSERT3			(l_tpSE_Abstract,"Can't spawn artefact ",*m_weights[p].first);
 			CSE_ALifeDynamicObject	*i = smart_cast<CSE_ALifeDynamicObject*>(l_tpSE_Abstract);
@@ -103,7 +107,7 @@ void CSE_ALifeAnomalousZone::spawn_artefacts				()
 			ai().alife().spawns().assign_artefact_position(this,i);
 
 			Fvector				t = i->o_Position	;
-			u32					p = i->m_tNodeID	;
+			p = i->m_tNodeID	;
 			float				q = i->m_fDistance	;
 			alife().graph().change(i,m_tGraphID,i->m_tGraphID);
 			i->o_Position		= t;

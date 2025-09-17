@@ -53,9 +53,9 @@
 
 extern int g_AI_inactive_time;
 
-#ifndef MASTER_GOLD
+//#ifndef MASTER_GOLD
 	Flags32		psAI_Flags	= {0};
-#endif // MASTER_GOLD
+//#endif // MASTER_GOLD
 
 void CCustomMonster::SAnimState::Create(CKinematicsAnimated* K, LPCSTR base)
 {

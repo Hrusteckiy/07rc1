@@ -141,7 +141,7 @@ void ConvertVertices(u32 dwTypeDest, void *pDest, u32 dwTypeSrc, void *pSource, 
 			TransferMask[tmPos++]=tmPosSrc++;
 		}
 		// Duplicate stage0 TC
-		for (i=dwTSrc; i<dwTDest; i++) {
+		for (u32 i=dwTSrc; i<dwTDest; i++) {
 			TransferMask[tmPos++]=dwStage0TC;
 			TransferMask[tmPos++]=dwStage0TC+1;
 		}
@@ -165,21 +165,21 @@ void ConvertVertices(u32 dwTypeDest, void *pDest, u32 dwTypeSrc, void *pSource, 
 void ogf_desc::Load(IReader& F)
 {
 	F.r_stringZ	(source_file);
-    F.r_stringZ	(build_name);
-    F.r			(&build_time,sizeof(build_time));
-    F.r_stringZ	(create_name);
-    F.r			(&create_time,sizeof(create_time));
-    F.r_stringZ	(modif_name);
-    F.r			(&modif_time,sizeof(modif_time));
+	F.r_stringZ	(build_name);
+	F.r			(&build_time,sizeof(build_time));
+	F.r_stringZ	(create_name);
+	F.r			(&create_time,sizeof(create_time));
+	F.r_stringZ	(modif_name);
+	F.r			(&modif_time,sizeof(modif_time));
 }
 void ogf_desc::Save(IWriter& F)
 {
 	F.w_stringZ	(source_file);
-    F.w_stringZ	(build_name);
-    F.w			(&build_time,sizeof(build_time));
-    F.w_stringZ	(create_name);
-    F.w			(&create_time,sizeof(create_time));
-    F.w_stringZ	(modif_name);
-    F.w			(&modif_time,sizeof(modif_time));
+	F.w_stringZ	(build_name);
+	F.w			(&build_time,sizeof(build_time));
+	F.w_stringZ	(create_name);
+	F.w			(&create_time,sizeof(create_time));
+	F.w_stringZ	(modif_name);
+	F.w			(&modif_time,sizeof(modif_time));
 }
 

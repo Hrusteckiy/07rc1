@@ -237,17 +237,23 @@ CEffectorPP* CCameraManager::GetPPEffector(EEffectorPPType type)
 
 ECamEffectorType   CCameraManager::RequestCamEffectorId ()
 {
-	for ( ECamEffectorType	index	=	(ECamEffectorType)effCustomEffectorStartID;
-							GetCamEffector(index);
-							index	=	(ECamEffectorType)(index+1) ) { ; }
+	ECamEffectorType index;
+	for (index = (ECamEffectorType)effCustomEffectorStartID;
+		GetCamEffector(index);
+		index = (ECamEffectorType)(index + 1)) {
+		;
+	}
 	return index;
 }
 
 EEffectorPPType   CCameraManager::RequestPPEffectorId ()
 {
-	for ( EEffectorPPType	index	=	(EEffectorPPType)effCustomEffectorStartID;
-							GetPPEffector(index);
-							index	=	(EEffectorPPType)(index+1) ) { ; }
+	EEffectorPPType index;
+	for (index = (EEffectorPPType)effCustomEffectorStartID;
+		GetPPEffector(index);
+		index = (EEffectorPPType)(index + 1)) {
+		;
+	}
 	return index;
 }
 
@@ -288,21 +294,35 @@ void CCameraManager::UpdateFromCamera(const CCameraBase* C)
 void CCameraManager::Update(const Fvector& P, const Fvector& D, const Fvector& N, float fFOV_Dest, float fASPECT_Dest, float fFAR_Dest, u32 flags)
 {
 #ifdef DEBUG
-	if (!Device.Paused()) {
+	if (!Device.Paused())
+	{
 		VERIFY				(dbg_upd_frame!=Device.dwFrame);// already updated !!!
 		dbg_upd_frame		= Device.dwFrame;
 	}
 #endif // DEBUG
+
+	bool bHasScriptedEffectors = false;
+	for (const auto& pEffector : m_EffectorsCam)
+	{
+		if (pEffector->Valid() && pEffector->IsScripted())
+		{
+			bHasScriptedEffectors = true;
+			break;
+		}
+	}
+
 	// camera
-	if (flags&CCameraBase::flPositionRigid)
+	if (flags&CCameraBase::flPositionRigid || bHasScriptedEffectors)
 		m_cam_info.p.set		(P);
 	else
 		m_cam_info.p.inertion	(P,	psCamInert);
-	if (flags&CCameraBase::flDirectionRigid)
+	if (flags&CCameraBase::flDirectionRigid || bHasScriptedEffectors)
 	{
 		m_cam_info.d.set		(D);
 		m_cam_info.n.set		(N);
-	}else{
+	}
+	else
+	{
 		m_cam_info.d.inertion	(D,	psCamInert);
 		m_cam_info.n.inertion	(N,	psCamInert);
 	}
@@ -312,6 +332,19 @@ void CCameraManager::Update(const Fvector& P, const Fvector& D, const Fvector& N
 	m_cam_info.n.normalize	();
 	m_cam_info.r.crossproduct	(m_cam_info.n, m_cam_info.d);
 	m_cam_info.n.crossproduct	(m_cam_info.d, m_cam_info.r);
+
+	// Save affected matrix and vectors
+	m_cam_info.ap.set(m_cam_info.p);
+	m_cam_info.ad.set(m_cam_info.d);
+	m_cam_info.an.set(m_cam_info.n);
+	m_cam_info.ar.crossproduct(m_cam_info.n, m_cam_info.d);
+
+	// Save un-affected matrix and vectors
+	m_cam_info.uv.build_camera_dir(m_cam_info.p, m_cam_info.d, m_cam_info.n);
+	m_cam_info.up.set(m_cam_info.p);
+	m_cam_info.ud.set(m_cam_info.d);
+	m_cam_info.un.set(m_cam_info.n);
+	m_cam_info.ur.crossproduct(m_cam_info.n, m_cam_info.d);
 
 	float aspect				= Device.fHeight_2/Device.fWidth_2;
 	float src					= 10*Device.fTimeDelta;	clamp(src,0.f,1.f);
@@ -336,6 +369,9 @@ void CCameraManager::Update(const Fvector& P, const Fvector& D, const Fvector& N
 bool CCameraManager::ProcessCameraEffector(CEffectorCam* eff)
 {
 	bool res = false;
+	Fvector sp = m_cam_info.p;
+	Fvector sd = m_cam_info.d;
+	Fvector sn = m_cam_info.n;
 	if (eff->Valid() && eff->ProcessCam(m_cam_info))
 	{
 		res = true;
@@ -343,6 +379,19 @@ bool CCameraManager::ProcessCameraEffector(CEffectorCam* eff)
 	else if (eff->AllowProcessingIfInvalid())
 	{
 		eff->ProcessIfInvalid(m_cam_info);
+	}
+	else
+	{
+		if (eff->Affected())
+		{
+			sp.sub(m_cam_info.p, sp);
+			sd.sub(m_cam_info.d, sd);
+			sn.sub(m_cam_info.n, sn);
+
+			m_cam_info.ap.add(sp);
+			m_cam_info.ad.add(sd);
+			m_cam_info.an.add(sn);
+		}
 	}
 	return res;
 }

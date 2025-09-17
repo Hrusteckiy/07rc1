@@ -562,10 +562,7 @@ BOOL CActor::net_Spawn		(CSE_Abstract* DC)
 	unaffected_r_torso.pitch= r_torso.pitch;
 	unaffected_r_torso.roll	= r_torso.roll;
 
-	if( psActorFlags.test(AF_PSP) )
-		cam_Set					(eacLookAt);
-	else
-		cam_Set					(eacFirstEye);
+	cam_Set					(eacFirstEye);
 
 	cam_Active()->Set		(-E->o_torso.yaw,E->o_torso.pitch,0);//E->o_Angle.z);
 
@@ -1402,7 +1399,7 @@ void	CActor::OnRender_Network()
 	//-----------------------------------------------------------------------------------------------------
 	if (g_Alive())
 	{
-		if (dbg_net_Draw_Flags.test(1<<8))
+		if (dbg_net_Draw_Flags.test(dbg_draw_autopickupbox))
 		{
 			Fvector bc; bc.add(Position(), m_AutoPickUp_AABB_Offset);
 			Fvector bd = m_AutoPickUp_AABB;
@@ -1411,7 +1408,7 @@ void	CActor::OnRender_Network()
 		};
 		
 		CKinematics* V		= smart_cast<CKinematics*>(Visual());
-		if (dbg_net_Draw_Flags.test(1<<0) && V)
+		if (dbg_net_Draw_Flags.test(dbg_draw_actor_alive) && V)
 		{
 			if (this != Level().CurrentViewEntity() || cam_active != eacFirstEye)
 			{
@@ -1441,13 +1438,21 @@ void	CActor::OnRender_Network()
 								Level().debug_renderer().draw_obb	(M, h_size, color_rgba(0, 255, 0, 255));
 							}break;
 							case SBoneShape::stCylinder:{
-								Fmatrix M;
-								M.c.set				(I->c_cylinder.m_center);
-								M.k.set				(I->c_cylinder.m_direction);
-								Fvector				h_size;
-								h_size.set			(I->c_cylinder.m_radius,I->c_cylinder.m_radius,I->c_cylinder.m_height*0.5f);
-								Fvector::generate_orthonormal_basis(M.k,M.j,M.i);
-								Level().debug_renderer().draw_obb	(M, h_size, color_rgba(0, 127, 255, 255));
+								const auto& cyl = I->c_cylinder;
+
+								// Построение базиса: направляем Z вдоль direction
+								Fmatrix basis, scale, result;
+								basis.identity();
+								basis.k = cyl.m_direction;
+								Fvector::generate_orthonormal_basis(basis.k, basis.j, basis.i);
+								basis.c = cyl.m_center;
+
+								// масштабируем радиус по XY, высоту по Z
+								scale.scale(cyl.m_radius, cyl.m_radius, cyl.m_height * 0.5f);
+
+								result.mul_43(basis, scale);
+
+								Level().debug_renderer().draw_cylinder(result, color_rgba(0, 127, 255, 255));
 							}break;
 							case SBoneShape::stSphere:{
 								Fmatrix				l_ball;
@@ -1461,7 +1466,7 @@ void	CActor::OnRender_Network()
 			};
 		};
 
-		if (!(dbg_net_Draw_Flags.is_any((1<<1)))) return;
+		if (!(dbg_net_Draw_Flags.is_any((dbg_draw_actor_dead)))) return;
 		
 		dbg_draw_piramid(Position(), character_physics_support()->movement()->GetVelocity(), size, -r_model_yaw, color_rgba(128, 255, 128, 255));
 		dbg_draw_piramid(IStart.Pos, IStart.Vel, size, -IStart.o_model, color_rgba(255, 0, 0, 255));
@@ -1511,7 +1516,7 @@ void	CActor::OnRender_Network()
 		};
 
 		//drawing speed vectors
-		for (i=0; i<2; i++)
+		for (int i = 0; i < 2; i++)
 		{
 			c = float(i);
 			for (u32 k=0; k<3; k++)
@@ -1557,10 +1562,10 @@ void	CActor::OnRender_Network()
 	}
 	else
 	{
-		if (!(dbg_net_Draw_Flags.is_any((1<<1)))) return;
+		if (!(dbg_net_Draw_Flags.is_any((dbg_draw_actor_dead)))) return;
 
-		CKinematics* V		= smart_cast<CKinematics*>(Visual());
-		if (dbg_net_Draw_Flags.test(1<<0) && V)
+		CKinematics* V = smart_cast<CKinematics*>(Visual());
+		if (dbg_net_Draw_Flags.test(dbg_draw_actor_alive) && V)
 		{
 			u16 BoneCount = V->LL_BoneCount();
 			for (u16 i=0; i<BoneCount; i++)

@@ -156,4 +156,75 @@ void CDebugRenderer::draw_ellipse	(const Fmatrix &matrix, const u32 &color)
 
 	add_lines	((Fvector*)&vertices[0],&pairs[0],sizeof(pairs)/sizeof(float),color);
 }
+
+void CDebugRenderer::draw_cylinder(const Fmatrix& transform, u32 color)
+{
+	const int segments = 16;
+	const float height = 1.0f;
+	const float r = 1.0f;
+
+	std::vector<Fvector> vertices;
+	std::vector<u16> pairs;
+
+	// Кольца и вертикали
+	for (int i = 0; i < segments; ++i)
+	{
+		int next = (i + 1) % segments;
+		float angle = 2 * PI * i / segments;
+		float next_angle = 2 * PI * next / segments;
+
+		float x1 = cosf(angle), y1 = sinf(angle);
+		float x2 = cosf(next_angle), y2 = sinf(next_angle);
+
+		Fvector top1 = { x1, y1, +height };
+		Fvector top2 = { x2, y2, +height };
+		Fvector bot1 = { x1, y1, -height };
+		Fvector bot2 = { x2, y2, -height };
+
+		u16 base = static_cast<u16>(vertices.size());
+		vertices.push_back(top1);   // base + 0
+		vertices.push_back(top2);   // base + 1
+		vertices.push_back(bot1);   // base + 2
+		vertices.push_back(bot2);   // base + 3
+
+		// Верхнее кольцо
+		pairs.push_back(base + 0); pairs.push_back(base + 1);
+
+		// Нижнее кольцо
+		pairs.push_back(base + 2); pairs.push_back(base + 3);
+
+		// Вертикальные линии
+		pairs.push_back(base + 0); pairs.push_back(base + 2);
+	}
+
+	// Добавим крестообразные линии на торцах
+	const float k = 1.f / sqrt(2.f);
+	Fvector cross_points[] = {
+		{+r, 0, +height}, {-r, 0, +height},
+		{0, +r, +height}, {0, -r, +height},
+		{+r * k, +r * k, +height}, {-r * k, -r * k, +height},
+		{+r * k, -r * k, +height}, {-r * k, +r * k, +height},
+
+		{+r, 0, -height}, {-r, 0, -height},
+		{0, +r, -height}, {0, -r, -height},
+		{+r * k, +r * k, -height}, {-r * k, -r * k, -height},
+		{+r * k, -r * k, -height}, {-r * k, +r * k, -height}
+	};
+
+	for (int i = 0; i < 8; ++i)
+	{
+		u16 base = static_cast<u16>(vertices.size());
+		vertices.push_back(cross_points[i * 2]);
+		vertices.push_back(cross_points[i * 2 + 1]);
+
+		pairs.push_back(base);     // начало
+		pairs.push_back(base + 1); // конец
+	}
+
+	// Преобразуем все вершины через transform
+	for (Fvector& v : vertices)
+		transform.transform(v);
+
+	add_lines(vertices.data(), pairs.data(), static_cast<int>(pairs.size() / 2), color);
+}
 #endif

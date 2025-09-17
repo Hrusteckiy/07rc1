@@ -12,6 +12,7 @@
 #define IDC_DESC                        1003
 #define IDSTOP                          1004
 #define IDC_STACK                       1006
+#define IDC_STATIC_LOGO                 1007
 #define RC_VIRT_MEM_ERROR               2071
 #define RC_VIRT_MEM_TEXT                2072
 

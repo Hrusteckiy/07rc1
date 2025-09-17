@@ -195,6 +195,7 @@ void CUICarBodyWnd::InitCarBody(CInventoryOwner* pOur, CInventoryOwner* pOthers)
 				shared_str monster_tex_name = pSettings->r_string(monster->cNameSect(),"icon");
 				m_pUICharacterInfoRight->UIIcon().InitTexture(monster_tex_name.c_str());
 				m_pUICharacterInfoRight->UIIcon().SetStretchTexture(true);
+				m_pUICharacterInfoRight->UIIcon().Show(true);
 			}
 		}else 
 		{

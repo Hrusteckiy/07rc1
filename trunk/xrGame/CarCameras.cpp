@@ -28,16 +28,20 @@ void	CCar::cam_Update			(float dt, float fov)
 	Da.set							(0,0,0);
 	//bool							owner = !!Owner();
 
-	XFORM().transform_tiny			(P,m_camera_position);
 
 	switch(active_camera->tag) {
 	case ectFirst:
+		XFORM().transform_tiny(P, m_fp_cam_pos);
 		// rotate head
 		if(OwnerActor()) OwnerActor()->Orientation().yaw	= -active_camera->yaw;
 		if(OwnerActor()) OwnerActor()->Orientation().pitch	= -active_camera->pitch;
 		break;
-	case ectChase:						break;
-	case ectFree:						break;
+	case ectChase:
+		XFORM().transform_tiny(P, m_sp_cam_pos);
+		break;
+	case ectFree:
+		XFORM().transform_tiny(P, m_tp_cam_pos);
+		break;
 	}
 	active_camera->f_fov				= fov;
 	active_camera->Update				(P,Da);
