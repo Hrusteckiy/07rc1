@@ -31,6 +31,9 @@ function se_stalker:__init (section) super (section)
 
 	--' Test for dima
 	self.dont_spawn_online = false
+
+	--' Вызывался ли генератор ссылок на тайники.
+	self.treasure_processed = false
 end
 --------------------
 function se_stalker:get_ini()
@@ -102,7 +105,11 @@ function se_stalker:STATE_Write (packet)
 	end
 
 	packet:w_bool(self.was_in_smart_terrain)
-	packet:w_bool(self.death_droped )
+	--' Коряво, но желательна хоть такая совместимость.
+	local flags = 0
+	if self.death_droped then flags = bit_or(flags, 1) end
+	if self.treasure_processed then flags = bit_or(flags, 2) end
+	packet:w_u8(flags)
 end
 --------------------
 function se_stalker:STATE_Read (packet, size)
@@ -128,7 +135,9 @@ function se_stalker:STATE_Read (packet, size)
 		self.was_in_smart_terrain = packet:r_bool()
 	end
 	if self.script_version >= 6 then
-		self.death_droped = packet:r_bool()
+		local flags = packet:r_u8()
+		self.death_droped = bit_and(flags, 1) ~= 0
+		self.treasure_processed = bit_and(flags, 2) ~= 0
 	end
 end
 --------------------

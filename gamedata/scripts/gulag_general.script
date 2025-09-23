@@ -390,6 +390,12 @@ function load_states(gname, type)
 				end
 				return 0
 			elseif gulag.state == 1 then
+				-- ≈сли гулаг не на этой локации, то остальное провер€ть бессмысленно, так как
+				-- 1) упом€нутые в switch_0 гулаги элементарно не найдутс€ по имени;
+				-- 2) пришедшее население может оказатьс€ равным нулю из-за другой схемы его подсчЄта.
+				if not db.zone_by_name[gulag.name] then
+					return 1
+				end
 				if gulag.population_comed == 0 then
 					return 0
 				end

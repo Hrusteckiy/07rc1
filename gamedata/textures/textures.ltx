@@ -136,6 +136,7 @@
         grnd\grnd_obriv_b                = detail\detail_dirt_det1_u, 4.000000, usage[diffuse]
         grnd\grnd_shlak_01               = detail\detail_bitum_det2, 4.000000, usage[diffuse_or_bump]
         grnd\grnd_shlak_02               = detail\detail_bitum_det2, 4.000000, usage[diffuse_or_bump]
+		grnd\grnd_zemlya_iov             = detail\detail_grnd_grass, 64.000000, usage[diffuse_or_bump]
         mtl\mtl_angar_a                  = detail\detail_metall_det2, 6.000000, usage[diffuse_or_bump]
         mtl\mtl_angar_a_b                = detail\detail_metall_det2_u, 6.000000, usage[diffuse_or_bump]
         mtl\mtl_angar_a_d                = detail\detail_metall_det2_u, 6.000000, usage[diffuse_or_bump]
@@ -1369,7 +1370,7 @@
         crete\crete_walls_rg11           = bump_mode[none], material[0.50]
         crete\crete_walls_tual           = bump_mode[none], material[0.50]
         crete\crete_walls_tual_a         = bump_mode[none], material[0.50]
-        crete\crete_walls_tual_b         = bump_mode[none], material[0.50]
+        crete\crete_walls_tual_b         = bump_mode[use:crete\crete_walls_tual_b_bump], material[0.50]
         crete\crete_walls_tualgr         = bump_mode[use:crete\crete_walls_tualgr_bump], material[0.50]
         crete\crete_walls_tualgr01       = bump_mode[none], material[0.50]
         crete\crete_walls_tualgr03       = bump_mode[use:crete\crete_walls_tualgr03_bump], material[0.50]
@@ -1576,7 +1577,7 @@
         fx\fx_gradient1                  = bump_mode[none], material[2.00]
         fx\fx_gradient_02                = bump_mode[none], material[2.00]
         fx\fx_lavahell                   = bump_mode[none], material[2.00]
-        fx\fx_lavahell1                  = bump_mode[none], material[2.00]
+        fx\fx_lavahell1                  = bump_mode[use:fx\fx_lavahell1_bump], material[3.90]
         fx\fx_lavahell1_00               = bump_mode[none], material[2.00]
         fx\fx_lavahell1_01               = bump_mode[none], material[2.00]
         fx\fx_lavahell1_02               = bump_mode[none], material[2.00]
@@ -6107,6 +6108,7 @@
         det\det_travsux                  = 0
         det\det_travzel                  = 0
         det\det_zelkust                  = 0
+        det\det_pryp_mp                  = 0
         detail\detail_asfalt_det1        = 0
         detail\detail_asfalt_det1_u      = 0
         detail\detail_beton_det1         = 0

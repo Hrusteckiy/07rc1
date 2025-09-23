@@ -13,7 +13,7 @@
 		<texture x="0" y="0" width="1024" height="768">ui\ui_static_mm_back_04</texture>
 	</background>
 
-	<newspaper_video x="137" y="512" width="256" height="256">
+	<newspaper_video x="130" y="512" width="256" height="256">
 		<texture>ui\ui_mm_newspaper</texture>
 	</newspaper_video>
 	

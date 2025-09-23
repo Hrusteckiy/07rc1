@@ -306,6 +306,8 @@ function actor_binder:update(delta)
 		end
 	end
 
+	--' Запускаем затычку от возможной потери содержимого тайников
+	treasure_manager.get_treasure_manager():loss_workaround()
 
 
  	if self.bCheckStart then

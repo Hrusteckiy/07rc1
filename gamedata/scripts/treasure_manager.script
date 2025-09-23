@@ -88,10 +88,20 @@ function CTreasure:__init()
 	for k,v in pairs(self.treasure_info) do
 		self.treasure_by_target[v.target] = k	
 	end
+
+	self.loss_workaround_queue = {}
 end
 --' Юзание инициатора (возможность выдать тайник)
 function CTreasure:use(npc)
 	printf("TREASURE USE")
+
+	--' Проверим, не вызывались ли мы уже для этого объекта. 
+	local se_obj = alife():object(npc:id())
+	if se_obj.treasure_processed == true then
+		return
+	end
+	se_obj.treasure_processed = true
+
 	--' Нужно рандомно выбрать один из тайников.
 	local avail = {}
 	local tr_sum = 0
@@ -144,7 +154,8 @@ end
 --' Выдача тайника
 function CTreasure:give_treasure(k)
 	local v = self.treasure_info[k]
-	local obj = alife():story_object(v.target)
+	local sim = alife()
+	local obj = sim:story_object(v.target)
 	if obj ~= nil then
 		news_manager.send_treasure(v.name)
 
@@ -153,23 +164,50 @@ function CTreasure:give_treasure(k)
 		level.map_add_object_spot_ser(obj.id, "treasure", text)
 
 		--' Сгенерить вещи
+		--'
+		--' Из-за какого-то дефекта в xrGame.dll тайник потеряет
+		--' сгенерированное содержимое в следующей ситуации:
+		--'  1) получена ссылка на тайник, который находится в online;
+		--'  2) игрок сохраняется и загружается;
+		--'  3) между 1 и 2 не было переводов тайника в offline хотя бы раз.
+		--' Для предотвращения этого создаём вещи у актёра, запоминаем
+		--' идентификаторы, а в вызове actor_binder:update() переносим их
+		--' в нужный ящик.
+		local item_ids = {}
+		local pos, lvid, gvid, pid, new_obj
+		local need_workaround = level.object_by_id(obj.id) ~= nil
+		if need_workaround then
+			pos = db.actor:position()
+			lvid = db.actor:level_vertex_id()
+			gvid = db.actor:game_vertex_id()
+			pid = db.actor:id()
+		else
+			pos = obj.position
+			lvid = obj.m_level_vertex_id
+			gvid = obj.m_game_vertex_id
+			pid = obj.id
+		end
 		for kk,vv in pairs(v.items) do
 			if ammo_section[vv.section] == true then
-				se_respawn.create_ammo(vv.section,	
-						obj.position,
-						obj.m_level_vertex_id,	
-						obj.m_game_vertex_id,
-						obj.id,
-						vv.prob)
+				local left, box_size = vv.prob, system_ini():r_u32(vv.section, "box_size")
+				while left > box_size do
+					new_obj = sim:create_ammo(vv.section, pos, lvid, gvid, pid, box_size)
+					table.insert(item_ids, new_obj.id)
+					left = left - box_size
+				end
+				if left > 0 then
+					new_obj = sim:create_ammo(vv.section, pos, lvid, gvid, pid, left)
+					table.insert(item_ids, new_obj.id)
+				end
 			else
 				for i=1,vv.prob do
-					alife():create(vv.section,
-							obj.position,
-							obj.m_level_vertex_id,	
-							obj.m_game_vertex_id,
-							obj.id)
+					new_obj = sim:create(vv.section, pos, lvid, gvid, pid)
+					table.insert(item_ids, new_obj.id)
 				end
 			end
+		end
+		if need_workaround then
+			self.loss_workaround_queue[v.target] = item_ids
 		end
 		
 		--' Пометим тайник как выданный
@@ -178,6 +216,19 @@ function CTreasure:give_treasure(k)
 	else
 		printf("TREASURE %s, target doesnt exist", k)
 	end
+end
+--' Перенос содержимого для предотвращения возможной потери
+function CTreasure:loss_workaround()
+	for k,v in pairs(self.loss_workaround_queue) do
+		box = level_object_by_sid(k)
+		if box == nil then
+			abort("inv box nil")
+		end
+		for kk,vv in ipairs(v) do
+			db.actor:transfer_item(level.object_by_id(vv), box)
+		end
+	end
+	self.loss_workaround_queue = {}
 end
 --' Снимаем отметку с тайника
 function CTreasure:treasure_empty(box, box_story_id)
