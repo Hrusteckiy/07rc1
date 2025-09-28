@@ -37,6 +37,9 @@ function opt_video:InitControls(x, y, xml, handler)
 	handler.combo_r2 = xml:InitComboBox("tab_video:list_renderer",		self)
 	handler:Register				(handler.combo_r2, "combo_r2")
 
+	xml:InitStatic					("tab_video:cap_monitor",			self)
+	xml:InitComboBox				("tab_video:list_monitor",			self)
+
 	btn		= xml:Init3tButton		("tab_video:btn_advanced",	self)	
 	handler:Register				(btn, "btn_advanced_graphic")	
 end

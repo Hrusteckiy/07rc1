@@ -339,4 +339,7 @@
 	<string id="ui_mm_inertion_both">
 		<text>Trägheit + Wippen</text>
 	</string>
+	<string id="ui_mm_monitor">
+		<text>Überwachung</text>
+	</string>
 </string_table>

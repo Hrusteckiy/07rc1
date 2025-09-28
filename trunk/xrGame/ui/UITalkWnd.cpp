@@ -93,6 +93,7 @@ void CUITalkWnd::InitTalkDialog()
 	Update									();
 
 	UITalkDialogWnd->SetOsoznanieMode		(m_pOthersInvOwner->NeedOsoznanieMode());
+	UITalkDialogWnd->UIToTradeButton.Enable	(m_pOthersInvOwner->IsTradeEnabled());
 	UITalkDialogWnd->Show					();
 
 	UITradeWnd->Hide						();

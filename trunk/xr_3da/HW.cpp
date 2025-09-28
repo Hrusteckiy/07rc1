@@ -6,9 +6,16 @@
 
 #pragma warning(disable:4995)
 #include <d3dx9.h>
+#include <wingdi.h> 
+#include <sdkddkver.h>
 #pragma warning(default:4995)
 #include "HW.h"
-#include "xr_IOconsole.h"
+#include "XR_IOConsole.h"
+
+ENGINE_API xr_token* vid_disp_token = nullptr;
+ENGINE_API int       ps_rs_display = -1; // -1 = авто (как сейчас), 0..N-1 = конкретный монитор
+
+static LPCSTR xr_strdupA(const char* s) { size_t n = xr_strlen(s) + 1; char* p = (char*)xr_malloc(n); memcpy(p, s, n); return p; }
 
 #ifndef _EDITOR
 	void	fill_vid_mode_list			(CHW* _hw);
@@ -77,16 +84,16 @@ void CHW::CreateD3D	()
 
 	hD3D9            			= LoadLibrary(_name);
 	R_ASSERT2	           	 	(hD3D9,"Can't find 'd3d9.dll'\nPlease install latest version of DirectX before running this program");
-    typedef IDirect3D9 * WINAPI _Direct3DCreate9(UINT SDKVersion);
+	typedef IDirect3D9 * WINAPI _Direct3DCreate9(UINT SDKVersion);
 	_Direct3DCreate9* createD3D	= (_Direct3DCreate9*)GetProcAddress(hD3D9,"Direct3DCreate9");	R_ASSERT(createD3D);
-    this->pD3D 					= createD3D( D3D_SDK_VERSION );
-    R_ASSERT2					(this->pD3D,"Please install DirectX 9.0c");
+	this->pD3D 					= createD3D( D3D_SDK_VERSION );
+	R_ASSERT2					(this->pD3D,"Please install DirectX 9.0c");
 }
 
 void CHW::DestroyD3D()
 {
 	_RELEASE					(this->pD3D);
-    FreeLibrary					(hD3D9);
+	FreeLibrary					(hD3D9);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -110,12 +117,12 @@ D3DFORMAT CHW::selectDepthStencil	(D3DFORMAT fTarget)
 			DevAdapter,DevT,fTarget,
 			D3DUSAGE_DEPTHSTENCIL,D3DRTYPE_SURFACE,fDS_Try[it])))
 		{
-            if( SUCCEEDED( pD3D->CheckDepthStencilMatch(
+			if( SUCCEEDED( pD3D->CheckDepthStencilMatch(
 				DevAdapter,DevT,
-                fTarget, fTarget, fDS_Try[it]) ) )
-            {
+				fTarget, fTarget, fDS_Try[it]) ) )
+			{
 				return fDS_Try[it];
-            }
+			}
 		}
 	}
 	return D3DFMT_UNKNOWN;
@@ -143,6 +150,7 @@ void	CHW::DestroyDevice	()
 #ifndef _EDITOR
 	free_vid_mode_list		();
 #endif
+	free_mon_token_list		();
 }
 void	CHW::selectResolution	(u32 &dwWidth, u32 &dwHeight, BOOL bWindowed)
 {
@@ -175,46 +183,43 @@ void	CHW::selectResolution	(u32 &dwWidth, u32 &dwHeight, BOOL bWindowed)
 
 }
 
-void		CHW::CreateDevice		(HWND m_hWnd)
+void CHW::CreateDevice(HWND m_hWnd)
 {
-	CreateD3D				();
+	CreateD3D					();
+	fill_mon_token_list			();
 
-	// General - select adapter and device
-#ifdef DEDICATED_SERVER
-	BOOL  bWindowed			= TRUE;
+#ifndef DEDICATED_SERVER
+	const BOOL bWindowed = !psDeviceFlags.is(rsFullscreen);
 #else
-	BOOL  bWindowed			= !psDeviceFlags.is(rsFullscreen);
+	const BOOL bWindowed = TRUE;
 #endif
 
-	DevAdapter				= D3DADAPTER_DEFAULT;
-	DevT					= Caps.bForceGPU_REF?D3DDEVTYPE_REF:D3DDEVTYPE_HAL;
+	// базовый выбор устройства
+	DevAdapter = (UserAdapter != UINT_MAX) ? UserAdapter : D3DADAPTER_DEFAULT;
+	DevT = Caps.bForceGPU_REF ? D3DDEVTYPE_REF : D3DDEVTYPE_HAL;
 
-//. #ifdef DEBUG
-	// Look for 'NVIDIA NVPerfHUD' adapter
-	// If it is present, override default settings
-	for (UINT Adapter=0;Adapter<pD3D->GetAdapterCount();Adapter++)	{
+	// NVPerfHUD override (оставляем как было)
+	for (UINT Adapter = 0; pD3D && Adapter < pD3D->GetAdapterCount(); Adapter++)
+	{
 		D3DADAPTER_IDENTIFIER9 Identifier;
-		HRESULT Res=pD3D->GetAdapterIdentifier(Adapter,0,&Identifier);
-		if (SUCCEEDED(Res) && (xr_strcmp(Identifier.Description,"NVIDIA NVPerfHUD")==0))
+		if (SUCCEEDED(pD3D->GetAdapterIdentifier(Adapter, 0, &Identifier)) && xr_strcmp(Identifier.Description, "NVIDIA NVPerfHUD") == 0)
 		{
-			DevAdapter	=Adapter;
-			DevT		=D3DDEVTYPE_REF;
+			DevAdapter = Adapter;
+			DevT = D3DDEVTYPE_REF;
 			break;
 		}
 	}
-//. #endif
-
 
 	// Display the name of video board
 	D3DADAPTER_IDENTIFIER9	adapterID;
 	R_CHK	(pD3D->GetAdapterIdentifier(DevAdapter,0,&adapterID));
-	Msg		("* GPU [vendor:%X]-[device:%X]: %s",adapterID.VendorId,adapterID.DeviceId,adapterID.Description);
+	Msg("* GPU [vendor:%X]-[device:%X]: %s", adapterID.VendorId, adapterID.DeviceId, adapterID.Description);
 
 	u16	drv_Product		= HIWORD(adapterID.DriverVersion.HighPart);
 	u16	drv_Version		= LOWORD(adapterID.DriverVersion.HighPart);
 	u16	drv_SubVersion	= HIWORD(adapterID.DriverVersion.LowPart);
 	u16	drv_Build		= LOWORD(adapterID.DriverVersion.LowPart);
-	Msg		("* GPU driver: %d.%d.%d.%d",u32(drv_Product),u32(drv_Version),u32(drv_SubVersion), u32(drv_Build));
+	Msg("* GPU driver: %d.%d.%d.%d", u32(drv_Product), u32(drv_Version), u32(drv_SubVersion), u32(drv_Build));
 
 	Caps.id_vendor	= adapterID.VendorId;
 	Caps.id_device	= adapterID.DeviceId;
@@ -231,30 +236,33 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 		fTarget = mWindowed.Format;
 		R_CHK(pD3D->CheckDeviceType	(DevAdapter,DevT,fTarget,fTarget,TRUE));
 		fDepth  = selectDepthStencil(fTarget);
-	} else {
-		switch (psCurrentBPP) {
+	}
+	else
+	{
+		switch (psCurrentBPP)
+		{
 		case 32:
 			fTarget = D3DFMT_X8R8G8B8;
-			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter,DevT,fTarget,fTarget,FALSE)))
+			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter, DevT, fTarget, fTarget, FALSE)))
 				break;
 			fTarget = D3DFMT_A8R8G8B8;
-			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter,DevT,fTarget,fTarget,FALSE)))
+			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter, DevT, fTarget, fTarget, FALSE)))
 				break;
 			fTarget = D3DFMT_R8G8B8;
-			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter,DevT,fTarget,fTarget,FALSE)))
+			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter, DevT, fTarget, fTarget, FALSE)))
 				break;
 			fTarget = D3DFMT_UNKNOWN;
 			break;
 		case 16:
 		default:
 			fTarget = D3DFMT_R5G6B5;
-			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter,DevT,fTarget,fTarget,FALSE)))
+			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter, DevT, fTarget, fTarget, FALSE)))
 				break;
 			fTarget = D3DFMT_X1R5G5B5;
-			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter,DevT,fTarget,fTarget,FALSE)))
+			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter, DevT, fTarget, fTarget, FALSE)))
 				break;
 			fTarget = D3DFMT_X4R4G4B4;
-			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter,DevT,fTarget,fTarget,FALSE)))
+			if (SUCCEEDED(pD3D->CheckDeviceType(DevAdapter, DevT, fTarget, fTarget, FALSE)))
 				break;
 			fTarget = D3DFMT_UNKNOWN;
 			break;
@@ -262,17 +270,18 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 		fDepth  = selectDepthStencil(fTarget);
 	}
 
-	if ((D3DFMT_UNKNOWN==fTarget) || (D3DFMT_UNKNOWN==fTarget))	{
+	if ((D3DFMT_UNKNOWN == fTarget) || (D3DFMT_UNKNOWN == fTarget))
+	{
 		Msg					("Failed to initialize graphics hardware.\nPlease try to restart the game.");
 		FlushLog			();
-		MessageBox			(NULL,"Failed to initialize graphics hardware.\nPlease try to restart the game.","Error!",MB_OK|MB_ICONERROR);
-		TerminateProcess	(GetCurrentProcess(),0);
+		MessageBox			(NULL, "Failed to initialize graphics hardware.\nPlease try to restart the game.", "Error!", MB_OK | MB_ICONERROR);
+		TerminateProcess	(GetCurrentProcess(), 0);
 	}
 
 
-    // Set up the presentation parameters
+	// Set up the presentation parameters
 	D3DPRESENT_PARAMETERS&	P	= DevPP;
-    ZeroMemory				( &P, sizeof(P) );
+	ZeroMemory					(&P, sizeof(P));
 
 #ifndef _EDITOR
 	selectResolution	(P.BackBufferWidth, P.BackBufferHeight, bWindowed);
@@ -284,17 +293,17 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 	P.BackBufferCount		= 1;
 
 	// Multisample
-    P.MultiSampleType		= D3DMULTISAMPLE_NONE;
+	P.MultiSampleType		= D3DMULTISAMPLE_NONE;
 	P.MultiSampleQuality	= 0;
 
 	// Windoze
-    P.SwapEffect			= bWindowed?D3DSWAPEFFECT_COPY:D3DSWAPEFFECT_DISCARD;
+	P.SwapEffect			= bWindowed ? D3DSWAPEFFECT_COPY : D3DSWAPEFFECT_DISCARD;
 	P.hDeviceWindow			= m_hWnd;
-    P.Windowed				= bWindowed;
+	P.Windowed				= bWindowed;
 
 	// Depth/stencil
 	P.EnableAutoDepthStencil= TRUE;
-    P.AutoDepthStencilFormat= fDepth;
+	P.AutoDepthStencilFormat= fDepth;
 	P.Flags					= 0;	//. D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
 
 	// Refresh rate
@@ -304,7 +313,7 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 	else
 		P.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 
-    // Create the device
+	// Create the device
 	u32 GPU		= selectGPU();	
 	HRESULT R	= HW.pD3D->CreateDevice(DevAdapter,
 										DevT,
@@ -313,7 +322,8 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 										&P,
 										&pDevice );
 	
-	if (FAILED(R))	{
+	if (FAILED(R))
+	{
 		R	= HW.pD3D->CreateDevice(	DevAdapter,
 										DevT,
 										m_hWnd,
@@ -321,12 +331,13 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 										&P,
 										&pDevice );
 	}
-	if (D3DERR_DEVICELOST==R)	{
+	if (D3DERR_DEVICELOST == R)
+	{
 		// Fatal error! Cannot create rendering device AT STARTUP !!!
 		Msg					("Failed to initialize graphics hardware.\nPlease try to restart the game.");
 		FlushLog			();
-		MessageBox			(NULL,"Failed to initialize graphics hardware.\nPlease try to restart the game.","Error!",MB_OK|MB_ICONERROR);
-		TerminateProcess	(GetCurrentProcess(),0);
+		MessageBox			(NULL, "Failed to initialize graphics hardware.\nPlease try to restart the game.", "Error!", MB_OK | MB_ICONERROR);
+		TerminateProcess	(GetCurrentProcess(), 0);
 	};
 	R_CHK		(R);
 
@@ -354,18 +365,18 @@ void		CHW::CreateDevice		(HWND m_hWnd)
 	R_CHK	(pDevice->GetRenderTarget			(0,&pBaseRT));
 	R_CHK	(pDevice->GetDepthStencilSurface	(&pBaseZB));
 	u32	memory									= pDevice->GetAvailableTextureMem	();
-	Msg		("*     Texture memory: %d M",		memory/(1024*1024));
-	Msg		("*          DDI-level: %2.1f",		float(D3DXGetDriverLevel(pDevice))/100.f);
+	Msg		("*     Texture memory: %d M",		memory / (1024 * 1024));
+	Msg		("*          DDI-level: %2.1f",		float(D3DXGetDriverLevel(pDevice)) / 100.f);
 #ifndef _EDITOR
 	updateWindowProps							(m_hWnd);
 	fill_vid_mode_list							(this);
 #endif
 }
 
-u32	CHW::selectPresentInterval	()
+u32	CHW::selectPresentInterval()
 {
 	D3DCAPS9	caps;
-	pD3D->GetDeviceCaps(DevAdapter,DevT,&caps);
+	pD3D->GetDeviceCaps(DevAdapter, DevT, &caps);
 
 	if (!psDeviceFlags.test(rsVSync)) 
 	{
@@ -377,38 +388,47 @@ u32	CHW::selectPresentInterval	()
 	return D3DPRESENT_INTERVAL_DEFAULT;
 }
 
-u32 CHW::selectGPU ()
+u32 CHW::selectGPU()
 {
-	if (Caps.bForceGPU_SW) return D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+	if (Caps.bForceGPU_SW)
+		return D3DCREATE_SOFTWARE_VERTEXPROCESSING;
 
 	D3DCAPS9	caps;
-	pD3D->GetDeviceCaps(DevAdapter,DevT,&caps);
+	pD3D->GetDeviceCaps(DevAdapter, DevT, &caps);
 
-    if(caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT)
+	if (caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT)
 	{
-		if (Caps.bForceGPU_NonPure)	return D3DCREATE_HARDWARE_VERTEXPROCESSING;
-		else {
-			if (caps.DevCaps&D3DDEVCAPS_PUREDEVICE) return D3DCREATE_HARDWARE_VERTEXPROCESSING|D3DCREATE_PUREDEVICE;
-			else return D3DCREATE_HARDWARE_VERTEXPROCESSING;
+		if (Caps.bForceGPU_NonPure)
+			return D3DCREATE_HARDWARE_VERTEXPROCESSING;
+		else
+		{
+			if (caps.DevCaps & D3DDEVCAPS_PUREDEVICE)
+				return D3DCREATE_HARDWARE_VERTEXPROCESSING|D3DCREATE_PUREDEVICE;
+			else
+				return D3DCREATE_HARDWARE_VERTEXPROCESSING;
 		}
 		// return D3DCREATE_MIXED_VERTEXPROCESSING;
-	} else return D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+	}
+	else
+		return D3DCREATE_SOFTWARE_VERTEXPROCESSING;
 }
 
 u32 CHW::selectRefresh(u32 dwWidth, u32 dwHeight, D3DFORMAT fmt)
 {
-	if (psDeviceFlags.is(rsRefresh60hz))	return D3DPRESENT_RATE_DEFAULT;
+	if (psDeviceFlags.is(rsRefresh60hz))
+		return D3DPRESENT_RATE_DEFAULT;
 	else
 	{
 		u32 selected	= D3DPRESENT_RATE_DEFAULT;
 		u32 count		= pD3D->GetAdapterModeCount(DevAdapter,fmt);
-		for (u32 I=0; I<count; I++)
+		for (u32 I = 0; I < count; I++)
 		{
 			D3DDISPLAYMODE	Mode;
 			pD3D->EnumAdapterModes(DevAdapter,fmt,I,&Mode);
-			if (Mode.Width==dwWidth && Mode.Height==dwHeight)
+			if (Mode.Width == dwWidth && Mode.Height == dwHeight)
 			{
-				if (Mode.RefreshRate>selected) selected = Mode.RefreshRate;
+				if (Mode.RefreshRate>selected)
+					selected = Mode.RefreshRate;
 			}
 		}
 		return selected;
@@ -422,75 +442,150 @@ BOOL	CHW::support	(D3DFORMAT fmt, DWORD type, DWORD usage)
 	else			return TRUE;
 }
 
-void	CHW::updateWindowProps	(HWND m_hWnd)
+
+static void ClampToMonitorRect(int& x, int& y, int& w, int& h, const RECT& mon)
 {
-//	BOOL	bWindowed				= strstr(Core.Params,"-dedicated") ? TRUE : !psDeviceFlags.is	(rsFullscreen);
+	if (w > (mon.right - mon.left))  w = (mon.right - mon.left);
+	if (h > (mon.bottom - mon.top))  h = (mon.bottom - mon.top);
+
+	if (x < mon.left) x = mon.left;
+	if (y < mon.top)  y = mon.top;
+
+	if (x + w > mon.right)  x = mon.right - w;
+	if (y + h > mon.bottom) y = mon.bottom - h;
+}
+
+// --- «пришить» WS_POPUP к границам монитора с учётом DPI-виртуализации ---
+static void SnapBorderlessToMonitor(HWND hWnd, const RECT& mon,
+	int x, int y, int w, int h, UINT swpFlags)
+{
+	// 1-й проход
+	SetWindowPos(hWnd, nullptr, x, y, w, h,
+		SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW | swpFlags);
+
+	// Проверяем, где окно оказалось реально
+	RECT wr; GetWindowRect(hWnd, &wr);
+
+	int rw = wr.right - wr.left;
+	int rh = wr.bottom - wr.top;
+
+	// Если есть расхождение — второй корректирующий проход
+	if (wr.left != x || wr.top != y || rw != w || rh != h)
+	{
+		int dx = x - wr.left;
+		int dy = y - wr.top;
+		int dw = w - rw;
+		int dh = h - rh;
+
+		SetWindowPos(hWnd, nullptr, wr.left + dx, wr.top + dy, rw + dw, rh + dh,
+			SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW | swpFlags);
+	}
+}
+
+void CHW::updateWindowProps(HWND hWnd)
+{
 #ifndef DEDICATED_SERVER
-	BOOL	bWindowed				= !psDeviceFlags.is	(rsFullscreen);
+	const BOOL bWindowed = !psDeviceFlags.is(rsFullscreen);
 #else
-	BOOL	bWindowed				= TRUE;
-#endif
-	
-	u32		dwWindowStyle			= 0;
-	// Set window properties depending on what mode were in.
-	if (bWindowed)		{
-		SetWindowLong	( m_hWnd, GWL_STYLE, dwWindowStyle=(WS_BORDER|WS_DLGFRAME|WS_VISIBLE|WS_SYSMENU|WS_MINIMIZEBOX ) );
-		// When moving from fullscreen to windowed mode, it is important to
-		// adjust the window size after recreating the device rather than
-		// beforehand to ensure that you get the window size you want.  For
-		// example, when switching from 640x480 fullscreen to windowed with
-		// a 1000x600 window on a 1024x768 desktop, it is impossible to set
-		// the window size to 1000x600 until after the display mode has
-		// changed to 1024x768, because windows cannot be larger than the
-		// desktop.
-
-		RECT			m_rcWindowBounds;
-		BOOL			bCenter = FALSE;
-		if (strstr(Core.Params, "-center_screen"))	bCenter = TRUE;
-
-#ifdef DEDICATED_SERVER
-		bCenter			= TRUE;
+	const BOOL bWindowed = TRUE;
 #endif
 
-		if(bCenter){
-			RECT				DesktopRect;
-			
-			GetClientRect		(GetDesktopWindow(), &DesktopRect);
+	if (!bWindowed)
+	{
+		// фуллскрин
+		SetWindowLong(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+		SetWindowLong(hWnd, GWL_EXSTYLE, 0);
+		SetWindowPos(hWnd, nullptr, 0, 0, 0, 0,
+			SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+#ifndef DEDICATED_SERVER
+		ShowCursor(FALSE); SetForegroundWindow(hWnd);
+#endif
+		return;
+	}
 
-			SetRect(			&m_rcWindowBounds, 
-								(DesktopRect.right-DevPP.BackBufferWidth)/2, 
-								(DesktopRect.bottom-DevPP.BackBufferHeight)/2, 
-								(DesktopRect.right+DevPP.BackBufferWidth)/2, 
-								(DesktopRect.bottom+DevPP.BackBufferHeight)/2			);
-		}else{
-			SetRect(			&m_rcWindowBounds,
-								0, 
-								0, 
-								DevPP.BackBufferWidth, 
-								DevPP.BackBufferHeight );
+	// ---------- целевой монитор (по rs_monitor/-monitor -> по адаптеру -> ближайший) ----------
+	HMONITOR target = NULL;
+
+	if (UserMonitor == UINT_MAX && ps_rs_display >= 0)
+		UserMonitor = (UINT)ps_rs_display;
+
+	if (UserMonitor >= 0)
+	{
+		struct { UINT want, cur; HMONITOR res; } ctx{ (UINT)UserMonitor, 0, NULL };
+		auto cb = [](HMONITOR hm, HDC, LPRECT, LPARAM lp)->BOOL {
+			auto& c = *reinterpret_cast<decltype(ctx)*>(lp);
+			if (c.cur == c.want)
+			{
+				c.res = hm;
+				return FALSE;
+			}
+			++c.cur; return TRUE;
 		};
+		EnumDisplayMonitors(nullptr, nullptr, (MONITORENUMPROC)cb, (LPARAM)&ctx);
+		target = ctx.res;
+	}
+	if (!target && UserAdapter != UINT_MAX && pD3D)
+		target = pD3D->GetAdapterMonitor(UserAdapter);
+	if (!target)
+		target = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
 
-		AdjustWindowRect		(	&m_rcWindowBounds, dwWindowStyle, FALSE );
+	MONITORINFO mi{ sizeof(mi) };
+	GetMonitorInfoW(target, &mi);
 
-		SetWindowPos			(	m_hWnd, 
-									HWND_TOP,	
-									m_rcWindowBounds.left, 
-									m_rcWindowBounds.top,
-									( m_rcWindowBounds.right - m_rcWindowBounds.left ),
-									( m_rcWindowBounds.bottom - m_rcWindowBounds.top ),
-									SWP_SHOWWINDOW|SWP_NOCOPYBITS|SWP_DRAWFRAME );
+	// ---------- стиль окна (бордерлесс) ----------
+	DWORD style = WS_POPUP | WS_VISIBLE;
+	DWORD exstyle = 0;
+	SetWindowLong(hWnd, GWL_STYLE, style);
+	SetWindowLong(hWnd, GWL_EXSTYLE, exstyle);
+	SetWindowPos(hWnd, nullptr, 0, 0, 0, 0,
+		SWP_NOSIZE | SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
+
+	// ---------- размеры и позиция ----------
+	bool wantCenter = !strstr(Core.Params, "-center_screen");
+
+	const int monW = mi.rcMonitor.right - mi.rcMonitor.left;
+	const int monH = mi.rcMonitor.bottom - mi.rcMonitor.top;
+
+	// авто: full-borderless только если backbuffer больше монитора
+	const bool makeFull =
+		(int)DevPP.BackBufferWidth > monW ||
+		(int)DevPP.BackBufferHeight > monH;
+
+	int outW = (int)DevPP.BackBufferWidth;
+	int outH = (int)DevPP.BackBufferHeight;
+	int x, y;
+
+	if (makeFull)
+	{
+		// всегда во весь выбранный монитор
+		x = mi.rcMonitor.left;
+		y = mi.rcMonitor.top;
+		outW = monW;
+		outH = monH;
+	}
+	else if (wantCenter)
+	{
+		// центрируем ТОЛЬКО если есть -center_screen (в рабочей области выбранного монитора)
+		const RECT& wrk = mi.rcWork;
+		x = wrk.left + ((wrk.right - wrk.left) - outW) / 2;
+		y = wrk.top + ((wrk.bottom - wrk.top) - outH) / 2;
 	}
 	else
 	{
-		SetWindowLong			( m_hWnd, GWL_STYLE, dwWindowStyle=(WS_POPUP|WS_VISIBLE) );
+		// без center_screen — левый верх рабочей области ВЫБРАННОГО монитора
+		x = mi.rcWork.left;
+		y = mi.rcWork.top;
 	}
 
+	ClampToMonitorRect(x, y, outW, outH, mi.rcMonitor);
+	SetWindowPos(hWnd, nullptr, x, y, outW, outH,
+		SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE | SWP_SHOWWINDOW);
+
 #ifndef DEDICATED_SERVER
-		ShowCursor	(FALSE);
-		SetForegroundWindow( m_hWnd );
+	ShowCursor(FALSE);
+	SetForegroundWindow(hWnd);
 #endif
 }
-
 
 struct _uniq_mode
 {
@@ -516,7 +611,7 @@ void	fill_vid_mode_list			(CHW* _hw)
 	xr_vector<LPCSTR>	_tmp;
 	u32 cnt = _hw->pD3D->GetAdapterModeCount	(_hw->DevAdapter, _hw->Caps.fTarget);
 
-    u32 i;
+	u32 i;
 	for(i=0; i<cnt;++i)
 	{
 		D3DDISPLAYMODE	Mode;
@@ -554,4 +649,183 @@ void	fill_vid_mode_list			(CHW* _hw)
 	}
 }
 #endif
+
+static std::wstring GetMonitorFriendlyByGdiName(const wchar_t* gdiName)
+{
+	if (!gdiName || !*gdiName)
+		return L"";
+
+	UINT32 pathCount = 0, modeCount = 0;
+	if (GetDisplayConfigBufferSizes(QDC_ONLY_ACTIVE, &pathCount, &modeCount) != ERROR_SUCCESS)
+		return L"";
+
+	std::vector<DISPLAYCONFIG_PATH_INFO> paths(pathCount);
+	std::vector<DISPLAYCONFIG_MODE_INFO> modes(modeCount);
+	if (QueryDisplayConfig(QDC_ONLY_ACTIVE, &pathCount, paths.data(),
+		&modeCount, modes.data(), nullptr) != ERROR_SUCCESS)
+		return L"";
+
+	paths.resize(pathCount);
+
+	for (const auto& p : paths)
+	{
+		DISPLAYCONFIG_SOURCE_DEVICE_NAME src = {};
+		src.header.type = DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME;
+		src.header.size = sizeof(src);
+		src.header.adapterId = p.sourceInfo.adapterId;
+		src.header.id = p.sourceInfo.id;
+
+		if (DisplayConfigGetDeviceInfo(&src.header) != ERROR_SUCCESS)
+			continue;
+
+		if (lstrcmpiW(src.viewGdiDeviceName, gdiName) != 0)
+			continue;
+
+		DISPLAYCONFIG_TARGET_DEVICE_NAME tgt = {};
+		tgt.header.type = DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME;
+		tgt.header.size = sizeof(tgt);
+		tgt.header.adapterId = p.targetInfo.adapterId;
+		tgt.header.id = p.targetInfo.id;
+
+		if (DisplayConfigGetDeviceInfo(&tgt.header) == ERROR_SUCCESS)
+		{
+			// flags — это структура; у неё есть поле friendlyNameFromEdid (бит 0)
+			if (tgt.monitorFriendlyDeviceName[0])
+				return tgt.monitorFriendlyDeviceName;
+			// на всякий случай вернём путь
+			if (tgt.monitorDevicePath[0])
+				return tgt.monitorDevicePath;
+		}
+	}
+	return L"";
+}
+
+static std::wstring GetMonitorFriendlyByHMONITOR(HMONITOR hm)
+{
+	if (!hm) return L"";
+
+	MONITORINFOEXW mi;
+	ZeroMemory(&mi, sizeof(mi));
+	mi.cbSize = sizeof(mi);
+	if (!GetMonitorInfoW(hm, reinterpret_cast<MONITORINFO*>(&mi)))
+		return L"";
+
+	// основной путь
+	std::wstring s = GetMonitorFriendlyByGdiName(mi.szDevice);
+	if (!s.empty()) return s;
+
+	// фолбэк через EnumDisplayDevices
+	DISPLAY_DEVICEW dd; ZeroMemory(&dd, sizeof(dd)); dd.cb = sizeof(dd);
+	if (EnumDisplayDevicesW(mi.szDevice, 0, &dd, 0) && dd.DeviceString[0])
+		return dd.DeviceString;
+
+	// крайний фолбэк
+	return mi.szDevice;
+}
+
+// ---- локальный контекст перечисления ----
+struct MonEnumCtx {
+	xr_vector<LPCSTR>* names;
+	int primary; // индекс primary (0..N-1), -1 если не определён
+};
+
+void CHW::free_mon_token_list()
+{
+	if (!vid_disp_token)
+		return;
+	for (int i = 0; vid_disp_token[i].name; ++i)
+		xr_free(vid_disp_token[i].name);
+	xr_free(vid_disp_token);
+	vid_disp_token = NULL;
+}
+
+static void rtrim_w(wchar_t* s)
+{
+	size_t n = wcslen(s);
+	while (n && (s[n - 1] == L' ' || s[n - 1] == L'\t' || s[n - 1] == L'\r' || s[n - 1] == L'\n'))
+		s[--n] = L'\0';
+}
+
+static void rtrim_a(char* s)
+{
+	size_t n = xr_strlen(s);
+	while (n && ((unsigned char)s[n - 1] <= ' ')) // пробелы и управляющие
+		s[--n] = '\0';
+}
+
+static BOOL CALLBACK BuildMonTokenProc(HMONITOR hm, HDC, LPRECT, LPARAM lp)
+{
+	MonEnumCtx* ctx = reinterpret_cast<MonEnumCtx*>(lp);
+	xr_vector<LPCSTR>& out = *ctx->names;
+
+	MONITORINFOEXW mi; ZeroMemory(&mi, sizeof(mi)); mi.cbSize = sizeof(mi);
+	if (!GetMonitorInfoW(hm, reinterpret_cast<MONITORINFO*>(&mi))) {
+		char fb[32]; xr_sprintf(fb, "MON_%d", int(out.size() + 1));
+		out.push_back(xr_strdup(fb));
+		return TRUE;
+	}
+
+	const int idx = (int)out.size();
+	if (mi.dwFlags & MONITORINFOF_PRIMARY)
+	{
+		ctx->primary = idx;
+	}
+
+	// дружелюбное имя; может приходить с пробелами справа из EDID
+	std::wstring friendly = GetMonitorFriendlyByHMONITOR(hm);
+
+	wchar_t nameW[256];
+	if (!friendly.empty()) {
+		wcsncpy(nameW, friendly.c_str(), _countof(nameW) - 1);
+		nameW[_countof(nameW) - 1] = L'\0';
+		rtrim_w(nameW);                       // ВАЖНО: режем хвост
+	}
+	else {
+		wcsncpy(nameW, mi.szDevice, _countof(nameW) - 1);
+		nameW[_countof(nameW) - 1] = L'\0';
+	}
+
+	// финальная подпись токена
+	wchar_t wtitle[256];
+	swprintf(wtitle, L"%s%s",
+		nameW,
+		(mi.dwFlags & MONITORINFOF_PRIMARY) ? L" (primary)" : L"");
+
+	char title[256] = { 0 };
+	WideCharToMultiByte(CP_ACP, 0, wtitle, -1, title, sizeof(title), NULL, NULL);
+	rtrim_a(title);                            // защита от хвостов после конвертации
+
+	out.push_back(xr_strdup(title));
+	return TRUE;
+}
+
+// ---- сборка токена мониторов + установка дефолта ----
+void CHW::fill_mon_token_list()
+{
+	if (vid_disp_token) return;
+
+	xr_vector<LPCSTR> names; names.reserve(8);
+	MonEnumCtx ctx; ctx.names = &names; ctx.primary = -1;
+
+	EnumDisplayMonitors(NULL, NULL, BuildMonTokenProc, reinterpret_cast<LPARAM>(&ctx));
+
+	const u32 cnt = names.size() + 1;
+	vid_disp_token = xr_alloc<xr_token>(cnt);
+	vid_disp_token[cnt - 1].id = -1;
+	vid_disp_token[cnt - 1].name = NULL;
+
+#ifdef DEBUG
+	Msg("Available monitors[%d]:", names.size());
+#endif
+	for (u32 i = 0; i < names.size(); ++i)
+	{
+		vid_disp_token[i].id = (int)i;
+		vid_disp_token[i].name = names[i];
+		if (ctx.primary != -1)
+			PrimaryMonitorID = (int)i;
+#ifdef DEBUG
+		Msg("[%s]", names[i]);
+#endif
+	}
+}
 

@@ -7,6 +7,7 @@
 #pragma once
 
 #include "hwcaps.h"
+#include <d3d9.h>
 
 class ENGINE_API CHW
 {
@@ -20,13 +21,16 @@ public:
 
 	CHWCaps					Caps;
 
-	UINT					DevAdapter;
-	D3DDEVTYPE				DevT;
-	D3DPRESENT_PARAMETERS	DevPP;
+	UINT					UserAdapter = UINT_MAX;
+	UINT					UserMonitor = UINT_MAX;
+	int						PrimaryMonitorID;
+	D3DPRESENT_PARAMETERS	DevPP{};
+	D3DDEVTYPE				DevT = D3DDEVTYPE_HAL;
+	UINT					DevAdapter = D3DADAPTER_DEFAULT;
 
 	CHW()
 	{
-    	hD3D9		= NULL;
+		hD3D9		= NULL;
 		pD3D		= NULL;
 		pDevice		= NULL;
 		pBaseRT		= NULL;
@@ -47,6 +51,8 @@ public:
 	u32						selectRefresh			(u32 dwWidth, u32 dwHeight, D3DFORMAT fmt);
 	void					updateWindowProps		(HWND hw);
 	BOOL					support					(D3DFORMAT fmt, DWORD type, DWORD usage);
+	void					fill_mon_token_list		();
+	void					free_mon_token_list		();
 
 #ifdef DEBUG
 	void	Validate(void)	{	VERIFY(pDevice); VERIFY(pD3D); };

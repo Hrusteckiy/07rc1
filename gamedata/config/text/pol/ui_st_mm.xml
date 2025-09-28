@@ -339,4 +339,7 @@
 	<string id="ui_mm_inertion_both">
 		<text>Ko³ysanie z inercj¹</text>
 	</string>
+	<string id="ui_mm_monitor">
+		<text>Wyœwietlacz</text>
+	</string>
 </string_table>

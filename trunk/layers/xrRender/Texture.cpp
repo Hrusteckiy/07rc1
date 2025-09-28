@@ -76,9 +76,9 @@ const float		_BUMPHEIGH = 8.f;
 //////////////////////////////////////////////////////////////////////
 IC u32 GetPowerOf2Plus1	(u32 v)
 {
-        u32 cnt=0;
-        while (v) {v>>=1; cnt++; };
-        return cnt;
+		u32 cnt=0;
+		while (v) {v>>=1; cnt++; };
+		return cnt;
 }
 IC void	Reduce				(int& w, int& h, int& l, int& skip)
 {
@@ -303,7 +303,7 @@ _DDS:
 		D3DXIMAGE_INFO			IMG;
 		S						= FS.r_open	(fn);
 #ifdef DEBUG
-		Msg						("* Loaded: %s[%d]b",fn,S->length());
+		Msg						("* Loaded: %s[%d]",fn,S->length());
 #endif // DEBUG
 		img_size				= S->length	();
 		R_ASSERT				(S);

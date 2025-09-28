@@ -339,4 +339,7 @@
 	<string id="ui_mm_inertion_both">
 		<text>Pohupování se setrvaèností</text>
 	</string>
+	<string id="ui_mm_monitor">
+		<text>Displej</text>
+	</string>
 </string_table>

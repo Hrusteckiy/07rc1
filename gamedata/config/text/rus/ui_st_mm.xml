@@ -339,4 +339,7 @@
 	<string id="ui_mm_inertion_both">
 		<text>Раскачка с инерцией</text>
 	</string>
+	<string id="ui_mm_monitor">
+		<text>Экран</text>
+	</string>
 </string_table>

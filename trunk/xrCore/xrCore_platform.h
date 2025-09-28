@@ -13,7 +13,7 @@
 
 // windows.h
 #ifndef _WIN32_WINNT
-#	define _WIN32_WINNT 0x0500
+#	define _WIN32_WINNT 0x0601
 #endif
 
 #ifdef __BORLANDC__
@@ -22,8 +22,11 @@
 	#include <stdint.h>
 #endif
 
+#ifndef QDC_ONLY_ACTIVE
+#define QDC_ONLY_ACTIVE 0x00000002
+#endif
+
 #define NOGDICAPMASKS
-#define NOSYSMETRICS
 #define NOMENUS
 #define NOICONS
 #define NOKEYSTATES

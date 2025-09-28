@@ -29,6 +29,8 @@ xr_token							snd_model_token							[ ]={
 };
 
 extern xr_token*							vid_mode_token;
+extern xr_token*							vid_disp_token;
+extern int									ps_rs_display;
 
 xr_token							vid_quality_token							[ ]={
 	{ "renderer_r1",				0											},
@@ -378,30 +380,35 @@ public:
 		}
 	}
 };
+
 class CCC_VidMode : public CCC_Token
 {
 	u32		_dummy;
-public :
-					CCC_VidMode(LPCSTR N) : CCC_Token(N, &_dummy, NULL) { bEmptyArgsHandled = FALSE; };
-	virtual void	Execute(LPCSTR args){
+public:
+	CCC_VidMode(LPCSTR N) : CCC_Token(N, &_dummy, NULL) { bEmptyArgsHandled = FALSE; };
+	virtual void	Execute(LPCSTR args)
+	{
 		u32 _w, _h;
-		int cnt = sscanf		(args,"%dx%d",&_w,&_h);
-		if(cnt==2){
+		int cnt = sscanf(args, "%dx%d", &_w, &_h);
+		if (cnt == 2)
+		{
 			psCurrentVidMode[0] = _w;
 			psCurrentVidMode[1] = _h;
-		}else{
+		}
+		else
+		{
 			Msg("! Wrong video mode [%s]", args);
 			return;
 		}
 	}
-	virtual void	Status	(TStatus& S)	
-	{ 
-		sprintf_s(S,sizeof(S),"%dx%d",psCurrentVidMode[0],psCurrentVidMode[1]); 
+	virtual void	Status(TStatus& S)
+	{
+		sprintf_s(S, sizeof(S), "%dx%d", psCurrentVidMode[0], psCurrentVidMode[1]);
 	}
-	virtual xr_token* GetToken()				{return vid_mode_token;}
-	virtual void	Info	(TInfo& I)
-	{	
-		strcpy_s(I,sizeof(I),"change screen resolution WxH");
+	virtual xr_token* GetToken() { return vid_mode_token; }
+	virtual void	Info(TInfo& I)
+	{
+		strcpy_s(I, sizeof(I), "change screen resolution WxH");
 	}
 
 	virtual void fill_tips(vecTips& tips, u32 mode)
@@ -432,9 +439,89 @@ public :
 			tok++;
 		}
 	}
-
-
 };
+
+class CCC_Monitor : public CCC_Token
+{
+public:
+	CCC_Monitor(LPCSTR N) : CCC_Token(N, (u32*)&ps_rs_display, vid_disp_token) {};
+
+	virtual xr_token* GetToken()
+	{
+		return vid_disp_token;
+	}
+
+	virtual void Execute(LPCSTR args)
+	{
+		if (!args || !*args)
+		{
+			Msg("! Wrong monitor arg");
+			return;
+		}
+
+		if (!vid_disp_token)
+			HW.fill_mon_token_list(); // on core start it tries to read console commands, but renderer is not ready
+
+		const char* nm = nullptr;
+		for (xr_token* t = vid_disp_token; t && t->name; ++t)
+		{
+			if (_stricmp(t->name, args) == 0 && ps_rs_display != t->id)
+			{
+				HW.UserMonitor = t->id;
+				ps_rs_display = t->id;
+				nm = t->name;
+				break;
+			}
+		}
+
+		Msg("* ps_rs_display = %d (%s)", ps_rs_display + 1, nm ? nm : "unknown");
+	}
+
+	virtual void Status(TStatus& S)
+	{
+		if (!vid_disp_token)
+			HW.fill_mon_token_list(); // on core start it tries to read console commands, but renderer is not ready
+		const char* nm = nullptr;
+
+		for (xr_token* t = vid_disp_token; t && t->name; ++t)
+		{
+			if (t->id == ps_rs_display)
+			{
+				nm = t->name;
+				break;
+			}
+			if (!nm && ps_rs_display == -1 && t->id == HW.PrimaryMonitorID)
+			{
+				nm = t->name;
+				ps_rs_display = t->id;
+				break;
+			}
+
+		}
+		xr_strcpy(S, sizeof(S), nm ? nm : "unknown");
+	}
+
+	virtual void Info(TInfo& I)
+	{
+		xr_strcpy(I, sizeof(I), "select output monitor (index or token)");
+	}
+
+	virtual void fill_tips(vecTips& tips, u32 mode)
+	{
+		for (xr_token* t = GetToken(); t && t->name; ++t)
+		{
+			if (t->id == ps_rs_display)
+			{
+				TStatus s; xr_sprintf(s, sizeof(s), "%s  (current)", t->name);
+				tips.push_back(s);
+			}
+		}
+
+		for (xr_token* t = GetToken(); t && t->name; ++t)
+			tips.push_back(t->name);
+	}
+};
+
 //-----------------------------------------------------------------------
 class CCC_SND_Restart : public IConsole_Command
 {
@@ -658,6 +745,7 @@ void CCC_Register()
 
 	// General video control
 	CMD1(CCC_VidMode,	"vid_mode"				);
+	CMD1(CCC_Monitor,	"vid_display",			&ps_rs_display,	vid_disp_token );
 
 #ifdef DEBUG
 	CMD3(CCC_Token,		"vid_bpp",				&psCurrentBPP,	vid_bpp_token );
