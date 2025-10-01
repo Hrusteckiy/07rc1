@@ -651,6 +651,8 @@ public:
 //-----------------------------------------------------------------------
 ENGINE_API float	psHUD_FOV=0.45f;
 
+extern int			psFPSLimit;
+
 extern int			psSkeletonUpdate;
 extern int			rsDVB_Size;
 extern int			rsDIB_Size;
@@ -720,6 +722,7 @@ void CCC_Register()
 
 
 	CMD3(CCC_Mask,		"rs_v_sync",			&psDeviceFlags,		rsVSync				);
+	CMD4(CCC_Integer,	"rs_fps",				&psFPSLimit,		0,		1000		);
 //	CMD3(CCC_Mask,		"rs_disable_objects_as_crows",&psDeviceFlags,	rsDisableObjectsAsCrows	);
 	CMD3(CCC_Mask,		"rs_fullscreen",		&psDeviceFlags,		rsFullscreen			);
 	CMD3(CCC_Mask,		"rs_refresh_60hz",		&psDeviceFlags,		rsRefresh60hz			);

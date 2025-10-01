@@ -25,6 +25,8 @@ ENGINE_API BOOL g_bRendering = FALSE;
 BOOL		g_bLoaded = FALSE;
 ref_light	precache_light = 0;
 
+int psFPSLimit = 0; // Disabled by default
+
 BOOL CRenderDevice::Begin	()
 {
 #ifndef DEDICATED_SERVER
@@ -308,6 +310,38 @@ void CRenderDevice::Run			()
 				}
 
 //				Msg(FPS_str);
+#endif
+
+#ifndef DEDICATED_SERVER
+				if (psFPSLimit >= 15 && !psDeviceFlags.test(rsVSync)) { // Game under 15 fps starts breaking.
+					static u64 target = 0;
+					const u64 freq = CPU::qpc_freq;
+					const u64 step = freq / u64(psFPSLimit);
+					u64 now = CPU::QPC();
+
+					if (!target)
+						target = now + step;
+
+					for (;;) {
+						now = CPU::QPC();
+
+						if (now >= target)
+							break;
+
+						u64 left = target - now;
+						u32 ms = u32((left * 1000u) / freq);
+
+						if (ms > 1)
+							Sleep(ms - 1);
+						else if (!SwitchToThread())
+							Sleep(0);
+					}
+					target += step; now = CPU::QPC();
+					if (target < now) {
+						u64 behind = now - target;
+						target += ((behind / step) + 1) * step;
+					}
+				}
 #endif
 
 			} else {
