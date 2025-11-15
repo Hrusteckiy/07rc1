@@ -2,8 +2,9 @@
 #include "UIFrameLineWnd.h"
 
 CUIFrameLineWnd::CUIFrameLineWnd()
-	: m_bHorizontal(true),
-		m_bTextureAvailable(false)
+	:	m_bHorizontal(true),
+		m_bTextureAvailable(false),
+		m_bStretchTexture(false)
 {
 	AttachChild(&UITitleText);
 }
@@ -36,6 +37,9 @@ void CUIFrameLineWnd::InitTexture(LPCSTR tex_name, bool horizontal)
 	Frect			rect;
 	GetAbsoluteRect	(rect);
 
+	UIFrameLine.set_parent_wnd_size(Fvector2().set(rect.width(), rect.height()));
+	UIFrameLine.bStretchTexture = m_bStretchTexture;
+
 	m_bHorizontal = horizontal;
 
 	if (horizontal)
@@ -62,9 +66,9 @@ void CUIFrameLineWnd::Draw()
 		GetAbsolutePos		(p);
 		UIFrameLine.SetPos	(p.x, p.y);
 		UIFrameLine.Render	();
+	}
 
-		inherited::Draw();
-	}	
+	inherited::Draw();
 }
 
 //////////////////////////////////////////////////////////////////////////

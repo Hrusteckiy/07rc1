@@ -23,9 +23,9 @@ void CUIKeyBinding::InitFromXml(CUIXml& xml_doc, LPCSTR path)
 	CUIXmlInit::InitScrollView	(xml_doc, strconcat(sizeof(buf),buf,path,":scroll_view"),0, m_scroll_wnd);
 
 	CUIXmlInit::InitFrameWindow	(xml_doc, strconcat(sizeof(buf),buf,path,":frame"),		0, &m_frame);
-	CUIXmlInit::InitLabel		(xml_doc, strconcat(sizeof(buf),buf,path,":header_1"),	0, &m_header[0]);
-	CUIXmlInit::InitLabel		(xml_doc, strconcat(sizeof(buf),buf,path,":header_2"),	0, &m_header[1]);
-	CUIXmlInit::InitLabel		(xml_doc, strconcat(sizeof(buf),buf,path,":header_3"),	0, &m_header[2]);
+	CUIXmlInit::InitFrameLine	(xml_doc, strconcat(sizeof(buf),buf,path,":header_1"),	0, &m_header[0]);
+	CUIXmlInit::InitFrameLine	(xml_doc, strconcat(sizeof(buf),buf,path,":header_2"),	0, &m_header[1]);
+	CUIXmlInit::InitFrameLine	(xml_doc, strconcat(sizeof(buf),buf,path,":header_3"),	0, &m_header[2]);
 
 	FillUpList					(xml_doc, path);
 }
@@ -117,6 +117,7 @@ void CUIKeyBinding::CheckStructure(CUIXml& xml_doc)
 					pItem->SetWndPos		(Fvector2().set(0,0));
 					pItem->SetWndSize		(Fvector2().set(m_scroll_wnd->GetWndSize().x,20.0f));
 					pItem->SetText			("NEXT ITEMS NOT DESCRIBED IN COMMAND DESC LIST");
+					pItem->SetAutoDelete	(true);
 					m_scroll_wnd->AttachChild(pItem);
 					first					= false;
 				}
@@ -125,6 +126,7 @@ void CUIKeyBinding::CheckStructure(CUIXml& xml_doc)
 				pItem->SetWndPos			(Fvector2().set(0,0));
 				pItem->SetWndSize			(Fvector2().set(m_scroll_wnd->GetWndSize().x,20.0f));
 				pItem->SetText				(action_name);
+				pItem->SetAutoDelete		(true);
 				m_scroll_wnd->AttachChild	(pItem);
 			}
 		}

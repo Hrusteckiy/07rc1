@@ -19,9 +19,11 @@
 CUIFrameLine::CUIFrameLine()
 	:	uFlags					(0),
 		iSize					(0),
-		bHorizontalOrientation	(true)
+		bHorizontalOrientation	(true),
+		bStretchTexture			(false)
 {
 	iPos.set(0, 0);
+	m_parent_wnd_size.set(0.0f, 0.0f);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -74,6 +76,9 @@ void CUIFrameLine::UpdateSize()
 	// Right or bottom texture
 	float s_width		= elements[flSecond].GetOriginalRect().width();
 	float s_height		= elements[flSecond].GetOriginalRect().height();
+	
+	if (bHorizontalOrientation && UI()->is_16_9_mode())
+		s_width *= UI()->get_current_kx();
 	
 	(bHorizontalOrientation) ?
 		elements[flSecond].SetPos(iPos.x + iSize - s_width, iPos.y) :
@@ -131,6 +136,30 @@ void CUIFrameLine::UpdateSize()
 	uFlags |= flValidSize;
 }
 
+void CUIFrameLine::SetElementsRect(CUIStaticItem& item, int idx)
+{
+	float srtch_width = item.GetOriginalRect().width();
+	float srtch_height = item.GetOriginalRect().height();
+
+	if (bStretchTexture)
+	{
+		VERIFY((m_parent_wnd_size.x > 0.0f) && (m_parent_wnd_size.y > 0.0f));
+		if (bHorizontalOrientation)
+		{
+			srtch_height = m_parent_wnd_size.y;
+		}
+		else
+		{
+			srtch_width = m_parent_wnd_size.x;
+		}
+	}
+
+	if (bHorizontalOrientation && (idx == flSecond) && UI()->is_16_9_mode())
+		srtch_width *= UI()->get_current_kx();
+
+	item.SetRect(Frect().set(0.0f, 0.0f, srtch_width, srtch_height));
+}
+
 //////////////////////////////////////////////////////////////////////////
 
 void CUIFrameLine::Render()
@@ -140,6 +169,7 @@ void CUIFrameLine::Render()
 	// Now render all statics
 	for (int i = 0; i < flMax; ++i)
 	{
+		SetElementsRect(elements[i], i);
 		elements[i].Render();
 	}
 }

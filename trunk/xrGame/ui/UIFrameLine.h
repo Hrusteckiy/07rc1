@@ -35,22 +35,28 @@ class CUIFrameLine: public CUICustomItem
 		flValidSize = 1
 	};
 
+public:
+	bool		bStretchTexture;
+
 protected:
 	float		iSize;
 	Fvector2	iPos;
 	u8			uFlags;
 	bool		bHorizontalOrientation;
+	Fvector2	m_parent_wnd_size;
 
 	void		UpdateSize			();
 public:
 				CUIFrameLine		();
 	void		Init				(LPCSTR base_name, float x, float y, float size, bool horizontal, DWORD align);
+	void		set_parent_wnd_size	(Fvector2 const& size) { m_parent_wnd_size = size; }
 	void		InitTexture			(const char* texture);
 	void		SetTextureColor		(u32 cl);
 	void		SetBaseTextureColor	(u32 cl);
 	IC void		SetPos				(float left, float top)		{ iPos.set(left,top);	uFlags &=~ flValidSize; }
 	IC void		SetSize				(float size)				{ iSize = size;			uFlags &=~ flValidSize; }
 	IC void		SetOrientation		(bool bIsHorizontal)	{ bHorizontalOrientation = bIsHorizontal; uFlags &=~ flValidSize; }
+	void		SetElementsRect		(CUIStaticItem& item,int idx);
 	void		Render				();
 };
 

@@ -78,7 +78,7 @@ void CUISequenceVideoItem::Load(CUIXml* xml, int idx)
 		wnd_size.x										= UI_BASE_WIDTH;
 		wnd_size.y										= texture_coords.height()*kw_image;
 		if(is_16_9)
-			wnd_size.y									*= 1.328f;
+			wnd_size.y									/= UI()->get_current_kx();
 
 		m_wnd->SetWndSize								(wnd_size);
 	}

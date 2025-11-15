@@ -541,7 +541,7 @@ void CHW::updateWindowProps(HWND hWnd)
 		SWP_NOSIZE | SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
 
 	// ---------- размеры и позиция ----------
-	bool wantCenter = !strstr(Core.Params, "-center_screen");
+	bool wantCenter = strstr(Core.Params, "-center_screen");
 
 	const int monW = mi.rcMonitor.right - mi.rcMonitor.left;
 	const int monH = mi.rcMonitor.bottom - mi.rcMonitor.top;

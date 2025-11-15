@@ -342,8 +342,9 @@ void CMainMenu::OnRender	()
 	{
 		DoRenderDialogs();
 		UI()->RenderFont();
-		draw_wnds_rects();
 	}
+	if (IsActive())
+		draw_wnds_rects();
 }
 
 void CMainMenu::OnRenderPPUI_main	()

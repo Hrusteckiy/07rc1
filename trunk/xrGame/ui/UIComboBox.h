@@ -17,7 +17,7 @@
 
 class CUIListBoxItem;
 
-class CUIComboBox : public CUIWindow, public CUIOptionsItem {
+class CUIComboBox : public CUIWindow, public CUIOptionsItem, public pureRender {
 	friend class CUIXmlInit;
 	typedef enum{
 		LIST_EXPANDED, 
@@ -33,6 +33,7 @@ public:
 	virtual bool		IsChanged				();
 	virtual void 		SaveBackUpValue			();
 	virtual void 		Undo					();
+	virtual void		OnRender				(); // only for list-box
 
 			LPCSTR		GetText					();
 
@@ -57,6 +58,7 @@ protected:
 			void		ShowList				(bool bShow);
 			void		OnListItemSelect		();
 	virtual void		Update();
+	virtual void		Draw					();
 
 protected:
 	bool				m_bInited;
@@ -72,8 +74,8 @@ protected:
 	u32					m_textColor[2];
 public:
 	CUIListBox			m_list;
-	void				SetTextColor			(u32 color)			{m_textColor[0] = color;};
-	void				SetTextColorD			(u32 color)			{m_textColor[1] = color;};
+	void				SetTextColor			(u32 color)			{m_textColor[0] = color;}
+	void				SetTextColorD			(u32 color)			{m_textColor[1] = color;}
 
 protected:	
 	DECLARE_SCRIPT_REGISTER_FUNCTION

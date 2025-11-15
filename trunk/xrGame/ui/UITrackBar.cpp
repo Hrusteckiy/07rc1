@@ -45,7 +45,7 @@ bool CUITrackBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 				if (pInput->iGetAsyncBtnState(0))
 					UpdatePosRelativeToMouse();
 
-				GetMessageTarget()->SendMessage(this, WINDOW_MOUSE_MOVE, NULL);
+				GetMessageTarget()->SendMessage(this, WINDOW_MOUSE_MOVE, nullptr);
 			}
 		}break;
 		case WINDOW_LBUTTON_DOWN:
@@ -77,7 +77,7 @@ bool CUITrackBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 
 			UpdatePos();
 
-			GetMessageTarget()->SendMessage(this, TRACK_MOVE, NULL);
+			GetMessageTarget()->SendMessage(this, TRACK_MOVE, nullptr);
 		}break;
 		case WINDOW_MOUSE_WHEEL_DOWN:
 		{
@@ -97,7 +97,7 @@ bool CUITrackBar::OnMouseAction(float x, float y, EUIMessages mouse_action)
 
 			UpdatePos();
 
-			GetMessageTarget()->SendMessage(this, TRACK_MOVE, NULL);
+			GetMessageTarget()->SendMessage(this, TRACK_MOVE, nullptr);
 		}break;
 	}
 	if (m_bCursorOverWindow && m_b_mouse_capturer)
@@ -124,6 +124,7 @@ void CUITrackBar::InitTrackBar(Fvector2 pos, Fvector2 size)
 	strconcat					(sizeof(buf), buf, SLIDER_TEXTURE, "_e");
 	item_width					= CUITextureMaster::GetTextureWidth(buf);
 	item_height					= CUITextureMaster::GetTextureHeight(buf);
+	item_width					*= UI()->get_current_kx();
 	m_pSlider->Init				(0, (size.y - item_height) / 2, item_width, item_height);
 	m_pSlider->InitTexture		(SLIDER_TEXTURE);
 	
@@ -399,7 +400,7 @@ void CUITrackBar::UpdatePosRelativeToMouse()
 		}
 	}
 
-	GetMessageTarget()->SendMessage(this, BUTTON_CLICKED, NULL);
+	GetMessageTarget()->SendMessage(this, BUTTON_CLICKED, nullptr);
 
 	UpdatePos();
 }

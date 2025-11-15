@@ -1286,7 +1286,7 @@ void CApplication::load_draw_internal()
 //draw level-specific screenshot
 		if(hLevelLogo){
 			Frect						r;
-			r.lt.set					(257,369);
+			r.lt.set					(256,368);
 			r.lt.x						+= offs;
 			r.lt.y						+= offs;
 			r.rb.add					(r.lt,Fvector2().set(512,256));

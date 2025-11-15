@@ -18,7 +18,7 @@
 		<auto_static x="685" y="195" width="37" height="85" stretch="1">
 			<texture>ui_inventory_mid</texture>
 		</auto_static>
-		<auto_static x="715" y="317" width="283" height="160" stretch="1">
+		<auto_static x="715" y="317" width="283" height="164" stretch="1">
 			<texture>ui_inventory_right_bottom</texture>
 		</auto_static>
 		<auto_static x="715" y="0" width="283" height="322" stretch="1">
@@ -80,47 +80,47 @@
 		
 		<scroll_view x="2" y="27" width="236" height="147" always_show_scroll="0"/>
 		
-		<static_burn_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_burn_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_burn_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_burn_immunity>
 		
-		<static_strike_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_strike_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_strike_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_strike_immunity>
 		
-		<static_shock_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_shock_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_shock_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_shock_immunity>
 		
-		<static_wound_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_wound_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_wound_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_wound_immunity>
 		
-		<static_radiation_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_radiation_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_radiation_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_radiation_immunity>
 		
-		<static_telepatic_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_telepatic_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_telepatic_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_telepatic_immunity>
 		
-		<static_chemical_burn_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_chemical_burn_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_chemical_burn_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_chemical_burn_immunity>
 		
-		<static_explosion_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_explosion_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_explosion_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_explosion_immunity>
 		
-		<static_fire_wound_immunity x="0" y="0" width="14.3" height="17.3" stretch="1">
+		<static_fire_wound_immunity x="0" y="0" width="13" height="16" stretch="1">
 			<texture>ui_inv_icon_fire_wound_immunity</texture>
 			<text vert_align="c" font="letterica16" x="15" y="0" color="ui_clr_1"/>
 		</static_fire_wound_immunity>

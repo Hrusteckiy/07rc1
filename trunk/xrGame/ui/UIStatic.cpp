@@ -726,5 +726,5 @@ void CUIStatic::DrawHighlightedText()
 
 bool CUIStatic::IsHighlightText()
 {
-	return m_bCursorOverWindow;
+	return m_bCursorOverWindow && IsEnabled();
 }

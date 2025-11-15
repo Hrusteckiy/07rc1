@@ -30,8 +30,8 @@ void CUIScrollBar::Init(float x, float y, float length, bool bIsHorizontal, LPCS
 	CUIXml xml_doc;
 	R_ASSERT(xml_doc.Init	(CONFIG_PATH, UI_PATH, "scroll_bar.xml"));
 
-	float height = xml_doc.ReadAttribFlt(profile, 0, "height", 16);
-		
+	float height = xml_doc.ReadAttribFlt(profile, 0, (bIsHorizontal) ? "height" : "height_v", 16);
+
 	m_bIsHorizontal = bIsHorizontal;
 	if(m_bIsHorizontal)
 	{

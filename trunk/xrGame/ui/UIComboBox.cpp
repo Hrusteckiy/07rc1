@@ -23,7 +23,7 @@ CUIComboBox::CUIComboBox()
 //.	AttachChild			(&m_btn);
 
 	AttachChild			(&m_frameWnd);
-	AttachChild			(&m_list);
+	m_frameWnd.AttachChild(&m_list);
 
 	m_iListHeight		= 0;
 	m_bInited			= false;
@@ -35,12 +35,15 @@ CUIComboBox::CUIComboBox()
 CUIComboBox::~CUIComboBox()
 {}
 
-void CUIComboBox::SetListLength(int length){
+void CUIComboBox::SetListLength(int length)
+{
 	R_ASSERT(0 == m_iListHeight);
 	m_iListHeight = length;
 }
 
-void CUIComboBox::Init(float x, float y, float width){
+void CUIComboBox::Init(float x, float y, float width)
+{
+	float lb_text_offset = 5.0f;
 	m_bInited = true;
 	if (0 == m_iListHeight)
 		m_iListHeight = 4;
@@ -55,7 +58,8 @@ void CUIComboBox::Init(float x, float y, float width){
 
 
 	// Edit Box on left side of frame line
-	m_text.Init							(0, CB_HEIGHT * 0.24f, width, CB_HEIGHT);
+	m_text.Init							(lb_text_offset, 0, width, CB_HEIGHT);
+	m_text.SetVTextAlignment			(valCenter);
 	m_text.SetBaseTextColor				(m_textColor[0]);
 	m_text.Enable						(false);
 	// Button on right side of frame line
@@ -64,7 +68,7 @@ void CUIComboBox::Init(float x, float y, float width){
 
 	// height of list equal to height of ONE element
 	float item_height					= CUITextureMaster::GetTextureHeight("ui_cb_listline_b");
-	m_list.Init							(0, CB_HEIGHT, width, item_height*m_iListHeight);
+	m_list.Init							(lb_text_offset, 0, width, item_height*m_iListHeight);
 	m_list.Init							();
 	m_list.SetBaseTextColor				(m_textColor[0]);
 	m_list.SetSelectionTexture			("ui_cb_listline");
@@ -73,8 +77,9 @@ void CUIComboBox::Init(float x, float y, float width){
 	m_frameWnd.Init						(0,  CB_HEIGHT, width, m_list.GetItemHeight()*m_iListHeight);
 	m_frameWnd.InitTexture				("ui_cb_listbox");
 
-	m_list.Show							(false);
+	m_list.Show							(true);
 	m_frameWnd.Show						(false);
+	m_list.SetMessageTarget				(this);
 }
 
 void CUIComboBox::Init(float x, float y, float width, float height)
@@ -114,7 +119,8 @@ void CUIComboBox::SetCurrentValue()
 {
 	m_list.Clear		();
 	xr_token* tok		= GetOptToken();
-
+	if (!tok)
+		return;
 	while (tok->name)
 	{		
 		AddItem_(tok->name, tok->id);
@@ -169,7 +175,7 @@ void CUIComboBox::SetItem(int idx)
 }
 void CUIComboBox::OnBtnClicked()
 {
-	ShowList				(!m_list.IsShown());
+	ShowList				(!m_frameWnd.IsShown());
 }
 
 void CUIComboBox::ShowList(bool bShow)
@@ -178,7 +184,7 @@ void CUIComboBox::ShowList(bool bShow)
 	{
 		SetHeight			(m_text.GetHeight() + m_list.GetHeight());
 
-		m_list.Show			(true);
+//		m_list.Show			(true);
 		m_frameWnd.Show		(true);
 
 		m_eState			= LIST_EXPANDED;
@@ -187,7 +193,7 @@ void CUIComboBox::ShowList(bool bShow)
 	}
 	else
 	{
-		m_list.Show			(false);
+//		m_list.Show			(false);
 		m_frameWnd.Show		(false);
 		SetHeight			(m_frameLine.GetHeight());
 		GetParent()->SetCapture(this, false);
@@ -209,7 +215,15 @@ void CUIComboBox::Update()
 		m_text.SetTextColor(m_textColor[1]);
 	}
 	else
+	{
 		m_text.SetTextColor(m_textColor[0]);
+
+		if (m_frameWnd.IsShown())
+		{
+			Device.seqRender.Remove(this);
+			Device.seqRender.Add(this, 3);
+		}
+	}
 
 }
 
@@ -298,3 +312,21 @@ void CUIComboBox::Undo()
 	SetCurrentValue		();
 }
 
+void CUIComboBox::OnRender()
+{
+	if (IsShown())
+	{
+		if (m_frameWnd.IsShown())
+		{
+			UI()->PushScissor(UI()->ScreenRect(), true);
+			m_frameWnd.Draw();
+			UI()->PopScissor();
+			Device.seqRender.Remove(this);
+		}
+	}
+}
+
+void CUIComboBox::Draw()
+{
+	CUIWindow::Draw();
+}

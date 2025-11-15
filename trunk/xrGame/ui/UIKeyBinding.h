@@ -1,6 +1,6 @@
 #pragma once
 #include "UIWindow.h"
-#include "UILabel.h"
+#include "UIFrameLineWnd.h"
 #include "UIListWnd.h"
 #include "UIFrameWindow.h"
 #include "UIEditBox.h"
@@ -20,7 +20,7 @@ public:
 protected:
 	void			FillUpList				(CUIXml& xml_doc, LPCSTR path);
 
-	CUILabel		m_header[3];
+	CUIFrameLineWnd	m_header[3];
 	CUIFrameWindow	m_frame;
 	CUIScrollView*	m_scroll_wnd;
 };
