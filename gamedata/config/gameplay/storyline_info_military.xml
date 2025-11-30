@@ -75,3 +75,7 @@
 	<texture x="500" y="150" width="100" height="100">ui\ui_icon_photo</texture>
     <text>mil_hunters_task_descr</text>
 </article>
+
+<article id="mil_screw_flamethrower_descr" name = "mil_screw_flamethrower_descr" article_type="task">
+    <text>mil_screw_flamethrower_text</text>
+</article>

@@ -29,7 +29,7 @@
 #include "gameplay\character_items.xml"
 		</supplies>
 
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
@@ -59,7 +59,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>
 
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>
@@ -91,7 +91,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>
 
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
@@ -121,7 +121,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>
 				
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -149,7 +149,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>
 				
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -177,7 +177,7 @@
 #include "gameplay\character_items.xml"					
 		</supplies>
 				
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -205,7 +205,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>		
 			
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -234,7 +234,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>		
 			
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -265,7 +265,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>		
 			
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -294,7 +294,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>		
 			
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -324,7 +324,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>			
 		
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -354,7 +354,7 @@
 #include "gameplay\character_items.xml"			
 		</supplies>	
 				
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>
@@ -384,7 +384,7 @@
 			ammo_vog-25p = 2 \n
 		</supplies>		
 			
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>	
@@ -413,7 +413,7 @@
 			ammo_9x39_sp5 = 1 \n
 		</supplies>		
 			
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 	</specific_character>	

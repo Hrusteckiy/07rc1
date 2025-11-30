@@ -77,7 +77,7 @@ radius_max		= 2.7
 ;---------------------------------------------------------------------
 
 [effector_alcohol]
-pp_eff_name		= alcohol.ppe
+pp_eff_name		= snd_shock.ppe; alcohol.ppe
 pp_eff_cyclic	= 1
 
 cam_eff_name	= camera_effects\drunk.anm
@@ -188,3 +188,37 @@ pp_eff_cyclic = 1
 [effector_nightvision_good]
 pp_eff_name = nightvision_good.ppe
 pp_eff_cyclic = 1
+
+; Ìîè ÏÍÂ
+
+[effector_nightvision_default]
+pp_eff_name = nightvision_test.ppe
+pp_eff_cyclic = 1
+
+[effector_nightvision_static]
+pp_eff_name = dead_zone.ppe
+pp_eff_cyclic = 1
+
+[effector_nightvision_kat_eye]
+pp_eff_name = nightvision.ppe
+pp_eff_cyclic = 1
+
+[effector_nightvision_psy]
+pp_eff_name = psy_antenna.ppe
+pp_eff_cyclic = 1
+
+[effector_nightvision_blackwhite]
+pp_eff_name = psy_antenna.ppe
+self.base_amplitude = color(0.2,0.15,0.0)
+pp_eff_cyclic = 1
+blur = 5
+gray = 0
+noise = 0
+noise_scale = 0
+noise_color = 0.535, 0.493, 0.389, 0
+self.gray_color = 0.535, 0.493, 0.389
+self.base_color = 0.535, 0.493, 0.389
+
+
+
+

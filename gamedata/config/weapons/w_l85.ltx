@@ -30,9 +30,10 @@ ammo_current			= 180
 ammo_elapsed			= 30
 	
 ammo_mag_size			= 30
-ammo_class				= ammo_5.56x45_ss190, ammo_5.56x45_ap
+ammo_class				= ammo_5.56x45_ap,ammo_5.56x45_ss190
 grenade_class			= ammo_m209
-fire_modes				= 1, -1
+fire_modes				= -1, 1
+f_mode				= 2
 
 hand_dependence			= 1
 single_handed			= 0	
@@ -56,27 +57,30 @@ kill_msg_height			= 30
 
 ;-----------------------------------------------------------------------------------
 ;базовая дисперсия
-fire_dispersion_base		= 0.25; 0.16	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
-control_inertion_factor		= 1.35f
+fire_dispersion_base			= 0.14		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor			= 1.35f
+disp_rate = 1.9
 
 ;отдача
-cam_relax_speed         	= 5; 0.15		;скорость возврата в исходное положение
-cam_dispersion          	= 0.15		;увеличения угла (в градусах) с каждым выстрелом
-cam_dispersion_inc			= 0.3		;увеличениe cam_dispersion с каждым выстрелом
-cam_dispersion_frac			= 0.9		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle				= 10.0	    	;максимальный угол отдачи
-cam_max_angle_horz			= 20.0		;(degree) maximum shot horizontal degree 
-cam_step_angle_horz			= 1.0		;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed         		= 4.5 		;скорость возврата в исходное положение
+cam_dispersion          	= 0.97		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.22		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac			= 0.8	;0.000001	;0.85		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle					= 25.0		;максимальный угол отдачи
+cam_max_angle_horz				= 22.0		;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 4.2	;0.18		;(degree) size of step camera moved in horizontal position while shooting
 
-fire_dispersion_condition_factor 	= 5	    	;увеличение дисперсии в процентах при максимальном износе 
-misfire_probability 		= 0.003	;вероятность осечки при максимальном износе 
-misfire_condition_k			= 0.05
-condition_shot_dec 			= 0.0002	;увеличение износа при каждом выстреле
+fire_dispersion_condition_factor 	= 2	    ;увеличение дисперсии в процентах при максимальном износе 
+misfire_probability 	= 0.008	;вероятность осечки при максимальном износе 
+misfire_condition_k	= 0.1
+condition_shot_dec 		= 0.0008	;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
+
 ;parent dispersion modifiers
-PDM_disp_base 				= 1.0
+
+PDM_disp_base 			= 6.0
 PDM_disp_vel_factor 		= 1.4
-PDM_disp_accel_factor 		= 1.4
+PDM_disp_accel_factor 		= 1.3
 PDM_crouch	 				= 1.0
 PDM_crouch_no_acc 			= 1.0
 
@@ -95,22 +99,23 @@ shell_particles	 			= weapons\generic_shells
 rpm_empty_click 	 		= 200
 
 ; ttc
-hit_power                	= 0.4, 0.44, 0.47, 0.50
-hit_impulse		 			= 140
+hit_power                	= 0.57		;0.48, 0.50, 0.52, 0.56		;0.44, 0.46, 0.49, 0.53
+hit_impulse		 			= 80
 hit_type 					= fire_wound 	
+hit_rate	= 1.9
 
-fire_distance            	= 800
-bullet_speed				= 950	;начальная скорость пули
+fire_distance            	= 200
+bullet_speed				= 810		;КОЭФФИЦИЕНТ начальной скорости пули
 rpm                      	= 650
 ; end ttc
 
-use_aim_bullet				= true		;Поддерживается ли первая суппер пуля
+use_aim_bullet				= false	;true		;Поддерживается ли первая суппер пуля
 time_to_aim					= 1.0	
 
-silencer_hit_power       	= 0.4
-silencer_hit_impulse	 	= 120
-silencer_fire_distance   	= 250
-silencer_bullet_speed	 	= 600
+silencer_hit_power       	= 0.65
+silencer_hit_impulse	 	= 65
+silencer_fire_distance   	= 100
+silencer_bullet_speed	 	= 300
 
 hud                      	= wpn_l85_hud
 normal                   	= 0, 1, 0
@@ -139,12 +144,12 @@ ph_mass						= 5
 
 ;addons
 scope_status				= 1
-silencer_status				= 0;2
-grenade_launcher_status		= 0;2
+silencer_status				= 2
+grenade_launcher_status		= 2
 
 zoom_enabled				= true
-scope_zoom_factor			= 30		;SUSAT 2X
-scope_texture				= wpn\wpn_crosshair_l85
+scope_zoom_factor			= 15		;4.5	;L-85 1,2X ;----------------------------------------
+scope_texture				= wpn\L-85-AMK-W ;-------------------------
 
 scope_name 					= wpn_addon_scope
 scope_x 					= 60

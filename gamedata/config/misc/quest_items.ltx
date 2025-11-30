@@ -665,3 +665,78 @@ inv_grid_height		= 1
 inv_grid_x			= 11
 inv_grid_y			= 3
 cost				= 50
+
+[amk_af_night_star]:af_night_star
+particles			= samples\tut2_pe_with_child
+quest_item			= true
+
+
+[flame_parts]:identity_immunities
+GroupControlSection    = spawn_group
+discovery_dependency = 
+;$spawn                 = "devices\quest_items\decoder"
+;$prefetch             = 32
+class                = II_ATTCH
+cform                = skeleton
+visual                = amk\flame_prt_gorelka.ogf
+radius                = 1
+;script_binding        = stalker.object_init
+;quest_item            = true
+
+description            = flame_part_desc
+
+inv_name            = item_flame1_name    
+inv_name_short        = item_flame1_name
+inv_weight            = 0
+inv_grid_width        = 1
+inv_grid_height        = 1
+inv_grid_x            = 11
+inv_grid_y            = 3
+cost                = 50
+
+
+[gorelka]:flame_parts
+visual                = amk\flame_prt_gorelka.ogf
+description            = gorelka_descr
+inv_name            = gorelka    
+inv_name_short        = gorelka
+inv_weight            = 1
+inv_grid_width        = 1
+inv_grid_height        = 1
+inv_grid_x            = 1
+inv_grid_y            = 40
+
+
+[manometr]:flame_parts
+visual                = amk\flame_prt_manometr.ogf
+description            = manometr_descr
+inv_name            = manometr
+inv_name_short        = manometr
+inv_weight            = 1
+inv_grid_width        = 1
+inv_grid_height        = 1
+inv_grid_x            = 0
+inv_grid_y            = 40
+
+[trubka]:flame_parts
+visual                = amk\flame_prt_trubka.ogf
+description            = trubka_descr
+inv_name            = trubka
+inv_name_short        = trubka
+inv_weight            = 0.5
+inv_grid_width        = 2
+inv_grid_height        = 1
+inv_grid_x            = 2
+inv_grid_y            = 40
+
+
+[flamethrower_bad]:flame_parts
+visual                = amk\wpn_flame_brk.ogf
+description            = flama_descr
+inv_name            = item_flamethrower_bad_name    
+inv_name_short        = item_flamethrower_bad_name
+inv_weight            = 5
+inv_grid_width        = 4
+inv_grid_height        = 2
+inv_grid_x            = 13
+inv_grid_y            = 38

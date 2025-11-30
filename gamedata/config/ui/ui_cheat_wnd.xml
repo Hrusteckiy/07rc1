@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<cheat>	
+	<back_video x="10" y="10" width="380" height="320" stretch="1">
+		<texture>ui\credits_back_512_v10</texture>
+	</back_video>
+
+	<background x="0" y="0" width="400" height="340" stretch="1">
+		<texture x="0" y="0" width="350" height="460">ui\ui_dg_inventory</texture>
+	</background>
+
+	<caption x="175" y="30" width="50" height="35">
+		<text>amk_sleep_title</text>
+	</caption>
+	
+	<btn_1 x="72" y="80" width="256" height="35">
+	<texture_e>ui\ui_btn_mm_e</texture_e>
+	<texture_t>ui\ui_btn_mm_t</texture_t>
+	<texture_h>ui\ui_btn_mm_h</texture_h>
+		<text>amk_sleep_one_hour</text>
+	</btn_1>
+
+	<btn_2 x="72" y="130" width="256" height="35">
+	<texture_e>ui\ui_btn_mm_e</texture_e>
+	<texture_t>ui\ui_btn_mm_t</texture_t>
+	<texture_h>ui\ui_btn_mm_h</texture_h>
+		<text>amk_sleep_three_hours</text>
+	</btn_2>
+
+	<btn_3 x="72" y="180" width="256" height="35">
+	<texture_e>ui\ui_btn_mm_e</texture_e>
+	<texture_t>ui\ui_btn_mm_t</texture_t>
+	<texture_h>ui\ui_btn_mm_h</texture_h>
+		<text>amk_sleep_five_hours</text>
+	</btn_3>
+	
+	<btn_4 x="72" y="230" width="256" height="35">
+	<texture_e>ui\ui_btn_mm_e</texture_e>
+	<texture_t>ui\ui_btn_mm_t</texture_t>
+	<texture_h>ui\ui_btn_mm_h</texture_h>
+		<text>amk_sleep_until_full_health</text>
+	</btn_4>
+
+<btn_quit x="270" y="300" width="117" height="29">
+	<texture_e>ui_button_ordinary_e</texture_e>
+	<texture_t>ui_button_ordinary_t</texture_t>
+	<texture_h>ui_button_ordinary_h</texture_h>
+	<text>ui_inv_exit</text>
+</btn_quit>
+</cheat>

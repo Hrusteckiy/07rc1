@@ -26,28 +26,31 @@ ammo_limit				= 60
 ammo_current			= 10
 ammo_elapsed			= 0
 
-ammo_mag_size			= 10
-ammo_class				= ammo_7.62x54_7h1, ammo_7.62x54_7h14, ammo_7.62x54_ap 
+f_mode				= 1
 
-sprint_allowed			= false
+ammo_mag_size			= 10
+ammo_class				= ammo_7.62x54_7h14,ammo_7.62x54_ap,ammo_7.62x54_7h1 
+
+sprint_allowed			= true; false
 ;-----------------------------------------------------------------------------------
 ;базовая дисперсия
-fire_dispersion_base		= 0.03	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+fire_dispersion_base		= 0.021  ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
 control_inertion_factor		= 2.2f
-	
+disp_rate = 1.85
+
 ;отдача
-cam_relax_speed         	= 4.5	;скорость возврата в исходное положение
-cam_dispersion          	= 2.0	;увеличения угла (в градусах) с каждым выстрелом
-cam_dispersion_inc		= 0.5	;увеличениe cam_dispersion с каждым выстрелом
-cam_dispersion_frac		= 1.0	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle			= 15.0	;максимальный угол отдачи
-cam_max_angle_horz		= 3.0	;(degree) maximum shot horizontal degree 
-cam_step_angle_horz		= 0.25	;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed         		= 2.5	;скорость возврата в исходное положение
+cam_dispersion          	= 0.22	;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.15	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac			= 0.6	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle					= 18.0	;максимальный угол отдачи
+cam_max_angle_horz				= 20.0	;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 1.5	;(degree) size of step camera moved in horizontal position while shooting
 
 fire_dispersion_condition_factor = 5	;увеличение дисперсии в процентах при максимальном износе 
 misfire_probability 		= 0.005 ;вероятность осечки при максимальном износе 
 misfire_condition_k			= 0.05
-condition_shot_dec 			= 0.0002 ;увеличение износа при каждом выстреле
+condition_shot_dec 			= 0.000002 ;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
 
 hand_dependence 		= 1
@@ -83,23 +86,24 @@ shell_point		 		= 0.0, 0.129, 0.192
 shell_dir		 		= 0.0, 0.0, 0.4
 shell_particles	 		= weapons\generic_shells
 
-PDM_disp_base 			= 6.0
-PDM_disp_vel_factor 		= 0.9
+PDM_disp_base 			= 4.0
+PDM_disp_vel_factor 		= 1.8
 PDM_disp_accel_factor 		= 1.0
-PDM_crouch	 		= 1.0
+PDM_crouch	 		= 1.8
 PDM_crouch_no_acc 		= 1.0
 
 ; ttc
-hit_power           = 0.85, 0.90, 1.00, 1.10
-hit_impulse		 	= 190
+hit_power           = 0.68, 0.73, 0.76, 0.80 ; 1.0, 1.15, 1.30, 1.55
+hit_impulse		 	= 96
 hit_type 			= fire_wound
+hit_rate	= 2.0
 
-fire_distance           	= 1000
-bullet_speed		 	= 850	;начальная скорость пули
-rpm                     	= 120
+fire_distance           	= 205   ;КОЭФФИЦИЕНТ максимальной дистанции выстрела (АМК)
+bullet_speed		 	= 450	;КОЭФФИЦИЕНТ начальной скорости пули (АМК)
+rpm                     	= 140
 ; end ttc
 
-use_aim_bullet				= true		;Поддерживается ли первая суппер пуля
+use_aim_bullet				= true 		;Поддерживается ли первая супер пуля
 time_to_aim					= 1.0	
 
 hud                     = wpn_svd_hud
@@ -132,12 +136,13 @@ ph_mass			 		= 3
 scope_status				= 1
 silencer_status				= 0
 grenade_launcher_status		= 0
+
 zoom_enabled				= true
 
 zoom_enabled			= true
-scope_zoom_factor	    = 15		;ПСО-1 4X
+scope_zoom_factor	    = 12		;1P21-AMK 5X
 
-scope_texture			= wpn\wpn_crosshair
+scope_texture			= wpn\1P21-AMK_1680-W
 
 ;звуки
 snd_draw		= weapons\svd_draw

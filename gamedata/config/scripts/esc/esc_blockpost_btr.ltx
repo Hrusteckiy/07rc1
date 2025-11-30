@@ -1,0 +1,24 @@
+[logic]
+active = ph_car@idle
+on_hit = hit
+
+[hit]
+on_info = %+esc_blockpost_alarm%
+
+[ph_car@idle]
+target=actor
+fire_range=80
+fire_repeat=50
+auto_fire=true
+track_target=true
+on_info = {=gulag_casualities_ge(esc_blokpost:5)} ph_car@eliminate, {+esc_blockpost_alarm} ph_car@eliminate
+on_death_info = esc_btr_killed
+
+[ph_car@eliminate]
+target=actor
+fire_range=120
+fire_repeat=50
+auto_fire=true
+track_target=true
+on_info = {+esc_blockpost_normal} ph_car@idle
+on_death_info = esc_btr_killed

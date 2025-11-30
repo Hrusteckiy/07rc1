@@ -46,13 +46,13 @@
 		<text>Огонь</text>
 	</string>
 	<string id="kb_firemode_next">
-		<text>Режим стрельбы след.</text>
+		<text>Следующий режим стрельбы</text>
 	</string>
 	<string id="kb_firemode_prev">
-		<text>Режим стрельбы пред.</text>
+		<text>Предыдущий режим стрельбы</text>
 	</string>
 	<string id="kb_forward">
-		<text>Вперед</text>
+		<text>Вперёд</text>
 	</string>
 	<string id="kb_func">
 		<text>Подствольник</text>
@@ -154,10 +154,10 @@
 		<text>Использовать</text>
 	</string>
 	<string id="kb_use_bandage">
-		<text>Быстрое использ. бинта</text>
+		<text>Перевязка</text>
 	</string>
 	<string id="kb_use_medkit">
-		<text>Быстрое использ. аптечки</text>
+		<text>Использовать аптечку</text>
 	</string>
 	<string id="kb_vote_begin">
 		<text>Начать голосование</text>
@@ -204,4 +204,16 @@
 	<string id="speech_menu_personal">
 		<text>Голосовые сообщения (2)</text>
 	</string>
+	<string id="kb_cam_1">
+		<text>Вид от первого лица</text>
+	</string>
+	<string id="kb_cam_2">
+		<text>Вид от третьего лица</text>
+	</string>
+	<string id="kb_cam_3">
+		<text>Вид от третьего лица (freelook)</text>
+	</string>
+	<!-- string id="kb_cam_4"
+		textВид от третьего лица (psp)text
+	string -->
 </string_table>

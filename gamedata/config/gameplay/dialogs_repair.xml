@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<game_dialogs>
+
+<!--********************************-->
+<!-- Sidorovich Repair dialog start -->
+<!--********************************-->
+    <dialog id="escape_trader_repair">
+        <precondition>escape_dialog.trader_repair_precond</precondition>
+        <has_info>tutorial_end</has_info>
+        <phrase_list>
+            <phrase id="0">
+                <text>escape_trader_repair_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>escape_trader_repair_1</text>
+                <action>escape_dialog.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+            <phrase id="2">
+                <precondition>escape_dialog.trader_check_money_s1</precondition>
+                <text>escape_trader_repair_2</text>
+                <action>escape_dialog.trader_repiar_weapon_s1</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="3">
+                <precondition>escape_dialog.trader_check_money_s2</precondition>
+                <text>escape_trader_repair_3</text>
+                <action>escape_dialog.trader_repiar_weapon_s2</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="4">
+                <precondition>escape_dialog.trader_check_money_s6</precondition>
+                <text>escape_trader_repair_4</text>
+                <action>escape_dialog.trader_repiar_armor_s6</action>
+                <next>7</next>
+            </phrase>
+            <phrase id="5">
+                <text>escape_trader_repair_5</text>
+            </phrase>
+            <phrase id="6">
+                <text>escape_trader_repair_6</text>
+                <next>8</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="7">
+                <text>escape_trader_repair_7</text>
+                <next>9</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="8">
+                <text>escape_trader_repair_8</text>
+            </phrase>
+            <phrase id="9">
+                <text>escape_trader_repair_9</text>
+            </phrase>
+            <phrase id="10">
+                <precondition>escape_dialog.trader_repair_precond</precondition>
+                <text>escape_trader_repair_10</text>
+                <next>11</next>
+            </phrase>
+            <phrase id="11">
+                <text>escape_trader_repair_11</text>
+                <action>escape_dialog.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+
+<!--****************************-->
+<!-- Barist Repair dialog start -->
+<!--****************************-->
+    <dialog id="bar_trader_repair">
+        <precondition>bar_dialogs.trader_repair_precond</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>bar_trader_repair_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>bar_trader_repair_1</text>
+                <action>bar_dialogs.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+            <phrase id="2">
+                <precondition>bar_dialogs.trader_check_money_s1</precondition>
+                <text>bar_trader_repair_2</text>
+                <action>bar_dialogs.trader_repiar_weapon_s1</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="3">
+                <precondition>bar_dialogs.trader_check_money_s2</precondition>
+                <text>bar_trader_repair_3</text>
+                <action>bar_dialogs.trader_repiar_weapon_s2</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="4">
+                <precondition>bar_dialogs.trader_check_money_s6</precondition>
+                <text>bar_trader_repair_4</text>
+                <action>bar_dialogs.trader_repiar_armor_s6</action>
+                <next>7</next>
+            </phrase>
+            <phrase id="5">
+                <text>bar_trader_repair_5</text>
+            </phrase>
+            <phrase id="6">
+                <text>bar_trader_repair_6</text>
+                <next>8</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="7">
+                <text>bar_trader_repair_7</text>
+                <next>9</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="8">
+                <text>bar_trader_repair_8</text>
+            </phrase>
+            <phrase id="9">
+                <text>bar_trader_repair_9</text>
+            </phrase>
+            <phrase id="10">
+                <precondition>bar_dialogs.trader_repair_precond</precondition>
+                <text>bar_trader_repair_10</text>
+                <next>11</next>
+            </phrase>
+            <phrase id="11">
+                <text>bar_trader_repair_11</text>
+                <action>bar_dialogs.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    
+<!--****************************-->
+<!-- Doctor Repair dialog start -->
+<!--****************************-->
+    <dialog id="yantar_trader_repair">
+        <precondition>dialogs_yantar.trader_repair_precond</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>yantar_trader_repair_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>yantar_trader_repair_1</text>
+                <action>dialogs_yantar.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+            <phrase id="2">
+                <precondition>dialogs_yantar.trader_check_money_s1</precondition>
+                <text>yantar_trader_repair_2</text>
+                <action>dialogs_yantar.trader_repiar_weapon_s1</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="3">
+                <precondition>dialogs_yantar.trader_check_money_s2</precondition>
+                <text>yantar_trader_repair_3</text>
+                <action>dialogs_yantar.trader_repiar_weapon_s2</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="4">
+                <precondition>dialogs_yantar.trader_check_money_s6</precondition>
+                <text>yantar_trader_repair_4</text>
+                <action>dialogs_yantar.trader_repiar_armor_s6</action>
+                <next>7</next>
+            </phrase>
+            <phrase id="5">
+                <text>yantar_trader_repair_5</text>
+            </phrase>
+            <phrase id="6">
+                <text>yantar_trader_repair_6</text>
+                <next>8</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="7">
+                <text>yantar_trader_repair_7</text>
+                <next>9</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="8">
+                <text>yantar_trader_repair_8</text>
+            </phrase>
+            <phrase id="9">
+                <text>yantar_trader_repair_9</text>
+            </phrase>
+            <phrase id="10">
+                <precondition>dialogs_yantar.trader_repair_precond</precondition>
+                <text>yantar_trader_repair_10</text>
+                <next>11</next>
+            </phrase>
+            <phrase id="11">
+                <text>yantar_trader_repair_11</text>
+                <action>dialogs_yantar.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    
+<!--***************************-->
+<!-- Screw Repair dialog start -->
+<!--***************************-->
+    <dialog id="mil_trader_repair">
+        <precondition>dialogs_military.trader_repair_precond</precondition>
+        <!--has_info>mil_miser_task</has_info-->
+        <phrase_list>
+            <phrase id="0">
+                <text>mil_trader_repair_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>mil_trader_repair_1</text>
+                <action>dialogs_military.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+            <phrase id="2">
+                <precondition>dialogs_military.trader_check_money_s1</precondition>
+                <text>mil_trader_repair_2</text>
+                <action>dialogs_military.trader_repiar_weapon_s1</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="3">
+                <precondition>dialogs_military.trader_check_money_s2</precondition>
+                <text>mil_trader_repair_3</text>
+                <action>dialogs_military.trader_repiar_weapon_s2</action>
+                <next>6</next>
+            </phrase>
+            <phrase id="4">
+                <precondition>dialogs_military.trader_check_money_s6</precondition>
+                <text>mil_trader_repair_4</text>
+                <action>dialogs_military.trader_repiar_armor_s6</action>
+                <next>7</next>
+            </phrase>
+            <phrase id="5">
+                <text>mil_trader_repair_5</text>
+            </phrase>
+            <phrase id="6">
+                <text>mil_trader_repair_6</text>
+                <next>8</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="7">
+                <text>mil_trader_repair_7</text>
+                <next>9</next>
+                <next>10</next>
+            </phrase>
+            <phrase id="8">
+                <text>mil_trader_repair_8</text>
+            </phrase>
+            <phrase id="9">
+                <text>mil_trader_repair_9</text>
+            </phrase>
+            <phrase id="10">
+                <precondition>dialogs_military.trader_repair_precond</precondition>
+                <text>mil_trader_repair_10</text>
+                <next>11</next>
+            </phrase>
+            <phrase id="11">
+                <text>mil_trader_repair_11</text>
+                <action>dialogs_military.repair_costs</action>
+                <next>2</next>
+                <next>3</next>
+                <next>4</next>
+                <next>5</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+
+<!--********************-->
+<!-- Repair dialogs end -->
+<!--********************-->
+
+</game_dialogs>

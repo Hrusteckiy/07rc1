@@ -47,7 +47,7 @@
 		<text>Найти тайник группировки Стрелка</text>
 	</string>
 	<string id="agroprom_find_gunslinger_cache_0">
-		<text>Найти тайник группировки Стрелка.</text>
+		<text>Найти тайник группировки Стрелка</text>
 	</string>
 	<string id="agroprom_find_gunslinger_cache_1">
 		<text>Найти тайник</text>
@@ -62,7 +62,7 @@
 		<text>Найти Призрака</text>
 	</string>
 	<string id="agroprom_find_stalker_phantom_0">
-		<text>Призрак знает где Стрелок.</text>
+		<text>Призрак знает, где Стрелок</text>
 	</string>
 	<string id="agroprom_get_military_documents">
 		<text>Найти документы военных</text>
@@ -74,5 +74,5 @@
 		<text>Выкрасть военные документы</text>
 	</string>
 	<string id="agroprom_get_military_documents_2">
-		<text>Отнести документы бармену</text>
+		<text>Отнести документы Бармену</text>
 	</string>

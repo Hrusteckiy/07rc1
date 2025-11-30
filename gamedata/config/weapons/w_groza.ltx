@@ -29,6 +29,8 @@ ammo_elapsed			= 20
 ammo_mag_size		 	= 20
 ammo_class		 		= ammo_9x39_pab9, ammo_9x39_sp5, ammo_9x39_ap
 fire_modes				= 1, -1
+f_mode				= 2
+
 launch_speed			= 0
 
 grenade_class			= ammo_vog-25, ammo_vog-25p
@@ -55,8 +57,9 @@ kill_msg_height		= 30
 
 ;-----------------------------------------------------------------------------------
 ;базовая дисперсия
-fire_dispersion_base		= 0.18	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+fire_dispersion_base		= 0.23	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
 control_inertion_factor		= 1.05f
+disp_rate = 1.7
 
 ;отдача
 cam_relax_speed         	= 5.2;0.3	;скорость возврата в исходное положение
@@ -67,10 +70,10 @@ cam_max_angle			= 8.5	;максимальный угол отдачи
 cam_max_angle_horz		= 9.0	;(degree) maximum shot horizontal degree 
 cam_step_angle_horz		= 0.85	;(degree) size of step camera moved in horizontal position while shooting
 
-fire_dispersion_condition_factor = 5	;увеличение дисперсии в процентах при максимальном износе 
-misfire_probability 		= 0.003	;вероятность осечки при максимальном износе 
+fire_dispersion_condition_factor = 1.5	;увеличение дисперсии в процентах при максимальном износе 
+misfire_probability 		= 0.0003	;вероятность осечки при максимальном износе 
 misfire_condition_k			= 0.05
-condition_shot_dec 			= 0.0001 ;увеличение износа при каждом выстреле
+condition_shot_dec 			= 0.000005 ;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
 
 direction               = 0, 0, 1
@@ -87,30 +90,31 @@ shell_dir				= 0.0, 0.0, 0.4
 shell_particles			= weapons\generic_shells
 rpm_empty_click 		= 200
 
-PDM_disp_base 			= 1.0
-PDM_disp_vel_factor 		= 1.1
-PDM_disp_accel_factor 		= 1.1
+PDM_disp_base 			= 6.0
+PDM_disp_vel_factor 		= 1.45
+PDM_disp_accel_factor 		= 1.3
 PDM_crouch	 		= 1.0
 PDM_crouch_no_acc 		= 1.0
 
 ; ttc
-hit_power           = 0.58, 0.62, 0.65, 0.68
-hit_impulse		 	= 150
+hit_power           = 0.21	;0.60, 0.65, 0.68, 0.71
+hit_impulse		 	= 80
 hit_type 			= fire_wound
+hit_rate	= 1.95
 
 fire_distance           	= 400
-bullet_speed			= 310	;начальная скорость пули
-rpm                    		= 750
+bullet_speed			= 300	;начальная скорость пули
+rpm                    		= 700
 
-use_aim_bullet				= true		;Поддерживается ли первая суппер пуля
+use_aim_bullet				= false	;true		;Поддерживается ли первая суппер пуля
 time_to_aim					= 1.0	
 
 grenade_vel			= 76
 ; end ttc
 
-silencer_hit_power       	= 0.58
-silencer_hit_impulse	 	= 120
-silencer_fire_distance   	= 250
+silencer_hit_power       	= 0.78
+silencer_hit_impulse	 	= 50
+silencer_fire_distance   	= 100
 silencer_bullet_speed	 	= 280
 
 hud                     = wpn_groza_hud
@@ -139,8 +143,8 @@ ph_mass			 		= 5
 ;cost			 		= 2100
 
 ;addons
-scope_status			= 0;2
-silencer_status			= 0;2
+scope_status			= 2
+silencer_status			= 0
 grenade_launcher_status	= 1
 
 zoom_enabled			= true

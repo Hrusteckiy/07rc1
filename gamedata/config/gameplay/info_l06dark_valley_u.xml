@@ -18,16 +18,16 @@
 
 <!-- Игрок нашел флешку с паролем -->
 <info_portion id="dar_password_info1">
-	<article>dar_password_info1</article>
-	<article>dar_password_info11</article>
+  <article>dar_password_info1</article>
+  <article>dar_password_info11</article>
 </info_portion>
 
 <info_portion id="dar_password_info1_know"></info_portion>
 
 <!-- Игрок нашел документы с паролем -->
 <info_portion id="dar_password_info2">
-	<article>dar_password_info2</article>
-	<article>dar_password_info22</article>
+  <article>dar_password_info2</article>
+  <article>dar_password_info22</article>
 </info_portion>
 
 <info_portion id="dar_password_info2_know"></info_portion>
@@ -35,41 +35,41 @@
 
 
 <info_portion id="dar_document1">
-	<article>dar_document1</article>
+  <article>dar_document1</article>
 </info_portion>
 
 <info_portion id="dar_document2">
-	<article>dar_document2</article>
+  <article>dar_document2</article>
 </info_portion>
 
 <info_portion id="dar_document3">
-	<article>dar_document3</article>
+  <article>dar_document3</article>
 </info_portion>
 
 <info_portion id="dar_document4">
-	<article>dar_document4</article>
+  <article>dar_document4</article>
 </info_portion>
 
 <info_portion id="x18_actor_fall">
 </info_portion>
 
 <info_portion id="dar_x18_dream">
-	<article>sl_x18_dream</article>
+  <article>sl_x18_dream</article>
 </info_portion>
 
 <!-- Игрок нашел документы 5 -->
 <info_portion id="dar_document5">
-<!--	<article>dar_document1</article>
-	<article>dar_document2</article>
-	<article>dar_document3</article>
-	<article>dar_document4</article> -->
-	<article>dar_document5</article> 
+<!--  <article>dar_document1</article>
+  <article>dar_document2</article>
+  <article>dar_document3</article>
+  <article>dar_document4</article> -->
+  <article>dar_document5</article> 
 </info_portion>
 
 
 <!-- Начался квест на документы -->
 <info_portion id="dar_run_quest">
-	<task>bar_darklab_documents2</task>
+  <task>bar_darklab_documents2</task>
 </info_portion>
 
 <!-- Вспомогательные инфопоршены -->
@@ -82,10 +82,10 @@
 
 <!-- Кодовые двери -->
 <info_portion id="dar_door1_closed">
-	<task>dar_codedoor_1</task>	
+  <task>dar_codedoor_1</task> 
 </info_portion>
 <info_portion id="dar_door2_closed">
-	<task>dar_codedoor_2</task>	
+  <task>dar_codedoor_2</task> 
 </info_portion>
 
 

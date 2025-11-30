@@ -2,6 +2,29 @@
 <encyclopedia>
     <!-- LIST OF ENCYCLOPEDIA ENTRIES -->
 
+    <!-------------------------------- CHIMERA ----------------------------->
+
+    <article id="mutant_chimera_general" name="Chimera" group="Mutants">
+        <texture>ui_npc_monster_chimera</texture>
+        <text>enc_mutant_chimera_general</text>
+    </article>
+
+
+
+    <!-------------------------------- BURER ----------------------------->
+
+    <article id="mutant_burer_general" name="Burer" group="Mutants">
+        <texture>ui_npc_monster_burer</texture>
+        <text>enc_mutant_burer_general</text>
+    </article>
+
+
+    <!-------------------------------- CAT ----------------------------->
+
+    <article id="mutant_cat_general" name="Cat" group="Mutants">
+        <texture>ui_npc_monster_cat</texture>
+        <text>enc_mutant_cat_general</text>
+    </article>
 
     <!-------------------------------- Crow ----------------------------->
 
@@ -86,6 +109,12 @@
         <text>enc_mutant_zombie_general</text>
     </article>
 
+    <!-------------------------------- Zombieg ----------------------------->
+
+    <article id="mutant_zombieg_general" name="Zombieg" group="Mutants">
+        <texture>ui_npc_monster_zombieg</texture>
+        <text>enc_mutant_zombieg_general</text>
+    </article>
 
     <!-------------------------------- Snork ----------------------------->
 

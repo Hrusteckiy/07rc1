@@ -3,6 +3,7 @@ GroupControlSection			= spawn_group_zone
 $spawn 						= "zones\buzz"
 $prefetch 					= 16
 class						= ZS_MBALD
+script_binding = amk_anoms.bind
 
 hit_impulse_scale			= 0.0
 effective_radius			= 1.0 ;размер радиуса в процентах от оригинального, где действует зона
@@ -125,3 +126,38 @@ min_artefact_count	= 1
 max_artefact_count	= 2
 artefact_spawn_idle	= 24  ;насколько часто спонить артефакты в офлайне, в часах
 artefact_spawn_rnd	= 90  ;вероятность заспавнить артефакт в процентах.
+
+
+--------------------------------------------------------------------------------------------------------
+
+[amk_zone_buzz]:zone_buzz
+$spawn 						= "amk zones\buzz"
+spawn_blowout_artefacts = off
+min_artefact_count	= 0
+max_artefact_count	= 0
+artefact_spawn_idle	= 24  ;насколько часто спонить артефакты в офлайне, в часах
+
+
+[amk_zone_buzz_weak]:zone_buzz_weak
+$spawn 						= "amk zones\buzz weak"
+spawn_blowout_artefacts = off
+min_artefact_count	= 0
+max_artefact_count	= 0
+artefact_spawn_idle	= 24  ;насколько часто спонить артефакты в офлайне, в часах
+
+
+[amk_zone_buzz_average]:zone_buzz_average
+$spawn 						= "amk zones\buzz average"
+spawn_blowout_artefacts = off
+min_artefact_count	= 0
+max_artefact_count	= 0
+artefact_spawn_idle	= 24  ;насколько часто спонить артефакты в офлайне, в часах
+
+
+[amk_zone_buzz_strong]:zone_buzz_strong
+$spawn 						= "amk zones\buzz strong"
+spawn_blowout_artefacts = off
+min_artefact_count	= 0
+max_artefact_count	= 0
+artefact_spawn_idle	= 24  ;насколько часто спонить артефакты в офлайне, в часах
+

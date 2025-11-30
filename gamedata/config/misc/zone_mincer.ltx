@@ -3,12 +3,13 @@ GroupControlSection			= spawn_group_zone
 $spawn 						= "zones\mincer zone"
 $prefetch 					= 16
 class						= ZS_MINCE	
+script_binding = amk_anoms.bind
 
 ef_anomaly_type				= 2
 ef_weapon_type				= 14
 
 sound						= zone_mosquito_bald
-postprocess					= postprocess_gravi
+;postprocess          = postprocess_gravi
 hit_effect					= explosions\expl_02_sparks
 
 artefacts					= af_blood,0.7, af_mincer_meat, 0.25,af_soul, 0.05
@@ -24,7 +25,7 @@ max_artefact_count	= 0
 
 tearing_particles			=anomaly2\body_tear_00
 torn_particles				=anomaly2\gravi_anomaly_shield_00
-idle_particles				= anomaly2\mincer_idle
+idle_particles				= amk_anoms\mincer_idle
 accum_particles				= anomaly2\gravi_zaxvat_myasorubka
 awake_particles				= anomaly2\gravi_zaxvat_myasorubka
 blowout_particles			= anomaly2\gravi_zaxvat_myasorubka ;gravity_blast_03
@@ -33,7 +34,7 @@ hit_small_particles			= hit_fx\hit_metal_02
 hit_big_particles			= anomaly2\gravity_damage_02_blood2
 idle_small_particles		= anomaly2\gravity_damage_01_smoke
 idle_big_particles			= anomaly2\gravity_damage_02_blood2; anomaly2\gravity_damage_02_smoke
-entrance_small_particles	= anomaly2\gravi_anomaly_shield_00
+entrance_small_particles	= amk_anoms\mincer_blast ;anomaly2\gravi_anomaly_shield_00
 entrance_big_particles		= anomaly2\gravi_anomaly_00;
 
 tele_particles_small		= anomaly2\gravity_damage_01_smoke	;anomaly2\gravity_damage_01_smoke
@@ -48,7 +49,7 @@ entrance_sound				= anomaly\gravi_idle01										;при попадании объекта в анома
 body_tearing_sound			= anomaly\anomaly_body_tear_1								;звук разрывани€ трупа
 hit_type					= strike
 hit_impulse_scale			= 0.1							;соотношение физического импульса и силы хита
-effective_radius			= 0.95							;размер радиуса в процентах от оригинального, где действует зона
+effective_radius      = 0.8              ;размер радиуса в процентах от оригинального, где действует зона
 
 disable_time				= -1							;врем€ игнорировани€ неживого объекта в зоне (-1 если не нужно)
 disable_time_small			= -1							;врем€ игнорировани€ маленького неживого объекта в зоне (-1 если не нужно)
@@ -183,9 +184,9 @@ artefact_spawn_rnd	= 70  ;веро€тность заспавнить артефакт в процентах.
 [zone_mincer_strong]:zone_mincer
 $spawn 						= "zones\mincer zone_strong"
 hit_impulse_scale			= 1	
-effective_radius			= 1
+effective_radius      = 0.85
 
-throw_in_impulse			= 4000	;сила вт€гивани€ дл€ единичной массы на рассто€нии один метр
+throw_in_impulse      = 1000  ;сила вт€гивани€ дл€ единичной массы на рассто€нии один метр
 throw_out_impulse				= 1500			;сила выбрасывани€ взрывом
 throw_in_impulse_alive			= 600	;сила импульса вт€гивани€ дл€ живых
 throw_in_atten					= 1.2	;3;коэфф. зат€гивани€ (чем меньше, тем плавнее зат€гивает)
@@ -210,3 +211,38 @@ min_artefact_count	= 1
 max_artefact_count	= 2
 artefact_spawn_idle	= 24  ;насколько часто спонить артефакты в офлайне, в часах
 artefact_spawn_rnd	= 90  ;веро€тность заспавнить артефакт в процентах.
+
+[amk_zone_mincer]:zone_mincer
+$spawn            = "zones\amk_mincer_zone"
+spawn_blowout_artefacts   = off
+min_artefact_count  = 0
+max_artefact_count  = 0
+artefact_spawn_idle = 24
+
+[amk_zone_mincer_weak]:zone_mincer_weak
+$spawn            = "zones\amk_mincer_zone_weak"
+spawn_blowout_artefacts   = off
+min_artefact_count  = 0
+max_artefact_count  = 0
+artefact_spawn_idle = 24
+
+[amk_zone_mincer_weak_noart]:zone_mincer_weak_noart
+$spawn            = "zones\amk_mincer_zone_weak_noart"
+spawn_blowout_artefacts   = off
+min_artefact_count  = 0
+max_artefact_count  = 0
+artefact_spawn_idle = 24
+
+[amk_zone_mincer_average]:zone_mincer_average
+$spawn            = "amk_zones\mincer zone_average"
+spawn_blowout_artefacts   = off
+min_artefact_count  = 0
+max_artefact_count  = 0
+artefact_spawn_idle = 24
+
+[amk_zone_mincer_strong]:zone_mincer_strong
+$spawn            = "amk_zones\mincer zone_strong"
+spawn_blowout_artefacts   = off
+min_artefact_count  = 0
+max_artefact_count  = 0
+artefact_spawn_idle = 24

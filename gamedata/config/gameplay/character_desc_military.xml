@@ -36,43 +36,50 @@
 #include "gameplay\character_criticals_5.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
-
+  
 <!---------------------------SVOBODA ENGINEER----------------------->
-	<specific_character id="mil_Svoboda_engineer" team_default = "1">
-		<name>mil_Svoboda_engineer_name</name>
-		<icon>ui_npc_u_stalker_sv_rukzak_3</icon>
-		<map_icon x="5" y="0"></map_icon>
-		<bio>mil_Svoboda_engineer_bio</bio>
+    <specific_character id="mil_Svoboda_engineer" team_default = "1">
+        <name>mil_Svoboda_engineer_name</name>
+        <icon>ui_npc_u_stalker_sv_rukzak_3</icon>
+        <map_icon x="5" y="0"></map_icon>
+        <bio>mil_Svoboda_engineer_bio</bio>
 
-		<team>Svoboda_specnaz</team>
+        <team>Svoboda_specnaz</team>
 
         <snd_config>characters_voice\human_01\freedom\</snd_config>
-		<crouch_type>-1</crouch_type>
-		
-		<class>mil_Svoboda_engineer</class>
-		<community>freedom</community> <terrain_sect>stalker_freedom_terrain</terrain_sect>
+        <crouch_type>-1</crouch_type>
+        
+        <class>mil_Svoboda_engineer</class>
+        <community>freedom</community> <terrain_sect>stalker_freedom_terrain</terrain_sect>
 
-		<rank>896</rank>
-		<reputation>139</reputation>
+        <rank>896</rank>
+        <reputation>139</reputation>
 
-		<visual>actors\svoboda\stalker_sv_rukzak_3</visual>
-		<supplies>
-			[spawn] \n
-			wpn_walther \n
-			ammo_9x19_pbp \n
-			wpn_sig550 = 1 \n
-			ammo_5.56x45_ap = 1 \n
-			wpn_addon_scope = 1 \n
+        <visual>actors\svoboda\stalker_sv_rukzak_3</visual>
+        <supplies>
+            [spawn] \n
+            wpn_walther \n
+            ammo_9x19_pbp \n
+            wpn_sig550 = 1 \n
+            ammo_5.56x45_ap = 1 \n
+            wpn_addon_scope = 1 \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
-#include "gameplay\character_food.xml"			
-		</supplies>
+#include "gameplay\character_food.xml"            
+        </supplies>
 
 #include "gameplay\character_criticals_5.xml"
-		
-		<start_dialog>mil_screw_dialog</start_dialog>
-#include "gameplay\character_dialogs.xml"		
-	</specific_character>
+        
+        <start_dialog>mil_screw_dialog</start_dialog>
+        <actor_dialog>mil_screw_flamethrower</actor_dialog>
+        <actor_dialog>parts_completed</actor_dialog>
+        <actor_dialog>parts_completed2</actor_dialog>
+        <actor_dialog>parts_completed3</actor_dialog>
+        <actor_dialog>flame_no_parts</actor_dialog>
+		<actor_dialog>flame_reload</actor_dialog>
+	<actor_dialog>flame_reload_status</actor_dialog>
+#include "gameplay\character_dialogs.xml"        
+    </specific_character>
 
 <!---------------------------SVOBODA REGULAR----------------------->
 	<specific_character id="mil_Svoboda_regular" team_default = "1">
@@ -108,7 +115,7 @@
 #include "gameplay\character_criticals_5.xml"
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
-<!---------------------------SVOBODA SNIPER---------------------->
+  
 	<specific_character id="mil_Svoboda_sniper" team_default = "1">
 		<name>GENERATE_NAME_stalker</name>
 		<icon>ui_npc_u_stalker_sv_rukzak_3_1</icon>
@@ -290,6 +297,7 @@
 		<map_icon x="5" y="0"></map_icon>
 		<bio>mil_Svoboda_trader_bio</bio>
 
+
 		<team>Svoboda_master</team>
 		
 		<class>mil_Svoboda_trader</class>
@@ -300,6 +308,7 @@
 
 		<rank>730</rank>
 		<reputation>96</reputation>
+<money min="100000" max="100000" infinitive="1"></money> 
 
 		<visual>actors\svoboda\stalker_sv_balon_1</visual>
 		<supplies>
@@ -313,6 +322,9 @@
 #include "gameplay\character_criticals_5.xml"
 
 		<start_dialog>mil_trader_dialog</start_dialog>
+    <actor_dialog>mil_trader_repair</actor_dialog>
+		<actor_dialog>mil_trader_dialog_story</actor_dialog>
+		<actor_dialog>mil_trader_dialog_story2</actor_dialog>
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
 <!---------------------------SVOBODA MASTER MAX----------------------->
@@ -350,6 +362,8 @@
 #include "gameplay\character_criticals_5.xml"
 
 		<start_dialog>mil_max_dialog</start_dialog>
+		<actor_dialog>mil_max_dialog_story</actor_dialog>
+		<actor_dialog>mil_max_dialog_story2</actor_dialog>
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
 <!---------------------------SVOBODA MASTER----------------------->
@@ -385,7 +399,7 @@
 #include "gameplay\character_criticals_5.xml"
 #include "gameplay\character_dialogs.xml"			
 	</specific_character>
-<!---------------------------SVOBODA COOK----------------------->
+  
 	<specific_character id="mil_Svoboda_cook" team_default = "1">
 		<name>mil_Svoboda_cook_name</name>		
 		<icon>ui_npc_u_stalker_sv_cook</icon>
@@ -642,7 +656,8 @@
 		
 #include "gameplay\character_criticals_4.xml"
 				
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
+
 	</specific_character>
 <!---------------------------KILLER SPECNAZ---------------------->
 	<specific_character id="mil_Killer_specnaz" team_default = "1">
@@ -767,7 +782,7 @@
         <snd_config>characters_voice\human_03\stalker\</snd_config>
   		<crouch_type>0</crouch_type>
 
-		<visual>actors\neytral\stalker_neytral_exoskeleton</visual>
+		<visual>actors\neytral\stalker_ne_exoskeleton</visual>
 		<supplies>
 			[spawn] \n
 			wpn_walther \n
@@ -876,7 +891,8 @@
 
 #include "gameplay\character_criticals_1.xml"
 	
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
+
   </specific_character>
 
 <!---------------------------MONOLIT MASTER----------------------->
@@ -914,6 +930,8 @@
 	
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
+
   </specific_character>
 	
 </xml>

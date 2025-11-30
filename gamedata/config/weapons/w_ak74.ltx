@@ -28,8 +28,9 @@ ammo_elapsed			= 30				; obsolete
 	
 ammo_mag_size			= 30				; clip (magazine) size
 fire_modes				= 1, -1
+f_mode				= 2
 
-ammo_class				= ammo_5.45x39_fmj, ammo_5.45x39_ap   ; name of the ltx-section of used ammo 
+ammo_class				= ammo_5.45x39_ap,ammo_5.45x39_fmj	; name of the ltx-section of used ammo 
 grenade_class			= ammo_vog-25, ammo_vog-25p			; name of the ltx-section of used grenades 
 launch_speed			= 0
 
@@ -66,23 +67,24 @@ kill_msg_height		= 28
 ;Weapon recoil in the game also created by recoil effector. 
 ;
 ;-----------------------------------------------------------------------------------
-;params of weapon recoil
-fire_dispersion_base			= 0.2		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+;--params of weapon recoil
+fire_dispersion_base			= 0.18		;0.000001 ;0.23		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
 control_inertion_factor			= 1.25f
+disp_rate = 1.82
 
-;отдача
-cam_relax_speed         		=5;3.5; 0.15		;скорость возврата в исходное положение
-cam_dispersion          		= 0.15		;увеличения угла (в градусах) с каждым выстрелом
-cam_dispersion_inc			= 0.3		;увеличениe cam_dispersion с каждым выстрелом
-cam_dispersion_frac			= 0.9		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle				= 10.0	    	;максимальный угол отдачи
-cam_max_angle_horz			= 20.0		;(degree) maximum shot horizontal degree 
-cam_step_angle_horz			= 1.1;1		;(degree) size of step camera moved in horizontal position while shooting
-
-fire_dispersion_condition_factor 	= 5	    	;увеличение дисперсии в процентах при максимальном износе 
-misfire_probability 		= 0.003	;вероятность осечки при максимальном износе 
-misfire_condition_k			= 0.05
-condition_shot_dec 			= 0.0001	;увеличение износа при каждом выстреле
+;--отдача
+cam_relax_speed         		= 5.5 		;скорость возврата в исходное положение
+cam_dispersion          	= 0.62	;0.68	;0.98		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.16		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac			= 0.75	;0.000001	;0.85		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle					= 14.0		;максимальный угол отдачи
+cam_max_angle_horz				= 18.0		;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 3.2	;2.8	;0.18		;(degree) size of step camera moved in horizontal position while shooting
+;--износ
+fire_dispersion_condition_factor 	= 1.5	  ;увеличение дисперсии в процентах при максимальном износе 
+misfire_probability 	= 0.0003	;вероятность осечки при максимальном износе 
+misfire_condition_k		= 0.02
+condition_shot_dec 		= 0.00005	;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
 
 fire_point             		=  0,0.216,0.638			; position (3rd person view) for particles of fire 
@@ -95,30 +97,32 @@ grenade_flame_particles		= weapons\generic_weapon01
 shell_point		 			= 0,0.216,0.174				; position (3rd person view) for shell to throw out
 shell_particles	 			= weapons\generic_shells	; name of the particles for shells
 
-PDM_disp_base 				= 1.0
-PDM_disp_vel_factor 		= 1.3
+PDM_disp_base 			= 5.5
+PDM_disp_vel_factor 		= 1.4
 PDM_disp_accel_factor 		= 1.3
 PDM_crouch	 				= 1.0
 PDM_crouch_no_acc 			= 1.0
 
-; ttc
-hit_power                	= 0.35, 0.39, 0.42, 0.45		; size of damage by bullet
-hit_impulse		 			= 140		; size of physic impulse by bullet	
+;-- ttc
+hit_power                	= 0.54	;0.54, 0.55, 0.56, 0.58		; size of damage by bullet
+hit_impulse		 			= 100	;55		; size of physic impulse by bullet	
 hit_type 					= fire_wound 	; [] type of the wound
-fire_distance            	= 1000		; maximum fire distance that bullet can fly
-bullet_speed				= 900		; starting bullet speed
+hit_rate	= 1.85
+
+fire_distance            	= 200		; maximum fire distance that bullet can fly
+bullet_speed			= 575	;1000		; starting bullet speed	                     ;КОЭФФИЦИЕНТ начальной скорости пули
 rpm                      	= 600		; max round per minute
 
-use_aim_bullet				= true		;Поддерживается ли первая суппер пуля
+use_aim_bullet				= false	;true	;Поддерживается ли первая суппер пуля
 time_to_aim					= 1.0	
 
 ;params when silencer is attached 
 ;similar to corresponding params without prefix silencer_
 
-silencer_hit_power       	= 0.38
-silencer_hit_impulse	 	= 120
-silencer_fire_distance   	= 250
-silencer_bullet_speed	 	= 600
+silencer_hit_power       	= 0.5
+silencer_hit_impulse	 	= 85
+silencer_fire_distance   	= 130
+silencer_bullet_speed	 	= 315
 
 hud                      	= wpn_ak74_hud				; name of the section of the hud
 
@@ -143,7 +147,7 @@ ph_mass						= 5							; physic mass (kg)
 
 ;addons
 scope_status				= 2							; 0 - no addon
-silencer_status				= 0;2							; 1 - permanent
+silencer_status				= 2							; 1 - permanent
 grenade_launcher_status		= 2							; 2 - attachable
 
 zoom_enabled				= true						; (on,off)zoom mode (right mouse button)
@@ -198,13 +202,13 @@ allow_inertion				= true
 ;similar to corresponding params in weapon section but for 1st person view
 
 shell_point					= -0.065000,0.000000,-0.045000
-shell_dir			     	= 0.0, 1.0, 0.0
+shell_dir			     	= 0.0, 1.0, 0.0 ------------------------------------------------------------------
 
 fire_point               	= 0.09,0.020,-0.06
 fire_point2              	= 0.30, 0.00, 0.05
 fire_bone               	= wpn_body
 
-orientation             	= 0, 0, 0		
+orientation             	= 0, 0, 0	---------------------------------------------------------------------
 position                	= 0, 0, 0
 visual                  	= weapons\ak74\wpn_ak74_hud.ogf
 
@@ -247,7 +251,7 @@ zoom_offset			= -0.112400,0.016800,-0.115000
 zoom_rotate_x		= 0.000200
 zoom_rotate_y		= 0.017500
 
-zoom_hide_crosshair	= true						;to hide crosshair in zoom 
+zoom_hide_crosshair	= true						;to hide crosshair in zoom ------------------------------------------------------------
 
 
 ; same as above, but for attached grenade launcher for

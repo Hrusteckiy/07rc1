@@ -25,6 +25,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_left_hand">
@@ -52,6 +53,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_right_hand">
@@ -79,6 +81,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------MONOLIT REGULAR----------------------->
@@ -106,6 +109,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_regular_default2" team_default = "1">
@@ -132,6 +136,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------MONOLIT SNIPER---------------------->
@@ -159,6 +164,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_sniper_default2" team_default = "1">
@@ -185,6 +191,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------MONOLIT SNIPER GAUSS---------------------->
@@ -212,6 +219,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------MONOLIT SPECNAZ---------------------->
@@ -239,6 +247,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_specnaz_default2" team_default = "1">
@@ -266,6 +275,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_specnaz_default3" team_default = "1">
@@ -292,6 +302,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_specnaz_default4" team_default = "1">
@@ -318,6 +329,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------MONOLIT MASTER----------------------->
@@ -345,6 +357,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_master_default2" team_default = "1">
@@ -372,6 +385,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------MONOLIT REGULAR with RPG----------------------->
@@ -401,6 +415,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="monolit_rpg_default2" team_default = "1">
@@ -429,6 +444,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 </xml>

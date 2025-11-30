@@ -4,19 +4,19 @@
 		<text>активировать артефакт</text>
 	</string>
 	<string id="st_attach_gl_to_rifle">
-		<text>прицепить гранатомет к винтовке</text>
+		<text>приcоединить гранатомёт к винтовке</text>
 	</string>
 	<string id="st_attach_scope_to_pistol">
-		<text>прицепить прицел к пистолету</text>
+		<text>присоединить прицел к пистолету</text>
 	</string>
 	<string id="st_attach_scope_to_rifle">
-		<text>прицепить прицел к винтовке</text>
+		<text>присоединить прицел к винтовке</text>
 	</string>
 	<string id="st_attach_silencer_to_pistol">
-		<text>прицепить глушитель к пистолету</text>
+		<text>присоединить глушитель к пистолету</text>
 	</string>
 	<string id="st_attach_silencer_to_rifle">
-		<text>прицепить глушитель к винтовке</text>
+		<text>присоединить глушитель к винтовке</text>
 	</string>
 	<string id="st_base_cost">
 		<text>цена</text>
@@ -25,7 +25,7 @@
 		<text>состояние</text>
 	</string>
 	<string id="st_detach_gl">
-		<text>отсоединить гранатомет</text>
+		<text>отсоединить гранатомёт</text>
 	</string>
 	<string id="st_detach_scope">
 		<text>отсоединить прицел</text>
@@ -40,7 +40,7 @@
 		<text>выбросить</text>
 	</string>
 	<string id="st_drop_all">
-		<text>выбросить все</text>
+		<text>выбросить всё</text>
 	</string>
 	<string id="st_eat">
 		<text>съесть</text>
@@ -103,10 +103,10 @@
 		<text>Купить гранаты для подствольника (E)</text>
 	</string>
 	<string id="ui_inv_handling">
-		<text>Удобность</text>
+		<text>Надёжность</text>
 	</string>
 	<string id="ui_inv_heavy_weapons">
-		<text>Тяжелое</text>
+		<text>Тяжёлое</text>
 	</string>
 	<string id="ui_inv_items_list">
 		<text>Список вещей</text>
@@ -121,7 +121,7 @@
 		<text>Ожог</text>
 	</string>
 	<string id="ui_inv_outfit_chemical_burn_protection">
-		<text>Хим. ожог</text>
+		<text>Химический ожог</text>
 	</string>
 	<string id="ui_inv_outfit_explosion_protection">
 		<text>Взрыв</text>
@@ -142,7 +142,7 @@
 		<text>Удар</text>
 	</string>
 	<string id="ui_inv_outfit_telepatic_protection">
-		<text>Телепат.</text>
+		<text>Телепатия</text>
 	</string>
 	<string id="ui_inv_outfit_wound_protection">
 		<text>Разрыв</text>
@@ -160,7 +160,7 @@
 		<text>Основное</text>
 	</string>
 	<string id="ui_inv_rate_of_fire">
-		<text>Скорострельность</text>
+		<text>Боевая скорострельность</text>
 	</string>
 	<string id="ui_inv_rest">
 		<text>Отдохнуть</text>
@@ -202,7 +202,7 @@
 		<text>Купить оптический прицел для винтовки (S)</text>
 	</string>
 	<string id="ui_inv_silencer_pistol">
-		<text>Купит глушитель для пистолета (A)</text>
+		<text>Купить глушитель для пистолета (A)</text>
 	</string>
 	<string id="ui_inv_silencer_rifle">
 		<text>Купить глушитель для винтовки (F)</text>

@@ -1,3 +1,31 @@
+[stalker_monolith_condition]
+satiety_v					= 0.00001				;скорость уменьшения сытости со временем
+radiation_v					= 0.1				;скорость уменьшения радиации
+satiety_power_v				= 0.0005				;увеличение силы при уменьшении сытости 
+satiety_health_v			= 0.001					;увеличение здоровья при уменьшении сытости 
+satiety_critical			= 0.0					;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
+radiation_health_v			= 0.00					;уменьшение здоровья при воздействии радиации
+morale_v					= 0.0001				;скорость восстановления морали
+health_hit_part				= 1.0					;процент хита, уходящий на отнимание здоровья
+power_hit_part				= 0.0					;процент хита, уходящий на отнимание силы
+psy_health_v				= 0.1					;скорость восстановления psy-здоровья
+health_restore_v			= 0.02					;скорость восстановления здоровья
+
+sleep_health				= 1.0					;коэффициенты скоростей изменения параметров во время сна
+sleep_power					= 1.0
+sleep_satiety				= 1.0
+sleep_radiation 			= 1.0
+sleep_psy_health			= 1.0
+
+;---LIMPING STATE-----------------------------------------------------
+use_limping_state			= off
+limping_threshold			= 0.5
+
+;открытые раны
+bleeding_v					= 0.0						;потеря крови при номинальной ране в секунду
+wound_incarnation_v			= 0.01					;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
+min_wound_size				= 0.01
+
 [stalker_monolith]:stalker
 
 ;---LEVEL EDITOR------------------------------------------------------
@@ -5,11 +33,14 @@ $spawn							= "stalkers\stalker_monolith"	; option for Level Editor
 panic_threshold					= 0
 
 ;---CRITICAL WOUND------------------------------------------------------------------
-critical_wound_threshold		= 1.1
-critical_wound_decrease_quant	= 0.
+critical_wound_threshold		= 5000.1
+critical_wound_decrease_quant	= 1
 body_parts_section_id			= critical_wound_body_parts_section
+critical_wound_weights			= 1,1,1
 
 species							= zombie
+
+condition_sect = stalker_monolith_condition
 
 ;---SOUND PLAYER------------------------------------------------------
 sound_death						= fight\death\death_

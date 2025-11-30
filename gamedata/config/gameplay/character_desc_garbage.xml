@@ -33,6 +33,8 @@
 		<start_dialog>dm_hello_dialog</start_dialog>
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>	
+		<actor_dialog>gar_seriy_story</actor_dialog>
+		<actor_dialog>gar_seriy_story2</actor_dialog>
 	</specific_character>	
 	
 	<specific_character id="gar_dram_novice" team_default = "1">
@@ -103,6 +105,7 @@
 		<start_dialog>dm_hello_dialog</start_dialog>
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+		<actor_dialog>gar_hellcar_story</actor_dialog>
 	</specific_character>
 	
 	<specific_character id="gar_bandit_novice_wounded" team_default = "1">
@@ -132,7 +135,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>gar_wounded_bandit</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 	<specific_character id="gar_bandit_leader" team_default = "1">
@@ -693,6 +696,7 @@
 		<start_dialog>dm_hello_dialog</start_dialog>
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+		<actor_dialog>gar_dolg_blokpost_story</actor_dialog>
 	</specific_character>
 	
 	<specific_character id="gar_sniper" team_default = "1">
@@ -754,5 +758,40 @@
 		<start_dialog>hello_dialog</start_dialog>
 #include "gameplay\character_dialogs.xml"	
 	</specific_character>
+
+<specific_character id="gar_stalker_flame_quest" team_default = "1">
+        <name>Леха Тамбовский</name>
+        <icon>ui_npc_u_stalker_neytral_hood_uzor</icon>
+        <map_icon x="1" y="0"></map_icon>
+        <bio>gar_stalker_regular_bio</bio>
+
+        <class>gar_stalker_flame_quest</class>
+        <community>stalker</community> <terrain_sect>stalker_terrain</terrain_sect>
+        
+        <rank>423</rank>
+        <reputation>20</reputation>
+        <money min="600" max="2000" infinitive="0"/>
+        
+        <snd_config>characters_voice\human_01\stalker\</snd_config>
+        <crouch_type>-1</crouch_type>
+        
+        <visual>actors\neytral\stalker_neytral_hood_uzor</visual>
+        <supplies>
+            [spawn] \n
+            wpn_pm \n
+            ammo_5.56x45_ss190 = 100 \n
+            wpn_sig550 \n
+            device_torch \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_food.xml"
+        </supplies>
+                
+#include "gameplay\character_criticals_4.xml"
+<--#include "gameplay\character_dialogs.xml"-->
+
+        <start_dialog>gar_flamethrower</start_dialog>
+
+    </specific_character>
 	
 </xml>

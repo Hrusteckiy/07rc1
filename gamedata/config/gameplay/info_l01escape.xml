@@ -2,6 +2,16 @@
 
 <game_information_portions>
 
+<!-- AMK Quest -->
+<info_portion id="test_quest_art_vziat"></info_portion>
+<info_portion id="test_quest_art_otdan"></info_portion>
+
+<info_portion id="kvest_art_started">
+<task>esc_test_art_task</task>
+</info_portion>
+
+<info_portion id="otkazalsya_prinesty_art"></info_portion>
+<!-- AMK Quest -->
 
 	<!-- Tutorial artefact -->
 	<info_portion id="tutorial_artefact_start">
@@ -253,5 +263,9 @@
 	</info_portion>
 	<info_portion id="esc_fanat_dead"></info_portion>
 	
+	<info_portion id="esc_btr_killed"></info_portion>
+	
+	<info_portion id="esc_trader_miniquest_free"></info_portion>
+	<info_portion id="esc_trader_miniquest_notfree"></info_portion>
 	
 </game_information_portions>

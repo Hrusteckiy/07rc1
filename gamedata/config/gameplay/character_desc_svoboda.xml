@@ -24,6 +24,7 @@
 		</supplies>
 			
 		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>	
 
 <!---------------------------SVOBODA REGULAR----------------------->
@@ -55,6 +56,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="svoboda_regular_default2" team_default = "1">
@@ -85,6 +87,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA BODYGUARD---------------------->
@@ -115,6 +118,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="svoboda_bodyguard2" team_default = "1">
@@ -144,6 +148,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <specific_character id="svoboda_bodyguard3" team_default = "1">
@@ -173,6 +178,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA SNIPER---------------------->
@@ -203,6 +209,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="svoboda_sniper_default3" team_default = "1">
@@ -232,6 +239,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 <!---------------------------SVOBODA SPECNAZ---------------------->
@@ -262,6 +270,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 				
@@ -295,6 +304,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA MASTER MAX----------------------->
@@ -328,6 +338,7 @@
 		<actor_dialog>mil_max_dialog_common2</actor_dialog>
         <actor_dialog>mil_max_dialog_common1</actor_dialog>
 		<actor_dialog>mil_max_dialog_common3</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA MASTER UGRUMIY----------------------->
@@ -359,6 +370,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA COOK----------------------->
@@ -399,7 +411,7 @@
         <actor_dialog>mil_cook_drunk_question_about_rg6_1</actor_dialog>
         <actor_dialog>mil_cook_drunk_question_about_rg6_2</actor_dialog>
         <actor_dialog>mil_cook_drunk_question_about_rg6_3</actor_dialog>
-
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA TRADER----------------------->
@@ -429,7 +441,7 @@
 		</supplies>
 			
 		<start_dialog>mil_trader_dialog</start_dialog>
-
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA SPECNAZ STUKACH---------------------->
@@ -460,6 +472,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA BLOCKPOST LEADER---------------------->
@@ -488,6 +501,7 @@
 					
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>mil_freedom_commander_common2</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SVOBODA ZONEGUARD---------------------->
@@ -518,6 +532,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>mil_zoneguard_common1</actor_dialog>
 		<actor_dialog>mil_zoneguard_common2</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 

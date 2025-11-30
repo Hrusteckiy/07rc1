@@ -1,0 +1,15 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_home
+
+[mob_home]
+path_home = garb_angar2
+home_min_radius = 2
+home_max_radius = 50
+aggressive_home
+on_signal = sig_attacked | mob_combat
+
+[mob_combat]
+on_timer = 30000 | mob_home

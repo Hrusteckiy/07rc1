@@ -3,10 +3,10 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------
 ;	anim			| time[0..1] | hit_power | impulse | impulse_dir (x,y,z)  |	Field of hit_test  (left,right, bottom, top ) |	Test Dist
 ;---------------------------------------------------------------------------------------------------------------------------------------------
-stand_attack_0 =	  	0.45,		10,		    100,       0.0, 1.0, 0.0,		 -1.0, 1.0, -1.0, 1.0,							  2.5
-stand_attack_1 =	  	0.45,		10,		    100,       0.0, 1.0, 0.0,		 -1.0, 1.0, -1.0, 1.0,							  2.5
-jump_attack_1  = 		0.45,		10,			150,       0.0, 1.0, 0.0,		 -1.0, 1.0, -1.0, 1.0,							  2.5
-stand_run_attack_0 =	0.75,		10,			100,       0.0, 1.0, 1.0,		 -0.6, 0.6, -0.6, 0.6,							  2.5
+stand_attack_0 =	  	0.45,		0.80,		    200,       0.0, 1.0, 0.0,		 -1.0, 1.0, -1.0, 1.0,							  2.5
+stand_attack_1 =	  	0.45,		0.35,		    70,       0.0, 1.0, 0.0,		 -1.0, 1.0, -1.0, 1.0,							  2.5
+jump_attack_1  = 		0.45,		0.75,			100,       0.0, 1.0, 0.0,		 -1.0, 1.0, -1.0, 1.0,							  2.5
+stand_run_attack_0 =	0.75,		0.40,			80,       0.0, 1.0, 1.0,		 -0.6, 0.6, -0.6, 0.6,							  2.5
 
 [m_chimera_attack_effector]
 
@@ -41,15 +41,15 @@ stand_run_fwd_0	 	=	   1,	   0.01,    1,	    0.25,    0.6,
 ; IMMUNITIES
 ;===========================================================================
 [chimera_immunities]
-burn_immunity = 0.9				;коэффициенты иммунитета 
-strike_immunity = 0.5
+burn_immunity = 0.2				;коэффициенты иммунитета 
+strike_immunity = 0.2
 shock_immunity = 0.5
-wound_immunity = 0.15	;0.30	;1.0		
-radiation_immunity = 0.0
+wound_immunity = 0.1
+radiation_immunity = 0.2
 telepatic_immunity = 0.5
-chemical_burn_immunity = 0.9
+chemical_burn_immunity = 0.5
 explosion_immunity = 0.04
-fire_wound_immunity  = 0.050
+fire_wound_immunity  = 0.15
 
 
 [m_chimera_e]:monster_base
@@ -60,14 +60,15 @@ $npc			     = on						; option for Level Editor
 $prefetch 			 = 16
 Scheduled		     = on						; option for ALife Simulator
 Human		     	 = off						; option for ALife Simulator
-Health			     = 400						; option for ALife Simulator
+Health			     = 1500						; option for ALife Simulator
 MinSpeed		     = 1.0						; option for ALife Simulator
 MaxSpeed		     = 1.5						; option for ALife Simulator
-going_speed          = 1.0                      ; option for ALife Simulator
-search_speed         = .5                       ; option for ALife Simulator
+going_speed          = 0.7                      ; option for ALife Simulator
+search_speed         = 1.5                       ; option for ALife Simulator
 visual				 = monsters\chimera\chimera
 corpse_visual		 = monsters\chimera\chimera
-MaxHealthValue		     = 100			; range [0..200]
+icon = ui_npc_monster_chimera	
+MaxHealthValue		     = 1500			; range [0..200]
 DynamicObjectsCount	 = 32
 
 ef_creature_type	= 20							; option for evaluation functions
@@ -80,6 +81,14 @@ class                = SM_CHIMS					; AI class
 
 script_binding  	= bind_monster.bind
 
+satiety_threshold		= 0.5
+jump_max_height = 1.0
+
+
+critical_wound_threshold		= -1
+critical_wound_decrease_quant	= 0.
+smart_terrain_choose_interval	= 00:15:00
+
 bone_torso			 = bip01_spine1 			; bone name
 bone_head			 = bip01_head				; bone name
 bone_fire			 = bip01_head				; bone name
@@ -89,12 +98,17 @@ ph_box0_center 		 = 0.0,  0.9,  0.0
 ph_box0_size 		 = 0.35, 0.9,  0.35
 ph_box1_center 		 = 0.0,  0.6,  0.0
 ph_box1_size 		 = 0.40, 0.6,  0.40
-ph_crash_speed_min			= 10
-ph_crash_speed_max			= 30
-ph_collision_damage_factor	= 0.1
+ph_crash_speed_min			= 20
+ph_crash_speed_max			= 40
+ph_collision_damage_factor	= 0.001
 ph_mass 		     = 220;170
 
 destroyed_vis_name	 = physics\dead_body\skelet_crash_monster
+
+Particle_Tele_Object	= static\fire_distort
+Particle_Gravi_Wave		= anomaly2\burer_wave
+Particle_Gravi_Prepare	= anomaly2\burer_prepare
+Particle_Shield			= anomaly2\burer_shield_01
 
 ;---------------------------------------------------------------------
 ph_skeleton_airr_lin_factor   = 2.0 ;550.0 (изменно из-за того, что убрано домножение коэффициент 0.002 из кода)
@@ -109,28 +123,28 @@ ph_skel_shot_up_factor        = 0.25
 
 SoundThreshold		 = 0.06             ; range [0..1]
 
-eye_fov				 = 80;
-eye_range			 = 90;
+eye_fov				 = 160;
+eye_range			 = 110;
 max_hear_dist		 = 90
 
 
 ; speed factors			linear | angular_real | angular_path | min |  max
 Velocity_Stand			= 0,		1.4,			1.4,		1,		1
-Velocity_RunFwdNormal	= 10,		2.5,			2.5,		0.2,	1	
-Velocity_RunFwdDamaged	= 5.0,  	4.0,			4.0,		0.2,	1
-Velocity_WalkFwdDamaged	= 2.0,		2.0,			2.0,		0.5,	2.0	
-Velocity_WalkFwdNormal	= 2.3,		1.2,			1.2,		0.02,	3.0
+Velocity_RunFwdNormal	= 8,		2.5,			2.5,		0.2,	1	
+Velocity_RunFwdDamaged	= 4.5,  	4.0,			4.0,		0.2,	1
+Velocity_WalkFwdDamaged	= 1.8,		2.0,			2.0,		0.5,	2.0	
+Velocity_WalkFwdNormal	= 2.5,		1.2,			1.2,		0.02,	3.0
 Velocity_Drag			= 1.0,		3.0,			3.0,		1,		1
-Velocity_Steal			= 1.5,		2.0,			2.0,		1,		1
+Velocity_Steal			= 1.2,		2.0,			2.0,		1,		1
 Velocity_Walk_Upper		= 0.5,		1.2,			1.2,		0.02,	2.0
-Velocity_JumpGround		= 10.0,		0.01,			0.01,		0.4,	1
+Velocity_JumpGround		= 12.0,		0.01,			0.01,		0.4,	1
 Velocity_RunAttack		= 10,		0.01,			0.01,		0.2,	1	
 Velocity_Run_Attack		= 10,		0.01,			0.01,		0.2,	1
 
 ; acceleration
 Accel_Generic			= 1.5
-Accel_Calm				= 3.5
-Accel_Aggressive		= 9.5
+Accel_Calm				= 4.0
+Accel_Aggressive		= 12.0
 
 ;attack parameters
 MinAttackDist		= 2.8;1.2	;0.5
@@ -139,11 +153,11 @@ MaxAttackDist		= 4.8;2.7	;3.8
 as_min_dist				= 0.9
 as_step					= 0.3
 
-RunAttack_PathDistance	= 8.0
-RunAttack_StartDistance	= 4.0
+RunAttack_PathDistance	= 25.0
+RunAttack_StartDistance	= 8.0
 
-DayTime_Begin		= 0			; начала дня для монстра
-DayTime_End			= 21		; конец дня для монстра
+DayTime_Begin		= 4			; начала дня для монстра
+DayTime_End			= 22		; конец дня для монстра
 Min_Satiety			= 0.6		; мин. норма сытости (меньше - уже голодный)
 Max_Satiety			= 0.9		; макс. норма сытости (больше - очень сытый)
 
@@ -175,17 +189,17 @@ satiety_health_v = 0.0001	;0.03			;увеличение здоровья при уменьшении сытости
 satiety_critical = -1.0		;0.25						;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
 radiation_health_v = 0.01	;0.006			;уменьшение здоровья при воздействии радиации
 morale_v			= 0.01					;скорость восстановления морали
-health_hit_part = 1.0		;0.8			;процент хита, уходящий на отнимание здоровья
-power_hit_part = 1.0		;0.9			;процент хита, уходящий на отнимание силы
+health_hit_part = 0.5		;0.8			;процент хита, уходящий на отнимание здоровья
+power_hit_part = 0.7		;0.9			;процент хита, уходящий на отнимание силы
 psy_health_v				= 0.1						;скорость восстановления psy-здоровья
 
 immunities_sect				= chimera_immunities
 
 
 ;открытые раны
-bleeding_v					= 0.01					;потеря крови при номинальной ране в секунду
-wound_incarnation_v			= 0.01				;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
-min_wound_size				= 0.01
+bleeding_v					= 0.0001					;потеря крови при номинальной ране в секунду
+wound_incarnation_v			= 0.15				;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
+min_wound_size				= 0.005
 
 sleep_health = 1.0		;1.5				;коэффициенты скоростей изменения параметров во время сна
 sleep_power = 1.0		;1.5
@@ -243,16 +257,16 @@ luminocity_factor			= 1.5 				; фактор освещения (только для Актёра)
 transparency_threshold		= 0.25
 
 ; jump parameters
-jump_delay					= 10000;3000
-jump_factor					= 2;1.5
-jump_ground_trace_range		= 1.4
+jump_delay					= 2500;3000
+jump_factor					= 1.5
+jump_ground_trace_range		= 1.0
 jump_hit_trace_range		= 2.0
-jump_build_line_distance	= 10.0
-jump_min_distance			= 5.5
-jump_max_distance			= 12.0
-jump_max_angle				= 0.6
+jump_build_line_distance	= 20.0
+jump_min_distance			= 5.0
+jump_max_distance			= 22.0
+jump_max_angle				= 0.5
 
-DamagedThreshold		= 0.5
+DamagedThreshold		= 0.3
 
 material				= creatures\medium
 DynamicObjectsCount		= 32
@@ -275,10 +289,78 @@ species					= chimera
 ;<hit_scale>	- коэфф. изменения хита (уменьшения здоровья) 
 ;<wound_scale>	- коэфф. изменения величины открытой раны
 
-default				= 1.00,	-1,	1.00
+default				= 0.4,	-1,	1.00
 
-bip01_pelvis 		= 1, -1, 0.1
-bip01_spine 		= 1, -1, 0.1
-bip01_spine1 		= 1, -1, 0.1
-bip01_neck 			= 1, -1, 0.1
-bip01_head 			= 8, -1, 0.50
+;bip01_pelvis 		= 0.1, -1, 0.005
+;bip01_spine 		= 0.1, -1, 0.005
+;bip01_spine1 		= 0.1, -1, 0.005
+bip01_neck 			= 0.5, -1, 0.005
+bip01_head 			= 0.3, -1, 0.15
+
+[chimera_weak]:m_chimera_e
+$spawn               = "monsters\chimera"			; option for Level Editor
+monster_type		= indoor
+rank				= 0
+spec_rank			= weak
+community			= chimera
+Tele_Time_To_Hold	= 200
+
+[chimera_normal]:m_chimera_e
+$spawn               = "monsters\chimera"			; option for Level Editor
+monster_type		= indoor
+rank				= 0
+spec_rank			= normal
+community			= chimera
+Tele_Time_To_Hold	= 200
+
+[chimera_strong]:m_chimera_e
+$spawn               = "monsters\chimera"   ; option for Level Editor
+visual     = monsters\chimera\chimera
+corpse_visual   = monsters\chimera\chimera
+monster_type  = indoor
+rank    = 0
+spec_rank   = strong
+community   = chimera
+Tele_Time_To_Hold = 200
+
+;---------------------------------------amk electro------------------
+[electro_chimera]:chimera_strong
+bones_particles = electro_chimera_particles
+immunities_sect	= electro_chimera_immunities
+
+[electro_chimera_immunities]:chimera_immunities
+shock_immunity = 0.0
+
+[electro_chimera_particles]
+electro_chimera_particles_lfoot = electro_chimera_particles_lfoot
+electro_chimera_particles_rfoot = electro_chimera_particles_rfoot
+electro_chimera_particles_lhand = electro_chimera_particles_lhand
+electro_chimera_particles_rhand = electro_chimera_particles_rhand
+
+[electro_chimera_particles_lfoot]
+particle = amk\electrohimera
+bone = bip01_l_foot
+stop_on_death = true
+sound = anomaly\electra_idle1
+sound_looped = true
+
+[electro_chimera_particles_rfoot]
+particle = amk\electrohimera
+bone = bip01_r_foot
+stop_on_death = true
+sound = anomaly\electra_idle1
+sound_looped = true
+
+[electro_chimera_particles_lhand]
+particle = amk\electrohimera
+bone = bip01_l_hand
+stop_on_death = true
+sound = anomaly\electra_idle1
+sound_looped = true
+
+[electro_chimera_particles_rhand]
+particle = amk\electrohimera
+bone = bip01_r_hand
+stop_on_death = true
+sound = anomaly\electra_idle1
+sound_looped = true

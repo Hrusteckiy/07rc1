@@ -30,8 +30,10 @@ ammo_mag_size		     = 30
 hand_dependence		     = 1
 single_handed			 = 0
 
-ammo_class		         = ammo_5.56x45_ss190, ammo_5.56x45_ap
-fire_modes					= 1, -1
+ammo_class		         = ammo_5.56x45_ap,ammo_5.56x45_ss190
+fire_modes					= -1, 1
+f_mode				= 2
+
 launch_speed			= 0
 
 slot 			         = 2		; // secondary
@@ -53,22 +55,23 @@ kill_msg_height				= 30
 
 ;-----------------------------------------------------------------------------------
 ;базовая дисперсия
-fire_dispersion_base		= 0.2 	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
-control_inertion_factor		= 1.15f
+fire_dispersion_base			= 0.19 		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor			= 1.15f
+disp_rate = 1.8
 
 ;отдача
-cam_relax_speed         	= 5.6		;скорость возврата в исходное положение
-cam_dispersion          	= 0.2	;увеличения угла (в градусах) с каждым выстрелом
-cam_dispersion_inc			= 0.1	;увеличениe cam_dispersion с каждым выстрелом
-cam_dispersion_frac			= 1.0	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle				= 8.5	;максимальный угол отдачи
-cam_max_angle_horz			= 9.0	;(degree) maximum shot horizontal degree 
-cam_step_angle_horz			= 0.6	;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed         		= 5.6		;скорость возврата в исходное положение
+cam_dispersion          	= 0.48	;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.12	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac			= 0.9 ;1.0	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle					= 14.5	;максимальный угол отдачи
+cam_max_angle_horz				= 15.0	;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 1.8	;(degree) size of step camera moved in horizontal position while shooting
 
-fire_dispersion_condition_factor = 5	;увеличение дисперсии в процентах при максимальном износе 
-misfire_probability 		= 0.005	;вероятность осечки при максимальном износе
-misfire_condition_k			= 0.05 
-condition_shot_dec 			= 0.0002 ;увеличение износа при каждом выстреле
+fire_dispersion_condition_factor = 1.5	;увеличение дисперсии в процентах при максимальном износе 
+misfire_probability 		= 0.007	;вероятность осечки при максимальном износе
+misfire_condition_k		= 0.06 
+condition_shot_dec 			= 0.00065 ;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
 
 direction                = 0, 0, 1
@@ -84,23 +87,24 @@ shell_dir		 		= 0.0, 1.0, 0.0
 shell_particles	 		= weapons\generic_shells
 rpm_empty_click 	     = 200
 
-PDM_disp_base 			= 1.0
-PDM_disp_vel_factor 		= 1.05
-PDM_disp_accel_factor 		= 1.05
-PDM_crouch	 		= 1.0
-PDM_crouch_no_acc 		= 1.0
+PDM_disp_base 			= 5.0
+PDM_disp_vel_factor 		= 1.4
+PDM_disp_accel_factor 		= 1.3
+PDM_crouch	 				= 1.0
+PDM_crouch_no_acc 			= 1.0
 
 ; ttc
-hit_power          = 0.60, 0.64, 0.67, 0.70
-hit_impulse		   = 105
-hit_type 		   = fire_wound
+hit_power        			= 0.56		;0.56, 0.58, 0.60, 0.64 	;0.63, 0.67, 0.69, 0.72
+hit_impulse		 			= 70
+hit_type 					= fire_wound
+hit_rate	= 1.85
 
-fire_distance            	= 400
-bullet_speed			= 925	;начальная скорость пули
-rpm                      	= 860
+fire_distance            	= 200
+bullet_speed				= 650	;начальная скорость пули
+rpm                      	= 850
 ; end ttc
 
-use_aim_bullet				= true		;Поддерживается ли первая суппер пуля
+use_aim_bullet				= false	;true		;Поддерживается ли первая суппер пуля
 time_to_aim					= 1.0	
 
 hud                      = wpn_fn2000_hud
@@ -129,23 +133,24 @@ ph_mass			         = 4
 
 ;addons
 scope_status				= 1
-silencer_status				= 0;2
+silencer_status				= 2
 grenade_launcher_status		= 1
 zoom_enabled				= true
 
-scope_texture		= wpn\wpn_crosshair_g36
-lens_texture		= wpn\wpn_crosshair_g36_lens
-lens_texture_x		= 183
-lens_texture_y		= 75
-lens_texture_w		= 648
-lens_texture_h		= 648
+scope_zoom_factor	    	= 15 	;4X 		37.5	;1.6X		; fov for zoom mode
+scope_texture				= wpn\FN2000-AMK-W	;SUSAT-AMK-W
+
+;lens_texture		= wpn\wpn_crosshair_g36_lens
+;lens_texture_x		= 183
+;lens_texture_y		= 75
+;lens_texture_w		= 648
+;lens_texture_h		= 648
 
 
 silencer_name  				= wpn_addon_silencer
 silencer_x 					= 152						; offset in inventory icon
 silencer_y 					= 10
 zoom_enabled				= true
-scope_zoom_factor	    	= 33.3 			;1.8X		; fov for zoom mode
 
 ;звуки
 snd_draw			= weapons\generic_draw

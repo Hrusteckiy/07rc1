@@ -248,7 +248,7 @@ spec_rank = regular
 community = bandit
 
 [esc_soldier_respawn_1]:stalker
-$spawn				=  "respawn\esc_soldier_respawn_1
+$spawn				=  "respawn\esc_soldier_respawn_1"
 character_profile	= sim_soldier_regular
 spec_rank = regular
 community = military
@@ -457,7 +457,7 @@ character_profile	= sim_killer_master
 spec_rank = master
 community = killer
 
-:-----------Bandits---------------
+;-----------Bandits---------------
 
 [cit_bandit_respawn_1]:stalker
 $spawn				=  "respawn\cit_bandit_respawn_1"
@@ -554,19 +554,6 @@ spec_rank = master
 community = monolith
 custom_data = scripts\sar_kristal_customdata.ltx
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 [sim_freedom_master_quest]:stalker
 $spawn 				= "respawn\sim_freedom_master_quest"
 character_profile	= mil_Svoboda_master
@@ -581,5 +568,52 @@ character_profile	= bar_arena_respawner
 spec_rank = veteran
 community = bandit
 custom_data = scripts\arena_respawn_custom_data.ltx
+
+
+;**************************************************
+;******************** AMK *************************
+;**************************************************
+
+[amk_zombied_1]:stalker_fresh_zombied
+$spawn				=  "respawn\amk_zombied_1"
+character_profile	= sim_zombied_novice
+spec_rank = novice
+community = zombied
+
+[amk_zombied_2]:stalker_fresh_zombied
+$spawn				=  "respawn\amk_zombied_2"
+character_profile	= sim_zombied_veteran
+spec_rank = veteran
+community = zombied
+
+[amk_zombied_3]:stalker_fresh_zombied
+$spawn				=  "respawn\amk_zombied_3"
+character_profile	= sim_zombied_master
+spec_rank = master
+community = zombied
+
+[gar_stalker_flame_quest23]:stalker
+$spawn                 = "respawn\mil_stalker_respawn_1"
+character_profile    = gar_stalker_flame_quest
+spec_rank = regular
+community = stalker
+
+
+[gar_artem_kulinar_spawn]:stalker
+$spawn                 =  "respawn\gar_artem_kulinar_spawn"
+character_profile       = amk_artem_kulinar_class
+spec_rank = regular
+community = stalker
+
+[gar_vitek_voron_spawn]:stalker
+$spawn                 =  "respawn\gar_vitek_voron_spawn"
+character_profile       = amk_vitek_voron_class
+spec_rank = regular
+community = stalker
+
+
+;#include "amk_spawn_sections.ltx"
+
+
 
 

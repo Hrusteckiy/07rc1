@@ -24,6 +24,10 @@
 		<actor_dialog>tm_trader_dialog</actor_dialog>
 		<actor_dialog>tm_trader_reward</actor_dialog>
 		<actor_dialog>escape_trader_done_blockpost_box</actor_dialog>
+    <actor_dialog>escape_trader_repair</actor_dialog>
+		<actor_dialog>escape_trader_miniquest</actor_dialog>
+	<actor_dialog>escape_trader_flamethrower_dialog</actor_dialog>
+	<actor_dialog>escape_trader_story</actor_dialog>
 	</specific_character>
 <!---------------------------------------esc_wolf----------------------------------------------------->
 	<specific_character id="esc_wolf" team_default = "1">
@@ -60,6 +64,8 @@
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
 		<actor_dialog>tm_wolf_dialog</actor_dialog>
 		<actor_dialog>tm_wolf_reward</actor_dialog>
+		<actor_dialog>escape_lager_volk_story</actor_dialog>
+		<actor_dialog>escape_lager_volk_story2</actor_dialog>
 	</specific_character>
 <!---------------------------------------esc_fanat----------------------------------------------------->	
 	<specific_character id="esc_fanat" team_default = "1">
@@ -93,6 +99,8 @@
 		<start_dialog>dm_hello_dialog</start_dialog>
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+		<actor_dialog>escape_lager_fanat_story</actor_dialog>
+		<actor_dialog>escape_lager_fanat_story2</actor_dialog>
 	</specific_character>
 <!---------------------------------------esc_fox----------------------------------------------------->	
 	<specific_character id="esc_fox" team_default = "1">
@@ -126,6 +134,8 @@
 		<start_dialog>dm_hello_dialog</start_dialog>
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+		<actor_dialog>escape_fox_story</actor_dialog>
+		<actor_dialog>escape_fox_story2</actor_dialog>
 	</specific_character>
 <!---------------------------------------esc_tutorial_wounded----------------------------------------------------->	
 	<specific_character id="esc_tutorial_wounded" team_default = "1">
@@ -156,6 +166,7 @@
 		<start_dialog>dm_hello_dialog</start_dialog>
 		<actor_dialog>dm_cool_info_dialog</actor_dialog>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+		<actor_dialog>escape_tutorial_wounded_story</actor_dialog>
 				
 	</specific_character>
 <!---------------------------------------esc_shustryi----------------------------------------------------->	
@@ -190,6 +201,8 @@
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
 		<actor_dialog>tm_shustriy_dialog</actor_dialog>
 		<actor_dialog>tm_shustriy_reward</actor_dialog>						
+		<actor_dialog>escape_shustryi_story</actor_dialog>
+		<actor_dialog>escape_shustryi_story2</actor_dialog>
 	</specific_character>
 <!---------------------------------------killer_specnaz----------------------------------------------------->		
 	<specific_character id="esc_killer_specnaz" team_default = "1">
@@ -222,7 +235,7 @@
 
 #include "gameplay\character_criticals_4.xml"
 	
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 	<!---------------------------BANDIT NOVICE----------------------->
@@ -253,7 +266,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 </specific_character>
 <!------------------------------------------------------------------------------------------>
 	<specific_character id="esc_bandit_novice_default2" team_default = "1">
@@ -631,8 +644,7 @@
 #include "gameplay\character_criticals_5.xml"
 										
 		<start_dialog>esc_bridge_soldiers_start</start_dialog>
-		<start_dialog>dm_hello_dialog</start_dialog>
-		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 <!-------------------------------------soldier_regular----------------------------------------------------->	
 	<specific_character id="esc_soldier_regular_default1" team_default = "1">
@@ -785,7 +797,7 @@
 		</supplies>		
 		
 #include "gameplay\character_criticals_5.xml"
-		
+#include "gameplay\character_dialogs.xml"		
 		<start_dialog>hello_dialog</start_dialog>
 	</specific_character>
 <!-------------------------------------blockpost_commander----------------------------------------------------->	
@@ -875,7 +887,7 @@
 		</supplies>	
 
 #include "gameplay\character_criticals_5.xml"
-
+#include "gameplay\character_dialogs.xml"
 		<start_dialog>hello_dialog</start_dialog>
 	</specific_character>
 <!-------------------------------------soldier_blokpost----------------------------------------------------->	
@@ -905,7 +917,7 @@
 		</supplies>	
 		
 #include "gameplay\character_criticals_5.xml"
-					
+#include "gameplay\character_dialogs.xml"					
 		<start_dialog>hello_dialog</start_dialog>
 	</specific_character>
 <!-------------------------------------soldier_specnaz----------------------------------------------------->	
@@ -935,7 +947,7 @@
 		</supplies>		
 					
 #include "gameplay\character_criticals_6.xml"
-					
+#include "gameplay\character_dialogs.xml"					
 		<start_dialog>hello_dialog</start_dialog>
 	</specific_character>
 <!-------------------------------------soldier_specnaz----------------------------------------------------->
@@ -965,7 +977,7 @@
 		</supplies>		
 		
 #include "gameplay\character_criticals_6.xml"
-					
+#include "gameplay\character_dialogs.xml"					
 		<start_dialog>hello_dialog</start_dialog>
 	</specific_character>
 	

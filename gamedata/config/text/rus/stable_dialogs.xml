@@ -7,7 +7,7 @@
 		<text>Как ты?</text>
 	</string>
 	<string id="actor_help_wounded_1">
-		<text>Хреново мне, не видишь что ли? Нужна аптечка, или хотя бы бинт.</text>
+		<text>Хреново мне, не видишь, что ли? Нужна аптечка или хотя бы бинт.</text>
 	</string>
 	<string id="actor_help_wounded_11">
 		<text>Держи аптечку.</text>
@@ -28,7 +28,7 @@
 		<text>Хех, что ж ты так? Извини, свои я тебе не дам, иначе сам останусь ни с чем.</text>
 	</string>
 	<string id="actor_help_wounded_141">
-		<text>Твое дело, но не думай, что это делает тебе чести.</text>
+		<text>Твоё дело, но не думай, что это делает тебе чести.</text>
 	</string>
 	<string id="hello_dialog_2">
 		<text>Привет!</text>

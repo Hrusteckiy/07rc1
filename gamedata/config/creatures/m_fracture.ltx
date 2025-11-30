@@ -2,9 +2,9 @@
 ;---------------------------------------------------------------------------------------------------------------------------------------------
 ;	anim			| time[0..1] | hit_power | impulse | impulse_dir (x,y,z)  |	Field of hit_test  (left,right, bottom, top ) |	Test Dist
 ;---------------------------------------------------------------------------------------------------------------------------------------------
-stand_attack_0 =	  	0.45,		20,		    100,        0.0, 1.0, 0.0,		 -1.6, 1.6, -1.6, 1.6,							  3.5
-stand_attack_1 =	  	0.45,		20,		    140,        0.0, 1.0, 0.0,		 -1.6, 1.6, -1.6, 1.6,							  3.5
-stand_attack_2 =	  	0.45,		30,		    120,        0.0, 1.0, 0.0,		 -1.6, 1.6, -1.6, 1.6,							  3.5
+stand_attack_0 =	  	0.15,		0.90,		    450,        0.0, 1.0, 0.0,		 -1.6, 1.6, -1.6, 1.6,							  3.5
+stand_attack_1 =	  	0.20,		0.15,		    200,        0.0, 1.0, 0.0,		 -1.6, 1.6, -1.6, 1.6,							  3.5
+stand_attack_2 =	  	0.55,		0.90,		    700,        0.0, 1.0, 0.0,		 -1.6, 1.6, -1.6, 1.6,							  3.5
 
 [m_fracture_step_params]
 ;---------------------------------------------------------------------------
@@ -25,7 +25,7 @@ radiation_immunity = 0.5
 telepatic_immunity = 1.0
 chemical_burn_immunity = 0.8
 explosion_immunity = 0.8
-fire_wound_immunity  = 0.105
+fire_wound_immunity  = 0.3
 
 
 [m_fracture_e]:monster_base
@@ -35,19 +35,25 @@ SpaceRestrictionSection = space_restrictor,zone_mosquito_bald,zone_witches_galan
 $npc			     = on						; option for Level Editor
 $prefetch 			 = 16
 Scheduled		     = on						; option for ALife Simulator
-Human		     	 = off						; option for ALife Simulator
-Health			     = 400						; option for ALife Simulator
+Human		     	 = on						; option for ALife Simulator
+Health			     = 700						; option for ALife Simulator
 MinSpeed		     = 1.0						; option for ALife Simulator
-MaxSpeed		     = 5.0						; option for ALife Simulator
+MaxSpeed		     = 6.0						; option for ALife Simulator
 going_speed          = 4.5                      ; option for ALife Simulator
-search_speed         = 1.5                       ; option for ALife Simulator
+search_speed         = 2.0                       ; option for ALife Simulator
 visual				 = monsters\izlom\izlom.ogf
 corpse_visual		 = monsters\izlom\izlom.ogf
-MaxHealthValue		 = 200			; range [0..200]
+icon = ui_npc_monster_fracture	
+MaxHealthValue		 = 700			; range [0..200]
 DynamicObjectsCount	 = 32
 smart_terrain_choose_interval	= 00:15:00
+satiety_threshold		= 0.5
+jump_max_height = 1.0
 
 script_binding  = bind_monster.bind
+
+critical_wound_threshold		= -1
+critical_wound_decrease_quant	= 0.
 
 ;---EVALUATION FUNCTIONS----------------------------------------------
 ef_creature_type	 = 21							; option for evaluation functions
@@ -89,7 +95,7 @@ SoundThreshold		 = 0.06             ; range [0..1]
 
 eye_fov				 = 100;
 eye_range			 = 100	;30
-max_hear_dist		 = 80
+max_hear_dist		 = 40
 
 hit_power			 = 50.0;
 
@@ -100,15 +106,15 @@ ImpulseMax			 = 550.0
 Velocity_Stand			= 0,		1.4,			1.4,		1,		1
 Velocity_WalkFwdNormal	= 0.9,		2.5,			2.5,		0.02,	2.0	
 Velocity_RunFwdNormal	= 3.0,		3.5,			3.5,		0.4,	1	
-Velocity_WalkFwdDamaged	= 0.7,		3.0,			3.0,		0.2,	2.0	
+Velocity_WalkFwdDamaged	= 1.0,		3.0,			3.0,		0.2,	2.0	
 Velocity_RunFwdDamaged	= 5.0,  	3.0,			3.0,		0.2,	1
 Velocity_Drag			= 1.0,		3.0,			3.0,		1,		1
 Velocity_Steal			= 1.5,		3.0,			3.0,		1,		1
 
 ; acceleration
 Accel_Generic			= 1.5
-Accel_Calm			= 2.5
-Accel_Aggressive		= 7.5
+Accel_Calm			= 3.0
+Accel_Aggressive		= 9.5
 
 ;attack parameters
 MinAttackDist		= 1.8	;0.5
@@ -118,8 +124,8 @@ as_min_dist				= 0.5
 as_step					= 0.5
 
 
-DayTime_Begin		= 0			; эрўрыр фэ  фы  ьюэёЄЁр
-DayTime_End			= 21		; ъюэхЎ фэ  фы  ьюэёЄЁр
+DayTime_Begin		= 9			; эрўрыр фэ  фы  ьюэёЄЁр
+DayTime_End			= 22		; ъюэхЎ фэ  фы  ьюэёЄЁр
 Min_Satiety			= 0.4		; ьшэ. эюЁьр ёvЄюёЄш (ьхэ№°х - єцх уюыюфэvщ)
 Max_Satiety			= 1.0		; ьръё. эюЁьр ёvЄюёЄш (сюы№°х - юўхэ№ ёvЄvщ)
 
@@ -133,7 +139,7 @@ always_visible_distance 	= 0.3
 time_quant					= 0.001
 decrease_value				= 0.01				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
 velocity_factor		     	= 0.5
-luminocity_factor			= 1.5 				; фактор освещения (только для Актёра)
+luminocity_factor			= 0.5 				; фактор освещения (только для Актёра)
 transparency_threshold		= 0.25
 
 
@@ -151,7 +157,7 @@ satiety_health_v 	= 0.0001	;0.03			;увеличение здоровья при уменьшении сытости
 satiety_critical 	= -1.0		;0.25			;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
 radiation_health_v 	= 0.01	;0.006			;уменьшение здоровья при воздействии радиации
 morale_v		= 0.01					;скорость восстановления морали
-health_hit_part 	= 1.0		;0.8			;процент хита, уходящий на отнимание здоровья
+health_hit_part 	= 0.4		;0.8			;процент хита, уходящий на отнимание здоровья
 power_hit_part 		= 1.0		;0.9			;процент хита, уходящий на отнимание силы
 psy_health_v = 0.1						;скорость восстановления psy-здоровья
 
@@ -220,7 +226,7 @@ step_params				= m_fracture_step_params
 damage					= m_Fracture_damage
 
 ;species of monster
-species					= fracture
+species					= zombie
 
 
 [m_Fracture_damage]
@@ -228,10 +234,35 @@ species					= fracture
 ;<hit_scale>	- коэфф. изменения хита (уменьшения здоровья) 
 ;<wound_scale>	- коэфф. изменения величины открытой раны
 
-default				= 1.00,	-1,	0.10
+default				= 0.3,	-1,	0.10
 
-bip01_pelvis 		= 1, -1, 0.1
-bip01_spine 		= 1, -1, 0.1
-bip01_spine1 		= 1, -1, 0.1
-bip01_neck 			= 1.0, -1, 0.1
-bip01_head 			= 10, -1, 0.50
+bip01_pelvis 		= 0.1, -1, 0.1
+;bip01_spine 		= 0.1, -1, 0.1
+bip01_spine1 		= 0.2, -1, 0.1
+bip01_neck 			= 0.5, -1, 0.1
+bip01_head 			= 0.8, -1, 0.50
+
+
+[fracture_weak]:m_fracture_e
+$spawn               = "monsters\fracture"				; option for Level Editor
+monster_type		= indoor
+rank				= 0
+spec_rank			= weak
+community			= fracture
+Tele_Time_To_Hold	= 200
+
+[fracture_normal]:m_fracture_e
+$spawn               = "monsters\fracture"				; option for Level Editor
+monster_type		= indoor
+rank				= 0
+spec_rank			= normal
+community			= fracture
+Tele_Time_To_Hold	= 200
+
+[fracture_strong]:m_fracture_e
+$spawn               = "monsters\fracture"				; option for Level Editor
+monster_type		= indoor
+rank				= 0
+spec_rank			= strong
+community			= fracture
+Tele_Time_To_Hold	= 200

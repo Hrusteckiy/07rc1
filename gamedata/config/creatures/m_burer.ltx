@@ -9,7 +9,8 @@ $npc					= on						; option for Level Editor
 $prefetch 				 = 16
 visual					= monsters\burer\burer
 corpse_visual			= monsters\burer\burer
-MaxHealthValue		    = 100						; range [0..200]
+icon = ui_npc_monster_burer	;
+MaxHealthValue		    = 400						; range [0..200]
 
 Spawn_Inventory_Item_Section = mutant_burer_hand
 Spawn_Inventory_Item_Probability = 0.2
@@ -21,9 +22,9 @@ Scheduled				= on						; option for ALife Simulator
 Human		     		= off						; option for ALife Simulator
 Health					= 400						; option for ALife Simulator
 MinSpeed				= 1.0						; option for ALife Simulator
-MaxSpeed				= 5.0						; option for ALife Simulator
+MaxSpeed				= 6.0						; option for ALife Simulator
 going_speed				= 3;4.5                      	; option for ALife Simulator
-search_speed			= 1.5                       ; option for ALife Simulator
+search_speed			= 3.5                       ; option for ALife Simulator
 smart_terrain_choose_interval	= 00:15:00
 
 ;---------------------------------------------------------------------
@@ -38,7 +39,7 @@ ph_crash_speed_max			= 30
 ph_collision_damage_factor	= 0.1
 ph_mass 				= 70;	100
 
-destroyed_vis_name	 = physics\Dead_Body\trupik_crash
+destroyed_vis_name = physics\dead_body\skelet_crash_monster	;
 
 ;----------------------------------------------------------------------------
 ph_skeleton_airr_lin_factor   = 2.0 ;550.0 (изменно из-за того, что убрано домножение коэффициент 0.002 из кода)
@@ -57,16 +58,16 @@ ph_skel_shot_up_factor        = 0.25
 
 ; speed factors			linear | angular_real | angular_path | min |  max
 Velocity_Stand			= 0,		6.0,			6.0,		0.2,	0.5
-Velocity_RunFwdNormal	= 5.0,		2.5,			2.5,		0.2,	1	
-Velocity_RunFwdDamaged	= 3.5,  	3.0,			3.0,		0.2,	1
-Velocity_WalkFwdNormal	= 1.6,		3.0,			3.0,		0.02,	1.5
-Velocity_WalkFwdDamaged	= 1.0,		3.0,			3.0,		0.5,	2.0	
+Velocity_RunFwdNormal	= 6.0,		2.5,			2.5,		0.2,	1	
+Velocity_RunFwdDamaged	= 4.5,  	3.0,			3.0,		0.2,	1
+Velocity_WalkFwdNormal	= 2.0,		3.0,			3.0,		0.02,	1.5
+Velocity_WalkFwdDamaged	= 1.2,		3.0,			3.0,		0.5,	2.0	
 Velocity_Drag			= 1.0,		3.0,			3.0,		1,		1
 Velocity_Steal			= 1.5,		3.0,			3.0,		1,		1
 
 ; acceleration
 Accel_Generic			= 1.5
-Accel_Calm				= 1.5
+Accel_Calm				= 2.5
 Accel_Aggressive		= 200 ;6.5
 
 ;--------------------------------------------------------------------------
@@ -80,7 +81,7 @@ as_step					= 0.3
 attack_effector			= m_burer_attack_effector
 attack_params			= m_burer_attack_params
 
-Melee_Rotation_Factor	= 1.8
+Melee_Rotation_Factor	= 3.5
 ;-------------------------------------------------------------------------
 ; Entity Conditions
 ;-------------------------------------------------------------------------
@@ -113,8 +114,8 @@ eat_freq						= 5.0		; частота укусов в сек
 eat_slice						= 0.01	; увеличение сытости при 1 укусе
 eat_slice_weight				= 10.0	; уменьшение еды у трупа
 
-DayTime_Begin			= 0			; начала дня для монстра
-DayTime_End				= 21		; конец дня для монстра
+DayTime_Begin			= 22			; начала дня для монстра
+DayTime_End				= 6		; конец дня для монстра
 Min_Satiety				= 0.6		; мин. норма сытости (меньше - уже голодный)
 Max_Satiety				= 0.9		; макс. норма сытости (больше - очень сытый)
 
@@ -157,19 +158,22 @@ max_hear_dist			= 60
 ;-------------------------------------------------------------------------
 ; Vision
 ;-------------------------------------------------------------------------
-DynamicObjectsCount		= 32
-eye_fov					= 130
-eye_range				= 110
+eye_fov					= 100
+eye_range				= 30	;60	;30
 
-min_view_distance   		= 0.6				; коэффициент, который множится на eye_range, в зависимости от угла
+; number of visible objects monster can handle
+DynamicObjectsCount		= 32		
+
+min_view_distance   		= 0.4				; коэффициент, который множится на eye_range, в зависимости от угла
 max_view_distance	 		= 1.0				; коэффициент, который множится на eye_range, в зависимости от угла
 visibility_threshold	 	= 100.0				; значение, при достижении суммой которого объект считается видимым
-always_visible_distance 	= 0.3
+always_visible_distance 	= 0.2
 time_quant					= 0.001
 decrease_value				= 0.01				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
 velocity_factor		     	= 0.5
 luminocity_factor			= 0.5 				; фактор освещения (только для Актёра)
 transparency_threshold		= 0.25
+
 
 ;-------------------------------------------------------------------------
 ; Morale
@@ -186,22 +190,22 @@ Morale_Despondent_Threashold	= 0.5
 ;-------------------------------------------------------------------------
 ; Gravi Ability
 ;-------------------------------------------------------------------------
-Gravi_Speed					= 76	; meter/sec	
+Gravi_Speed					= 250	; meter/sec	
 Gravi_Step					= 2		; meter
-Gravi_Time_To_Hold			= 1200	; milisec
-Gravi_Radius				= 3.0
-Gravi_Impulse_To_Objects	= 60.0
-Gravi_Impulse_To_Enemy		= 400.0
-Gravi_Hit_Power				= 50.0
+Gravi_Time_To_Hold			= 350	; milisec
+Gravi_Radius				= 5.0
+Gravi_Impulse_To_Objects	= 500.0
+Gravi_Impulse_To_Enemy		= 1000.0
+Gravi_Hit_Power				= 0.95
 
 ;-------------------------------------------------------------------------
 ; Tele Ability
 ;-------------------------------------------------------------------------
-Tele_Max_Handled_Objects = 1;3	
-Tele_Time_To_Hold		 = 600
-Tele_Object_Min_Mass	 = 30.0
+Tele_Max_Handled_Objects = 5;3	
+Tele_Time_To_Hold		 = 200
+Tele_Object_Min_Mass	 = 10.0
 Tele_Object_Max_Mass	 = 1000.0
-Tele_Find_Radius		 = 7.0
+Tele_Find_Radius		 = 6.0
 
 sound_tele_hold			= monsters\burer\burer_tele_hold
 sound_tele_throw		= monsters\burer\burer_tele_throw
@@ -210,8 +214,8 @@ sound_tele_throw		= monsters\burer\burer_tele_throw
 ; Scanner
 ;-------------------------------------------------------------------------
 scan_critical_value		= 25.0	; граничное значение 
-scan_radius				= 50.0  ; радиус сканирования
-scan_velocity_threshold	= 4.0	; граничная скорость, до которой движение актера игнорируется
+scan_radius				= 60.0  ; радиус сканирования
+scan_velocity_threshold	= 3.0	; граничная скорость, до которой движение актера игнорируется
 scan_decrease_value		= 0.3	; уменьшение текущей суммы в секунду
 scan_trace_time_freq	= 2		; частота трейса скорости (for programmer only) (1 = 2 раза в сек)
 
@@ -269,7 +273,7 @@ species					= burer
 rank					= 0
 spec_rank				= weak
 community				= burer
-monster_type			= indoor
+;monster_type			= indoor
 
 ;=================================================================================
 ; Burer Attack Params
@@ -279,7 +283,7 @@ monster_type			= indoor
 ;	anim			| time[0..1] | hit_power | impulse | impulse_dir (x,y,z)  |	Field of hit_test  (left,right, bottom, top ) |	Test Dist
 ;---------------------------------------------------------------------------------------------------------------------------------------------
 ;Left hand Strike
-stand_attack_0 =	  	0.4,		  0.40,	     100,        2.0, 1.0, 0.5,		 -1.6, 1.6, -1.6, 1.6,				  2.5
+stand_attack_0 =	  	0.5,		  0.20,	     80,        2.0, 1.0, 0.5,		 -1.6, 1.6, -1.6, 1.6,				  2.5
 
 
 ;=================================================================================
@@ -334,7 +338,7 @@ radiation_immunity		= 0.0
 telepatic_immunity		= 1.0
 chemical_burn_immunity	= 1.0
 explosion_immunity		= 0.5
-fire_wound_immunity		= 0.5
+fire_wound_immunity		= 0.6
 
 ;=================================================================================
 ; Burer Damage
@@ -345,13 +349,13 @@ fire_wound_immunity		= 0.5
 ;<hit_scale>	- коэфф. изменения хита (уменьшения здоровья) 
 ;<wound_scale>	- коэфф. изменения величины открытой раны
 
-default				= 0.05, -1, 0.1
+default				= 0.1, -1, 0.1
 
-bip01_pelvis 			= 0.2, -1, 0.1
-bip01_spine 			= 0.3, -1, 0.1
-bip01_spine1 			= 0.3, -1, 0.1
-bip01_neck 				= 0.3, -1, 0.5
-bip01_head 				= 1.0, -1, 0.2
+;bip01_pelvis 			= 0.1, -1, 0.1
+;bip01_spine 			= 0.1, -1, 0.1
+;bip01_spine1 			= 0.1, -1, 0.1
+bip01_neck 				= 1.8, -1, 0.5
+bip01_head 				= 2.5, -1, 0.2
 ;=================================================================================
 ; Burer Scan Effector
 ;=================================================================================
@@ -383,36 +387,7 @@ time_release		= 0.85		; fade out
 ;=================================================================================
 
 
-[burer_arena]:m_burer_e
-$spawn			= "monsters\arena\burer_arena"
-visual				= monsters\burer\burer_1
-panic_threshold		= 0.05
-species				= arena_monstr
-spec_rank			= weak
-rank				= 0
-community			= burer
-
-explosion_immunity		= 0.2
-fire_wound_immunity		= 0.1
-
-; Gravi Strike
-Gravi_Speed					= 76	; meter/sec	
-Gravi_Step					= 2		; meter
-Gravi_Time_To_Hold			= 1200	; milisec
-Gravi_Radius				= 3.0
-Gravi_Impulse_To_Objects	= 60.0
-Gravi_Impulse_To_Enemy		= 400.0
-Gravi_Hit_Power				= 0.5
-
-; Tele Strike
-Tele_Max_Handled_Objects = 3	;1;3	
-Tele_Time_To_Hold		 = 100	;600
-Tele_Object_Min_Mass	 = 30.0
-Tele_Object_Max_Mass	 = 2000.0 ;1000.0
-Tele_Find_Radius		 = 15	;7.0
-
-
-[m_burer_normal]:m_burer_e
+[burer_weak]:m_burer_e
 $spawn		= "monsters\burers\burer_normal"
 monster_type		= indoor
 rank				= 0
@@ -420,20 +395,19 @@ spec_rank			= weak
 community			= burer
 Tele_Time_To_Hold	= 200
 
-[m_burer_normal_black]:m_burer_e
-$spawn		= "monsters\burers\burer_normal_black"
-visual				= monsters\burer\burer_1
+[burer_normal]:m_burer_e
+$spawn		= "monsters\burers\burer_normal"
 monster_type		= indoor
 rank				= 0
-spec_rank			= weak
+spec_rank			= normal
 community			= burer
 Tele_Time_To_Hold	= 200
 
-[burer_indoor]:m_burer_normal
-$spawn			= "monsters\burers\burer_indoor"
-monster_type	= indoor
-Tele_Time_To_Hold		 = 200
+[burer_strong]:m_burer_e
+$spawn		= "monsters\burers\burer_normal"
+monster_type		= indoor
+rank				= 0
+spec_rank			= strong
+community			= burer
+Tele_Time_To_Hold	= 200
 
-[burer_outdoor]:m_burer_normal
-$spawn			= "monsters\burers\burer_outdoor"
-;monster_type	= outdoor

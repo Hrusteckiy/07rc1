@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<!-- AMK Dialogs-->
+<game_dialogs>
+	<!--Диалог с Кулинаром-->
+	<dialog id="artem_kulinar">
+		<dont_has_info>kulinar_info_done</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+                <text>artem_kulinar_0</text>
+                <next>1</next>
+            </phrase>
+			<phrase id="1">
+				<text>artem_kulinar_1</text>
+                <next>2</next>
+            </phrase>
+			<phrase id="2">
+				<text>artem_kulinar_2</text>
+                <next>3</next>
+            </phrase>
+			<phrase id="3">
+				<text>artem_kulinar_3</text>
+                <next>4</next>
+            </phrase>
+			<phrase id="4">
+				<text>artem_kulinar_4</text>
+                <next>5</next>
+            </phrase>
+			<phrase id="5">
+				<text>artem_kulinar_5</text>
+                <next>6</next>
+            </phrase>
+			<phrase id="6">
+				<text>artem_kulinar_6</text>
+                <next>7</next>
+            </phrase>
+			<phrase id="7">
+				<text>artem_kulinar_7</text>
+				<next>8</next>
+            </phrase>
+			<phrase id="8">
+				<text>artem_kulinar_8</text>
+				<next>9</next>
+            </phrase>
+			<phrase id="9">
+				<text>artem_kulinar_9</text>
+				<next>10</next>
+            </phrase>
+			<phrase id="10">
+				<text>artem_kulinar_10</text>
+				<next>11</next>
+            </phrase>
+			<phrase id="11">
+				<text>artem_kulinar_11</text>
+				<give_info>kulinar_info_done</give_info>
+            </phrase>
+		</phrase_list>
+	</dialog>
+	
+	<!--Диалог с Вороном-->
+	<dialog id="vitek_voron">
+		<dont_has_info>voron_info_done</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+                <text>vitek_voron_0</text>
+                <next>1</next>
+            </phrase>
+			<phrase id="1">
+				<text>vitek_voron_1</text>
+                <next>2</next>
+            </phrase>
+			<phrase id="2">
+				<text>vitek_voron_2</text>
+                <next>3</next>
+            </phrase>
+			<phrase id="3">
+				<text>vitek_voron_3</text>
+                <next>4</next>
+            </phrase>
+			<phrase id="4">
+				<text>vitek_voron_4</text>
+                <next>5</next>
+            </phrase>
+			<phrase id="5">
+				<text>vitek_voron_5</text>
+                <next>6</next>
+            </phrase>
+			<phrase id="6">
+				<text>vitek_voron_6</text>
+                <next>7</next>
+            </phrase>
+			<phrase id="7">
+				<text>vitek_voron_7</text>
+				<give_info>voron_info_done</give_info>
+            </phrase>
+		</phrase_list>
+	</dialog>
+</game_dialogs>

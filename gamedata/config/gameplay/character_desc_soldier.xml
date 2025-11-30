@@ -29,6 +29,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_commander2" team_default = "1">
@@ -57,6 +58,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_commander3" team_default = "1">
@@ -85,6 +87,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SOLDIER PRIVATE----------------------->
@@ -116,6 +119,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_regular_default2" team_default = "1">
@@ -146,6 +150,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_regular_default3" team_default = "1">
@@ -176,6 +181,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_regular_default4" team_default = "1">
@@ -206,6 +212,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_regular_default5" team_default = "1">
@@ -236,6 +243,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!---------------------------SOLDIER SNIPER---------------------->
@@ -267,6 +275,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_sniper_default2" team_default = "1">
@@ -297,6 +306,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_sniper_default3" team_default = "1">
@@ -327,6 +337,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>	
 	
 <!---------------------------SOLDIER SPECNAZ---------------------->
@@ -358,6 +369,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_specnaz_default2" team_default = "1">
@@ -388,6 +400,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 		<specific_character id="soldier_specnaz_default3" team_default = "1">
@@ -418,6 +431,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 <!---------------------------SOLDIER MASTER----------------------->
@@ -450,6 +464,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_military_default2" team_default = "1">
@@ -481,6 +496,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="soldier_military_default3" team_default = "1">
@@ -512,6 +528,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <specific_character id="soldier_military_default4" team_default = "1">
@@ -543,6 +560,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 <!--
@@ -555,6 +573,7 @@
 		<team>Soldier</team>
 		<rank>50</rank>
 		<reputation>50</reputation>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 	<specific_character id="stalker_steck">
@@ -576,6 +595,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	<specific_character id="stalker_sokol">
@@ -597,6 +617,7 @@
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>general_pda_talk</actor_dialog>
 		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 
@@ -626,6 +647,7 @@
 		</supplies>		
 					
 		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 
 	-->

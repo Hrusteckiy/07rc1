@@ -1,0 +1,14 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_home
+
+[mob_home]
+path_home = ros_zomb2
+home_min_radius = 1
+home_max_radius = 10
+on_signal = sig_attacked | mob_combat
+
+[mob_combat]
+on_timer = 30000 | mob_home

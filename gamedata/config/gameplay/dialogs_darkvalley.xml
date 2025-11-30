@@ -38,10 +38,31 @@
                 <next>112</next>
             </phrase>
             <phrase id="21">
-                <text>val_sos_dialog_21</text>
+                <text>val_sos_dialog_21_amk_1</text>
                 <give_info>val_show_farm_zone</give_info>
                 <give_info>val_sos_give_info</give_info>
-                <next>211</next>
+                <give_info>info_amk_recipt_sopl_dikoobraz</give_info>
+                <next>22</next>
+            </phrase>
+            <phrase id="22">
+                <text>val_sos_dialog_21_amk_2</text>
+                <next>23</next>
+            </phrase>
+            <phrase id="23">
+                <text>val_sos_dialog_21_amk_3</text>
+                <next>24</next>
+            </phrase>
+            <phrase id="24">
+                <text>val_sos_dialog_21_amk_4</text>
+                <next>25</next>
+            </phrase>
+            <phrase id="25">
+                <text>val_sos_dialog_21_amk_5</text>
+                <next>26</next>
+            </phrase>
+            <phrase id="26">
+                <text>val_sos_dialog_21_amk_6</text>
+                <action>dialogs.break_dialog</action>
             </phrase>
         </phrase_list>
     </dialog>
@@ -58,6 +79,7 @@
             </phrase>
             <phrase id="2111">
                 <text>val_prisoner_hello_2111</text>
+				<action>skunk.add_bandit_exo</action>
                 <next>21111</next>
             </phrase>
             <phrase id="21111">
@@ -432,6 +454,17 @@
                 <has_info>val_escort_guard2_dead</has_info>
                 <has_info>val_escort_actor_helped</has_info>
                 <next>21</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+	<dialog id="dark_pulia_talk_story">       
+        <phrase_list>
+            <phrase id="0">
+                <text>dark_pulia_talk_story_0</text>
+                <next>1</next>
+            </phrase>
+	    <phrase id="1">
+                <text>dark_pulia_talk_story_1</text>
             </phrase>
         </phrase_list>
     </dialog>

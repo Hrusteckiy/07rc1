@@ -1,0 +1,37 @@
+<ui_texture>
+
+<file_name>ui\amk_ui_base_texture</file_name>
+
+
+<texture id="amk_ui_bag" x="0" y="234" width="1024" height="789" />
+
+<texture id="amk_test" x="4" y="315" width="200" height="20" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</ui_texture>

@@ -29,6 +29,9 @@
 		<start_dialog>yantar_general_ucheniy_talk_start</start_dialog>
 		<actor_dialog>tm_ecolog_dialog</actor_dialog>
 		<actor_dialog>tm_ecolog_reward</actor_dialog>
+                <actor_dialog>yantar_trader_repair</actor_dialog>
+		<actor_dialog>yantar_general_ucheniy_story</actor_dialog>
+		<actor_dialog>yantar_general_ucheniy_story2</actor_dialog>
 
 	</specific_character>
 
@@ -59,7 +62,7 @@
 #include "gameplay\character_criticals_3.xml"
 			
 		<start_dialog>yantar_help_scientist</start_dialog>
-		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>yantar_wounded_scientist</actor_dialog>
 		
 	</specific_character>
@@ -90,7 +93,7 @@
 #include "gameplay\character_criticals_3.xml"
 			
 		<start_dialog>yantar_help_scientist</start_dialog>
-		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	
 	<specific_character id="yan_ecolog_vasilyev" team_default = "1">
@@ -118,7 +121,7 @@
 #include "gameplay\character_criticals_3.xml"
 			
 		<start_dialog>yantar_help_scientist</start_dialog>
-		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs.xml"
 		<actor_dialog>yantar_wounded_scientist</actor_dialog>
 		
 	</specific_character>

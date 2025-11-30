@@ -2,7 +2,7 @@
 		<text>Боров</text>
 	</string>
 	<string id="bar_darklab_documents_2_hint">
-		<text>Туннель</text>
+		<text>Тоннель</text>
 	</string>
 	<string id="bar_darklab_documents_3_hint">
 		<text>Вход в лабораторию</text>
@@ -38,7 +38,7 @@
 		<text>Лагерь бандитов</text>
 	</string>
 	<string id="val_zone_farm_hint">
-		<text>Ферма.\nКупить Гаусс.</text>
+		<text>Ферма\nКупить винтовку Гаусса</text>
 	</string>
 	<string id="val_zone_monolith_hint">
 		<text>Старая фабрика</text>

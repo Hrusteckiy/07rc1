@@ -437,5 +437,17 @@
 		<texture x="493" y="936" width="32" height="32">ui\ui_common</texture>
 	</alife_presentation_smart_target_spot>
 
+	<grenade_location>
+		<level_map spot="grenade_spot"		pointer="quest_pointer"/>
+		<mini_map spot="grenade_mini_spot"	pointer="quest_pointer"/>
+	</grenade_location>
+	<grenade_spot  x="0" y="0" width="11" height="11" stretch="1" alignment="c" xform_anim="map_spot_new_xform" xform_anim_cyclic="0">
+		<texture>ui_beltbut_granade_t</texture>
+	</grenade_spot>
+	<grenade_mini_spot  x="0" y="0" width="11" height="11" stretch="1" alignment="c" xform_anim="map_spot_new_xform" xform_anim_cyclic="0">
+		<texture>ui_beltbut_granade_t</texture>
+		<texture_below r="0" g="255" b="0">ui_beltbut_granade_t</texture_below>
+		<texture_above r="0" g="255" b="0">ui_beltbut_granade_t</texture_above>
+	</grenade_mini_spot>
 
 </map_spots>

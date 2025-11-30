@@ -1,0 +1,123 @@
+    <article id="enc_amk_recipt_dikoobraz" name="Дикобраз" group="enc_recipts">
+<text>enc_amk_recipt_dikoobraz_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_electra_dikoobraz" name="Электрический Дикобраз" group="enc_recipts">
+<text>enc_amk_recipt_electra_dikoobraz_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_sopl_dikoobraz" name="Сопливый Дикобраз" group="enc_recipts">
+<text>enc_amk_recipt_sopl_dikoobraz_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_stone_dikoobraz" name="Каменный Дикобраз" group="enc_recipts">
+<text>enc_amk_recipt_stone_dikoobraz_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_steel_kolobok" name="Стальной Колобок" group="enc_recipts">
+<text>enc_amk_recipt_steel_kolobok_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_titan_kolobok" name="Титановый Колобок" group="enc_recipts">
+<text>enc_amk_recipt_titan_kolobok_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_almaz_kolobok" name="Алмазный колобок" group="enc_recipts">
+<text>enc_amk_recipt_almaz_kolobok_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_soul_bengal" name="Кристальная Душа Бенгала" group="enc_recipts">
+<text>enc_amk_recipt_soul_bengal_text</text>
+    </article>
+    <article id="enc_amk_recipt_soul_drops" name="Капли Души" group="enc_recipts">
+<text>enc_amk_recipt_soul_drops_text</text>
+    </article>
+    
+    <article id="enc_amk_recipt_soul_fire" name="Огненная  Душа" group="enc_recipts">
+<text>enc_amk_recipt_soul_fire_text</text>
+    </article>
+
+    <article id="enc_amk_recipt_soul_cristal" name="Кристальная Душа" group="enc_recipts">
+<text>enc_amk_recipt_soul_cristal_text</text>
+    </article>
+    
+
+    <article id="enc_amk_recipt_tears_electra" name="Слёзы Электры" group="enc_recipts">
+<text>enc_amk_recipt_tears_electra_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_tears_fire" name="Слёзы Огня" group="enc_recipts">
+<text>enc_amk_recipt_tears_fire_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_tears_chimaera" name="Слёзы Химеры" group="enc_recipts">
+<text>enc_amk_recipt_tears_chimaera_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_grandmother_glassbeards" name="Бабкины Бусы" group="enc_recipts">
+    <ltx>af_babka_1</ltx>
+<text>enc_amk_recipt_grandmother_glassbeards_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_pra_grandmother_glassbeards" name="Бусы Прабабки" group="enc_recipts">
+<text>enc_amk_recipt_pra_grandmother_glassbeards_text</text>
+    </article>
+
+    <article id="enc_amk_recipt_burer_grandmother_glassbeards" name="Бусы Бабки Бюрера" group="enc_recipts">
+<text>enc_amk_recipt_burer_grandmother_glassbeards_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_giant_small_brother" name="Младший Брат Гиганта" group="enc_recipts">
+<text>enc_amk_recipt_giant_small_brother_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_shkura" name="Шкура" group="enc_recipts">
+<text>enc_amk_recipt_shkura_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_cheshya" name="Чешуя" group="enc_recipts">
+<text>enc_amk_recipt_cheshya_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_pancir" name="Панцирь" group="enc_recipts">
+<text>enc_amk_recipt_pancir_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_simbion" name="Симбион" group="enc_recipts">
+<text>enc_amk_recipt_simbion_text</text>
+    </article>
+
+
+    <article id="enc_amk_recipt_dummy_puding" name="Пудинг" group="enc_recipts">
+<text>enc_amk_recipt_dummy_puding_text</text>
+    </article>
+    <article id="enc_amk_recipt_dummy_fire" name="Огненная Пустышка" group="enc_recipts">
+<text>enc_amk_recipt_dummy_fire_text</text>
+    </article>
+    <article id="enc_amk_recipt_dummy_bright" name="Яркая Пустышка" group="enc_recipts">
+<text>enc_amk_recipt_dummy_bright_text</text>
+    </article>
+    <article id="enc_amk_recipt_dummy_moon" name="Лунная Пустышка" group="enc_recipts">
+<text>enc_amk_recipt_dummy_moon_text</text>
+    </article>
+
+    <article id="enc_amk_recipt_controller_skalp" name="Скальп Контролера" group="enc_recipts">
+<text>enc_amk_recipt_controller_skalp_text</text>
+    </article>
+

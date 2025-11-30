@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+
+	<string id="list_trader_repair_0">
+		<text>Стоимость починки оружия в первом слоте: </text>
+	</string>
+	<string id="list_trader_repair_1">
+		<text>Стоимость починки оружия во втором слоте: </text>
+	</string>
+	<string id="list_trader_repair_2">
+		<text>Стоимость починки брони: </text>
+	</string>
+
+<!--********************************-->
+<!-- Sidorovich Repair dialog start -->
+<!--********************************-->
+	<string id="escape_trader_repair_0">
+		<text>Сидрыч, да ты никак стволы чинишь?</text>
+	</string>
+	<string id="escape_trader_repair_1">
+		<text>А... Это ты о той штуке, что в тисках? Да, хороший ствол будет. Правда, дорогущий. Так что тебе надо отремонтировать? Могу и броню подлатать. Предупреждаю: это недешёвая работа. Чем больше износ, тем дороже. Итак?\n \nСписок возможных починок: </text>
+	</string>
+	<string id="escape_trader_repair_2">
+		<text>Отремонтируй первый ствол.</text>
+	</string>
+	<string id="escape_trader_repair_3">
+		<text>Отремонтируй второй ствол.</text>
+	</string>
+	<string id="escape_trader_repair_4">
+		<text>Отремонтируй броню.</text>
+	</string>
+	<string id="escape_trader_repair_5">
+		<text>Чёрт, с деньгами напряг. Зайду позже.</text>
+	</string>
+	<string id="escape_trader_repair_6">
+		<text>Щас... всё мигом сделаю...\n \nГотово, забирай!</text>
+	</string>
+	<string id="escape_trader_repair_7">
+		<text>Да, Меченый, здорово тебя потрепало. Так... Где-то у меня были бронепластины... Ага, вот они... Вот так... Угу... Уф.\n \nПолучай, как новенький!</text>
+	</string>
+	<string id="escape_trader_repair_8">
+		<text>Хм. Отличная работа. Слушай, а где ты так навострился? Молчишь? Ну и ладно.</text>
+	</string>
+	<string id="escape_trader_repair_9">
+		<text>Мастерская работа, не зря такие деньги берёшь.</text>
+	</string>
+	<string id="escape_trader_repair_10">
+		<text>Можешь ещё кое-что починить?</text>
+	</string>
+	<string id="escape_trader_repair_11">
+		<text>Ну давай, сделаю.\n \nСписок возможных починок: </text>
+	</string>
+
+<!--****************************-->
+<!-- Barist Repair dialog start -->
+<!--****************************-->
+	<string id="bar_trader_repair_0">
+		<text>Бармен, ты случайно стволы не чинишь?</text>
+	</string>
+	<string id="bar_trader_repair_1">
+		<text>Если надо, мне говори, есть у меня один человечек. Эй, Долговязый, хватит дрыхнуть, тут клиенту ремонт требуется. Так что чинить будем?\n \nСписок возможных починок: </text>
+	</string>
+	<string id="bar_trader_repair_2">
+		<text>Отремонтируй первый ствол.</text>
+	</string>
+	<string id="bar_trader_repair_3">
+		<text>Отремонтируй второй ствол.</text>
+	</string>
+	<string id="bar_trader_repair_4">
+		<text>Броньку подлатай.</text>
+	</string>
+	<string id="bar_trader_repair_5">
+		<text>Блин, денег как всегда маловато. Давай потом.</text>
+	</string>
+	<string id="bar_trader_repair_6">
+		<text>Держи, всё исправлено и смазано как надо!</text>
+	</string>
+	<string id="bar_trader_repair_7">
+		<text>Лови. Всё что надо, сделано!</text>
+	</string>
+	<string id="bar_trader_repair_8">
+		<text>Ух ты! Как новенький! Твой оружейник и вправду мастер. Передавай привет.</text>
+	</string>
+	<string id="bar_trader_repair_9">
+		<text>И вправду, отличная работа!</text>
+	</string>
+	<string id="bar_trader_repair_10">
+		<text>А он может ещё кое-что починить?</text>
+	</string>
+	<string id="bar_trader_repair_11">
+		<text>Конечно, у него всё равно сейчас немного работы.\n \nСписок возможных починок: </text>
+	</string>
+
+<!--****************************-->
+<!-- Doctor Repair dialog start -->
+<!--****************************-->
+	<string id="yantar_trader_repair_0">
+		<text>Вы починкой не занимаетесь?</text>
+	</string>
+	<string id="yantar_trader_repair_1">
+		<text>Давайте я взгляну. У нас тут есть необходимое оборудование.\n \nСписок возможных починок: </text>
+	</string>
+	<string id="yantar_trader_repair_2">
+		<text>Отремонтируйте первый ствол.</text>
+	</string>
+	<string id="yantar_trader_repair_3">
+		<text>Отремонтируйте второй ствол.</text>
+	</string>
+	<string id="yantar_trader_repair_4">
+		<text>Отремонтируйте броню.</text>
+	</string>
+	<string id="yantar_trader_repair_5">
+		<text>Чёрт, с деньгами напряг. Зайду позже.</text>
+	</string>
+	<string id="yantar_trader_repair_6">
+		<text>Подождите немного...\n \nВроде всё, можете забирать!</text>
+	</string>
+	<string id="yantar_trader_repair_7">
+		<text>Бронепластины - здесь нынче дефицит, но у меня есть запас. Подождите тут...\n \nДелал на совесть.</text>
+	</string>
+	<string id="yantar_trader_repair_8">
+		<text>Отличная работа! Можете смело оружейником заделаться.</text>
+	</string>
+	<string id="yantar_trader_repair_9">
+		<text>Совесть останется у Вас чиста, работа на 5+!</text>
+	</string>
+	<string id="yantar_trader_repair_10">
+		<text>Почините ещё кое-что?</text>
+	</string>
+	<string id="yantar_trader_repair_11">
+		<text>Ну, давайте быстрей, пока данные ещё обрабатываются, сделаю.\n \nСписок возможных починок: </text>
+	</string>
+
+<!--***************************-->
+<!-- Screw Repair dialog start -->
+<!--***************************-->
+	<string id="mil_trader_repair_0">
+		<text>О, я вижу инструменты? Ремонтом занимаешься?</text>
+	</string>
+	<string id="mil_trader_repair_1">
+		<text>Да, помаленьку. Давай к делу. Что надо? Работёнка эта недешёвая. Чем больше износ, тем дороже. Итак?\n \nСписок возможных починок: </text>
+	</string>
+	<string id="mil_trader_repair_2">
+		<text>Отремонтируй первый ствол.</text>
+	</string>
+	<string id="mil_trader_repair_3">
+		<text>Отремонтируй второй ствол.</text>
+	</string>
+	<string id="mil_trader_repair_4">
+		<text>Отремонтируй броню.</text>
+	</string>
+	<string id="mil_trader_repair_5">
+		<text>Денег маловато... Давай в другой раз.</text>
+	</string>
+	<string id="mil_trader_repair_6">
+		<text>Заменил некоторые детали, смазал и почистил...\n \nПользуйся на здоровье!</text>
+	</string>
+	<string id="mil_trader_repair_7">
+		<text>Меченый, на тебе случаем метка "стреляй сюда" не стоит? Ладно, давай... Сделаю...\n \nДля тебя только свежие бронепластины из холодильника! И метку я тоже замазал.</text>
+	</string>
+	<string id="mil_trader_repair_8">
+		<text>Как новенькая! Отличная работа!</text>
+	</string>
+	<string id="mil_trader_repair_9">
+		<text>Шутник, блин... Хотя... Теперь даже приятней смотреть на неё!</text>
+	</string>
+	<string id="mil_trader_repair_10">
+		<text>А ещё кое-что починишь?</text>
+	</string>
+	<string id="mil_trader_repair_11">
+		<text>Конечно, ты только платить не забывай, в "долг" не работаю.\n \nСписок возможных починок: </text>
+	</string>
+
+<!--********************-->
+<!-- Repair dialogs end -->
+<!--********************-->
+
+</string_table>

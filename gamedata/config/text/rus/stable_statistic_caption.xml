@@ -1,3 +1,15 @@
+	<string id="chimera_weak">
+		<text>химера</text>
+	</string>
+
+	<string id="fracture_weak">
+		<text>излом</text>
+	</string>
+
+	<string id="cat_weak">
+		<text>кошка</text>
+	</string>
+
 	<string id="bandit_experienced">
 		<text>бандит, опытный</text>
 	</string>
@@ -14,7 +26,7 @@
 		<text>подземный кровосос</text>
 	</string>
 	<string id="bloodsucker_strong">
-		<text>черный кровосос</text>
+		<text>чёрный кровосос</text>
 	</string>
 	<string id="bloodsucker_weak">
 		<text>кровосос</text>
@@ -23,7 +35,7 @@
 		<text>взрослый кабан</text>
 	</string>
 	<string id="boar_strong">
-		<text>матерый кабан</text>
+		<text>матёрый кабан</text>
 	</string>
 	<string id="boar_weak">
 		<text>молодой кабан</text>
@@ -32,16 +44,16 @@
 		<text>бюрер</text>
 	</string>
 	<string id="controller_weak">
-		<text>контролер</text>
+		<text>контролёр</text>
 	</string>
 	<string id="dog_normal">
-		<text>пес крысодав</text>
+		<text>пёс крысодав</text>
 	</string>
 	<string id="dog_strong">
 		<text>собака альбинос</text>
 	</string>
 	<string id="dog_weak">
-		<text>дикий пес</text>
+		<text>дикий пёс</text>
 	</string>
 	<string id="dolg_experienced">
 		<text>"Долг", опытный</text>
@@ -53,10 +65,10 @@
 		<text>"Долг", ветеран</text>
 	</string>
 	<string id="ecolog_experienced">
-		<text>ученый, опытный</text>
+		<text>учёный, опытный</text>
 	</string>
 	<string id="ecolog_novice">
-		<text>ученый, новичок</text>
+		<text>учёный, новичок</text>
 	</string>
 	<string id="flesh_normal">
 		<text>лесная плоть</text>
@@ -77,13 +89,13 @@
 		<text>"Свобода", ветеран</text>
 	</string>
 	<string id="killer_experienced">
-		<text>наемник, опытный</text>
+		<text>наёмник, опытный</text>
 	</string>
 	<string id="killer_master">
-		<text>наемник, мастер</text>
+		<text>наёмник, мастер</text>
 	</string>
 	<string id="killer_veteran">
-		<text>наемник, ветеран</text>
+		<text>наёмник, ветеран</text>
 	</string>
 	<string id="military_experienced">
 		<text>военный, сержант</text>
@@ -128,7 +140,7 @@
 		<text>псевдогигант</text>
 	</string>
 	<string id="pseudodog_normal">
-		<text>матерая псевдособака</text>
+		<text>матёрая псевдособака</text>
 	</string>
 	<string id="pseudodog_strong">
 		<text>серая псевдособака</text>
@@ -152,13 +164,13 @@
 		<text>тушкан</text>
 	</string>
 	<string id="zombie_normal">
-		<text>зарезать</text>
+		<text>зомбированный, гражданский</text>
 	</string>
 	<string id="zombie_strong">
-		<text>зарезать</text>
+		<text>зомби, гражданский призрак</text>
 	</string>
 	<string id="zombie_weak">
-		<text>зарезать</text>
+		<text>зомби, гражданский</text>
 	</string>
 	<string id="zombied_experienced">
 		<text>зомбированный, опытный</text>

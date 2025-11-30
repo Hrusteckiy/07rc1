@@ -1334,7 +1334,7 @@ path_look = kamp_guard_look3
 danger = danger_condition@esc_killers
 
 [danger_condition@esc_killers]
-ignore_ distance_sound = 10
+ignore_distance_sound = 10
 
 
 
@@ -1521,10 +1521,14 @@ home_max_radius = 50
 [logic@esc_boars_dogs]
 active = mob_home@esc_boars_dogs
 
+[mob_combat@esc_boars_dogs]
+on_timer= 45000 | mob_home@esc_boars_dogs
+
 [mob_home@esc_boars_dogs]
 path_home = home_point
 home_min_radius = 45
 home_max_radius = 70
+on_signal= sig_attacked | mob_combat@esc_boars_dogs
 
 
 [logic@esc_boars_dogs_old]

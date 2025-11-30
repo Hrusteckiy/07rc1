@@ -1,0 +1,18 @@
+[smart_terrains]
+none = true
+
+[logic]
+active=walker@amk_stalker_angar_walk11
+combat_ignore = combat_ignore@angar
+on_hit = combat
+
+[walker@amk_stalker_angar_walk11]
+path_walk = amk_stalker_angar_walk11
+path_look = amk_stalker_angar_look11
+combat_ignore_cond = {=fighting_dist_ge_20}
+
+[combat_ignore@angar]
+combat_ignore_cond = {=fighting_dist_ge_20}
+
+[combat]
+

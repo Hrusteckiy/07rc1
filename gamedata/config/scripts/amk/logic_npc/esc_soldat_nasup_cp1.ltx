@@ -1,0 +1,24 @@
+[smart_terrains]
+none = true
+
+[logic]
+active=camper
+combat_ignore = combat_ignore@esc_bridge
+on_hit = hit@soldier
+on_death = death@soldier
+
+[camper]
+sniper = true
+path_walk = amk_soldat_jd_walk5
+path_look = amk_soldat_jd_look5
+combat_ignore_cond = {-esc_bridge_pass_fire =dist_to_enemy_ge(60) =fighting_actor}
+
+[combat_ignore@esc_bridge]
+combat_ignore_cond = {-esc_bridge_pass_fire =dist_to_enemy_ge(60) =fighting_actor}
+
+[hit@soldier]
+on_info = {=hit_by_actor} %+esc_bridge_pass_fire%
+
+[death@soldier]
+on_info = {=killed_by_actor} %+esc_bridge_pass_fire%
+

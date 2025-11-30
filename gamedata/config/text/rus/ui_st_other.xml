@@ -9,12 +9,6 @@
 	<string id="st_drink">
 		<text>выпить</text>
 	</string>
-	<string id="st_track_opt_off">
-		<text>выкл.</text>
-	</string>
-	<string id="st_track_opt_on">
-		<text>вкл.</text>
-	</string>
 	<string id="st_mp_direct_ip">
 		<text>Прямой IP</text>
 	</string>
@@ -31,7 +25,7 @@
 		<text>Тень травы</text>
 	</string>
 	<string id="ui_mm_render_2">
-		<text>Рендер-2</text>
+		<text>Тип освещения-2</text>
 	</string>
 	<string id="ui_pda_details">
 		<text># /детали</text>
@@ -49,7 +43,7 @@
 		<text>Да</text>
 	</string>
 	<string id="ui_st_cant_run_r2">
-		<text>Вы не можете запустить второй рендер на вашем компьютере</text>
+		<text>Вы не можете запустить второй тип освещения на Вашем компьютере</text>
 	</string>
 	<string id="ui_st_conn_invalid_host">
 		<text>Ошибка соединения: неверный хост</text>
@@ -97,7 +91,7 @@
 		<text>Пожалуйста, выберите хотя бы одну карту</text>
 	</string>
 	<string id="ui_st_take_all">
-		<text>Взять все</text>
+		<text>Взять всё</text>
 	</string>
 	<string id="ui_st_time_remains">
 		<text>Осталось</text>
@@ -178,19 +172,19 @@
 		<text>Загрузка секторов и порталов</text>
 	</string>
 	<string id="ui_st_conn_version_differs">
-		<text>Ошибка соединения: Отличаются версии.</text>
+		<text>Ошибка соединения: Отличаются версии</text>
 	</string>
 	<string id="ui_st_conn_cdkey_invalid">
-		<text>Ошибка соединения: Неверный CD-Key.</text>
+		<text>Ошибка соединения: Неверный CD-Key</text>
 	</string>
 	<string id="ui_st_conn_cdkey_in_use">
-		<text>Ошибка соединения: Такой CD-Key уже используется.</text>
+		<text>Ошибка соединения: Такой CD-Key уже используется</text>
 	</string>
 	<string id="ui_st_conn_cdkey_disabled">
-		<text>Ошибка соединения: Ваш CD-Key заблокирован. Свяжитесь со службой поддержки.</text>
+		<text>Ошибка соединения: Ваш CD-Key заблокирован; свяжитесь со службой поддержки</text>
 	</string>
 	<string id="ui_st_conn_new_patch">
-		<text>Доступен новый патч. \n Версия: %s\n %s\n Хотите загрузить его сейчас?</text>
+		<text>Доступен новый патч. \nВерсия: %s\n %s\nХотите загрузить его сейчас?</text>
 	</string>
 	<string id="ui_st_conn_no_new_patch">
 		<text>Нет новых патчей</text>
@@ -232,9 +226,9 @@
 		<text>Невозможно скачать патч.</text>
 	</string>
 	<string id="ui_st_load_game_confirm">
-		<text>Загрузка игры приведет к потере несохраненных данных. Желаете продолжить?</text>
+		<text>Загрузка игры приведёт к потере несохранённых данных. Желаете продолжить?</text>
 	</string>
 	<string id="ui_st_invalid_saved_game">
-		<text>Не совпадает версия сохранённой игры или сохранённая игра испорчена.</text>
+		<text>Не совпадает версия сохранённой игры, или сохранённая игра испорчена.</text>
 	</string>
 </string_table>

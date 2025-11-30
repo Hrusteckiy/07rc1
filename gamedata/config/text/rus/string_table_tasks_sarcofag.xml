@@ -1,5 +1,5 @@
 	<string id="sar_monolith">
-		<text>Исполнитель желаний</text>
+		<text>Исполнитель Желаний</text>
 	</string>
 	<string id="sar_monolith_0">
 		<text>Прийти к Монолиту</text>
@@ -8,7 +8,7 @@
 		<text>Проникнуть в саркофаг</text>
 	</string>
 	<string id="sar_monolith_2">
-		<text>Найти исполнитель желаний</text>
+		<text>Найти Исполнитель Желаний</text>
 	</string>
 	<string id="sar_monolith_destroy">
 		<text>Загадка Монолита</text>
@@ -41,7 +41,7 @@
 		<text>Найти тайную дверь</text>
 	</string>
 	<string id="sar_secret_lab_2">
-		<text>Открыть ее с помощью декодера</text>
+		<text>Открыть её с помощью декодера</text>
 	</string>
 	<string id="sar_secret_lab_3">
 		<text>Разведать, что находится за дверью</text>

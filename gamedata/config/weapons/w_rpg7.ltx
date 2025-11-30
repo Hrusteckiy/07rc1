@@ -32,6 +32,8 @@ ammo_limit		 			= 120
 ammo_current		 		= 96
 ammo_elapsed		 		= 12
 
+f_mode				= 1
+
 ammo_mag_size		 		= 1
 ammo_class		 			= ammo_og-7b
 
@@ -60,6 +62,7 @@ kill_msg_height		= 19
 ;-----------------------------------------------------------------------------------
 ;базовая дисперсия
 fire_dispersion_base		= 1.5   ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+disp_rate = 1.5
 
 ;отдача
 cam_relax_speed         	= 2.0	;скорость возврата в исходное положение
@@ -70,7 +73,8 @@ cam_step_angle_horz			= 0.5	;(degree) size of step camera moved in horizontal po
 
 fire_dispersion_condition_factor = 5	;увеличение дисперсии в процентах при максимальном износе 
 misfire_probability 		= 0.0001	;вероятность осечки при максимальном износе 
-condition_shot_dec 			= 0.00003	;увеличение износа при каждом выстреле
+misfire_condition_k			= 0.05 
+condition_shot_dec 			= 0.005 ;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
 
 direction                	= 0, 0, 1
@@ -83,13 +87,14 @@ rpm_empty_click 	 		= 200
 
 ; ttc
 ;---------------------------------------------------------------
-hit_power       			= 3.00
+hit_power       			= 4.80
 hit_impulse					= 450
 hit_type 					= explosion
+hit_rate	= 2.3
 
 fire_distance            	= 400
-bullet_speed			 	= 100 ;300			;начальная скорость пули
-rpm                      	= 200
+bullet_speed			 	= 200 ;300			;начальная скорость пули
+rpm                      	= 5
 
 
 ;---------------------------------------------------------------

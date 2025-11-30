@@ -597,4 +597,19 @@
             </phrase>
         </phrase_list>
     </dialog>
+	<dialog id="agr_krot_story">
+        <phrase_list>
+        <phrase id="0">
+            <text>agr_krot_story_0</text>
+			<next>1</next>
+        </phrase>
+        <phrase id="1">
+            <text>agr_krot_story_1</text>
+		<next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>agr_krot_story_2</text>
+            </phrase>
+        </phrase_list>
+    </dialog>
 </game_dialogs>

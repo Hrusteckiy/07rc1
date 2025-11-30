@@ -1,6 +1,12 @@
 <ui_texture>
     <file_name>ui\ui_npc_monster</file_name>
 
+    <texture id="ui_npc_monster_burer" x="165" y="324" width="165" height="108" />
+    <texture id="ui_npc_monster_zombie" x="0" y="432" width="165" height="108" />
+    <texture id="ui_npc_monster_zombieg" x="825" y="324" width="165" height="108" />
+    <texture id="ui_npc_monster_chimera" x="330" y="324" width="165" height="108" />
+    <texture id="ui_npc_monster_fracture" x="495" y="324" width="165" height="108" />
+    <texture id="ui_npc_monster_cat" x="660" y="324" width="165" height="108" />
     <texture id="ui_npc_monster_dog_red" x="0" y="0" width="165" height="108" />
     <texture id="ui_npc_monster_dog" x="165" y="0" width="165" height="108" />
     <texture id="ui_npc_monster_dog_white" x="330" y="0" width="165" height="108" />
@@ -19,7 +25,14 @@
     <texture id="ui_npc_monster_kontroler_3" x="495" y="216" width="165" height="108" />
     <texture id="ui_npc_monster_kontroler_4" x="660" y="216" width="165" height="108" />
     <texture id="ui_npc_monster_psevdogigant" x="825" y="216" width="165" height="108" />
-	<texture id="ui_npc_monster_poltergeist" x="0" y="324" width="165" height="108" />
+    <texture id="ui_npc_monster_poltergeist" x="0" y="324" width="165" height="108" />
+
+<!-- new -->
+
+    <texture id="ui_npc_monster_chimera_new_electro" x="165" y="432" width="165" height="108" />
+    <texture id="ui_npc_monster_zomb1" x="330" y="432" width="165" height="108" />
+    <texture id="ui_npc_monster_zomb2" x="495" y="432" width="165" height="108" />
+
 
    
 </ui_texture>

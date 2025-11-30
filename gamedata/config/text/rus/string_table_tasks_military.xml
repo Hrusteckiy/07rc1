@@ -1,5 +1,5 @@
-	<string id="mil_blockpost_job">
-		<text>Оказать помощь блокпосту Свободы "Барьер"</text>
+<!--	<string id="mil_blockpost_job">
+		<text>Оказать помощь на Барьере</text>
 	</string>
 	<string id="mil_courier">
 		<text>Стукач</text>
@@ -11,7 +11,7 @@
 		<text>Добраться до хутора</text>
 	</string>
 	<string id="mil_courier_phase2">
-		<text>Дождаться пока стукач вызовет информатора</text>
+		<text>Дождаться, пока стукач вызовет информатора</text>
 	</string>
 	<string id="mil_courier_phase3">
 		<text>Уничтожить стукача</text>
@@ -29,7 +29,7 @@
 		<text>Группа "Долга"</text>
 	</string>
 	<string id="mil_dolg_assault_freedom">
-		<text>Помочь отряду Долга в устранении Лукаша</text>
+		<text>Помочь отряду "Долга" в устранении Лукаша</text>
 	</string>
 	<string id="mil_kill_lukash">
 		<text>Убить Лукаша</text>
@@ -38,31 +38,31 @@
 		<text>Уничтожить снайпера</text>
 	</string>
 	<string id="mil_dolg_return_to_khutor">
-		<text>Вернуться на хутор Долга и получить гонорар</text>
+		<text>Вернуться на хутор "Долга" и получить гонорар</text>
 	</string>
 	<string id="mil_dolg_return_to_skull">
 		<text>Вернуться к Черепу</text>
 	</string>
 	<string id="mil_fblockpost_commander">
-		<text>Командир блокпоста "Кеп"</text>
+		<text>Командир блокпоста Кеп</text>
 	</string>
 	<string id="mil_fblockpost_phase2">
-		<text>Помочь в уничтожении прорывающегося отряда Монолита</text>
+		<text>Помочь в уничтожении прорывающегося отряда "Монолита"</text>
 	</string>
 	<string id="mil_fblockpost_phase3">
-		<text>Поговорить с командиром блокпоста "Барьер"</text>
+		<text>Поговорить с командиром Барьера</text>
 	</string>
 	<string id="mil_find_cook">
-		<text>Найти повара на базе Свободы</text>
+		<text>Найти Повара на базе "Свободы"</text>
 	</string>
 	<string id="mil_freedom_rg6_task">
-		<text>Достать Бульдог 6 у Свободы</text>
+		<text>Достать РГ-6 у "Свободы"</text>
 	</string>
 	<string id="mil_go_max">
 		<text>Доложить Максу</text>
 	</string>
 	<string id="mil_go_to_miser_task">
-		<text>Сходить на базу Свободы к Скряге за наградой</text>
+		<text>Сходить на базу "Свободы" к Скряге за наградой</text>
 	</string>
 	<string id="mil_go_to_miser_task_main">
 		<text>Получить награду за убитых кровососов</text>
@@ -101,7 +101,7 @@
 		<text>Убить снайпера на вышке</text>
 	</string>
 	<string id="mil_quest_report_dolg">
-		<text>Сообщить о выполнении группе Долга</text>
+		<text>Сообщить о выполнении группе "Долга"</text>
 	</string>
 	<string id="mil_return_lukash">
 		<text>Вернуться к Лукашу</text>
@@ -110,10 +110,10 @@
 		<text>Сообщить Угрюмому о выполнении</text>
 	</string>
 	<string id="mil_return_to_voronin">
-		<text>Отнести Бульдог-6 генералу Воронину</text>
+		<text>Отнести РГ-6 генералу Воронину</text>
 	</string>
 	<string id="mil_rg6">
-		<text>Найти Бульдог-6</text>
+		<text>Найти РГ-6</text>
 	</string>
 	<string id="mil_secret">
 		<text>Схрон бандитов</text>
@@ -125,10 +125,10 @@
 		<text>Получить флешку у безумного снайпера</text>
 	</string>
 	<string id="mil_talk_cook">
-		<text>Поговорить с поваром</text>
+		<text>Поговорить с Поваром</text>
 	</string>
 	<string id="mil_talk_with_cap">
-		<text>Поговорить с командиром блокпоста Свободы Кэпом</text>
+		<text>Поговорить с командиром блокпоста "Свободы" Кепом</text>
 	</string>
 	<string id="mil_test_task_phase1">
 		<text>Зайти в рестриктор 1</text>
@@ -137,7 +137,7 @@
 		<text>Зайти в рестриктор 2</text>
 	</string>
 	<string id="mil_test_task_phase3">
-		<text>Поднять Бульдог-6 для выполнения задачи или ТРс 301 для провала</text>
+		<text>Поднять РГ-6 для выполнения задачи или ТРс 301 для провала</text>
 	</string>
 	<string id="mil_test_task_title">
 		<text>Тестовая задача</text>
@@ -146,5 +146,6 @@
 		<text>Угрюмый</text>
 	</string>
 	<string id="mil_lukash_job">
-		<text>Уничтожить группу Долга</text>
+		<text>Уничтожить группу "Долга"</text>
 	</string>
+-->

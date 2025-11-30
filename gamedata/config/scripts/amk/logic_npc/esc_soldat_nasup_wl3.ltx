@@ -1,0 +1,29 @@
+[smart_terrains]
+none = true
+
+[logic]
+active=walker
+combat_ignore = combat_ignore@esc_bridge
+on_hit = hit@soldier
+on_death = death@soldier
+
+[walker]
+path_walk = amk_soldat_jd_walk3
+combat_ignore_cond = {-esc_bridge_pass_fire =dist_to_enemy_ge(50) =fighting_actor}
+on_info = {!time_hours} sleeper
+
+[sleeper]
+path_main = amk_soldat_jd_sleeper3
+combat_ignore_cond = {-esc_bridge_pass_fire =fighting_actor}
+wakeable = false
+on_info = {=time_hours} walker
+
+[combat_ignore@esc_bridge]
+combat_ignore_cond = {=fighting_dist_ge_20}
+
+[hit@soldier]
+on_info = {=hit_by_actor} %+esc_bridge_pass_fire%
+
+[death@soldier]
+on_info = {=killed_by_actor} %+esc_bridge_pass_fire%
+

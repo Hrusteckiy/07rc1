@@ -42,8 +42,8 @@ ph_box1_center 						= 0.0,  0.75,  0.0
 ph_box1_size 						= 0.35, 0.75,  0.35
 ph_box2_center 						= 0.0,  0.6,  0.0
 ph_box2_size 						= 0.35, 0.6,  0.35
-stalker_restrictor_radius			= .55;0.55;0.75;0.9
-stalker_small_restrictor_radius		= .55;
+stalker_restrictor_radius			= .05;0.55;0.75;0.9
+stalker_small_restrictor_radius		= .05;
 medium_monster_restrictor_radius	= 0.1
 ph_crash_speed_min      			= 14
 ph_crash_speed_max      			= 30
@@ -72,19 +72,20 @@ heavy_blood_snd		= affects\heartbeat; heart\8
 material						= creatures\actor
 camera_height_factor			= 0.85
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-----(AMK SNIPER ADDON v1.0)-----
 ;дисперсия стрельбы с учетом ходьбы и бега
-disp_base					= 0.8		;угол (в градусах) разлета пуль, когда актер стоит на месте
-disp_aim					= 0.04
-disp_vel_factor				= 2.0		;на сколько увеличится дисперсия при скрости в 10 м/с (не обязательно при беге)
+disp_base					= 0.51 	;угол (в градусах) разлета пуль, когда актер стоит на месте
+disp_aim					= 0.04  ;0.51 
+disp_vel_factor				= 1.0	;на сколько увеличится дисперсия при скрости в 10 м/с (не обязательно при беге)
 disp_accel_factor			= 2.0  	;еще на сколько увеличится, если актер бежит (+ скорость)
-disp_crouch_factor			= -0.2 	;уменьшение если актер сидит
-disp_crouch_no_acc_factor	= -0.4 	;уменьшение если актер сидит + no acceleration
+disp_crouch_factor			= -0.3 	;уменьшение если актер сидит
+disp_crouch_no_acc_factor	= -0.6 	;уменьшение если актер сидит + no acceleration
 ;disp_jump_factor			= 2.0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-----
 
 missile_throw_offset = 0.3, 0.5, 0.5
 
-body_remove_time = 60000	;время уничтожения трупа (с учетом TimeFactor)
+body_remove_time = 30000	;время уничтожения трупа (с учетом TimeFactor)
 
 sleep_time_factor			= 1000	;400		;во сколько раз время идет быстрее, когда актер спит
 max_sleep_hours				= 12
@@ -158,7 +159,7 @@ explosion_immunity 			= 1.0
 fire_wound_immunity  		= 1.0
 
 [actor_condition]
-satiety_v					= 0.000015				;скорость уменьшения сытости со временем
+satiety_v					= 0.000005				;скорость уменьшения сытости со временем
 radiation_v					= 0.0001				;скорость уменьшения радиации
 satiety_power_v				= 0.000055				;увеличение силы при уменьшении сытости 
 satiety_health_v			= 0.0001				;увеличение здоровья при уменьшении сытости 
@@ -166,7 +167,7 @@ satiety_critical			= 0.0					;критическое значения сытости (в процентах от 0..1)
 radiation_health_v			= 0.004					;уменьшение здоровья при воздействии радиации
 morale_v					= 0.0001				;скорость восстановления морали 						
 psy_health_v				= 0.001					;скорость восстановления psy-здоровья
-alcohol_v					= -0.0003
+alcohol_v					= -0.0005
 health_hit_part				= 1.0					;процент хита, уходящий на отнимание здоровья
 power_hit_part				= 0.1					;процент хита, уходящий на отнимание силы
 max_power_leak_speed		= 0.0					;накопление усталости (макс граница, до которой восстанавливается сила) в секунду игрового времени
@@ -199,9 +200,9 @@ jump_power				=	0.01			;0.005					;умешьшение силы с прыжком без учета веса ноши
 jump_weight_power			=	0.05		;0.045					;умешьшение силы с прыжком с учетом веса ноши, для максимального допустимого веса
 overweight_jump_k			=	5;10		;10					;коэффициент влияние перегрузки прыжок с весом (умножается на jump_weight_power)
 
-stand_power				=  -0.005								
-walk_power				=	0.00001				;умешьшение силы за секнду во время ходьбы без учета веса ноши
-walk_weight_power		=	0.00005;			;умешьшение силы за секнду во время ходьбы с учетом веса ноши, для максимального допустимого веса
+stand_power				=  -0.01								
+walk_power				=	0.00002				;умешьшение силы за секнду во время ходьбы без учета веса ноши
+walk_weight_power		=	0.0001;			;умешьшение силы за секнду во время ходьбы с учетом веса ноши, для максимального допустимого веса
 overweight_walk_k		=	5;9	;10				;коэффициент влияние перегрузки ноши (умножается на walk_weight_power)
 accel_k					=	3;5					;коэффициент на бег (умножается walk_power, walk_weight_power)
 sprint_k				=	75;150;185;180;200;	;коэффициент на "sprint" бег (умножается walk_power, walk_weight_power)

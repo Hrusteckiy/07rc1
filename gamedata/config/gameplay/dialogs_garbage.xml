@@ -114,9 +114,9 @@
             </phrase>
             <phrase id="3111411121">
                 <text>gar_hellcar_start_3111411121</text>
-                <next>31114111211</next>
+                <next>99939</next> 
             </phrase>
-            <phrase id="31114111211">
+            <phrase id="99939">
                 <text>gar_hellcar_start_31114111211</text>
                 <give_info>gar_add_fake_spot5</give_info>
                 <give_info>gar_add_fake_spot6</give_info>
@@ -511,6 +511,142 @@
                 <text></text>
                 <has_info>gar_kill_boars_request</has_info>
                 <next>1231</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+	<dialog id="gar_seriy_story">      
+        <phrase_list>
+            <phrase id="0">
+                <text>gar_seriy_story_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>gar_seriy_story_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>gar_seriy_story_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="3">
+                <text>gar_seriy_story_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="4">
+                <text>gar_seriy_story_4</text>
+                <next>5</next>
+            </phrase>
+            <phrase id="5">
+                <text>gar_seriy_story_5</text>
+                <next>6</next>
+            </phrase>
+            <phrase id="6">
+                <text>gar_seriy_story_6</text>
+                <next>7</next>
+            </phrase>
+            <phrase id="7">
+                <text>gar_seriy_story_7</text>
+                <next>8</next>
+            </phrase>
+            <phrase id="8">
+                <text>gar_seriy_story_8</text>
+                <next>9</next>
+            </phrase>
+            <phrase id="9">
+                <text>gar_seriy_story_9</text>
+                <next>10</next>
+            </phrase>
+            <phrase id="10">
+                <text>gar_seriy_story_10</text>
+                <next>11</next>
+            </phrase>
+            <phrase id="11">
+                <text>gar_seriy_story_11</text>
+                <next>12</next>
+            </phrase>
+            <phrase id="12">
+                <text>gar_seriy_story_12</text>
+            </phrase>
+        </phrase_list>
+  </dialog>
+  <dialog id="gar_dolg_blokpost_story">        
+        <phrase_list>
+            <phrase id="0">
+                <text>gar_dolg_blokpost_story_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>gar_dolg_blokpost_story_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>gar_dolg_blokpost_story_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="3">
+                <text>gar_dolg_blokpost_story_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="4">
+                <text>gar_dolg_blokpost_story_4</text>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="gar_hellcar_story">        
+        <phrase_list>
+            <phrase id="0">
+                <text>gar_hellcar_story_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>gar_hellcar_story_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>gar_hellcar_story_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="3">
+                <text>gar_hellcar_story_3</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="4">
+                <text>gar_hellcar_story_4</text>
+		<next>5</next>	
+            </phrase>
+            <phrase id="5">
+                <text>gar_hellcar_story_5</text>
+		<next>6</next>	
+            </phrase>
+            <phrase id="6">
+                <text>gar_hellcar_story_6</text>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="gar_seriy_story2">        
+        <phrase_list>
+            <phrase id="0">
+                <text>gar_seriy_story2_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>gar_seriy_story2_1</text>
+                <next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>gar_seriy_story2_2</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="3">
+                <text>gar_seriy_story2_3</text>
+                <next>4</next>
+            </phrase>
+           <phrase id="4">
+                <text>gar_seriy_story2_4</text>
+                <next>5</next>
+            </phrase>
+            <phrase id="5">
+                <text>gar_seriy_story2_5</text>
             </phrase>
         </phrase_list>
     </dialog>

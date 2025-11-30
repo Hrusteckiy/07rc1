@@ -103,30 +103,41 @@ nightvision_sect				= effector_nightvision_good
 
 ;-----------Weapons-----------
 
-[wpn_ak74_m1]:wpn_ak74	;Скорострельный АК-74
+[wpn_ak74_m1]:wpn_ak74	;--- Скорострельный АК-74 ( АК-107 )
 $spawn             				= "weapons\uniq\wpn_ak74_m1"	
 description						= enc_weapons1_wpn-ak74_m1
 inv_name	        			= wpn-ak74_m1
 inv_name_short					= wpn-ak74_m1
+
+fire_modes				= 1, 3, -1
+
+cam_dispersion					= 0.45		
+cam_dispersion_inc				= 0.12
+
+misfire_probability 	= 0.0004	;вероятность осечки при максимальном износе 
+misfire_condition_k		= 0.05
+
 rpm                      		= 850
-condition_shot_dec 				= 0.0001
-cam_dispersion					= 0.05		
-cam_dispersion_inc				= 0.1
+
 inv_grid_x						= 0
 inv_grid_y						= 30
 
-[wpn_abakan_m1]:wpn_abakan	;АH-94 снайперский
+[wpn_abakan_m1]:wpn_abakan	;--- АH-94 снайперский
 $spawn              			= "weapons\uniq\wpn_abakan_m1"	
 description						= enc_weapons1_wpn-abakan_m1
 inv_name	        			= wpn-abakan_m1
 inv_name_short					= wpn-abakan_m1
-fire_dispersion_base			= 0.12
+fire_modes				= 1, 2
+rpm                      		= 1800
+fire_dispersion_base			= 0.15
 scope_status					= 1
 scope_zoom_factor				= 20
-scope_texture					= wpn\wpn_crosshair
-condition_shot_dec 				= 0.0001
+scope_texture					= wpn\HAKKO-15CH-b-AMK-W	;wpn\wpn_crosshair
+condition_shot_dec 				= 0.0005
 inv_grid_x						= 0
 inv_grid_y						= 20
+inv_grid_width					= 5
+inv_grid_height					= 2
 
 [wpn_fort_m1]:wpn_fort	;Экспериментальный Fort
 $spawn              			= "weapons\uniq\wpn_fort_m1"
@@ -166,16 +177,50 @@ ammo_class		 				= ammo_9x18_fmj, ammo_9x18_pmm
 condition_shot_dec 				= 0.00003
 inv_grid_x						= 5
 inv_grid_y						= 33
+slot	=	2
 
-[wpn_groza_m1]:wpn_groza	;Гроза генерала Воронина
+[wpn_groza_m1]:wpn_groza	;--Гроза генерала Воронина
 $spawn             				= "weapons\uniq\wpn_groza_m1"	
 description						= enc_weapons1_wpn-groza_m1
 inv_name	        			= wpn-groza_m1
 inv_name_short					= wpn-groza_m1
+ammo_mag_size		 	= 30
 ammo_class						= ammo_5.45x39_fmj, ammo_5.45x39_ap
-condition_shot_dec 				= 0.00005
-inv_grid_x						= 5
-inv_grid_y						= 29
+
+fire_dispersion_base			= 0.19		;0.000001 ;0.23		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor			= 1.25f
+
+;--отдача
+cam_relax_speed         		= 5.5 		;скорость возврата в исходное положение
+cam_dispersion          	= 0.42	;0.68	;0.98		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.12		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispertion_frac			= 0.85	;0.000001	;0.85		;ствол будет подыматься на cam_dispersion*cam_dispertion_frac +- cam_dispersion*(1-cam_dispertion_frac)
+cam_max_angle					= 9.0		;максимальный угол отдачи
+cam_max_angle_horz				= 12.0		;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 2.4	;2.8	;0.18		;(degree) size of step camera moved in horizontal position while shooting
+;--износ
+fire_dispersion_condition_factor 	= 1.5	  ;увеличение дисперсии в процентах при максимальном износе 
+misfire_probability 	= 0.00003	;вероятность осечки при максимальном износе 
+misfire_condition_k		= 0.02
+condition_shot_dec 		= 0.00015	;увеличение износа при каждом выстреле
+
+hit_power           = 0.54	;0.60, 0.65, 0.68, 0.71
+hit_impulse		 	= 80
+
+fire_distance            	= 200		; maximum fire distance that bullet can fly
+bullet_speed			= 575	;1000		; starting bullet speed	                     ;КОЭФФИЦИЕНТ начальной скорости пули
+
+silencer_status			= 2
+silencer_hit_power       	= 0.78
+silencer_hit_impulse	 	= 50
+silencer_fire_distance   	= 100
+silencer_bullet_speed	 	= 315
+
+scope_status					= 1
+scope_zoom_factor				= 20
+scope_texture					= wpn\HAKKO-15CH-b-AMK-W;wpn\wpn_crosshair
+inv_grid_x						= 20
+inv_grid_y						= 2
 
 [wpn_spas12_m1]:wpn_spas12	;Спас-12 Хантера
 $spawn             				= "weapons\uniq\wpn_spas12_m1"	
@@ -204,9 +249,10 @@ $spawn             				= "weapons\uniq\wpn_l85_m1"
 description						= enc_weapons1_wpn-l85_m1
 inv_name	        			= wpn-l85_m1
 inv_name_short					= wpn-l85_m1
-cam_dispersion					= 0.05		
-cam_dispersion_inc				= 0.1
-condition_shot_dec 				= 0.00005
+cam_dispersion					= 0.75		
+cam_dispersion_inc				= 0.2
+; condition_shot_dec 				= 0.00005
+scope_texture					= wpn\SUSAT-AMK-W ;wpn\wpn_crosshair
 inv_grid_x						= 5
 inv_grid_y						= 25
 
@@ -217,8 +263,10 @@ inv_name						= wpn-lr300_m1
 inv_name_short					= wpn-lr300_m1
 rpm								= 300
 fire_dispersion_base			= 0.09
-scope_texture					= wpn\wpn_crosshair_l85
+fire_modes				= 1
 scope_status					= 1
+scope_zoom_factor				= 20
+scope_texture					= wpn\HAKKO-15CH-b-AMK-W	;wpn\wpn_crosshair
 silencer_status					= 1
 condition_shot_dec 				= 0.00005
 inv_grid_x						= 0
@@ -289,11 +337,12 @@ $spawn             				= "weapons\uniq\wpn_val_m1"
 description						= enc_weapons1_wpn-val_m1
 inv_name						= wpn-val_m1
 inv_name_short					= wpn-val_m1
-scope_status					= 2
-scope_texture					= wpn\wpn_crosshair
+scope_status					= 1
+scope_zoom_factor				= 20
+scope_texture					= wpn\SUSAT-AMK-W ;wpn\wpn_crosshair
 condition_shot_dec 				= 0.00005
-inv_grid_x						= 5
-inv_grid_y						= 31
+inv_grid_x						= 20
+inv_grid_y						= 0
 
 [wpn_mp5_m2]:wpn_mp5	;Модифицированный МП5
 $spawn             				= "weapons\uniq\wpn_mp5_m2"
@@ -306,6 +355,8 @@ condition_shot_dec 				= 0.00003
 inv_grid_x						= 5
 inv_grid_y						= 22
 inv_grid_width					= 4
+
+slot	=	2
 
 smoke_particles 				= weapons\generic_shoot_00
 flame_particles					= 
@@ -331,7 +382,8 @@ inv_name	        			= wpn-l85_m2
 inv_name_short					= wpn-l85_m2
 silencer_status					= 1
 inv_weight						= 3
-condition_shot_dec 				= 0.00005
+; condition_shot_dec 				= 0.00005
+scope_texture					= wpn\SUSAT-AMK-W
 inv_grid_x						= 0
 inv_grid_y						= 24
 
@@ -348,10 +400,31 @@ $spawn             				= "weapons\uniq\wpn_sig_m2"
 description						= enc_weapons1_wpn-sig_m2
 inv_name						= wpn-sig_m2
 inv_name_short					= wpn-sig_m2
+
+fire_modes				= 1, 2
+
 scope_status					= 1
 scope_zoom_factor				= 20
-scope_texture					= wpn\wpn_crosshair_l85
-condition_shot_dec 				= 0.00005
+scope_texture					= wpn\HAKKO-15CH-b-AMK-W	;wpn\wpn_crosshair
+;-----------------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base			= 0.11	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor			= 1.4f
+
+;отдача
+cam_relax_speed         		= 7.5 		;скорость возврата в исходное положение
+cam_dispersion          	= 0.38		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.19		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispertion_frac			= 0.95	;0.000001	;0.85		;ствол будет подыматься на cam_dispersion*cam_dispertion_frac +- cam_dispersion*(1-cam_dispertion_frac)
+cam_max_angle					= 14.0		;максимальный угол отдачи
+cam_max_angle_horz				= 15.0		;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 1.35	;0.18		;(degree) size of step camera moved in horizontal position while shooting
+
+fire_dispersion_condition_factor = 1.5	;увеличение дисперсии в процентах при максимальном износе 
+misfire_probability 	= 0.01	;вероятность осечки при максимальном износе 
+misfire_condition_k		= 0.1
+condition_shot_dec 		= 0.0001 ;увеличение износа при каждом выстреле
+;-----------------------------------------------------------------------------------
 inv_grid_x						= 0
 inv_grid_y						= 22
 
@@ -382,6 +455,7 @@ $spawn             		= "weapons\arena\wpn_pm_arena"
 
 [wpn_mp5_arena]:wpn_mp5;
 $spawn             		= "weapons\arena\wpn_mp5_arena"
+slot	=	2
 
 [wpn_toz34_arena]:wpn_bm16;
 $spawn             		= "weapons\arena\wpn_toz34_arena"

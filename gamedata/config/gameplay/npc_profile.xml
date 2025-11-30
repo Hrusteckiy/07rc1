@@ -1190,7 +1190,6 @@
 		<class>sim_Soldier_master</class>
 	</character>
 
-  ;-----Quest Npc---------
   	<character id="sim_stalker_veteran_gusarov">
 		<class>sim_stalker_veteran_gusarov</class>
 	</character>
@@ -1254,9 +1253,6 @@
 	<character id="sim_stalker_master_polkan">
 		<class>sim_stalker_master_polkan</class>
 	</character>
-
-
-;---------ARENA----------------
 
 	<character id="bar_arena_stalker_1">
 		<class>bar_arena_stalker_1</class>
@@ -1349,8 +1345,6 @@
 	<character id="bar_arena_respawner">
 		<class>bar_arena_respawner</class>
 	</character>
-
-		;-----Test NPCs for level selo_face---------
 
 	<character id="sim_test_000">
 		<class>sim_test_000</class>
@@ -1811,4 +1805,15 @@
 	<character id="sim_test_114">
 		<class>sim_test_114</class>
 	</character>
+
+	 <character id="gar_stalker_flame_quest">
+        <class>gar_stalker_flame_quest</class>
+<specific_character>gar_stalker_flame_quest</specific_character>
+
+    </character>
+
+
+#include "gameplay\amk_npc_profile.xml"
+
+
 </xml>

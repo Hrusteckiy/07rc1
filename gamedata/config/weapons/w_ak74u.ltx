@@ -26,10 +26,11 @@ weapon_class			= assault_rifle		; the type of the box that will be used in buy-m
 ammo_limit				= 210				; obsolete
 ammo_elapsed			= 30				; obsolete
 	
-ammo_mag_size			= 30				; clip (magazine) size
+ammo_mag_size			= 45				; clip (magazine) size
 fire_modes				= 1, -1
+f_mode				= 2
 
-ammo_class				= ammo_5.45x39_fmj, ammo_5.45x39_ap   ; name of the ltx-section of used ammo 
+ammo_class				= ammo_5.45x39_ap,ammo_5.45x39_fmj   ; name of the ltx-section of used ammo 
 
 hand_dependence			= 1									; how many hands (1 or 2) we used to hold weapon in
 single_handed			= 0
@@ -66,22 +67,23 @@ kill_msg_height		= 30
 ;
 ;-----------------------------------------------------------------------------------
 ;params of weapon recoil
-fire_dispersion_base			= 0.35		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+fire_dispersion_base			= 0.24		;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
 control_inertion_factor			= 1.09f
+disp_rate = 1.65
 
 ;отдача
-cam_relax_speed         		= 6;0.3		;скорость возврата в исходное положение
-cam_dispersion          		= 0.3		;увеличения угла (в градусах) с каждым выстрелом
-cam_dispersion_inc			= 0.20;0.15		;увеличениe cam_dispersion с каждым выстрелом
-cam_dispersion_frac			= 0.9		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle				= 9.0		;максимальный угол отдачи
-cam_max_angle_horz			= 30.0		;(degree) maximum shot horizontal degree 
-cam_step_angle_horz			= 1.25;1.1		;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed         		= 5.5		;скорость возврата в исходное положение
+cam_dispersion          	= 0.37		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc			= 0.2		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac			= 1	;0.69		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle					= 15.0		;максимальный угол отдачи
+cam_max_angle_horz				= 15.0		;(degree) maximum shot horizontal degree 
+cam_step_angle_horz				= 1.5 		;(degree) size of step camera moved in horizontal position while shooting
 
 fire_dispersion_condition_factor 	= 5		;увеличение дисперсии в процентах при максимальном износе 
 misfire_probability 		= 0.003	;вероятность осечки при максимальном износе 
 misfire_condition_k			= 0.05
-condition_shot_dec 			= 0.0001	;увеличение износа при каждом выстреле
+condition_shot_dec 			= 0.00006	;увеличение износа при каждом выстреле
 ;-----------------------------------------------------------------------------------
 
 fire_point             		=  0.0, 0.262, 0.447		; position (3rd person view) for particles of fire 
@@ -94,28 +96,29 @@ grenade_flame_particles		= weapons\generic_weapon01
 shell_point		 			= 0.00, 0.262, 0.189			; position (3rd person view) for shell to throw out
 shell_particles	 			= weapons\generic_shells	; name of the particles for shells
 
-PDM_disp_base 				= 1.0
-PDM_disp_vel_factor 			= 0.95
-PDM_disp_accel_factor 			= 0.95
-PDM_crouch	 			= 1.0
+PDM_disp_base 				= 7.5
+PDM_disp_vel_factor 		= 1.4
+PDM_disp_accel_factor 		= 1.3
+PDM_crouch	 				= 1.0
 PDM_crouch_no_acc 			= 1.0
 
 ; ttc
-hit_power               = 0.32, 0.36, 0.39, 0.42		;size of damage by bullet
-hit_impulse		 		= 140		;size of physic impulse by bullet	
-hit_type 				= fire_wound 	;[] type of the wound
+hit_power               	= 0.53, 0.55, 0.56, 0.58		;0.48, 0.50, 0.52, 0.56		;0.38, 0.41, 0.44, 0.47		;size of damage by bullet
+hit_impulse		 			= 70		;size of physic impulse by bullet	
+hit_type 					= fire_wound 	;[] type of the wound
+hit_rate	= 1.85
 
-fire_distance            		= 200 ;1000		;maximum fire distance that bullet can fly
-bullet_speed				= 790		;starting bullet speed
-rpm                      		= 600;735		;max round per minute
+fire_distance            	= 160 		;maximum fire distance that bullet can fly
+bullet_speed				= 480		;starting bullet speed
+rpm                      	= 700 ;735		;max round per minute
 
-use_aim_bullet				= true		;Поддерживается ли первая суппер пуля
+use_aim_bullet				= false	;true		;Поддерживается ли первая суппер пуля
 time_to_aim					= 1.0	
 
-silencer_hit_power       		= 0.32
-silencer_hit_impulse	 		= 120
-silencer_fire_distance   		= 250
-silencer_bullet_speed	 		= 600
+silencer_hit_power       	= 0.65
+silencer_hit_impulse	 	= 65
+silencer_fire_distance   	= 100
+silencer_bullet_speed	 	= 315
 
 hud                      	= wpn_ak74u_hud				; name of the section of the hud
 
@@ -142,8 +145,9 @@ ph_mass						= 5							; physic mass (kg)
 
 ;addons
 scope_status				= 0							; 0 - no addon
-silencer_status				= 0;2							; 1 - permanent
+silencer_status				= 2							; 1 - permanent
 grenade_launcher_status		= 0							; 2 - attachable
+
 
 zoom_enabled				= true						; (on,off)zoom mode (right mouse button)
 scope_zoom_factor	    	= 50						; fov for zoom mode

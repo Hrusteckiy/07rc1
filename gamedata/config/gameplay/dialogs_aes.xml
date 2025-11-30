@@ -83,6 +83,7 @@
             <phrase id="0">
                 <text>oso_what_about_me_0</text>
                 <give_info>oso_what_about_me</give_info>
+                <give_info>cit_fail_first_task</give_info>
                 <next>1</next>
             </phrase>
             <phrase id="1">

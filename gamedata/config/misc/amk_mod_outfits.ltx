@@ -1,0 +1,753 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	 ,,,,,      ,,,,,,,    ,,,,,,_  ,,,,,,,,  ,,,,,,   
+;       MMMMM1     M0MMMM&    MMMMM@'  MMMMMM0"  MMMM0!   
+;       4MMMM#      ^MMMMMr   MMMMMf    #MMMM&    B0'     
+;      &]MMMMMc      #MMMM# ] MMMMMf    #MMMM&   j#       
+;      M 0MMMM&       MMMMML# MMMMMf    #MMMM&  pM&       
+;     pY 4MMMMM     ] #MMMMM# MMMMMf    #MMMM& pMMMt      
+;     M   MMMMMc    ]& MMMMMf MMMMMf    #MMMM&]MMMM0      
+;    ]#   0MMMM&    ]M #MMMM  MMMMMf    #MMMM& MMMMM&     
+;    QfjMMMMMMMM    ]M  MMMf  MMMMMf    #MMMM& 4MMMMM     
+;   _M    "MMMMMf   ]M  BMM   MMMMMf    #MMMM&  MMMMM&    
+;  _Q#     MMMMM&   jMg  M8  _MMMMMf    BMMMM&  jMMMMM,   
+; 4MMMM   #MMMMMM# 0MMM& B  ]MMMMMMM&  0MMMMMM&]MMMMMMMt  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;AMK Outfits (Базируется на Lexx Antigas Mod)
+
+;##########################################################################
+;# Нейтралы
+;##########################################################################
+
+[neytral_novice_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\novice_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\novice_suit
+actor_visual	= actors\novice\green_stalker_10.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= neytral_novice_outfit_m1_name
+inv_name_short		= neytral_novice_outfit_m1_name
+description			= neytral_novice_outfit_m1_description
+inv_weight			= 3.0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 14
+inv_grid_y			= 27
+
+full_icon_name		= npc_icon_neytral_novice_outfit_m1
+
+cost				= 1000
+slot				= 6
+full_scale_icon		= 0,11
+
+immunities_sect			= sect_neytral_novice_outfit_m1_immunities
+
+; NO RESISTANCE
+burn_protection 				= 0.1
+strike_protection 				= 0.1
+shock_protection 				= 0.1
+wound_protection				= 0.1
+radiation_protection 			= 0.0
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.1
+explosion_protection 			= 0.1
+fire_wound_protection  			= 0.1
+
+bones_koeff_protection = kurtka_mask_damage
+
+[sect_neytral_novice_outfit_m1_immunities]
+burn_immunity				= 0.04
+strike_immunity				= 0.01
+shock_immunity				= 0.04
+wound_immunity				= 0.025
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.015
+
+;#######################################################################################
+
+[neytral_novice_gaz_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\novice_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\novice_suit
+actor_visual	= actors\novice\green_stalker_antigas.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= novice_gaz_outfit_m1_name
+inv_name_short		= novice_gaz_outfit_m1_name
+description			= novice_gaz_outfit_m1_description
+inv_weight			= 2.5
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 12
+inv_grid_y			= 27
+
+full_icon_name		= npc_icon_neytral_novice_gaz_outfit_m1
+
+cost				= 1500
+slot				= 6
+full_scale_icon		= 0,11
+
+immunities_sect			= sect_neytral_novice_gaz_outfit_m1_immunities
+
+; NO RESISTANCE
+burn_protection 				= 0.1
+strike_protection 				= 0.1
+shock_protection 				= 0.1
+wound_protection				= 0.1
+radiation_protection 			= 0.2
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.1
+explosion_protection 			= 0.1
+fire_wound_protection  			= 0.1
+
+bones_koeff_protection = kurtka_mask_damage
+
+[sect_neytral_novice_gaz_outfit_m1_immunities]
+burn_immunity				= 0.04
+strike_immunity				= 0.01
+shock_immunity				= 0.04
+wound_immunity				= 0.025
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.015
+
+;#######################################################################################
+
+[neytral_gaz_outfit_m1]:stalker_outfit
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "outfit\stalker_outfit"
+;$prefetch 			= 32
+class				= E_STLK
+cform           	= skeleton
+visual          	= equipments\stalker_suit
+actor_visual		= actors\neytral\stalker_neytral_hood_9.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= neytral_gaz_outfit_m1_name
+inv_name_short		= neytral_gaz_outfit_m1_name
+description			= neytral_gaz_outfit_m1_description
+inv_weight			= 4.0
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 16
+inv_grid_y			= 24
+full_icon_name		= npc_icon_neytral_gaz_outfit_m1
+
+cost				= 18000
+slot				= 6
+full_scale_icon		= 14,11			
+nightvision_sect	= effector_nightvision_bad
+
+immunities_sect		= sect_neytral_gaz_outfit_m1_immunities
+
+
+; LOW RESISTANCE
+burn_protection 				= 0.6
+strike_protection 				= 0.5
+shock_protection 				= 0.5
+wound_protection				= 0.4
+radiation_protection 			= 0.5
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.5
+explosion_protection 			= 0.3
+fire_wound_protection  			= 0.3
+
+
+bones_koeff_protection = gilet_antigas_damage
+
+[sect_neytral_gaz_outfit_m1_immunities]
+burn_immunity				= 0.03
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.010
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.02
+explosion_immunity			= 0.03
+fire_wound_immunity			= 0.01
+
+
+[neytral_gaz_outfit_m2]:stalker_outfit
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "outfit\stalker_outfit"
+;$prefetch 			= 32
+class				= E_STLK
+cform           	= skeleton
+visual          	= equipments\stalker_suit
+actor_visual		= actors\neytral\stalker_neytral_hood_9.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= neytral_gaz_outfit_m2_name
+inv_name_short		= neytral_gaz_outfit_m2_name
+description			= neytral_gaz_outfit_m2_description
+inv_weight			= 4.5
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 16
+inv_grid_y			= 24
+full_icon_name		= npc_icon_neytral_gaz_outfit_m1
+
+cost				= 22000
+slot				= 6
+full_scale_icon		= 14,11			
+nightvision_sect	= effector_nightvision_good
+
+immunities_sect		= sect_neytral_gaz_outfit_m2_immunities
+
+
+; LOW RESISTANCE
+burn_protection 				= 0.75
+strike_protection 				= 0.5
+shock_protection 				= 0.5
+wound_protection				= 0.4
+radiation_protection 			= 0.65
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.75
+explosion_protection 			= 0.3
+fire_wound_protection  			= 0.3
+
+
+bones_koeff_protection = gilet_antigas_damage
+
+[sect_neytral_gaz_outfit_m2_immunities]
+burn_immunity				= 0.03
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.010
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.02
+explosion_immunity			= 0.03
+fire_wound_immunity			= 0.01
+
+;#######################################################################################
+
+[neytral_exo_gaz_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\exo_outfit"
+$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\exoskelet	
+actor_visual	= actors\neytral\stalker_neytral_exoskeleton.ogf
+
+ef_equipment_type	= 5
+
+inv_name			= neytral_exo_gaz_outfit_m1_name
+inv_name_short		= neytral_exo_gaz_outfit_m1_name
+description			= neytral_exo_gaz_outfit_m1_description
+inv_weight			= 12.0
+slot				= 6
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 14
+inv_grid_y			= 29
+full_icon_name		= npc_icon_neytral_exo_gaz_outfit_m1
+nightvision_sect	= effector_nightvision_bad
+
+cost				= 55000
+full_scale_icon		= 2,11
+
+immunities_sect			= sect_neytral_exo_gaz_outfit_m1_immunities
+
+; MEDIUM RESISTANCE
+burn_protection 				= 0.4
+strike_protection 				= 0.6
+shock_protection 				= 0.5
+wound_protection				= 0.6
+radiation_protection 			= 0.3
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.5
+explosion_protection 			= 0.5
+fire_wound_protection  			= 0.60
+
+sprint_allowed					= false
+bones_koeff_protection			= exo_helmet_damage
+additional_inventory_weight		= 5
+additional_inventory_weight2	= 5
+
+[sect_neytral_exo_gaz_outfit_m1_immunities]
+burn_immunity				= 0.03
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.020
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.010
+
+;##########################################################################
+;# Бандиты
+;##########################################################################
+
+[bandit_gaz_outfit_m1]:bandit_outfit
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\bandit_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\bandit_suit
+actor_visual	= actors\bandit\stalker_bandit_8.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= bandit_gaz_outfit_m1_name
+inv_name_short		= bandit_gaz_outfit_m1_name
+description			= bandit_gaz_outfit_m1_description
+inv_weight			= 3.5
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 14
+inv_grid_y			= 21
+full_icon_name		= npc_icon_bandit_gaz_outfit_m1
+
+cost				= 4000
+slot				= 6
+full_scale_icon		= 0,6
+
+immunities_sect			= sect_bandit_gaz_outfit_m1_immunities
+
+; NO RESISTANCE
+burn_protection 				= 0.1
+strike_protection 				= 0.1
+shock_protection 				= 0.1
+wound_protection				= 0.15
+radiation_protection 			= 0.2
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.1
+explosion_protection 			= 0.1
+fire_wound_protection  			= 0.15
+
+bones_koeff_protection = kurtka_antigas_damage
+
+[sect_bandit_gaz_outfit_m1_immunities]
+burn_immunity				= 0.04
+strike_immunity				= 0.01
+shock_immunity				= 0.04
+wound_immunity				= 0.025
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.015
+
+;#######################################################################################
+
+[bandit_veteran_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\bandit_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\bandit_suit
+actor_visual	= actors\bandit\stalker_bandit_veteran.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= bandit_veteran_outfit_m1_name
+inv_name_short		= bandit_veteran_outfit_m1_name
+description			= bandit_veteran_outfit_m1_description
+inv_weight			= 3.5
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 16
+inv_grid_y			= 27
+full_icon_name		= npc_icon_bandit_veteran_outfit_m1
+
+cost				= 4500
+slot				= 6
+full_scale_icon		= 0,6
+
+immunities_sect			= sect_bandit_veteran_outfit_m1_immunities
+
+; NO RESISTANCE
+burn_protection 				= 0.2
+strike_protection 				= 0.1
+shock_protection 				= 0.1
+wound_protection				= 0.2
+radiation_protection 			= 0.0
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.1
+explosion_protection 			= 0.1
+fire_wound_protection  			= 0.2
+
+bones_koeff_protection = kurtka_antigas_damage
+
+[sect_bandit_veteran_outfit_m1_immunities]
+burn_immunity				= 0.04
+strike_immunity				= 0.01
+shock_immunity				= 0.04
+wound_immunity				= 0.025
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.015
+
+;##########################################################################
+;# Свобода
+;##########################################################################
+
+[svoboda_gaz_outfit_m1]:svoboda_light_outfit
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\svoboda_light_outfit"
+$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\svoboda_light_suit
+actor_visual	= actors\svoboda\stalker_sv_hood_91.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= outfit_svoboda_gaz_m1_name
+inv_name_short		= outfit_svoboda_gaz_m1_name
+description			= outfit_svoboda_gaz_m1_description
+inv_weight			= 5.0
+slot				= 6
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 12
+inv_grid_y			= 24
+cost				= 11500
+full_scale_icon		= 10,11		
+
+full_icon_name		= npc_icon_svoboda_gaz_outfit_m1
+
+immunities_sect			= sect_svoboda_gaz_outfit_m1_immunities
+
+; LOW RESISTANCE
+burn_protection 				= 0.3
+strike_protection 				= 0.5
+shock_protection 				= 0.5
+wound_protection				= 0.3
+radiation_protection 			= 0.6
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.6
+explosion_protection 			= 0.25
+fire_wound_protection  			= 0.3
+
+power_loss = 0.77
+bones_koeff_protection = gilet_mask_damage
+
+[sect_svoboda_gaz_outfit_m1_immunities]
+burn_immunity				= 0.04			;коэффициенты иммунитета самого костюма
+strike_immunity				= 0.01
+shock_immunity				= 0.04
+wound_immunity				= 0.020
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.012
+
+;#######################################################################################
+
+[svoboda_heavy_gaz_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\svoboda_heavy_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\svoboda_heavy_suit
+actor_visual	= actors\svoboda\stalker_sv_hood_9.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= svoboda_heavy_gaz_outfit_m1_name
+inv_name_short		= svoboda_heavy_gaz_outfit_m1_name
+description			= svoboda_heavy_gaz_outfit_m1_description
+inv_weight			= 6.5
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 18
+inv_grid_y			= 27
+full_icon_name		= npc_icon_svoboda_heavy_gaz_outfit_m1
+nightvision_sect	= effector_nightvision_bad
+
+cost				= 15000
+slot				= 6
+full_scale_icon		= 2,6
+
+immunities_sect			= sect_svoboda_heavy_gaz_outfit_m1_immunities
+
+; MEDIUM RESISTANCE
+burn_protection 				= 0.5
+strike_protection 				= 0.6
+shock_protection 				= 0.5
+wound_protection				= 0.5
+radiation_protection 			= 0.6
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.5
+explosion_protection 			= 0.45
+fire_wound_protection  			= 0.4
+
+bones_koeff_protection = kombez_antigas_damage
+
+[sect_svoboda_heavy_gaz_outfit_m1_immunities]
+burn_immunity				= 0.03
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.015
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.03
+explosion_immunity			= 0.03
+fire_wound_immunity			= 0.01
+
+;#######################################################################################
+
+[svoboda_yellow_exo_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\exo_outfit"
+$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\exoskelet_sv_skunk	
+actor_visual	= actors\svoboda\stalker_sv_exoskeleton.ogf
+
+ef_equipment_type	= 5
+
+inv_name			= svoboda_yellow_exo_outfit_m1_name
+inv_name_short		= svoboda_yellow_exo_outfit_m1_name
+description			= svoboda_yellow_exo_outfit_m1_description
+inv_weight			= 14.0
+slot				= 6
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 14
+inv_grid_y			= 24
+full_icon_name		= npc_icon_svoboda_yellow_exo_outfit_m1
+nightvision_sect	= effector_nightvision_bad
+
+cost				= 70000
+full_scale_icon		= 2,11
+
+immunities_sect			= sect_svoboda_yellow_exo_outfit_m1_immunities
+
+; MEDIUM RESISTANCE
+burn_protection 				= 0.5
+strike_protection 				= 0.9
+shock_protection 				= 0.5
+wound_protection				= 0.8
+radiation_protection 			= 0.7
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.5
+explosion_protection 			= 0.8
+fire_wound_protection  			= 0.60
+
+sprint_allowed					= false
+bones_koeff_protection			= exo_helmet_damage
+additional_inventory_weight		= 15
+additional_inventory_weight2	= 15 ; 40+
+
+[sect_svoboda_yellow_exo_outfit_m1_immunities]
+burn_immunity				= 0.03
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.01
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.03
+explosion_immunity			= 0.03
+fire_wound_immunity			= 0.005
+
+;##########################################################################
+;# Долг
+;##########################################################################
+
+[dolg_gaz_outfit_m1]:dolg_outfit
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\dolg_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\dolg_suit
+actor_visual	= actors\dolg\stalker_do_antigas.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= dolg_outfit_gaz_m1_name
+inv_name_short		= dolg_outfit_gaz_m1_name
+description			= dolg_outfit_gaz_m1_description
+inv_weight			= 5.5
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 16
+inv_grid_y			= 21
+full_icon_name		= npc_icon_dolg_gaz_outfit_m1
+
+cost				= 16000
+slot				= 6
+full_scale_icon		= 8,11			
+nightvision_sect	= effector_nightvision_bad
+
+immunities_sect			= sect_dolg_gaz_outfit_m1_immunities
+
+; LOW RESISTANCE
+burn_protection 				= 0.5
+strike_protection 				= 0.5
+shock_protection 				= 0.5
+wound_protection				= 0.5
+radiation_protection 			= 0.7
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.5
+explosion_protection 			= 0.4
+fire_wound_protection  			= 0.4
+
+bones_koeff_protection = kombez_antigas_damage
+
+[sect_dolg_gaz_outfit_m1_immunities]
+burn_immunity				= 0.02
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.015
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.02
+explosion_immunity			= 0.03
+fire_wound_immunity			= 0.01
+
+
+;##########################################################################
+;# Наемники
+;##########################################################################
+
+[killer_gaz_outfit_m1]:killer_outfit
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\uniq\outfit_killer_m1"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\stalker_killer_suit
+actor_visual	= actors\killer\stalker_ki_antigas.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= killer_gaz_outfit_m1_name
+inv_name_short		= killer_gaz_outfit_m1_name
+description			= killer_gaz_outfit_m1_description
+inv_weight			= 5.5
+slot				= 6
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 18
+inv_grid_y			= 21
+full_icon_name		= npc_icon_killer_gaz_outfit_m1
+
+cost				= 6500
+full_scale_icon		= 4,11
+
+immunities_sect			= sect_killer_gaz_outfit_m1_immunities
+
+; LOW RESISTANCE
+burn_protection 				= 0.3
+strike_protection 				= 0.2
+shock_protection 				= 0.3
+wound_protection				= 0.2
+radiation_protection 			= 0.5
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.2
+explosion_protection 			= 0.25
+fire_wound_protection  			= 0.2
+
+bones_koeff_protection = gilet_antigas_damage
+
+[sect_killer_gaz_outfit_m1_immunities]
+burn_immunity				= 0.04
+strike_immunity				= 0.01
+shock_immunity				= 0.04
+wound_immunity				= 0.020
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.04
+explosion_immunity			= 0.04
+fire_wound_immunity			= 0.012
+
+;##########################################################################
+;# Монолит, хренов
+;##########################################################################
+
+[monolit_gaz_outfit_m1]:outfit_base
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 			= "outfit\monolit_outfit"
+;$prefetch 		= 32
+class			= E_STLK
+cform           = skeleton
+visual          = equipments\monolit_suit
+actor_visual	= actors\monolit\stalker_mo_hood_9.ogf
+
+ef_equipment_type	= 3
+
+inv_name			= monolit_gaz_outfit_m1_name
+inv_name_short		= monolit_gaz_outfit_m1_name
+description			= monolit_gaz_outfit_m1_description
+inv_weight			= 5.5
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 18
+inv_grid_y			= 30
+full_icon_name		= npc_icon_monolit_gaz_outfit_m1
+
+cost				= 15000
+slot				= 6
+full_scale_icon		= 6,11
+
+immunities_sect			= sect_monolit_gaz_outfit_m1_immunities
+
+; LOW RESISTANCE
+burn_protection 				= 0.5
+strike_protection 				= 0.6
+shock_protection 				= 0.6
+wound_protection				= 0.4
+radiation_protection 			= 0.6
+telepatic_protection 			= 0.0
+chemical_burn_protection 		= 0.5
+explosion_protection 			= 0.4
+fire_wound_protection  			= 0.5
+
+bones_koeff_protection = kombez_mask_damage
+
+[sect_monolit_gaz_outfit_m1_immunities]
+burn_immunity				= 0.03
+strike_immunity				= 0.01
+shock_immunity				= 0.03
+wound_immunity				= 0.015
+radiation_immunity			= 0.00
+telepatic_immunity			= 0.00
+chemical_burn_immunity		= 0.03
+explosion_immunity			= 0.03
+fire_wound_immunity			= 0.01
+
+
+

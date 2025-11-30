@@ -7,7 +7,7 @@ angular_factor    		= 0.5
 
 [car_definition]
 
-camera_pos        		= -0.4, 1.7, 2.4
+camera_pos        		= -0.4, 2.7, 2.4
 
 driving_wheels    		= front_left_wheel,front_right_wheel,front_left_wheel2,front_right_wheel2,back_left_wheel,back_right_wheel,back_left_wheel2,back_right_wheel2  	; ведущие колёса
 steering_wheels   		= front_left_wheel,front_right_wheel,front_left_wheel2,front_right_wheel2,back_left_wheel,back_right_wheel ; рулевые колёса
@@ -24,7 +24,7 @@ damage              	= damage_bones
 
 fuel_tank         		= 250.         	; L
 fuel_consumption  		= 0.1	       	; L / (100k R); liters per 100 000 rotations
-engine_power      		= 25        	; horse_power (kW=hp*0.808) max power
+engine_power      		= 200        	; horse_power (kW=hp*0.808) max power
 max_power_rpm     		= 2300        	; (nominal rpm ) on this rpm value engine power reaches maximum
 max_torque_rpm    		= 1600.       	; on this rpm engine torque reaches maximum
 
@@ -154,16 +154,16 @@ right_door            = 2000
 ;------ collisiondamage --------------------------------------------------------
 
 [collision_damage]
-root                  = 0.0001
-kabina                = 0.0001
-back_left_wheel       = 0.00001
-back_right_wheel      = 0.00001
-back_left_wheel2      = 0.00001
-back_right_wheel2     = 0.00001
-front_left_wheel      = 0.00001
-front_right_wheel     = 0.00001
-front_left_wheel2     = 0.00001
-front_right_wheel2    = 0.00001
+root                  = 0; 0.0001
+kabina                = 0; 0.0001
+back_left_wheel       = 0; 0.00001
+back_right_wheel      = 0; 0.00001
+back_left_wheel2      = 0; 0.00001
+back_right_wheel2     = 0; 0.00001
+front_left_wheel      = 0; 0.00001
+front_right_wheel     = 0; 0.00001
+front_left_wheel2     = 0; 0.00001
+front_right_wheel2    = 0; 0.00001
 
 ;-------------------------------------------------------------------------------
 ;------ damage bones -----------------------------------------------------------
@@ -177,7 +177,7 @@ default       			= 1, -1, 0.1
 
 [immunities]
 burn_immunity         	= 0.5       ;коэффициенты иммунитета
-strike_immunity       	= 0.1
+strike_immunity       	= 0.0
 shock_immunity        	= 0.0
 wound_immunity        	= 0.0
 radiation_immunity    	= 0.0

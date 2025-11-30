@@ -20,7 +20,7 @@
 		<text>Найти документы</text>
 	</string>
 	<string id="bar_darklab_documents2_2">
-		<text>Принести документу бармену</text>
+		<text>Принести документу Бармену</text>
 	</string>
 	<string id="dar_codedoor_1">
 		<text>Открыть кодовую дверь</text>
@@ -56,7 +56,7 @@
 		<text>Вернуться к торговцу</text>
 	</string>
 	<string id="val_come_to_trader_1">
-		<text>Выбраться из Темной Долины</text>
+		<text>Выбраться из Тёмной долины</text>
 	</string>
 	<string id="val_come_to_trader_2">
 		<text>Показать документы торговцу</text>

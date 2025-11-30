@@ -104,7 +104,7 @@ id = mil_cook_common1,mil_cook_common2,mil_cook_common3,mil_cook_common4,mil_coo
 
 
 -----------------------------------------------------------
-pl:убираем состояние раненого для снайпера
+;pl:убираем состояние раненого для снайпера
 -----------------------------------------------------------
 [wounded_ignore@mil_sniper]
 hp_state        = 0|wounded_heavy@help_heavy
@@ -286,7 +286,7 @@ path_look = trader_look1
 meet = meet@mil_freedom_trader
 danger = danger@mil_freedom
 
-[meet@mil_freedrader]
+[meet@mil_freedom_trader]
 meet_state = 5|wait_trade@talk_hello
 meet_state_wpn = 5|backoff@threat_weap
 victim = 5|actor
@@ -375,7 +375,7 @@ meet_state = 7 | guard
 meet_state_wpn = 7|threat_fire     ;  pl: %=killactor =set_actor_enemy_for_freedom%
 victim = 7|actor
 victim_wpn = 7|actor
-use	= false
+use = false
 use_wpn = false
 
 
@@ -568,7 +568,7 @@ meet_state_wpn = 5|wait@talk_hello
 ;meet_state_wpn = 10|{+mil_zoneguard_talk} wait, threat@ {+mil_zoneguard_talk} mil_freedom_zoneguard, mil_freedom_zoneguard|5|guard
 victim = 10|actor
 victim_wpn = 10|actor
-use	= true
+use = true
 use_wpn = true
 zone = mil_freedom_kill_enter_zone|{-mil_zoneguard_talk} true
 meet_dialog = mil_zoneguard_dialog

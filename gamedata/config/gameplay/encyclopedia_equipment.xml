@@ -72,9 +72,19 @@
 
     <!-------------------------------- Detect1 ----------------------------->
 
-    <article id="equipment_devic_detect1" name="Detect1" group="Equipment/Devic">
+        <article id="equipment_devic_detect1" name="Detect1" group="Equipment/Devic">
         <ltx>detector_simple</ltx>
         <text>enc_equipment_devic_detect1</text>
+    </article>
+
+	<article id="equipment_devic_detect2" name="Detect2" group="Equipment/Devic">
+        <ltx>detector_advances</ltx>
+        <text>enc_equipment_devic_detect2</text>
+    </article>
+
+	<article id="equipment_devic_detect3" name="Detect3" group="Equipment/Devic">
+        <ltx>detector_elite</ltx>
+        <text>enc_equipment_devic_detect3</text>
     </article>
 
     <!-------------------------------- Binocul ----------------------------->
@@ -84,12 +94,6 @@
         <text>enc_equipment_devic_binocul1</text>
     </article>
 
-    <!-------------------------------- Detect4 ----------------------------->
-
-    <article id="equipment_items_detect4" name="Detect4" group="Equipment/Items">
-        <texture x="250" y="250" width="250" height="100">ui\ui_icon_equipment</texture>
-        <text>enc_equipment_items_detect4</text>
-    </article>
 
     <!-------------------------------- Health ----------------------------->
 

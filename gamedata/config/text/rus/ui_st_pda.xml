@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="actor_btn_hint">
-		<text>Центр на Меченом</text>
+		<text>Центрировать на Меченом</text>
 	</string>
 	<string id="add_spot_btn_hint">
 		<text>Добавить новую отметку</text>
@@ -13,7 +13,7 @@
 		<text>Справка</text>
 	</string>
 	<string id="global_map_btn_hint">
-		<text>На карту зоны</text>
+		<text>На карту Зоны</text>
 	</string>
 	<string id="level_changer_invitation">
 		<text>Перейти на другую локацию?</text>
@@ -49,7 +49,7 @@
 		<text>Справка</text>
 	</string>
 	<string id="pda_btn_encyclopedia_hint">
-		<text>Показать энциклопедию по Зоне</text>
+		<text>Показать информацию о Зоне</text>
 	</string>
 	<string id="pda_btn_failed">
 		<text>Проваленные</text>
@@ -139,13 +139,13 @@
 		<text>Отношения с группировками</text>
 	</string>
 	<string id="st_detail_list_for_monsterkills">
-		<text>Убийство мутантов</text>
+		<text>Убито мутантов</text>
 	</string>
 	<string id="st_detail_list_for_quests">
-		<text>Выполненные задания</text>
+		<text>Выполненные квесты</text>
 	</string>
 	<string id="st_detail_list_for_stalkerkills">
-		<text>Убийство сталкеров</text>
+		<text>Убито сталкеров</text>
 	</string>
 	<string id="st_map_actor">
 		<text>Меченый</text>
@@ -157,19 +157,19 @@
 		<text>Артефакты</text>
 	</string>
 	<string id="st_pda_detail_info">
-		<text>Детальная информация</text>
+		<text>Подробная информация</text>
 	</string>
 	<string id="st_pda_monster_kills">
-		<text>Убийство мутантов</text>
+		<text>Убито мутантов</text>
 	</string>
 	<string id="st_pda_player_statistic">
 		<text>Статистика игрока</text>
 	</string>
 	<string id="st_pda_quest_complete">
-		<text>Выполненные квесты</text>
+		<text>Выполнено квестов</text>
 	</string>
 	<string id="st_pda_stalker_kills">
-		<text>Убийство сталкеров</text>
+		<text>Убито сталкеров</text>
 	</string>
 	<string id="st_pda_statistic_reputation">
 		<text>Репутация:</text>
@@ -178,7 +178,7 @@
 		<text>Статистика</text>
 	</string>
 	<string id="st_pda_task_detail_information">
-		<text>Детальная информация о задании</text>
+		<text>Подробная информация о задании</text>
 	</string>
 	<string id="st_pda_top20">
 		<text>Лучшая 20-ка сталкеров</text>
@@ -189,9 +189,6 @@
 	<string id="st_tip">
 		<text>Сообщение</text>
 	</string>
-	<string id="svoboda_outfit_description_m1">
-		<text>В комбинезон интегрирована металлическая сетка, защищающая от электрических и магнитных полей. В комплект также включен прибор ночного видения.</text>
-	</string>
 	<string id="Tasks">
 		<text>Задания</text>
 	</string>
@@ -199,9 +196,12 @@
 		<text>Время</text>
 	</string>
 	<string id="zoom_in_btn_hint">
-		<text>масштаб +</text>
+		<text>Увеличить масштаб</text>
 	</string>
 	<string id="zoom_out_btn_hint">
-		<text>масштаб -</text>
+		<text>Уменьшить масштаб</text>
+	</string>
+	<string id="st_detail_list_for_foo">
+		<text>Статистика</text>
 	</string>
 </string_table>

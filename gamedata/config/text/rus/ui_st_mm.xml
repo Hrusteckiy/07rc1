@@ -43,13 +43,13 @@
 		<text>дождь</text>
 	</string>
 	<string id="renderer_r1">
-		<text>Статичное освещение</text>
+		<text>статическое освещение</text>
 	</string>
 	<string id="renderer_r2">
-		<text>Полное динамическое освещение</text>
+		<text>полное динамическое освещение</text>
 	</string>
 	<string id="renderer_r2a">
-		<text>Динамическое освещение объектов</text>
+		<text>динамическое освещение объектов</text>
 	</string>
 	<string id="st_artefacthunt">
 		<text>Охота за артефактом</text>
@@ -76,28 +76,28 @@
 		<text>Команда против команды</text>
 	</string>
 	<string id="testers_mp_agroprom">
-		<text>Завод "Агропром"</text>
+		<text>Агропром</text>
 	</string>
 	<string id="testers_mp_atp">
 		<text>АТП</text>
 	</string>
 	<string id="testers_mp_darkvalley">
-		<text>Темная долина</text>
+		<text>Тёмная долина</text>
 	</string>
 	<string id="testers_mp_factory">
-		<text>Завод "Янтарь"</text>
+		<text>Фабрика "Янтарь"</text>
 	</string>
 	<string id="testers_mp_lost_village">
 		<text>Покинутая деревня</text>
 	</string>
 	<string id="testers_mp_military_1">
-		<text>Военные склады</text>
+		<text>Армейские склады</text>
 	</string>
 	<string id="testers_mp_pool">
 		<text>Бассейн</text>
 	</string>
 	<string id="testers_mp_railroad">
-		<text>Ж/Д станция</text>
+		<text>Ж/д станция</text>
 	</string>
 	<string id="testers_mp_rostok">
 		<text>Завод "Росток"</text>
@@ -154,7 +154,7 @@
 		<text>Отсоединиться</text>
 	</string>
 	<string id="ui_mm_disconnect_message">
-		<text>Действительно ли вы желаете отсоединиться?</text>
+		<text>Действительно ли Вы желаете отсоединиться?</text>
 	</string>
 	<string id="ui_mm_dyn_crosshair">
 		<text>Динамический прицел</text>
@@ -232,7 +232,7 @@
 		<text>Опции</text>
 	</string>
 	<string id="ui_mm_particles_distance">
-		<text>Дальность партиклов</text>
+		<text>Дальность частиц</text>
 	</string>
 	<string id="ui_mm_quality_presets">
 		<text>Установки качества</text>
@@ -241,16 +241,16 @@
 		<text>Завершить игру</text>
 	</string>
 	<string id="ui_mm_quit_game_message">
-		<text>Действительно ли вы желаете покинуть игру?</text>
+		<text>Действительно ли Вы желаете покинуть игру?</text>
 	</string>
 	<string id="ui_mm_quit_windows_message">
-		<text>Действительно ли вы хотите выйти в Windows?</text>
+		<text>Действительно ли Вы хотите выйти в Windows?</text>
 	</string>
 	<string id="ui_mm_quit2windows">
 		<text>Выйти в Windows</text>
 	</string>
 	<string id="ui_mm_renderer">
-		<text>Тип рендера</text>
+		<text>Тип освещения</text>
 	</string>
 	<string id="ui_mm_resolution">
 		<text>Разрешение</text>
@@ -289,7 +289,7 @@
 		<text>Сглаживание</text>
 	</string>
 	<string id="ui_mm_switch_torch">
-		<text>Использование фонариков AI</text>
+		<text>Использование фонариков НПС</text>
 	</string>
 	<string id="ui_mm_texture_quality">
 		<text>Качество текстур</text>
@@ -307,7 +307,7 @@
 		<text>Дальность видимости</text>
 	</string>
 	<string id="ui_mm_vsync">
-		<text>Верт. синхронизация</text>
+		<text>Синхронизация</text>
 	</string>
 	<string id="ui_st_last_set">
 		<text>Посл. набор</text>
@@ -325,21 +325,6 @@
 		<text>Сбросить</text>
 	</string>
 	<string id="ui_st_sell_all">
-		<text>Продать все</text>
-	</string>
-	<string id="ui_mm_hud_behaviour">
-		<text>Поведение рук</text>
-	</string>
-	<string id="ui_mm_inertion_vanilla">
-		<text>Инерция</text>
-	</string>
-	<string id="ui_mm_inertion_bobbing">
-		<text>Раскачка</text>
-	</string>
-	<string id="ui_mm_inertion_both">
-		<text>Раскачка с инерцией</text>
-	</string>
-	<string id="ui_mm_monitor">
-		<text>Экран</text>
+		<text>Продать всё</text>
 	</string>
 </string_table>

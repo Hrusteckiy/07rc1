@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>
+	<!----************************** Artem Kulinar ********************************--->
+	<specific_character id="amk_artem_kulinar" team_default = "1">
+        <name>Артём Кулинар</name>
+        <icon>ui_npc_u_stalker_neytral_balon_8</icon>
+        <map_icon x="1" y="0"></map_icon>
+        <bio>gar_stalker_regular_bio</bio>
+		
+		<class>amk_artem_kulinar</class>
+        <community>stalker</community> <terrain_sect>stalker_terrain</terrain_sect>
+        <rank>423</rank>
+        <reputation>1000</reputation>
+        <money min="100000" max="200000" infinitive="1"/>
+        
+        <snd_config>characters_voice\human_01\stalker\</snd_config>
+        <crouch_type>-1</crouch_type>
+        
+        <visual>amk\kulinar</visual>
+        <supplies>
+            [spawn] \n
+			wpn_pm \n
+			ammo_9x18_fmj \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			#include "gameplay\character_items.xml" \n
+			#include "gameplay\character_drugs.xml" \n
+			#include "gameplay\character_food.xml"
+        </supplies>
+        #include "gameplay\character_criticals_4.xml"
+		<start_dialog>artem_kulinar</start_dialog>
+		<start_dialog>dm_hello_dialog</start_dialog>
+		<actor_dialog>dm_cool_info_dialog</actor_dialog>
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+	</specific_character>
+	
+	
+	<!----************************** Vitek Voron ********************************--->
+	<specific_character id="amk_vitek_voron" team_default = "1">
+        <name>Витёк Ворон</name>
+        <icon>ui_npc_u_stalker_bandit_master</icon>
+        <map_icon x="1" y="0"></map_icon>
+        <bio>gar_stalker_regular_bio</bio>
+
+        <class>amk_vitek_voron</class>
+        <community>stalker</community> <terrain_sect>stalker_terrain</terrain_sect>
+		<rank>423</rank>
+        <reputation>1000</reputation>
+        <money min="100000" max="200000" infinitive="1"/>
+        
+        <snd_config>characters_voice\human_01\stalker\</snd_config>
+        <crouch_type>-1</crouch_type>
+        
+        <visual>actors\bandit\stalker_bandit_master</visual>
+        <supplies>
+            [spawn] \n
+			wpn_pm \n
+			ammo_9x18_fmj \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+        </supplies>
+        #include "gameplay\character_criticals_4.xml"
+		<start_dialog>vitek_voron</start_dialog>
+		<start_dialog>dm_hello_dialog</start_dialog>
+		<actor_dialog>dm_cool_info_dialog</actor_dialog>
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+	</specific_character>
+</xml>
+

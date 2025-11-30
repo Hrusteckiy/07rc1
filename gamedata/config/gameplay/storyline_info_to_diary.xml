@@ -14,5 +14,7 @@
 #include "gameplay\storyline_info_yantar.xml"    
 #include "gameplay\storyline_info_taskmanager.xml"
 #include "gameplay\stories.xml"
+#include "gameplay\storyline_info_amk_recipts.xml"
+#include "gameplay\encyclopedia_amk_recipts.xml"
 
 </encyclopedia>

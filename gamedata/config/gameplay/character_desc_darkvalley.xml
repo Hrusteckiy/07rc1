@@ -31,7 +31,7 @@
 				
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!---------------------------- BODYGUARD ------------------------>
 	<specific_character id="val_bandit_bodyguard" team_default="1">
@@ -58,7 +58,7 @@
 					
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!--------------------------- BANDIT NOVICE ----------------------->
 	<specific_character id="val_bandit_novice_default1" team_default="1">
@@ -89,7 +89,7 @@
 					
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
     </specific_character>
 	<specific_character id="val_bandit_novice_default2" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -120,7 +120,7 @@
 					
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_novice_default3" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -150,7 +150,7 @@
 					
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_novice_default4" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -178,7 +178,7 @@
 					
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!----------------------------- HALFDEAD ------------------------>
 	<specific_character id="val_escort_halfdead" team_default="1">
@@ -200,7 +200,7 @@
 					
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!---------------------------BANDIT GENERAL---------------------->
 	<specific_character id="val_bandit_general_defaul1t" team_default="1">
@@ -232,7 +232,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_general_default2" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -262,7 +262,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_general_default3" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -292,7 +292,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_general_default4" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -322,7 +322,7 @@
 		
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!---------------------------BANDIT VETERAN---------------------->
 	<specific_character id="val_bandit_veteran_default1" team_default="1">
@@ -354,7 +354,7 @@
 		
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_veteran_default2" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -384,7 +384,7 @@
 		
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_bandit_veteran_default3" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -414,7 +414,7 @@
 		
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!-------------------------- WATCHTOWER BANDIT ----------------------->
 	<specific_character id="val_watchtower_bandit_guard1" team_default="1">
@@ -445,7 +445,7 @@
 		
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_watchtower_bandit_sniper1" team_default="1">
 		<name>GENERATE_NAME_bandit</name>
@@ -475,7 +475,7 @@
 		
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!---------------------------- DOLG ------------------------>
 	<!-------------------------- REGULAR ----------------------->
@@ -512,7 +512,6 @@
 
 		<start_dialog>hello_dialog</start_dialog>
 		
-		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
@@ -548,7 +547,6 @@
 
 		<start_dialog>hello_dialog</start_dialog>
 		
-		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
@@ -584,7 +582,6 @@
 
 		<start_dialog>hello_dialog</start_dialog>
 		
-		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
@@ -615,7 +612,6 @@
 
 		<start_dialog>hello_dialog</start_dialog>
 		
-		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
@@ -650,8 +646,7 @@
 		<money min="600" max="2000" infinitive="0" />
 
 		<start_dialog>hello_dialog</start_dialog>
-		
-		<actor_dialog>esc_stalker_talk_level</actor_dialog>
+		<actor_dialog>dark_pulia_talk_story</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
@@ -682,7 +677,6 @@
 
 		<start_dialog>hello_dialog</start_dialog>
 		
-		<actor_dialog>esc_stalker_talk_level</actor_dialog>
 		<actor_dialog>bar_dolg_base_guard_acces</actor_dialog>	
 #include "gameplay\character_dialogs.xml"		
 	</specific_character>
@@ -715,7 +709,7 @@
         
 #include "gameplay\character_criticals_1.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
     </specific_character>
 	<specific_character id="val_monolith_regular_default2" team_default="1">
         <name>GENERATE_NAME_stalker</name>
@@ -744,7 +738,7 @@
         
 #include "gameplay\character_criticals_1.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
     </specific_character>
 	<!-------------------------- SOLDIER ----------------------->
 	<!-------------------------- REGULAR ----------------------->
@@ -776,7 +770,7 @@
 		
 #include "gameplay\character_criticals_5.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_soldier_regular_default2" team_default="1">
 		<name>GENERATE_NAME_sergeant</name>
@@ -806,7 +800,7 @@
 		
 #include "gameplay\character_criticals_5.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_soldier_regular_default3" team_default="1">
 		<name>GENERATE_NAME_sergeant</name>
@@ -836,7 +830,7 @@
 		
 #include "gameplay\character_criticals_5.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_soldier_regular_default4" team_default="1">
 		<name>GENERATE_NAME_sergeant</name>
@@ -866,7 +860,7 @@
 		
 #include "gameplay\character_criticals_5.xml"	
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!------------------------- SPECNAZ ------------------------>
 	<specific_character id="val_soldier_specnaz_default1" team_default="1">
@@ -898,7 +892,7 @@
 		
 #include "gameplay\character_criticals_6.xml"	
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_soldier_specnaz_default2" team_default="1">
 		<name>GENERATE_NAME_lieutenant</name>
@@ -928,7 +922,7 @@
 					
 #include "gameplay\character_criticals_6.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_soldier_specnaz_default3" team_default="1">
 		<name>GENERATE_NAME_lieutenant</name>
@@ -958,7 +952,7 @@
 		
 #include "gameplay\character_criticals_6.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="val_soldier_specnaz_default4" team_default="1">
 		<name>GENERATE_NAME_lieutenant</name>
@@ -988,7 +982,7 @@
 		
 #include "gameplay\character_criticals_6.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<!-------------------------- STALKER ----------------------->
 	<!-------------------------- NOVICE ------------------------>
@@ -1368,7 +1362,7 @@
 #include "gameplay\character_criticals_4.xml"
 					
 		<start_dialog>dar_explorer_dialog</start_dialog>
-		
+#include "gameplay\character_dialogs.xml"		
 	</specific_character>
 	<specific_character id="dar_corpse_default1" team_default="1">
 		<name>GENERATE_NAME_stalker</name>
@@ -1389,7 +1383,7 @@
 					
 #include "gameplay\character_criticals_4.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="dar_corpse_default3" team_default="1">
 		<name>GENERATE_NAME_stalker</name>
@@ -1410,7 +1404,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="dar_corpse_default4" team_default="1">
 		<name>GENERATE_NAME_stalker</name>
@@ -1431,7 +1425,7 @@
 		
 #include "gameplay\character_criticals_1.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="dar_corpse_kalugin1" team_default="1">
 		<name>dar_kalugin_name</name>
@@ -1452,7 +1446,7 @@
 		
 #include "gameplay\character_criticals_3.xml"
 					
-		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 	<specific_character id="dar_military_scout1" team_default="1">
 		<name>GENERATE_NAME_lieutenant</name>
@@ -1481,6 +1475,6 @@
 		
 #include "gameplay\character_criticals_6.xml"
 									
-		<start_dialog>hello_dialog</start_dialog>		
+#include "gameplay\character_dialogs.xml"
 	</specific_character>
 </xml>

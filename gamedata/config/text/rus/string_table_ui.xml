@@ -7,13 +7,13 @@
 		<text>Вы слишком перегружены, чтобы двигаться</text>
 	</string>
 	<string id="dar_poltergeist_hold_the_door">
-		<text>Кто-то удерживает дверь.</text>
+		<text>Кто-то удерживает дверь</text>
 	</string>
 	<string id="Global Map">
 		<text>Глобальная карта</text>
 	</string>
 	<string id="gun_jammed">
-		<text>Оружие заклинило. Нужно перезарядить.</text>
+		<text>Оружие заклинило; нужно перезарядить</text>
 	</string>
 	<string id="inventory_box_use">
 		<text>Обыскать ящик ($$ACTION_USE$$)</text>
@@ -40,7 +40,7 @@
 		<text>Нажмите ($$ACTION_USE$$), чтобы декодировать дверь</text>
 	</string>
 	<string id="tip_door_decoding">
-		<text>Идет процесс декодирования</text>
+		<text>Идёт процесс декодирования</text>
 	</string>
 	<string id="tip_door_locked">
 		<text>Дверь заперта</text>
@@ -49,15 +49,18 @@
 		<text>Нажмите ($$ACTION_USE$$), чтобы открыть дверь</text>
 	</string>
 	<string id="tip_gate_close">
-		<text>Нажмите ($$ACTION_USE$$) для того, чтобы закрыть ворота</text>
+		<text>Нажмите ($$ACTION_USE$$), чтобы закрыть ворота</text>
 	</string>
 	<string id="tip_gate_locked">
 		<text>Ворота заблокированы</text>
 	</string>
 	<string id="tip_gate_open">
-		<text>Нажмите ($$ACTION_USE$$) для того, чтобы открыть ворота</text>
+		<text>Нажмите ($$ACTION_USE$$), чтобы открыть ворота</text>
 	</string>
 	<string id="tip_monolith">
 		<text>ЗАГАДАТЬ ЖЕЛАНИЕ ($$ACTION_USE$$)</text>
+	</string>
+	<string id="st_demo_play">
+		<text>AMK MOD 1.4.1</text>
 	</string>
 </string_table>

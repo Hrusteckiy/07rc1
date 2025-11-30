@@ -123,6 +123,7 @@
         door\door_rusty_iron_0           = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
         door\door_sheet                  = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
         door\door_trader                 = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
+	  amk\door_trader1                 = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
         door\door_vorota_ch_train        = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
         door\door_w01                    = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
         door\door_white_01               = detail\detail_stucco_det1_v, 3.000000, usage[diffuse_or_bump]
@@ -976,11 +977,17 @@
         $target                          = bump_mode[none], material[1.00]
         $testrunway                      = bump_mode[none], material[1.00]
         $testrunwayb                     = bump_mode[none], material[1.00]
+	  amk\dharma_texture               = bump_mode[use:amk\dharma_texture_bump], material[0.50]
+	  amk\dharma_texture_clr           = bump_mode[use:amk\dharma_texture_clr_bump], material[0.50]
+	  amk\amk_ballon_texture           = bump_mode[use:amk\amk_ballon_texture_bump], material[0.50]
+	  amk\flamethrower_texture         = bump_mode[use:amk\flamethrower_texture_bump], material[0.50]
         act\act_antigas                  = bump_mode[use:act\act_antigas_bump], material[0.50]
         act\act_arm_1                    = bump_mode[use:act\act_arm_perchatka_bump], material[0.50]
         act\act_arm_perchatka            = bump_mode[use:act\act_arm_perchatka_bump], material[0.50]
         act\act_arm_perchatka_black      = bump_mode[use:act\act_arm_perchatka_bump], material[0.50]
         act\act_bandit                   = bump_mode[use:act\act_bandit_bump], material[0.50]
+        act\act_blackm                   = bump_mode[use:act\act_bandit_bump], material[0.50]
+        act\act_brownv                   = bump_mode[use:act\act_bandit_bump], material[0.50]
         act\act_barman                   = bump_mode[use:act\act_barman_bump], material[0.50]
         act\act_burer                    = bump_mode[use:act\act_burer_bump], material[0.50]
         act\act_burer1                   = bump_mode[use:act\act_burer_bump], material[0.50]
@@ -1035,6 +1042,7 @@
         act\act_jeffry_glass             = bump_mode[use:act\act_jeffry_glass_bump], material[0.50]
         act\act_karlik_s                 = bump_mode[none], material[0.50]
         act\act_killer_nauchniy          = bump_mode[use:act\act_killer_nauchniy_bump], material[0.50]
+        act\_act_killer_nauchniy         = bump_mode[use:act\act_killer_nauchniy_bump], material[0.50]
         act\act_killer_nauchniy_mp       = bump_mode[use:act\act_killer_nauchniy_bump], material[0.50]
         act\act_krovosos_new1            = bump_mode[use:act\act_krovosos_u_bump], material[0.50]
         act\act_krovosos_u               = bump_mode[use:act\act_krovosos_u_bump], material[0.50]
@@ -1108,6 +1116,7 @@
         act\act_specnaz                  = bump_mode[use:act\act_specnaz_bump], material[0.50]
         act\act_specnaz_corp             = bump_mode[use:act\act_specnaz_bump], material[0.50]
         act\act_specnaz_glass            = bump_mode[use:act\act_specnaz_glass_bump], material[0.50]
+		act\act_stalker_guardia          = bump_mode[use:act\act_specnaz_bump], material[0.50]
         act\act_st_exoskel_tank_dolg     = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
         act\act_st_exoskel_tank_monolit  = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
         act\act_st_exoskel_tank_mp_blue  = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
@@ -1115,7 +1124,14 @@
         act\act_st_exoskel_tank_specnaz  = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
         act\act_st_exoskel_tank_svoboda  = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
         act\act_st_exoskeleton_tank      = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
-        act\act_stalker                  = bump_mode[use:act\act_stalker_bump], material[0.50]
+		act\act_st_exo_skunk_tank_ki     = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_st_exo_skunk_tank_mo     = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_st_exo_skunk_tank_n      = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_st_exo_skunk_tank_ne     = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_st_exo_skunk_tank_sv     = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_st_exoskel_tank_bandito  = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_st_exoskel_tank_band     = bump_mode[use:act\act_st_exoskeleton_tank_bump], material[0.50]
+		act\act_stalker                  = bump_mode[use:act\act_stalker_bump], material[0.50]
         act\act_stalker1_head            = bump_mode[none], material[0.50]
         act\act_stalker2_head            = bump_mode[none], material[0.50]
         act\act_stalker_black            = bump_mode[use:act\act_stalker_black_bump], material[0.50]
@@ -1514,6 +1530,8 @@
         door\door_sheet                  = bump_mode[use:door\door_sheet_bump], material[1.00]
         door\door_trader                 = bump_mode[use:door\door_trader_bump], material[1.00]
         door\door_trader_nmap            = bump_mode[none], material[1.00]
+	  amk\door_trader1                = bump_mode[use:door\door_trader_bump], material[1.00]
+        amk\door_trader1_nmap           = bump_mode[none], material[1.00]
         door\door_vorota_ch_train        = bump_mode[use:door\door_vorota_ch_train_bump], material[1.00]
         door\door_w01                    = bump_mode[use:], material[1.00]
         door\door_white_01               = bump_mode[use:], material[1.00]
@@ -1929,6 +1947,7 @@
         item\item_dipl                   = bump_mode[none], material[1.00]
         item\item_document_01            = bump_mode[none], material[1.00]
         item\item_drink_nonstop          = bump_mode[use:item\item_drink_bump], material[1.50]
+	  item\item_prop__tin_can                  = bump_mode[use:item\item_prop__tin_can_bump], material[1.50]
         item\item_drink_nonstop_old      = bump_mode[use:item\item_drink_bump], material[1.50]
         item\item_drink_stalker          = bump_mode[use:item\item_drink_bump], material[1.50]
         item\item_drink_stalker_old      = bump_mode[use:item\item_drink_bump], material[1.00]
@@ -5415,6 +5434,7 @@
         wood\wood_zabor_iov              = bump_mode[use:wood\wood_zabor_iov_bump], material[1.00]
         wpn\wpn_abakan                   = bump_mode[use:wpn\wpn_abakan_bump], material[2.85]
         wpn\wpn_ak74                     = bump_mode[use:wpn\wpn_ak74_bump], material[2.85]
+        amk\flamethrower_texture         = bump_mode[use:amk\flamethrower_texture_bump], material[2.85]
         wpn\wpn_aksu                     = bump_mode[use:wpn\wpn_aksu_bump], material[2.85]
         wpn\wpn_ammo                     = bump_mode[none], material[2.85]
         wpn\wpn_beretta                  = bump_mode[use:wpn\wpn_beretta_bump], material[2.85]
@@ -5491,13 +5511,27 @@
         wpn\wpn_zink_9                   = bump_mode[none], material[2.85]
         wpn\wpn_zink_svd                 = bump_mode[none], material[2.85]
  
+        item\item_yad    				 = bump_mode[use:item\item_yad_bump], material[0.50] ;xrs_medic
+ 
 [types]
+        item\item_yad    				 = 0 ;xrs_medic
+        item\item_yad_bump    			 = 2 ;xrs_medic
+		
+
         $bump-test                       = 2
         $details                         = 0
         $shadertest                      = 0
         $target                          = 0
         $testrunway                      = 0
         $testrunwayb                     = 0
+	  amk\dharma_texture		     = 0
+	  amk\dharma_texture_bump	     = 2
+	  amk\dharma_texture_clr	     = 0
+	  amk\dharma_texture_clr_bump      = 2
+	  amk\amk_ballon_texture	     = 0
+ 	  amk\amk_ballon_texture_bump      = 2
+	  amk\flamethrower_texture	     = 0
+ 	  amk\flamethrower_texture_bump    = 2
         act\act_antigas                  = 0
         act\act_antigas_bump             = 2
         act\act_arm_1                    = 0
@@ -5505,6 +5539,8 @@
         act\act_arm_perchatka_black      = 0
         act\act_arm_perchatka_bump       = 2
         act\act_bandit                   = 0
+        act\act_blackm                   = 0
+        act\act_brownv                   = 0
         act\act_bandit_bump              = 2
         act\act_barman                   = 0
         act\act_barman_bump              = 2
@@ -5589,6 +5625,7 @@
         act\act_jeffry_glass_bump        = 2
         act\act_karlik_s                 = 0
         act\act_killer_nauchniy          = 0
+        act\_act_killer_nauchniy         = 0
         act\act_killer_nauchniy_bump     = 2
         act\act_killer_nauchniy_mp       = 0
         act\act_krovosos_new1            = 0
@@ -5698,6 +5735,7 @@
         act\act_specnaz_glass            = 0
         act\act_specnaz_glass_bump       = 2
         act\act_specnaz_nm               = 0
+		act\act_stalker_guardia          = 0
         act\act_st_exoskel_tank_dolg     = 0
         act\act_st_exoskel_tank_monolit  = 0
         act\act_st_exoskel_tank_mp_blue  = 0
@@ -5705,7 +5743,14 @@
         act\act_st_exoskel_tank_specnaz  = 0
         act\act_st_exoskel_tank_svoboda  = 0
         act\act_st_exoskeleton_tank      = 0
-        act\act_st_exoskeleton_tank_bump = 2
+        act\act_st_exoskeleton_tank_bump = 2		
+		act\act_st_exo_skunk_tank_ki     = 0
+		act\act_st_exo_skunk_tank_mo     = 0
+		act\act_st_exo_skunk_tank_n      = 0
+		act\act_st_exo_skunk_tank_ne     = 0
+		act\act_st_exo_skunk_tank_sv     = 0
+		act\act_st_exoskel_tank_bandito  = 0
+		act\act_st_exoskel_tank_band     = 0		
         act\act_stalker                  = 0
         act\act_stalker1_head            = 0
         act\act_stalker2_head            = 0
@@ -6202,6 +6247,9 @@
         door\door_trader                 = 0
         door\door_trader_bump            = 2
         door\door_trader_nmap            = 0
+	  amk\door_trader1                 = 0
+        amk\door_trader1_bump            = 2
+        amk\door_trader1_nmap            = 0
         door\door_vorota_ch_train        = 0
         door\door_vorota_ch_train_bump   = 2
         door\door_w01                    = 0
@@ -6643,6 +6691,7 @@
         item\item_drink_nonstop_old      = 0
         item\item_drink_stalker          = 0
         item\item_drink_stalker_old      = 0
+	    item\item_prop__tin_can			 = 0
         item\item_food                   = 0
         item\item_foto1                  = 0
         item\item_foto2                  = 0

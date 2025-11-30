@@ -624,6 +624,8 @@
             </phrase>
             <phrase id="231">
                 <text>yantar_general_ucheniy_talk_start_231</text>
+                <give_info>info_amk_recipt_tears_fire</give_info>
+                <action>amk_dialogs.info_received</action>
                 <next>2311</next>
             </phrase>
             <phrase id="2311">
@@ -687,6 +689,100 @@
                 <has_info>bar_heli_scene_professor_die</has_info>
                 <next>51</next>
             </phrase>
+        </phrase_list>
+    </dialog>
+	<dialog id="yantar_general_ucheniy_story">
+        <phrase_list>
+            <phrase id="0">
+                <text>yantar_general_ucheniy_story_0</text>
+		<next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>yantar_general_ucheniy_story_1</text>
+		<next>2</next>
+		<next>3</next>
+            </phrase>
+        <phrase id="2">
+                <text>yantar_general_ucheniy_story_2</text>
+		<next>22</next>
+            </phrase>
+            <phrase id="22">
+                <text>yantar_general_ucheniy_story_22</text>
+		<next>23</next>
+            </phrase>
+            <phrase id="23">
+                <text>yantar_general_ucheniy_story_23</text>
+		<next>24</next>
+            </phrase>
+            <phrase id="24">
+                <text>yantar_general_ucheniy_story_24</text>
+		<next>25</next>
+            </phrase>
+            <phrase id="25">
+                <text>yantar_general_ucheniy_story_25</text>
+		<next>26</next>
+            </phrase>
+            <phrase id="26">
+                <text>yantar_general_ucheniy_story_26</text>
+		<next>27</next>
+            </phrase>
+            <phrase id="27">
+                <text>yantar_general_ucheniy_story_27</text>
+		<next>28</next>
+            </phrase>
+            <phrase id="28">
+                <text>yantar_general_ucheniy_story_28</text>
+		<next>29</next>
+            </phrase>
+            <phrase id="29">
+                <text>yantar_general_ucheniy_story_29</text>
+		<next>291</next>
+            </phrase>
+            <phrase id="291">
+                <text>yantar_general_ucheniy_story_291</text>
+		<next>292</next>
+            </phrase>
+            <phrase id="292">
+                <text>yantar_general_ucheniy_story_292</text>
+            </phrase>
+	<phrase id="3">
+                <text>yantar_general_ucheniy_story_3</text>
+		<next>33</next>
+            </phrase>
+	    <phrase id="33">
+                <text>yantar_general_ucheniy_story_33</text>
+            </phrase>
+        </phrase_list>
+    </dialog>
+	<dialog id="yantar_general_ucheniy_story2">
+        <phrase_list>
+            <phrase id="0">
+                <text>yantar_general_ucheniy_story2_0</text>
+		<next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>yantar_general_ucheniy_story2_1</text>
+		<next>2</next>
+            </phrase>
+            <phrase id="2">
+                <text>yantar_general_ucheniy_story2_2</text>
+		<next>3</next>
+            </phrase>
+            <phrase id="3">
+                <text>yantar_general_ucheniy_story2_3</text>
+		<next>4</next>
+            </phrase>
+            <phrase id="4">
+                <text>yantar_general_ucheniy_story2_4</text>
+		<next>5</next>
+            </phrase>
+            <phrase id="5">
+                <text>yantar_general_ucheniy_story2_5</text>
+		<next>6</next>
+            </phrase>
+            <phrase id="6">
+                <text>yantar_general_ucheniy_story2_6</text>
+	    </phrase>
         </phrase_list>
     </dialog>
 </game_dialogs>
