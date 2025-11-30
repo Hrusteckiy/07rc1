@@ -146,9 +146,5 @@
 							light_anim="" la_cyclic="1" la_texture="1" la_alpha="1">
     <text font="letterica18"  r="240" g="217" b="182" a="255" align="l"/>
   </cs_demo_play>
-
-  <hud_show_time  x="100" y="195" width="800" height="30" complex_mode="1">
-    <text font="graffiti22"  r="238" g="155" b="23" a="255" align="l"/>
-  </hud_show_time>
     
 </header>

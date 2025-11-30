@@ -42,31 +42,6 @@ amk.spawn_item("m_controller_old_fat",vector():set(386.7,20.06,281.5),251,595097
 end
 
 function show_time()
-     local hud = get_hud()
-     local cs = hud:GetCustomStatic("hud_show_time")
-     if cs == nil then
-           hud:AddCustomStatic("hud_show_time", true)
-           cs = hud:GetCustomStatic("hud_show_time")
-     end
-     local time_h = level.get_time_hours()
-     local time_m = level.get_time_minutes()
-	 local msg
-	   if time_h >= 10 then
-		 if time_m >= 10 then
-	     msg = string.format(" %d:%d\\n", time_h, time_m)
-		 else
-		 msg = string.format(" %d:0%d\\n", time_h, time_m)
-		 end
-	   else
-		 if time_m >= 10 then
-	     msg = string.format(" 0%d:%d\\n", time_h, time_m)
-		 else
-		 msg = string.format(" 0%d:0%d\\n", time_h, time_m)
-		 end
-       end	     
-     if cs ~= nil then
-           cs:wnd():SetText(msg)
-     end
 end
 
 function gravi_bronik()
