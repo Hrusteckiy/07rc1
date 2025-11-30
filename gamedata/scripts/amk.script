@@ -1734,8 +1734,10 @@ function get_lc_data(obj)
 	t.restrictor_type = packet:r_u8()
 	t.dest_game_vertex_id = packet:r_u16()
 	t.dest_level_vertex_id = packet:r_s32()
-	t.dest_position = packet:r_vec3()
-	t.dest_direction = packet:r_vec3()
+	t.dest_position = vector()
+	t.dest_position = packet:r_vec3(t.dest_position)
+	t.dest_direction = vector()
+	t.dest_direction = packet:r_vec3(t.dest_direction)
 	t.dest_level_name = packet:r_stringZ()
 	t.dest_graph_point = packet:r_stringZ()
 	t.silent_mode = packet:r_u8()
@@ -1941,14 +1943,19 @@ function parse_shape_packet(t,stpk,uppk)
 		t.shapes[i].shtype=shape_type
 		if shape_type == 0 then
 			-- sphere
-			t.shapes[i].center = stpk:r_vec3()
+			t.shapes[i].center = vector()
+			stpk:r_vec3(t.shapes[i].center)
 			t.shapes[i].radius = stpk:r_float()
 		else
 			-- box
-			t.shapes[i].v1 = stpk:r_vec3()
-			t.shapes[i].v2 = stpk:r_vec3()
-			t.shapes[i].v3 = stpk:r_vec3()
-			t.shapes[i].offset = stpk:r_vec3()
+			t.shapes[i].v1  = vector()
+			stpk:r_vec3(t.shapes[i].v1)
+			t.shapes[i].v2  = vector()
+			stpk:r_vec3(t.shapes[i].v2)
+			t.shapes[i].v3  = vector()
+			stpk:r_vec3(t.shapes[i].v3)
+			t.shapes[i].offset  = vector()
+			stpk:r_vec3(t.shapes[i].offset)
 		end
 	end
 end
