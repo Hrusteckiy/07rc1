@@ -1447,3 +1447,21 @@ BOOL CCustomZone::AlwaysTheCrow()
 	else
 		return inherited::AlwaysTheCrow();
 }
+
+void CCustomZone::save(NET_Packet& output_packet)
+{
+	inherited::save(output_packet);
+	output_packet.w_u8(static_cast<u8>(m_eZoneState));
+}
+
+void CCustomZone::load(IReader& input_packet)
+{
+	inherited::load(input_packet);
+
+	CCustomZone::EZoneState temp = static_cast<CCustomZone::EZoneState>(input_packet.r_u8());
+
+	if (temp == eZoneStateDisabled)
+		m_eZoneState = eZoneStateDisabled;
+	else
+		m_eZoneState = eZoneStateIdle;
+}

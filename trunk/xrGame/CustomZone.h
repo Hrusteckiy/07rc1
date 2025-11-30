@@ -38,7 +38,7 @@ class CCustomZone :
 	public Feel::Touch
 {
 private:
-    typedef	CSpaceRestrictor inherited;
+	typedef	CSpaceRestrictor inherited;
 
 public:
 	CZoneEffector*		m_effector;
@@ -86,7 +86,7 @@ public:
 		eZoneStateIdle = 0,		//состояние зоны, когда внутри нее нет активных объектов
 		eZoneStateAwaking,		//пробуждение зоны (объект попал в зону)
 		eZoneStateBlowout,		//выброс
-        eZoneStateAccumulate,	//накапливание энергии, после выброса
+		eZoneStateAccumulate,	//накапливание энергии, после выброса
 		eZoneStateDisabled,
 		eZoneStateMax
 	} EZoneState;
@@ -328,7 +328,9 @@ protected:
 					void	ThrowOutArtefact			(CArtefact* pArtefact);
 	
 					void	PrefetchArtefacts			();
-	virtual BOOL		AlwaysTheCrow		();
+	virtual BOOL			AlwaysTheCrow				();
+	virtual void			save						(NET_Packet& output_packet);
+	virtual void			load						(IReader& input_packet);
 
 protected:
 	DEFINE_VECTOR(CArtefact*, ARTEFACT_VECTOR, ARTEFACT_VECTOR_IT);
