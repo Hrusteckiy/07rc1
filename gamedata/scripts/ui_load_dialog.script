@@ -16,20 +16,20 @@ function load_item:__init() super()
 	local cg = 186
 	local cb = 140
 	
-	self.fn						= CUIStatic	()
-	self.fn:SetAutoDelete		(true)
-	self:AttachChild			(self.fn)
-	self.fn:SetWndRect			(0,0,230,22)
-	self.fn:SetText				("filename")
-	self.fn:SetFont				(GetFontLetterica18Russian())
+	self.fn					= CUIStatic	()
+	self.fn:SetAutoDelete	(true)
+	self:AttachChild		(self.fn)
+	self.fn:SetWndRect		(0,0,230,22)
+	self.fn:SetText			("filename")
+	self.fn:SetFont			(GetFontLetterica18Russian())
 	self.fn:SetBaseTextColor	(ca,cr,cg,cb)
 
-	self.fage					= CUIStatic	()
-	self.fage:SetAutoDelete		(true)
-	self:AttachChild			(self.fage)
-	self.fage:SetWndRect		(250,0,150,22)
-	self.fage:SetText			("fileage")
-	self.fage:SetFont			(GetFontLetterica16Russian())
+	self.fage				= CUIStatic	()
+	self.fage:SetAutoDelete	(true)
+	self:AttachChild		(self.fage)
+	self.fage:SetWndRect	(250,0,150,22)
+	self.fage:SetText		("fileage")
+	self.fage:SetFont		(GetFontLetterica16Russian())
 	self.fage:SetBaseTextColor	(ca,cr,cg,cb)
 end
 

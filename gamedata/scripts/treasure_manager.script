@@ -1,3 +1,218 @@
+--[[
+
+File:  treasure_manager.script
+author:  wtcat
+modified: AMK TEAM 
+Version:  3.0.0.1
+
+--]]
+
+local subjects_list = {
+
+	--Подземные уровни 
+level_U0 = {
+        "af_ameba_mica",
+        "af_soul",
+        "af_cristall",
+        "af_gold_fish",
+        "af_night_star",
+        "af_electra_moonlight",
+        "af_fuzz_kolobok",
+		"af_rusty_sea-urchin",
+		"af_dummy_glassbeads",
+		"af_dummy_pellicle",
+		"af_dummy_battery",
+		"af_dummy_dummy",
+		"af_dummy_spring",
+		"specops_outfit",
+		"neytral_gaz_outfit_m1",
+		"ammo_5.56x45_ap",
+		"ammo_9x39_sp5",
+		"ammo_9x39_ap",
+		"ammo_7.62x54_7h1", 
+		"ammo_7.62x54_7h14", 
+		"ammo_7.62x54_ap",
+		"dolg_gaz_outfit_m1",			
+		"neytral_gaz_outfit_m1",				
+		"neytral_novice_gaz_outfit_m1",			
+		"neytral_novice_outfit_m1",			
+		"svoboda_yellow_exo_outfit_m1",			
+		"killer_gaz_outfit_m1"
+     },
+
+	--Кордон, Свалка (разная мелочь)
+	level_C1 = {
+		--Артефакты--
+		"af_drops",
+		"af_ameba_slime",
+		"af_rusty_thorn",
+		"af_electra_sparkler",
+		"af_blood",
+		"af_vyvert",
+		"af_medusa",
+		"af_cristall_flower",
+		"af_gravi",
+		"af_mincer_meat",
+		"af_rusty_kristall",
+		--Аммуниция--
+		"ammo_9x19_pbp",
+		"ammo_12x70_buck",
+		"ammo_5.45x39_fmj",
+		"bandit_outfit",
+		"bandit_veteran_outfit_m1",	
+		"bandit_gaz_outfit_m1",
+		"neytral_novice_gaz_outfit_m1",
+		"neytral_novice_outfit_m1",			
+		--Оружие--
+		"wpn_bm16",
+		"wpn_ak74u",
+		"wpn_mp5",
+		--Прочее--
+		"medkit",
+		"vodka"
+	},
+	
+	--Агропром, Темная долина, Бар(средние за ценностью предметы)
+	level_C2 = {
+		--Артефакты--
+	    "af_electra_flash",
+        "af_rusty_kristall",
+        "af_ameba_slug",
+        "af_fireball",     
+        "af_night_star",
+        "af_gold_fish",
+        "af_soul",
+        "af_electra_moonlight",
+        "af_rusty_sea-urchin",
+        "af_ameba_mica",
+        "af_cristall",
+		--Аммуниция--
+		"ammo_12x76_zhekan",
+		"ammo_5.45x39_fmj",
+		"ammo_5.45x39_ap",
+		"ammo_5.56x45_ss190",
+		"stalker_outfit",
+		"killer_gaz_outfit_m1",
+		"neytral_gaz_outfit_m1",
+		"killer_outfit",
+		"soldier_outfit",
+		--Пушки--
+		"wpn_fort",
+		"wpn_hpsa",
+		"wpn_toz34",
+		"wpn_wincheaster1300",
+		"wpn_ak74",
+		"wpn_abakan",
+		"wpn_lr300",
+		--Прочее--
+		"mutant_dog_tail",
+		"mutant_boar_leg",
+		"medkit",
+		"antirad"
+	},
+
+	--Росток, Янтарь, Милитари (вот на том что тут делают кучу денег)
+	level_C3 = {
+		--Артефакты--
+	    "af_electra_moonlight",
+        "af_rusty_sea-urchin",
+        "af_ameba_mica",
+        "af_cristall",
+        "af_dummy_glassbeads",
+        "af_dummy_pellicle",
+        "af_dummy_battery",
+        "af_dummy_dummy",
+        "af_dummy_spring",
+        "af_fuzz_kolobok",
+		--Аммуниция--
+		"ammo_9x19_fmj",
+		"ammo_9x19_pbp",
+		"ammo_11.43x23_fmj",
+		"ammo_12x76_zhekan", 
+		"ammo_12x76_dart",
+		"ammo_5.56x45_ss190", 
+		"ammo_5.56x45_ap",
+		"ammo_9x39_pab9",
+		"ammo_9x39_sp5",
+		"ammo_9x39_ap",
+		"ammo_7.62x54_7h1", 
+		"ammo_7.62x54_7h14", 
+		"ammo_7.62x54_ap",
+		"ammo_vog-25", 
+		"ammo_vog-25p",
+		"ammo_og-7b", 
+		"stalker_outfit",
+		"killer_gaz_outfit_m1",
+		"neytral_gaz_outfit_m1",
+		"killer_outfit",
+		"soldier_outfit",
+		"ecolog_outfit",
+		"scientific_outfit",
+		--Пушки--
+		"wpn_walther",
+		"wpn_sig220",
+		"wpn_colt1911",
+		"wpn_spas12",
+		"wpn_sig550",
+		"wpn_groza",
+		"wpn_val",
+		"wpn_vintorez",
+		"wpn_svu",
+		"wpn_svd",
+		"wpn_rpg7",
+		--Прочее--
+		"mutant_psevdodog_tail",
+		"mutant_snork_leg",
+		"medkit_army"
+	},
+
+	--Припять, Радар (сверхценное, реликты)
+	level_C4 = {
+		--Артефакты--
+		"af_dummy_glassbeads",
+        "af_dummy_pellicle",
+        "af_dummy_battery",
+        "af_dummy_dummy",
+        "af_dummy_spring",
+        "af_fuzz_kolobok",
+        "af_spirit_1",        
+        "af_cry_1",
+        "af_babka_1",
+        "af_pudd_1",
+        "af_dik_1",
+        "af_kol_1",
+        "af_armor_1",
+		--Аммуниция--
+		"ammo_11.43x23_hydro", 
+		"ammo_12x76_dart",
+		"ammo_7.62x54_ap",
+ 		"ammo_9x39_sp5",
+		"ammo_5.56x45_ap",
+		"protection_outfit",
+		"exo_outfit",
+		"neytral_exo_gaz_outfit_m1",
+		"military_outfit",
+		"militaryspec_outfit",
+		--Пушки--
+		"wpn_usp",
+		"wpn_desert_eagle",
+		"wpn_spas12",
+		"wpn_val",
+		"wpn_vintorez",
+		"wpn_svu",
+		"wpn_svd",
+		"wpn_rg-6",
+		"wpn_rpg7",
+		"wpn_g36",
+		"wpn_fn2000",
+		--Прочее--
+		"mutant_krovosos_jaw",
+		"mutant_burer_hand",
+		"medkit_army",
+		"medkit_scientic"
+	}
+}
+
 local treasure_manager = nil
 
 function parse_spawns(line)
@@ -89,14 +304,26 @@ function CTreasure:__init()
 		self.treasure_by_target[v.target] = k	
 	end
 end
+
 --' Юзание инициатора (возможность выдать тайник)
 function CTreasure:use(npc)
 	printf("TREASURE USE")
+	local rarets = 70
+	
+	if amk.is_debug then
+		rarets=0
+	end
+	
+	if math.random(100) < rarets then 
+		return
+	end
+	
 	--' Нужно рандомно выбрать один из тайников.
 	local avail = {}
 	local tr_sum = 0
+
 	for k,v in pairs(self.treasure_info) do
-		if v.done == false then
+		if v.done == false and v.active == false and v.community[npc:character_community()] == true then
 			local treasure_prob = xr_logic.pick_section_from_condlist(db.actor, npc, v.condlist)
 
 			if treasure_prob == "" or treasure_prob == nil then
@@ -127,31 +354,34 @@ function CTreasure:use(npc)
 	for k,v in pairs(avail) do
 		tr_w = tr_w - v.prob
 		if tr_w <= 0 then
-			--' Выдать тайник
 			self:give_treasure(v.k)
 			break
 		end
 	end
+ 
 end
+
 --' Сохранение
 function CTreasure:check()
-	--' Проверка тайников
 	for k,v in pairs(self.treasure_info) do
-		--' Выдать тайник
 		self:give_treasure(k)
 	end
 end
+
 --' Выдача тайника
 function CTreasure:give_treasure(k)
 	local v = self.treasure_info[k]
 	local obj = alife():story_object(v.target)
 	if obj ~= nil then
-		news_manager.send_treasure(v.name)
-
-		--' Пометить на карте		
+		news_manager.send_treasure(v.name)		
 		local text = "%c[255,238,155,23]"..game.translate_string(v.name).."\\n".."%c[default]"..game.translate_string(v.description)
 		level.map_add_object_spot_ser(obj.id, "treasure", text)
 
+		-- проверка, какой тип тайника выбран, если тайник не классический и не именной, то заменим содержимое
+		if amk.load_variable("option_treasure", 0) ~= 0 and self:named_treasure(v) == false then
+		   v.items = self:give_item_list(v)
+		end  
+		
 		--' Сгенерить вещи
 		for kk,vv in pairs(v.items) do
 			if ammo_section[vv.section] == true then
@@ -175,10 +405,19 @@ function CTreasure:give_treasure(k)
 		--' Пометим тайник как выданный
 		self.treasure_info[k].active = true
 		self.treasure_info[k].done = true
+		
+		-- Отправим тайник в оффлайн
+		local sim = alife ()
+		if sim ~= nil and obj.online then
+			sim:set_switch_online  (obj.id, false)
+			sim:set_switch_offline (obj.id, true)
+			amk.convert_npc[obj.id]=1 -- ставим в очередь на вывод в онлайн
+		end
 	else
 		printf("TREASURE %s, target doesnt exist", k)
 	end
 end
+
 --' Снимаем отметку с тайника
 function CTreasure:treasure_empty(box, box_story_id)
 	printf("!!! treasure empty")
@@ -189,8 +428,15 @@ function CTreasure:treasure_empty(box, box_story_id)
 	end
 
 	self.treasure_info[k].active = false
+	
+	-- если тайник не именной, то переведен его в онлайн для следующей выдачи
+	if self:named_treasure(self.treasure_info[k]) == false then
+	  self.treasure_info[k].done = false
+	end
+	
 	level.map_remove_object_spot(box:id(), "treasure")
 end
+
 --' Сохранение
 function CTreasure:save(p)
 	--' Сохраняем размер таблицы
@@ -205,6 +451,7 @@ function CTreasure:save(p)
 		p:w_bool(v.done)
 	end
 end
+
 --' Загрузка
 function CTreasure:load(p)
 	local t = p:r_u16()
@@ -215,6 +462,72 @@ function CTreasure:load(p)
 	end
 end
 
+function CTreasure:give_item_list(v)
+	local tabla = {}
+	local i = math.random(1, 2)
+	local cnt = 0
+	local spawn = {}
+	
+	for j = 1, i, 1 do	
+		if 	   string.find(v.name, "esc_") or string.find(v.name, "gar_") then
+			   spawn.section = subjects_list.level_C1[math.random(table.getn(subjects_list.level_C1))]		
+		elseif string.find(v.name, "agr_") or string.find(v.name, "val_") or string.find(v.name, "bar_") then
+			   spawn.section = subjects_list.level_C2[math.random(table.getn(subjects_list.level_C2))]		
+		elseif string.find(v.name, "ros_") or string.find(v.name, "yan_") or string.find(v.name, "mil_") then
+			   spawn.section = subjects_list.level_C3[math.random(table.getn(subjects_list.level_C3))]			
+		elseif string.find(v.name, "rad_") or string.find(v.name, "pri_") then
+			   spawn.section = subjects_list.level_C4[math.random(table.getn(subjects_list.level_C4))]		
+		else
+			   spawn.section = subjects_list.level_U0[math.random(table.getn(subjects_list.level_U0))]
+		end
+	end
+
+	if ammo_section[spawn.section] == true then
+		local ini = system_ini()
+		local num_in_box = ini:r_u32(spawn.section, "box_size")
+		local h = math.random(1, 5)
+		cnt = math.random(1, h) * num_in_box
+	else
+		local s = tostring(spawn.section)
+		if string.find(s, "outfit") ~= nil or string.find(s, "wpn") ~= nil then
+			cnt = 1
+		elseif string.find(s, "addon") ~= nil or string.find(s, "af") ~= nil or string.find(s, "mutant") ~= nil then
+			cnt = math.random(1, 3)
+		else 
+			cnt = math.random(1, 5)
+		end   
+	end
+  
+	-- сохраняем инфу о текущем предмете
+	spawn.prob = cnt
+	table.insert(tabla, spawn)
+
+ return tabla
+end
+
+function CTreasure:named_treasure(v)
+ -- проверка, является ли тайник именным. Если да, то его наполнение не меняется
+ if   v.name == "agr_secret_0000_name" --Тайник Серого
+   or v.name == "bar_secret_0011_name" --Тайник Арни
+   or v.name == "esc_secret_0013_name" --Тайник Ворпала
+   or v.name == "gar_secret_0002_name" --Вещи Гризли
+   or v.name == "gar_secret_0011_name" --Склад группы Стрелка
+   or v.name == "gar_secret_0021_name" --Рюкзак Дохляка
+   or v.name == "pri_secret_0003_name" --Хабар Клыка
+   or v.name == "pri_secret_0004_name" --Запасы лидера Свободы
+   or v.name == "rad_secret_0000_name" --Клад Угрюмого
+   or v.name == "rad_secret_0004_name" --Запас группы отчаянных
+   or v.name == "ros_secret_0015_name" --Тайник Счастливчика
+   or v.name == "ros_secret_0018_name" --Ящик с медикаментами
+   or v.name == "val_secret_0028_name" --Тайник Борова
+   or v.name == "x18_secret_0000_name" --Тайник Копченого
+   or v.name == "yan_secret_0011_name" --Тайник учёного
+ then
+   return true
+ else
+   return false
+ end    
+end
 
 function get_treasure_manager()
 	if treasure_manager == nil then
@@ -225,9 +538,9 @@ end
 
 function take_item_from_box(box, box_story_id)
 	printf("!!! take item from box %s", tostring(box:is_inv_box_empty()))
-	if box:is_inv_box_empty() == true then
+--	if box:is_inv_box_empty() == true then
 		get_treasure_manager():treasure_empty(box, box_story_id)
-	end
+--	end
 end
 
 function save(p)

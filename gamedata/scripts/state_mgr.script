@@ -37,6 +37,25 @@ function evaluator_state_mgr_idle:evaluate()
 
 	return false
 end
+
+class "evaluator_state_mgr_idle_off" (property_evaluator)
+function evaluator_state_mgr_idle_off:__init(name, state_manager) super (nil, name)
+	self.st = state_manager
+	self.mgr = nil
+end
+function evaluator_state_mgr_idle_off:evaluate()
+	local t = self.st.target_state == "idle" and 
+		   self.st.planner:evaluator(self.st.properties["movement"]):evaluate()	and
+		   self.st.planner:evaluator(self.st.properties["animstate"]):evaluate() and
+		   self.st.planner:evaluator(self.st.properties["animation"]):evaluate() and 
+		   self.st.planner:evaluator(self.st.properties["bodystate"]):evaluate() and 
+			 self.st.planner:evaluator(self.st.properties["weapon"]):evaluate() and
+			 self.st.planner:evaluator(self.st.properties["mental"]):evaluate() -- and
+--			 self.st.planner:evaluator(self.st.properties["direction"]):evaluate()
+--	amk.mylog("Checking idleoff for "..self.object:name().." = "..tostring(t))
+	return t
+end
+
 --' Мы уже в безраличном состоянии idle или нет ()учет с проверкой alife
 class "evaluator_state_mgr_idle_alife" (property_evaluator)
 function evaluator_state_mgr_idle_alife:__init(name, state_manager) super (nil, name)
@@ -131,6 +150,35 @@ function act_state_mgr_to_idle:finalize()
 	action_base.finalize(self)
 end
 
+--' Переход в idle
+class "act_state_mgr_to_off" (action_base)
+function act_state_mgr_to_off:__init(name,state_manager) super (nil, name)	
+	self.st = state_manager
+end
+
+function act_state_mgr_to_off:initialize()
+	action_base.initialize(self)
+	self.st:set_state("idle", nil, nil, nil, {animation = true})
+	xr_sound.set_sound(self.object, nil)
+	stop_play_sound(self.object)
+--	amk.mylog("stmt for "..self.object:name().." is going off","stmt")
+end
+
+function act_state_mgr_to_off:execute()
+	action_base.execute(self)
+--	self.st:set_state("idle", nil, nil, nil, {animation = true})
+end
+
+function act_state_mgr_to_off:finalize()
+	-- По завершению перехода нужно записать -1 в указатель "на кого смотреть", 
+	-- чтобы при возврате было понятно что его нужно переинициализировать.
+	
+	self.st.current_object = -1
+	self.object:movement_enabled(true)
+--	ui_rad.mylog("stmt for "..self.object:name().." has gone off","stmt")
+	action_base.finalize(self)
+end
+
 
 --'-------------------------------------------------------------------------------------
 --' Эвалуаторы и экшены менеджера
@@ -174,7 +222,7 @@ function eva_state_mgr_locked:evaluate()
 	--printf("animation locked: %s", utils.to_str(self.st.planner:evaluator(self.st.properties["animation_locked"]):evaluate()))
 
 	--printf("combat[%s] alife[%s]", tostring(self.st.combat), tostring(self.st.alife))
-	if self.st.combat or self.st.alife then 
+	if self.st.combat or self.st.alife then -- or self.st.override then 
 		return true 
 	end
 
@@ -214,7 +262,7 @@ function act_state_mgr_end:execute()
 				self.st.look_object = nil
 				return
 			end
-			if self.object:see(look_object) ~= nil and
+			if self.object:see(look_object) and
 				(not IsStalker(look_object) or				
 				self.object:relation(look_object) == game_object.enemy) and
 				look_object:alive() == true
@@ -308,7 +356,8 @@ function state_manager:set_state(state_name, callback, timeout, target, emerg, s
 	printf("Set State called: for %s State: %s", self.npc:name(), state_name)
 	
 	if state_lib.states[state_name] == nil then
-		abort("ERROR: ILLEGAL SET STATE CALLED!!! %s fo %s", tostring(state_name), self.npc:name())
+		-- abort("ERROR: ILLEGAL SET STATE CALLED!!! %s fo %s", tostring(state_name), self.npc:name())
+		state_name="idle"
 	end
 	if target then
 		if target.look_position then
@@ -456,20 +505,29 @@ function bind_manager(object)
 	local properties	= {}
 	properties["state_mgr_idle_combat"] 	= xr_evaluators_id.state_mgr + 1
 	properties["state_mgr_idle_alife"]	 	= xr_evaluators_id.state_mgr + 2
+	properties["state_mgr_idle_off"]	 	= xr_evaluators_id.state_mgr + 3
 
 	local operators		= {}
 	operators["state_mgr_to_idle_combat"]	= xr_actions_id.state_mgr + 1
 	operators["state_mgr_to_idle_alife"]	= xr_actions_id.state_mgr + 2
+	operators["state_mgr_to_idle_off"]	= xr_actions_id.state_mgr + 3
 
 	local state_manager = state_mgr.state_manager(object)
 	
 	manager:add_evaluator(properties["state_mgr_idle_combat"], 	evaluator_state_mgr_idle("state_mgr_idle_combat", state_manager))
 	manager:add_evaluator(properties["state_mgr_idle_alife"], 	evaluator_state_mgr_idle_alife("state_mgr_idle_alife", state_manager))
+	manager:add_evaluator(properties["state_mgr_idle_off"], 	evaluator_state_mgr_idle_off("state_mgr_idle_off", state_manager))
 
 	local action = this.act_state_mgr_to_idle("state_mgr_to_idle_combat", state_manager)
 	action:add_precondition		(world_property(properties["state_mgr_idle_combat"],	false))
 	action:add_effect 			(world_property(properties["state_mgr_idle_combat"],	true))
 	manager:add_action(operators["state_mgr_to_idle_combat"], action)
+	
+	-- Добавим ещё один тип отключения этого безобразия
+	action = this.act_state_mgr_to_off("state_mgr_to_off", state_manager)
+	action:add_precondition		(world_property(properties["state_mgr_idle_off"],	false))
+	action:add_effect 			(world_property(properties["state_mgr_idle_off"],	true))
+	manager:add_action(operators["state_mgr_to_idle_off"], action)
 
 	action = this.act_state_mgr_to_idle("state_mgr_to_idle_alife", state_manager)
 	action:add_precondition		(world_property(stalker_ids.property_enemy,	false))
@@ -495,6 +553,3 @@ function bind_manager(object)
 	
 	return state_manager
 end
-
-
-

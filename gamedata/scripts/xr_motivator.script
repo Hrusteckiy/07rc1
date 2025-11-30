@@ -1,3 +1,4 @@
+--/amk_rel_1/
 --[[------------------------------------------------------------------------------------------------------------------
 автор: Диденко Руслан (Stohe)
 
@@ -10,32 +11,42 @@ net_spawn
 memtsg = {} --' временная таблица
 lasthealth = 0
 lastime = nil
+local particles={}
 
 ----------------------------------------------------------------------------------------------------------------------
 class "motivator_binder" (object_binder)
 
 function motivator_binder:__init (obj) super(obj)
-	self.loaded = false
-	self.last_update = 0
-	----memusage.collect_info(self.object, "__init")
+  self.loaded = false
+  self.last_update = 0
+        self.prev_ammo = -1
+  ----memusage.collect_info(self.object, "__init")
 
     self.first_update = false
-	self.treasure_processed = false
+  self.treasure_processed = false
+        self.particles = {}
 end
 
 function motivator_binder:extrapolate_callback(cur_pt)
-	if self.st.active_section then
-		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "extrapolate_callback")
-		self.st.move_mgr:extrapolate_callback(self.object)
+	if self.object == nil then 
+		return false 
 	end
+	
+  if self.st.active_section then
+    xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "extrapolate_callback")
+    self.st.move_mgr:extrapolate_callback(self.object)
+  end
 
-	if patrol(self.object:patrol()):flags(cur_pt):get() == 0 then
-		return true
-	end
-	return false
+  if patrol(self.object:patrol()):flags(cur_pt):get() == 0 then
+    return true
+  end
+  return false
 end
 
 function motivator_binder:reinit()
+	if self.object == nil then 
+		return 
+	end
     object_binder.reinit(self)
     --memusage.collect_info(self.object, "reinit_start")
     --printf("motivator_binder:reinit(): self.object:name()='%s'", self.object:name())
@@ -53,357 +64,544 @@ function motivator_binder:reinit()
 
     --' Создание менеджера контроля положений тела
     --memusage.collect_info(self.object, "before_statemgr")
-	self.st.state_mgr = state_mgr.bind_manager(self.object)
+  self.st.state_mgr = state_mgr.bind_manager(self.object)
 
-	self.st.move_mgr = move_mgr.move_mgr(self.object)
-	self.st.move_mgr:initialize()
+  self.st.move_mgr = move_mgr.move_mgr(self.object)
+  self.st.move_mgr:initialize()
 
-	--memusage.collect_info(self.object, "after_statemgr")
-	--memusage.collect_info(self.object, "reinit_end")
+  --memusage.collect_info(self.object, "after_statemgr")
+  --memusage.collect_info(self.object, "reinit_end")
 end
 ----------------------------------------------------------------------------------------------------------------------
 function motivator_binder:net_spawn(sobject)
-	printf("motivator_binder:net_spawn(): self.object:name()='%s'", self.object:name())
-	--memusage.collect_info(self.object, "netspawn_start")
-	if not object_binder.net_spawn(self, sobject) then
-		return false
-	end
+  printf("motivator_binder:net_spawn(): self.object:name()='%s'", self.object:name())
+  --memusage.collect_info(self.object, "netspawn_start")
+  if not object_binder.net_spawn(self, sobject) then
+    return false
+  end
 
---	if self.object:spawn_ini():section_exist("dont_spawn_online") then
---		printf("!!!OFFLINE")
---		alife():object(self.object:id()).dont_spawn_online = true
---	end
+  local npc=self.object
+  local zomb=amk.load_table("zombies")
+  for k,v in pairs(zomb) do
+    if k==npc:id() then
+      if alife():object(v.master) and alife():object(v.master).alive and (not alife():object(v.master):alive()) then
+        if amk_mod.dezombify(k,v) then
+          zomb[k]=nil
+        end
+      end
+    end
+  end
+  amk.save_table("zombies",zomb)
 
-	db.add_obj(self.object)
 
-	-- Все CALLBACK-и ставить здесь:
-	self.object:set_patrol_extrapolate_callback(motivator_binder.extrapolate_callback, self)
-	self.object:set_callback(callback.hit, motivator_binder.hit_callback, self)
-	self.object:set_callback(callback.death, motivator_binder.death_callback, self)
-	self.object:set_callback(callback.use_object, motivator_binder.use_callback, self)
-	--memusage.collect_info(self.object, "after__callback")
+--  if self.object:spawn_ini():section_exist("dont_spawn_online") then
+--    printf("!!!OFFLINE")
+--    alife():object(self.object:id()).dont_spawn_online = true
+--  end
 
-	--self.object:set_callback(callback.sound, motivator_binder.hear_callback, self)
+  db.add_obj(self.object)
+
+  -- Все CALLBACK-и ставить здесь:
+  self.object:set_patrol_extrapolate_callback(motivator_binder.extrapolate_callback, self)
+  self.object:set_callback(callback.hit, motivator_binder.hit_callback, self)
+  self.object:set_callback(callback.death, motivator_binder.death_callback, self)
+  self.object:set_callback(callback.use_object, motivator_binder.use_callback, self)
+  --memusage.collect_info(self.object, "after__callback")
+
+  --self.object:set_callback(callback.sound, motivator_binder.hear_callback, self)
 
     --' Загрузка историй для лагеря.
-	if self.loaded == false then
-		local char_ini = self.object:spawn_ini() or ini_file("scripts\\dummy.ltx")
-		xr_info.loadInfo(self.object, char_ini)
-	end
+  if self.loaded == false then
+    local char_ini = self.object:spawn_ini() or ini_file("scripts\\dummy.ltx")
+    xr_info.loadInfo(self.object, char_ini)
+  end
 
-	if not self.object:alive() then
-		return true
-	end
+  if not self.object:alive() then
+    return true
+  end
 
-	--' Для зомбированных чуваков говорим что аномалий не существует
---	if self.object:character_community() == "zombied" then
-		local manager = self.object:motivation_action_manager()
-		manager:remove_evaluator	(stalker_ids.property_anomaly)
-		manager:add_evaluator		(stalker_ids.property_anomaly, property_evaluator_const(false))
---	end
-	
+  --' Для зомбированных чуваков говорим что аномалий не существует
+--  if self.object:character_community() == "zombied" then
+    local manager = self.object:motivation_action_manager()
+    manager:remove_evaluator  (stalker_ids.property_anomaly)
+    manager:add_evaluator   (stalker_ids.property_anomaly, property_evaluator_const(false))
+--  end
+
     --' загрузка озвучки
     --memusage.collect_info(self.object, "before_soundmgr")
     xr_sound.load_sound(self.object)
     --memusage.collect_info(self.object, "after_soundmgr_netspawn_end")
 
-	xr_gulag.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_stalker, self.loaded )
+  xr_gulag.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_stalker, self.loaded )
 
-	return true
+  -- added by xStream for AMK miniSDK
+  amk.on_npc_spawn(self.object)
+
+        amk.on_net_spawn(self.object)
+  -- end of addition
+
+        local particle_param = utils.cfg_get_string(system_ini(), self.object:section(), "bones_particles", null, false, false, nil)
+
+        if particle_param and system_ini():section_exist(particle_param) then
+                local tmp=amk.parse_ini_section_to_array(system_ini(),particle_param)
+
+                for k,v in pairs(tmp) do
+                        local t = amk.parse_ini_section_to_array(system_ini(), v)
+                        t.obj = self.object
+                        if not t.stop_on_death or self.object:alive() then
+                                play_particle(self.object, t)
+                        end
+                end
+        end
+
+  return true
 end
 
 function motivator_binder:net_destroy()
-	--printf("motivator_binder:net_destroy(): self.object:name()='%s'", self.object:name())
 
-	local st = db.storage[self.object:id()]
-	if st.active_scheme then
-		xr_logic.issue_event(self.object, st[st.active_scheme], "net_destroy", self.object)
-	end
+  if xrs_ai then xrs_ai.npc_net_destroy(self.object) end
 
-	db.del_obj(self.object)
+        if table.getn(self.particles)>0 then
+                for kk,vv in pairs(self.particles) do
+                        if not vv:is_finished() then
+                                vv:stop()
+                                self.particles[kk]=nil
+                        end
+                end
+        end
 
-	db.storage[self.object:id()] = nil
+  -- added by xStream for AMK miniSDK
+  amk.on_npc_go_offline(self.object)
+  -- end of addition
 
-	self:clear_callbacks()
-	self.object:set_callback(callback.use_object, nil)
+  --printf("motivator_binder:net_destroy(): self.object:name()='%s'", self.object:name())
+        if self.object == nil then return end
 
-	object_binder.net_destroy(self)
+  local st = db.storage[self.object:id()]
+  if st.active_scheme then
+    xr_logic.issue_event(self.object, st[st.active_scheme], "net_destroy", self.object)
+  end
+
+  db.del_obj(self.object)
+
+  db.storage[self.object:id()] = nil
+
+  self:clear_callbacks()
+  self.object:set_callback(callback.use_object, nil)
+
+
+        -- АМК. Очистка рестрикторов
+        local id=self.object:id()
+
+  object_binder.net_destroy(self)
+
+        local sobj=alife():object(id)
+        if sobj then
+                local tbl=amk.read_stalker_params(sobj)
+                tbl.crvu32u16u2={}
+                amk.write_stalker_params(tbl,sobj)
+        else
+                -- Выход из игры.
+        end
 end
 
 function motivator_binder:clear_callbacks()
-	self.object:set_patrol_extrapolate_callback(nil)
-	self.object:set_callback(callback.hit, nil)
-	self.object:set_callback(callback.death, nil)
+	if self.object == nil then 
+		return 
+	end
+  self.object:set_patrol_extrapolate_callback(nil)
+  self.object:set_callback(callback.hit, nil)
+  self.object:set_callback(callback.death, nil)
 end
 
 function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_index)
-	-- FIXME: коллбеки неплохо было бы регистрировать в общем storage, а не посхемно...
-	-- просто всегда ставить их при включении схемы и снимать при отключении.
-	if self.st.active_section then
-		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "hit_callback", obj, amount, local_direction, who, bone_index)
+	if self.object == nil then
+		dbg.log("Nil self.object in motivator_binder:hit_callback")
+		return
+		--abort("Nil self.object in motivator_binder")
 	end
-	if self.st.combat_ignore then
-		xr_logic.issue_event(self.object, self.st.combat_ignore, "hit_callback", obj, amount, local_direction, who, bone_index)
-	end
-	if self.st.combat then
-		xr_logic.issue_event(self.object, self.st.combat, "hit_callback", obj, amount, local_direction, who, bone_index)
-	end
-	if self.st.hit then
-		xr_logic.issue_event(self.object, self.st.hit, "hit_callback", obj, amount, local_direction, who, bone_index)
-	end
-	if amount > 0 then
-		printf("HIT_CALLBACK: %s amount=%s bone=%s", obj:name(), amount, tostring(bone_index))
-		sr_territory.issue_event(self.object, "hit_callback", obj, amount, local_direction, who, bone_index)
-		xr_wounded.hit_callback(self.object:id())
-	end
+  -- FIXME: коллбеки неплохо было бы регистрировать в общем storage, а не посхемно...
+  -- просто всегда ставить их при включении схемы и снимать при отключении.
+
+  if self.st.active_section then
+    xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "hit_callback", obj, amount, local_direction, who, bone_index)
+  end
+  if self.st.combat_ignore then
+    xr_logic.issue_event(self.object, self.st.combat_ignore, "hit_callback", obj, amount, local_direction, who, bone_index)
+  end
+  if self.st.combat then
+    xr_logic.issue_event(self.object, self.st.combat, "hit_callback", obj, amount, local_direction, who, bone_index)
+  end
+  if self.st.hit then
+    xr_logic.issue_event(self.object, self.st.hit, "hit_callback", obj, amount, local_direction, who, bone_index)
+  end
+  if amount > 0 then
+    printf("HIT_CALLBACK: %s amount=%s bone=%s", obj:name(), amount, tostring(bone_index))
+    sr_territory.issue_event(self.object, "hit_callback", obj, amount, local_direction, who, bone_index)
+    xr_wounded.hit_callback(self.object:id())
+    if blowout_scheme then
+      blowout_scheme.hit_callback(obj)
+    end
+  end
+
+  -- added by xStream for AMK miniSDK
+  amk.on_npc_hit(obj, amount, local_direction, who, bone_index)
+  -- end of addition
+
 end
 
 function motivator_binder:death_callback(victim, who)
-	if who:id() == db.actor:id() then
-		xr_statistic.addKillCount(self.object)
+	if self.object == nil then 
+		dbg.log("motivator_binder:death_callback self.object=nil")	
+		return 
 	end
-	
-	if self.st.death then
-		xr_logic.issue_event(self.object, self.st.death, "death_callback", victim, who)
+		
+	if xrs_ai then 
+		xrs_ai.npc_death_callback(self.object) 
 	end
-	if self.st.active_section then
-		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "death_callback", victim, who)
-	end
-	sr_territory.issue_event(self.object, "death_callback", victim, who)
 
-	sr_light.check_light(self.object)
 
-	smart_terrain.on_death( self.object:id() )
-	
-	death_manager.drop_manager(self.object):create_release_item()
+  if who:id() == db.actor:id() then
+    xr_statistic.addKillCount(self.object)
+  end
 
-	self:clear_callbacks()
+  if self.st.death then
+    xr_logic.issue_event(self.object, self.st.death, "death_callback", victim, who)
+  end
+  if self.st.active_section then
+    xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "death_callback", victim, who)
+  end
+  sr_territory.issue_event(self.object, "death_callback", victim, who)
 
-	--' Наносим небольшой импульс вперед.
-	local h = hit()
-	h.draftsman = self.object
-	h.type = hit.fire_wound
-	h.direction = db.actor:position():sub(self.object:position())
-	h:bone("pelvis")
-	h.power = 1
-	h.impulse = 10
-	self.object:hit(h)
+  sr_light.check_light(self.object)
 
-	if(actor_stats.remove_from_ranking~=nil)then
-		local community = self.object:character_community()
-		if community == "zombied" or
-		   community == "monolith" or
-		   community == "arena_enemy"
-		then
-			return
-		end
-		actor_stats.remove_from_ranking(self.object:id())
-	end
+  smart_terrain.on_death( self.object:id() )
+
+  -- added by xStream for AMK miniSDK
+  amk.on_death(victim, who)
+  -- end of addition
+
+  death_manager.drop_manager(self.object):create_release_item()
+
+  self:clear_callbacks()
+
+  --' Наносим небольшой импульс вперед.
+  local h = hit()
+  h.draftsman = self.object
+  h.type = hit.fire_wound
+  h.direction = db.actor:position():sub(self.object:position())
+  h:bone("pelvis")
+  h.power = 1
+  h.impulse = 10
+  self.object:hit(h)
+
+        if table.getn(self.particles)>0 then
+                for kk,vv in pairs(self.particles) do
+                                vv:on_death()
+                end
+        end
+
+  if(actor_stats.remove_from_ranking~=nil)then
+    local community = self.object:character_community()
+    if community == "zombied" or
+       community == "monolith" or
+       community == "arena_enemy"
+    then
+      return
+    end
+    actor_stats.remove_from_ranking(self.object:id())
+  end
 
 end
 
 function motivator_binder:use_callback(obj, who)
-	if self.object:alive() then
-		xr_use.notify_on_use(obj, who)
-		if self.st.active_section then
-			xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "use_callback", obj, who)
-		end
-	else
-		if self.treasure_processed == false then
-			treasure_manager:get_treasure_manager():use(self.object)
-			self.treasure_processed = true
-		end
+	if self.object == nil then 
+		dbg.log("motivator_binder:use_callback self.object=nil")		
+		return 
 	end
+	
+  if self.object:alive() then
+    xr_use.notify_on_use(obj, who)
+    if self.st.active_section then
+      xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "use_callback", obj, who)
+    end
+  else
+    if self.treasure_processed == false then
+      treasure_manager:get_treasure_manager():use(self.object)
+      self.treasure_processed = true
+    end
+  end
+
+  -- added by xStream for AMK miniSDK
+  amk.on_use(obj, who)
+  -- end of addition
+
 end
 
 function motivator_binder:update(delta)
-	object_binder.update(self, delta)
+        if amk.oau_watchdog~=0 then
+                abort("Watchdog "..amk.oau_watchdog..".Reason "..amk.oau_reason)
+        end
+	if self.object == nil then 
+		dbg.log("motivator_binder:update self.object=nil")		
+		return 
+	end
+  object_binder.update(self, delta)
+
+                if particles[self.object:id()] and table.getn(particles[self.object:id()])>0 then
+                        for kk,vv in pairs(particles[self.object:id()]) do
+                                table.insert(self.particles,amk_particle.amk_particle(vv))
+                                table.remove(particles[self.object:id()],kk)
+                        end
+                end
+
+                if table.getn(self.particles)>0 then
+                        for kk,vv in pairs(self.particles) do
+                                if vv:is_finished() then
+                                        self.particles[kk]=nil
+                                else
+                                        vv:update(delta)
+                                end
+                        end
+                end
 
     if self.first_update == false then
         if self.object:alive() == false then
-			death_manager.drop_manager(self.object):create_release_item()
-        end        
+      death_manager.drop_manager(self.object):create_release_item()
+        end
         self.first_update = true
     end
 
     if time_global() - self.last_update > 1000 then
-       sr_light.check_light(self.object)
-       self.last_update = time_global()
+                        if amk.get_npc_relation(self.object,db.actor)=="enemy" and self.object:alive() and self.object.health>0.01 then
+                                        if self.object:see(db.actor) then
+                                                amk.enemy_see_actor(self.object,"npc")
+                                        end
+                                        if db.actor:see(self.object) then
+                                                amk.actor_see_enemy(self.object,"npc")
+                                        end
+                        end
+      sr_light.check_light(self.object)
+
+      self.last_update = time_global()
     end
 
-	--' Апдейт менеджера состояний тела
-	if self.st.state_mgr then
-		if self.object:alive() then
-			self.st.state_mgr:update()
-			-- Апдейт торговли
-			if self.st.state_mgr.combat == false and
-			   self.st.state_mgr.alife == false
-			then
-				trade_manager.update(self.object)
-			end			
-		else
-			self.st.state_mgr = nil
-		end
-	end
-	
-	--' Апдейт саундменеджера
-	if self.object:alive() then
-		xr_sound.update(self.object)
-	end
+                local wpn = utils.wpn_info_get(self.object)
+                if wpn["ammo"]~=nil then
+                        local enemy = self.object:best_enemy()
+                        if enemy and enemy:id()==db.actor:id() and self.object:see(db.actor) and self.prev_ammo>wpn["ammo"] then
+                                amk.npc_shot_actor(self.object)
+                        end
+                end
 
-	if self.object:alive() then
-		if self.object:is_talk_enabled() then
-			self.object:set_tip_text("character_use")
-		else
-			self.object:set_tip_text("")
-		end
-	else
-		self.object:set_tip_text_default()
-	end
+                self.prev_ammo = wpn["ammo"] or 0
+
+  --' Апдейт менеджера состояний тела
+  if self.st.state_mgr then
+    if self.object:alive() then
+      self.st.state_mgr:update()
+      -- Апдейт торговли
+      if self.st.state_mgr.combat == false and
+         self.st.state_mgr.alife == false
+      then
+        trade_manager.update(self.object)
+      end
+    else
+      self.st.state_mgr = nil
+    end
+  end
+
+  --' Апдейт саундменеджера
+  if self.object:alive() then
+    xr_sound.update(self.object)
+  end
+
+  if self.object:alive() then
+    if self.object:is_talk_enabled() then
+      self.object:set_tip_text("character_use")
+    else
+      self.object:set_tip_text("")
+    end
+  else
+    self.object:set_tip_text_default()
+  end
 
 
-	self.object:info_clear()
-	local best_enemy = self.object:best_enemy()
-	if best_enemy then
-		self.object:info_add('enemy -- ' .. best_enemy:name())
-	end
-	local active_section = db.storage[self.object:id()].active_section
-	if active_section then
-		self.object:info_add('section -- ' .. active_section)
-	end
-	self.object:info_add('name -- ' .. self.object:name())
+  self.object:info_clear()
+  local best_enemy = self.object:best_enemy()
+  if best_enemy then
+    self.object:info_add('enemy -- ' .. best_enemy:name())
+  end
+  local active_section = db.storage[self.object:id()].active_section
+  if active_section then
+    self.object:info_add('section -- ' .. active_section)
+  end
+  self.object:info_add('name -- ' .. self.object:name())
 
-	--' Проверка потери жизни
+  --' Проверка потери жизни
 --[[
-	if lasttime == nil or
-	   game.get_game_time():diffSec(lasttime) > 1
-	then
-		printf("%f * %f", self.object.health, self.object.health - lasthealth)
-		lasthealth = self.object.health
-		lasttime = game.get_game_time()
-	end
+  if lasttime == nil or
+     game.get_game_time():diffSec(lasttime) > 1
+  then
+    printf("%f * %f", self.object.health, self.object.health - lasthealth)
+    lasthealth = self.object.health
+    lasttime = game.get_game_time()
+  end
 ]]
---[[	if not self.debug_smrt then
-		for k, v in pairs( db.smart_terrain_by_id ) do
-			self.debug_smrt = true
+--[[  if not self.debug_smrt then
+    for k, v in pairs( db.smart_terrain_by_id ) do
+      self.debug_smrt = true
 
-			local o = alife():object( self.object:id() )
+      local o = alife():object( self.object:id() )
 
-			if v:enabled(o) then
-				v:register(o)
-			end
+      if v:enabled(o) then
+        v:register(o)
+      end
 
-			break
-		end
-	end]]
+      break
+    end
+  end]]
+
+  if xrs_ai then xrs_ai.npc_update(self) end
+
 end
 
 function motivator_binder:reload(section)
-	--memusage.collect_info(self.object, "reload_start")
-	object_binder.reload(self, section)
-	--printf("motivator_binder:reload(): self.object:name()='%s'", self.object:name())
-	--self.object:set_pda_callback(pda_callback)
-	--memusage.collect_info(self.object, "reload_end")
+  --memusage.collect_info(self.object, "reload_start")
+  object_binder.reload(self, section)
+  --printf("motivator_binder:reload(): self.object:name()='%s'", self.object:name())
+  --self.object:set_pda_callback(pda_callback)
+  --memusage.collect_info(self.object, "reload_end")
 end
 
 function motivator_binder:net_save_relevant()
-	--printf("motivator_binder:net_save_relevant(): self.object:name()='%s'", self.object:name())
-	return true
+  --printf("motivator_binder:net_save_relevant(): self.object:name()='%s'", self.object:name())
+  return true
 end
 
 function motivator_binder:save(packet)
-	printf("motivator_binder:save(): self.object:name()='%s'", self.object:name())
-	object_binder.save(self, packet)
+  printf("motivator_binder:save(): self.object:name()='%s'", self.object:name())
+  object_binder.save(self, packet)
 
-	packet:w_bool(self.treasure_processed)
+  packet:w_bool(self.treasure_processed)
 
-	xr_logic.save_obj(self.object, packet)
-	dialog_manager.save(self.object, packet)
-	trade_manager.save(self.object, packet)
+  xr_logic.save_obj(self.object, packet)
+  dialog_manager.save(self.object, packet)
+  trade_manager.save(self.object, packet)
 end
 
 function motivator_binder:load(reader)
-	self.loaded = true
-
-	printf("motivator_binder:load(): self.object:name()='%s'", self.object:name())
-	object_binder.load(self, reader)
-	printf("motivator_binder:object_binder.load(): self.object:name()='%s'", self.object:name())
-
-	if reader:r_eof() then
-		abort("SAVE FILE IS CORRUPT")
-	end
-
-
-	self.treasure_processed = reader:r_bool()
-
-	xr_logic.load_obj(self.object, reader)
-
-	self.npc_script_version = alife():object(self.object:id()).script_version
-	dialog_manager.load(self.object, reader, self.npc_script_version)
-	trade_manager.load(self.object, reader)
-end
-
-function motivator_binder:hear_callback(self, who, sound_type, sound_position, sound_power)
-	if who:id() == self:id() then
+	if self.object == nil then
+		dbg.log("motivator_binder:load self.object=nil")	
 		return
 	end
-	local type = "NIL"
-	if bit_and(sound_type, snd_type.weapon) == snd_type.weapon then
-		type = "WPN"
-		if bit_and(sound_type, snd_type.weapon_shoot) == snd_type.weapon_shoot then
-			type = "WPN_shoot"
-		elseif bit_and(sound_type, snd_type.weapon_empty) == snd_type.weapon_empty then
-			type = "WPN_empty"
-		elseif bit_and(sound_type, snd_type.weapon_bullet_hit) == snd_type.weapon_bullet_hit then
-			type = "WPN_hit"
-		elseif bit_and(sound_type, snd_type.weapon_reload) == snd_type.weapon_reload then
-			type = "WPN_reload"
-		end
-	elseif bit_and(sound_type, snd_type.item) == snd_type.item then
-		type = "ITM"
-		if bit_and(sound_type, snd_type.item_pick_up) == snd_type.item_pick_up then
-			type = "ITM_pckup"
-		elseif bit_and(sound_type, snd_type.item_drop) == snd_type.item_drop then
-			type = "ITM_drop"
-		elseif bit_and(sound_type, snd_type.item_hide) == snd_type.item_hide then
-			type = "ITM_hide"
-		elseif bit_and(sound_type, snd_type.item_take) == snd_type.item_take then
-			type = "ITM_take"
-		elseif bit_and(sound_type, snd_type.item_use) == snd_type.item_use then
-			type = "ITM_use"
-		end
-	elseif bit_and(sound_type, snd_type.monster) == snd_type.monster then
-		type = "MST"
-		if bit_and(sound_type, snd_type.monster_die) == snd_type.monster_die then
-			type = "MST_die"
-		elseif bit_and(sound_type, snd_type.monster_injure) == snd_type.monster_injure then
-			type = "MST_damage"
-		elseif bit_and(sound_type, snd_type.monster_step) == snd_type.monster_step then
-			type = "MST_step"
-		elseif bit_and(sound_type, snd_type.monster_talk) == snd_type.monster_talk then
-			type = "MST_talk"
-		elseif bit_and(sound_type, snd_type.monster_attack) == snd_type.monster_attack then
-			type = "MST_attack"
-		elseif bit_and(sound_type, snd_type.monster_eat) == snd_type.monster_eat then
-			type = "MST_eat"
-		end
-	end
-	if type ~= "NIL" then
-		printf("SND *%s* dist: %d [%f], %s -> %s", type, self:position():distance_to(who:position()), sound_power, who:name(), self:name())
-	end
+
+  self.loaded = true
+
+  printf("motivator_binder:load(): self.object:name()='%s'", self.object:name())
+  object_binder.load(self, reader)
+  printf("motivator_binder:object_binder.load(): self.object:name()='%s'", self.object:name())
+
+  if reader:r_eof() then
+    abort("SAVE FILE IS CORRUPT")
+  end
+
+
+  self.treasure_processed = reader:r_bool()
+
+  xr_logic.load_obj(self.object, reader)
+  self.npc_script_version = alife():object(self.object:id()).script_version
+  dialog_manager.load(self.object, reader, self.npc_script_version)
+  trade_manager.load(self.object, reader)
+end
+
+function motivator_binder:hear_callback(victim, who, sound_type, sound_position, sound_power)
+  --if who:id() == self:id() then
+	--dbg.log("motivator_binder:hear_callback who:id() == self:id()")  
+    --return
+  --end
+  local type = "NIL"
+  if bit_and(sound_type, snd_type.weapon) == snd_type.weapon then
+    type = "WPN"
+    if bit_and(sound_type, snd_type.weapon_shoot) == snd_type.weapon_shoot then
+      type = "WPN_shoot"
+    elseif bit_and(sound_type, snd_type.weapon_empty) == snd_type.weapon_empty then
+      type = "WPN_empty"
+    elseif bit_and(sound_type, snd_type.weapon_bullet_hit) == snd_type.weapon_bullet_hit then
+      type = "WPN_hit"
+    elseif bit_and(sound_type, snd_type.weapon_reload) == snd_type.weapon_reload then
+      type = "WPN_reload"
+    end
+  elseif bit_and(sound_type, snd_type.item) == snd_type.item then
+    type = "ITM"
+    if bit_and(sound_type, snd_type.item_pick_up) == snd_type.item_pick_up then
+      type = "ITM_pckup"
+    elseif bit_and(sound_type, snd_type.item_drop) == snd_type.item_drop then
+      type = "ITM_drop"
+    elseif bit_and(sound_type, snd_type.item_hide) == snd_type.item_hide then
+      type = "ITM_hide"
+    elseif bit_and(sound_type, snd_type.item_take) == snd_type.item_take then
+      type = "ITM_take"
+    elseif bit_and(sound_type, snd_type.item_use) == snd_type.item_use then
+      type = "ITM_use"
+    end
+  elseif bit_and(sound_type, snd_type.monster) == snd_type.monster then
+    type = "MST"
+    if bit_and(sound_type, snd_type.monster_die) == snd_type.monster_die then
+      type = "MST_die"
+    elseif bit_and(sound_type, snd_type.monster_injure) == snd_type.monster_injure then
+      type = "MST_damage"
+    elseif bit_and(sound_type, snd_type.monster_step) == snd_type.monster_step then
+      type = "MST_step"
+    elseif bit_and(sound_type, snd_type.monster_talk) == snd_type.monster_talk then
+      type = "MST_talk"
+    elseif bit_and(sound_type, snd_type.monster_attack) == snd_type.monster_attack then
+      type = "MST_attack"
+    elseif bit_and(sound_type, snd_type.monster_eat) == snd_type.monster_eat then
+      type = "MST_eat"
+    end
+  end
+  if type ~= "NIL" then
+    printf("SND *%s* dist: %d [%f], %s -> %s", type, victim:position():distance_to(who:position()), sound_power, who:name(), victim:name())
+    --dbg.log("SND *%s* dist: %d [%f], %s -> %s", type, victim:position():distance_to(who:position()), sound_power, who:name(), victim:name())	
+  end
 end
 
 function AddToMotivator(npc)
-	if alife() then
-		npc:bind_object(this.motivator_binder(npc))
+  if alife() then
+	if npc == nil then
+		dbg.log("AddToMotivator(npc=nil)")
+		return
 	end
+    npc:bind_object(this.motivator_binder(npc))
+  end
 end
 
 -- Эвалюаторы, которые имеют высший приоритет, и, соответственно, перебивают остальные скрипты собой
 function addCommonPrecondition(action)
-	--action:add_precondition (world_property(xr_evaluators_id.reaction,false))
-	action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
-	action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))
-	action:add_precondition (world_property(xr_evaluators_id.chugai_heli_hunter_base, false))
-	action:add_precondition (world_property(xr_evaluators_id.abuse_base, false))
+  --action:add_precondition (world_property(xr_evaluators_id.reaction,false))
+  action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
+  action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))
+  action:add_precondition (world_property(xr_evaluators_id.chugai_heli_hunter_base, false))
+  action:add_precondition (world_property(xr_evaluators_id.abuse_base, false))
+  action:add_precondition (world_property(blowout_scheme.evid_outside, false))
+  action:add_precondition (world_property(blowout_scheme.evid_blowout, false))
+  action:add_precondition (world_property(blowout_scheme.evid_preblowout, false))
+  action:add_precondition(world_property(blowout_scheme.evid_anomaly, false))
+  if ricochet_scheme then
+    action:add_precondition(world_property(ricochet_scheme.evid_ricochet_danger, false))
+  end
+        if watcher_act then
+    action:add_precondition(world_property(watcher_act.evid_see_stuff, false))
+        end
+
+  if xrs_ai then xrs_ai.addCommonPrecondition(action) end
+
+end
+
+function play_particle(obj,params)
+        if not particles[obj:id()] then
+                particles[obj:id()]={}
+        end
+        table.insert(particles[obj:id()],params)
 end

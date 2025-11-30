@@ -1,0 +1,157 @@
+--function add_bandit_exo()
+--amk.spawn_item("m_inventory_box",vector():set(-246.84,-24.79,-134.92),11364,4)
+--end
+
+function add_bandit_exo()
+local box,obj
+box = amk.spawn_item("m_inventory_box",vector():set(386.7,20.06,281.5),251,595097)
+repeat
+obj = alife():object(box.id)
+until ( obj~=nil )
+level.map_add_object_spot_ser(obj.id, "crlc_big","Бандитский тайник с бандитским экзоскелетом")
+alife():create("exo_bandit_outfit",
+obj.position,
+obj.m_level_vertex_id,
+obj.m_game_vertex_id,
+obj.id)
+--alife():create_ammo("ammo_7.62x39_ap",
+--obj.position,
+--obj.m_level_vertex_id,
+--obj.m_game_vertex_id,
+--obj.id,
+--30)
+amk.spawn_item("vehicle_btr",vector():set(382.15,20.05,280.55),251,595070)
+amk.spawn_item("vehicle_btr",vector():set(378.72,20.04,284.01),251,594947)
+local contr,habr
+contr = amk.spawn_item("m_controller_old_fat",vector():set(380.3,20.06,287.5),251,595097)
+repeat
+habr = alife():object(contr.id)
+until ( habr~=nil )
+alife():create("wpn_desert_eagle",
+habr.position,
+habr.m_level_vertex_id,
+habr.m_game_vertex_id,
+habr.id)
+alife():create_ammo("ammo_11.43x23_hydro",
+habr.position,
+habr.m_level_vertex_id,
+habr.m_game_vertex_id,
+habr.id,
+20)
+amk.spawn_item("m_controller_old_fat",vector():set(386.7,20.06,281.5),251,595097)
+end
+
+function show_time()
+     local hud = get_hud()
+     local cs = hud:GetCustomStatic("hud_show_time")
+     if cs == nil then
+           hud:AddCustomStatic("hud_show_time", true)
+           cs = hud:GetCustomStatic("hud_show_time")
+     end
+     local time_h = level.get_time_hours()
+     local time_m = level.get_time_minutes()
+	 local msg
+	   if time_h >= 10 then
+		 if time_m >= 10 then
+	     msg = string.format(" %d:%d\\n", time_h, time_m)
+		 else
+		 msg = string.format(" %d:0%d\\n", time_h, time_m)
+		 end
+	   else
+		 if time_m >= 10 then
+	     msg = string.format(" 0%d:%d\\n", time_h, time_m)
+		 else
+		 msg = string.format(" 0%d:0%d\\n", time_h, time_m)
+		 end
+       end	     
+     if cs ~= nil then
+           cs:wnd():SetText(msg)
+     end
+end
+
+function gravi_bronik()
+amk.spawn_item("soldier_outfit",vector():set(-140.948,-28.503,-357.038),19,110480) 
+end
+
+function dbglog(fmt,...)    
+local msg = string.format(fmt, ...)    
+local msg_no_ws = string.gsub(msg, "%s", "_" )    
+get_console():execute("dbg:" .. msg_no_ws)
+end
+
+local art
+function nano_bronik_on_take(obj)
+	if obj:section() == "af_buliz" or obj:section() == "af_spirit_4" then
+		art = true
+	end
+end
+
+function nano_bronik()
+	if db.actor:item_in_slot(6) and db.actor:item_in_slot(6):section() == "nano_outfit" then
+		if art then
+			local num_art_buliz = 0
+			local num_art_spirit_4 = 0
+			for i=0, db.actor:object_count()-1 do
+				local item = db.actor:object(i)
+				if item:section() == "af_buliz" then
+					num_art_buliz = num_art_buliz + 1
+				end
+				if item:section() == "af_spirit_4" then
+					num_art_spirit_4 = num_art_spirit_4 + 1
+				end
+			end
+			if num_art_buliz >= 5 and num_art_spirit_4 >= 5 then
+				amk.send_tip(game.translate_string("nano_mod_warning"),nil,nil,15) 
+			else
+				if num_art_buliz >= 5 then
+					amk.send_tip(game.translate_string("nano_mod_complete_w"),nil,nil,15) 
+					amk.remove_item_from_inventory(db.actor:item_in_slot(6))	
+					amk.spawn_item_in_inv("nano_outfit_addw")
+					local num = 5
+					for i=0, db.actor:object_count()-1 do
+						local obj = db.actor:object(i)
+						if obj:section() == "af_buliz" then
+							amk.remove_item_from_inventory(obj)
+							num = num - 1
+						end
+						if num <= 0 then
+							break
+						end
+					end
+				elseif num_art_spirit_4 >= 5 then
+					amk.send_tip(game.translate_string("nano_mod_complete_h"),nil,nil,15) 
+					amk.remove_item_from_inventory(db.actor:item_in_slot(6))	
+					amk.spawn_item_in_inv("nano_outfit_addh")
+					local num = 5
+					for i=0, db.actor:object_count()-1 do
+						local obj = db.actor:object(i)
+						if obj:section() == "af_spirit_4" then
+							amk.remove_item_from_inventory(obj)
+							num = num - 1
+						end
+						if num <= 0 then
+							break
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+function nano_health()
+	if db.actor and db.actor:item_in_slot(6) and db.actor.health then
+		if db.actor:item_in_slot(6):section() == "nano_outfit_addh" then
+			if db.actor.health < 1 then
+				amk.start_timer("nano_health_start",0.1)
+			end
+		end
+	end
+end
+
+function nano_health_s()
+	db.actor.health = db.actor.health + 0.1
+end		
+					
+
+

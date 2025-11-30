@@ -1,0 +1,149 @@
+--схема удаления трупов 
+local summ_corpses = 30 --общее допустимое число трупов на всех локациях (не включая СИД)
+local dist_to_corpses = 30 --расстояние от ГГ, свыше которого считаются трупы.
+local tabl_corpses={}
+local tabl_corpses_9510={}
+
+--плюс схема удаления бесхозного оружия
+local summ_weapons = 30 --общее допустимое число бесхозного оружия на всех локациях.
+local dist_to_weapons = 30 --расстояние от ГГ, свыше которого считается оружие.
+local dist_from_weapons_to_trup = 4 --расстояние от трупа, свыше которого считается оружие.
+local tabl_weapons={}
+
+function off_corpses()
+	for a=1,65535,1 do
+	local obj = alife():object(a)
+		if obj then
+			local posobj = obj.position
+			local actorpos = db.actor:position()
+			local npc_name = obj:name()
+			if (IsStalker(obj) and not obj:alive() and npc_name~="agr_ratcatcher" and npc_name~="amk_mini_bar_voron" and npc_name~="amk_mini_bar_kulinar" and npc_name~="esc_stalker_corpse" and npc_name~="esc_stalker_corps1" and npc_name~="esc_stalker_corps1_0000" and npc_name~="esc_stalker_corps1_0001" and npc_name~="esc_stalker" and npc_name~="esc_trup_bratka" and npc_name~="esc_stalker_0000" and npc_name~="esc_trup_scene" and npc_name~="aes_stalker_0000" and npc_name~="aes_stalker" and npc_name~="dar_stalker0001" and npc_name~="dar_stalker" and npc_name~="gar_stalker_0000" and npc_name~="gar_stalker_0001" and npc_name~="gar_stalker_0002" and npc_name~="gar_stalker_0003" and npc_name~="gar_stalker_0004" and npc_name~="gar_stalker_0005" and npc_name~="agr_stalker_0000" and npc_name~="agr_stalker_0001" and npc_name~="agr_stalker_0002" and npc_name~="agr_stalker_0003" and npc_name~="agr_stalker_0004" and npc_name~="agr_stalker_0005" and npc_name~="val_sos_dead1" and npc_name~="val_sos_dead2" and npc_name~="val_escort_bandit1_dead" and npc_name~="val_escort_bandit2_dead" and npc_name~="val_lager_bandit16_0000" and npc_name~="bar_stalker" and npc_name~="rostok_stalker" and npc_name~="rostok_dead_stalker_01" and npc_name~="rostok_dead_stalker_03" and npc_name~="rostok_dead_stalker_02" and npc_name~="bar_ecolog_crush_dead" and npc_name~="bar_ecolog_crush_dead_0000" and npc_name~="bar_ecolog_crush_dead_0001" and npc_name~="rostok_dead_stalker_0000" and npc_name~="bar_ecolog_crush_dead_0002" and npc_name~="bar_ecolog_crush_dead_0003" and npc_name~="yan_stalker" and npc_name~="mil_stalker_0004" and npc_name~="mil_stalker_0001" and npc_name~="mil_stalker_0002" and npc_name~="mil_stalker" and npc_name~="mil_stalker_0000" and npc_name~="rad_stalker_dead" and npc_name~="rad_stalker_0005_dead" and npc_name~="rad_stalker_0006_dead_scientist" and npc_name~="rad_stalker_0007_dead_scientist" and npc_name~="rad_stalker_0008_dead_scientist" and npc_name~="kat_bandit_0006") then
+				if posobj:distance_to(actorpos) > dist_to_corpses then 
+					if obj.m_story_id > 9510 then 
+						table.insert(tabl_corpses, obj)
+					else
+						table.insert(tabl_corpses_9510, obj)
+					end
+				end
+			end
+			local wpn_name = obj:name()
+			if (obj.parent_id and obj.parent_id == 65535 and not string.find(wpn_name,"_m1") and not string.find(wpn_name,"_m2") and not string.find(wpn_name,"hunters_toz") and not string.find(wpn_name,"wpn_gungauss") and not string.find(wpn_name,"wpn_knife") and not string.find(wpn_name,"wpn_binoc") and not string.find(wpn_name,"wpn_flame") and not string.find(wpn_name,"wpn_ak47") and wpn_name~="esc_wpn_ak74u" and wpn_name~="esc_wpn_pm" and wpn_name~="esc_wpn_bm16" and wpn_name~="esc_wpn_walther" and wpn_name~="aes_wpn_abakan" and wpn_name~="aes_grenade_f_0001" and wpn_name~="aes_grenade_f_0000" and wpn_name~="aes_grenade_f_0002" and wpn_name~="aes_grenade_f_0003" and wpn_name~="aes_wpn_rpg7" and wpn_name~="dar_wpn_ak74" and wpn_name~="dar_wpn_rpg7" and wpn_name~="gar_grenade_f_0000" and wpn_name~="gar_grenade_f_0001" and wpn_name~="val_wpn_ak74u" and wpn_name~="val_wpn_ak74u_0000" and wpn_name~="val_wpn_ak74u_0001" and wpn_name~="val_wpn_mp5" and wpn_name~="val_wpn_mp5_0000" and wpn_name~="val_wpn_rpg_0000" and wpn_name~="val_wpn_abakan" and wpn_name~="yan_grenade_rgd5" and wpn_name~="mil_grenade_f_0016" and wpn_name~="mil_grenade_f_0017" and wpn_name~="mil_grenade_f_0018" and wpn_name~="mil_grenade_f_0019" and wpn_name~="mil_grenade_rgd5" and wpn_name~="mil_grenade_rgd_0000" and wpn_name~="mil_wpn_rg-6" and wpn_name~="mil_wpn_lr_0000" and wpn_name~="mil_wpn_pm_0000" and wpn_name~="mil_wpn_ak74u" and wpn_name~="mil_wpn_ak0001" and wpn_name~="mil_wpn_ak0002" and wpn_name~="mil_wpn_bm16" and wpn_name~="mil_wpn_pm" and wpn_name~="mil_wpn_abakan" and wpn_name~="mil_wpn_lr_0002" and wpn_name~="mil_wpn_lr_0003" and wpn_name~="mil_wpn_lr_0004" and wpn_name~="mil_wpn_vintorez" and wpn_name~="kat_wpn_ak74u" and wpn_name~="level_prefix_wpn_groza" and wpn_name~="bun_grenade_f1_0001" and wpn_name~="bun_grenade_f1_0005" and wpn_name~="bun_grenade_f1_0006" and wpn_name~="bun_grenade_f1_0007" and wpn_name~="bun_grenade_f1_0008") then
+				if string.find(obj:name(),"wpn_") or string.find(obj:name(),"grenade_") then 
+					if (posobj:distance_to(actorpos) > dist_to_weapons) then 
+						table.insert(tabl_weapons, obj)
+					end
+				end
+			end
+		end
+	end
+	if table.getn(tabl_corpses) > summ_corpses then
+		table.sort(tabl_corpses,max_comp)
+		if table.getn(tabl_corpses) > summ_corpses*2 then
+			local  b = table.getn(tabl_corpses)
+			while b > summ_corpses*2 do
+				local corps = tabl_corpses[b]
+				alife():release(corps,true)
+				table.remove(tabl_corpses,b)
+				b=b-1
+			end
+		end
+		if table.getn(tabl_corpses) > summ_corpses then
+			local  b = table.getn(tabl_corpses)
+			while b > summ_corpses do
+				local corps = tabl_corpses[b]
+				if item_found(corps) == false then
+					alife():release(corps,true)
+					table.remove(tabl_corpses,b)
+				end
+				b=b-1
+			end
+		end
+		if table.getn(tabl_corpses) > summ_corpses then
+			local  b = table.getn(tabl_corpses)
+			while b > summ_corpses do
+				local corps = tabl_corpses[b]
+				alife():release(corps,true)
+				table.remove(tabl_corpses,b)
+				b=b-1
+			end
+		end
+	end
+	if table.getn(tabl_weapons) > summ_weapons then
+		table.sort(tabl_weapons,max_comp)
+		local twa = table.getn(tabl_weapons)
+		while twa > summ_weapons do
+			local wpn = tabl_weapons[twa]
+			local wpn_name = wpn:name()
+			if (get_dist_to_trup_9510(wpn) == true and get_dist_to_trup(wpn) == true and not string.find(wpn_name,"wpn_gauss") and not string.find(wpn_name,"wpn_svd") and not string.find(wpn_name,"wpn_vintorez") and not string.find(wpn_name,"wpn_svu") and not string.find(wpn_name,"wpn_fn2000") and not string.find(wpn_name,"wpn_saiga12c") and not string.find(wpn_name,"wpn_rpg7") and not string.find(wpn_name,"wpn_desert_eagle") and not string.find(wpn_name,"wpn_toz34") and not string.find(wpn_name,"wpn_rg-6")) then
+				local weapon = tabl_weapons[twa]
+				alife():release(weapon,true)
+				table.remove(tabl_weapons,twa)
+			end
+			twa=twa-1
+		end
+		if table.getn(tabl_weapons) > summ_weapons then 
+			local twb = table.getn(tabl_weapons)
+			while twb > summ_weapons do
+				local wpn = tabl_weapons[twb]
+				local wpn_name = wpn:name()
+				if (get_dist_to_trup_9510(wpn) == true and not string.find(wpn_name,"wpn_svd") and not string.find(wpn_name,"wpn_vintorez") and not string.find(wpn_name,"wpn_svu") and not string.find(wpn_name,"wpn_rpg7") and not string.find(wpn_name,"wpn_rg-6")) then 
+					local weapon = tabl_weapons[twb]
+					alife():release(weapon,true)
+					table.remove(tabl_weapons,twb)
+				end
+				twb=twb-1
+			end
+			if table.getn(tabl_weapons) > summ_weapons then
+				local twc = table.getn(tabl_weapons)
+				while twc > summ_weapons do
+					local weapon = tabl_weapons[twc]
+					alife():release(weapon,true)
+					table.remove(tabl_weapons,twc)
+					twc=twc-1
+				end
+			end
+		end
+	end
+end 
+
+function get_dist_to_trup(wpn)
+	for i=1,table.getn(tabl_corpses),1 do
+		local poswpn = wpn.position
+		local npc = tabl_corpses[i]
+		local posnpc = npc.position
+		if (poswpn:distance_to(posnpc) < dist_from_weapons_to_trup) then 
+			return false
+		end
+	end
+	return true
+end
+function get_dist_to_trup_9510(wpn)
+	for i=1,table.getn(tabl_corpses_9510),1 do
+		local poswpn = wpn.position
+		local npc = tabl_corpses_9510[i]
+		local posnpc = npc.position
+		if (poswpn:distance_to(posnpc) < dist_from_weapons_to_trup) then
+			return false
+		end
+	end
+	return true
+end
+function item_found(corps)
+	for i=1,65535,1 do
+		local item = alife():object(i)
+		if item then 
+			if item.parent_id and item.parent_id == corps.id then
+				local item_name = item:name()
+				if string.find(item_name,"ammo") or string.find(item_name,"outfit") or string.find(item_name,"exo") or string.find(item_name,"wpn_") or string.find(item_name,"bread") or string.find(item_name,"kolbasa") or string.find(item_name,"conserva") or string.find(item_name,"vodka") or string.find(item_name,"antirad") or string.find(item_name,"medkit") or string.find(item_name,"bandage") or string.find(item_name,"energy_drink") or string.find(item_name,"detector") or string.find(item_name,"dynamite") or string.find(item_name,"gunslinger_flash") or string.find(item_name,"quest_") or string.find(item_name,"document") or string.find(item_name,"_flash") or string.find(item_name,"bar_tiran_pda") or string.find(item_name,"garbage_pda") or string.find(item_name,"agroprom_pda") or string.find(item_name,"und_pda") or string.find(item_name,"volkodav_pda") or string.find(item_name,"ara_pda") or string.find(item_name,"rad_pda") or string.find(item_name,"strelok_pda") or string.find(item_name,"scaintist_pda") or string.find(item_name,"bar_lucky_pda") or string.find(item_name,"mil_svoboda_leader_pda") or string.find(item_name,"case_") or string.find(item_name,"decoder") or string.find(item_name,"_key") or string.find(item_name,"flame_parts") or string.find(item_name,"gorelka") or string.find(item_name,"manometr") or string.find(item_name,"trubka") or string.find(item_name,"flamethrower_bad") or string.find(item_name,"_m1") or string.find(item_name,"_m2") or string.find(item_name,"mutant_") or string.find(item_name,"af_") or string.find(item_name,"diplomat") or string.find(item_name,"sakbox") or string.find(item_name,"sak_") or string.find(item_name,"_book") or string.find(item_name,"playboy") then
+					return true
+				end
+			end
+		end 
+	end
+	return false
+end
+
+function max_comp(i1,i2) -- возвращает true если i1 меньше i2
+	local actorpos = db.actor:position()
+	return i1.position:distance_to(actorpos) < i2.position:distance_to(actorpos)
+end

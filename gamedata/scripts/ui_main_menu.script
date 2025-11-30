@@ -10,8 +10,8 @@ class "main_menu" (CUIScriptWnd)
 
 function main_menu:__init() super()
 	self.mbox_mode = 0
-	self:InitControls()
-	self:InitCallBacks()
+   self:InitControls()
+   self:InitCallBacks()
 end
 
 function main_menu:__finalize()
@@ -24,7 +24,7 @@ function main_menu:InitControls()
 	if xml:is_16_9_mode() then
 		xml:ParseFile("ui_mm_main_16.xml")
 	else
-		xml:ParseFile("ui_mm_main.xml")
+    xml:ParseFile("ui_mm_main.xml")
 	end
      
     xml:InitStatic("back_movie", self)
@@ -37,8 +37,12 @@ function main_menu:InitControls()
 	
 	local _ver = xml:InitStatic		("static_version",self)
 	local mm						= _G.main_menu.get_main_menu()
-	_ver:SetText					("ver. " .. mm:GetGSVer())
-	
+	--_ver:SetText					("ver. " .. mm:GetGSVer())
+	local amk_title 		= amk_ver.amk_title
+	local amk_version    	= amk_ver.amk_version
+	local amk_revision	= amk_ver.amk_revision
+	local debug_mode = ""
+	_ver:SetText("Версия игры - " .. mm:GetGSVer() .. "  " .. amk_title .. " " .. amk_version .. " " .. amk_revision)
 	self:NeedCenterCursor(true)
 end
 
@@ -75,6 +79,9 @@ function main_menu:InitCallBacks()
 	self:AddCallback("msg_box",     ui_events.MESSAGE_BOX_NO_CLICKED,		self.OnMsgNo,						self)
 	self:AddCallback("msg_box",			ui_events.MESSAGE_BOX_QUIT_GAME_CLICKED,self.OnMessageQuitGame,				self)
 	self:AddCallback("msg_box",			ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED,	self.OnMessageQuitWin,				self)
+	--amk
+	self:AddCallback("btn_amk",		ui_events.BUTTON_CLICKED,				self.amk_options,		self)
+
 end
 function main_menu:OnMsgOk()
 	self.mbox_mode = 0
@@ -124,7 +131,6 @@ function main_menu:OnButton_quit_clicked()
 	self.message_box:Init("message_box_quit_windows")
 	self:GetHolder():start_stop_menu(self.message_box, true)
 end
-
 
 function main_menu:OnButton_disconnect_clicked()
 	self.message_box:Init("message_box_quit_game")
@@ -192,7 +198,6 @@ function main_menu:OnButton_load_spawn()
 		self.spawn_dlg = ui_spawn_dialog.spawn_dialog()
 		self.spawn_dlg.owner = self
 	end
-	
 	self:GetHolder():start_stop_menu(self.spawn_dlg, true)
 	self:GetHolder():start_stop_menu(self, true) --new
 	self:Show(false)
@@ -226,7 +231,7 @@ function main_menu:OnButton_load_clicked()
 		self.load_dlg = ui_load_dialog.load_dialog()
 		self.load_dlg.owner = self
 	end
-	
+
 	self:GetHolder():start_stop_menu(self.load_dlg, true)
 	self:GetHolder():start_stop_menu(self, true) --new
 	self:Show(false)
@@ -269,15 +274,34 @@ function main_menu:OnKeyboard(dik, keyboard_action)  --virtual function
 			end
 		end
 		
---		if dik == DIK_keys.DIK_S then
---			self:OnButton_load_spawn()
+		-- раскоментируем и заоодно включим убранное спавн меню 
+		if dik == DIK_keys.DIK_S then
+		--	self:OnButton_load_spawn()
 			
---		else
-		if dik == DIK_keys.DIK_Q then
+		elseif dik == DIK_keys.DIK_Q then
 			self:OnMessageQuitWin()
+
+		elseif 	dik == DIK_keys.DIK_A then
+			if amk.check_game() then 
+				self:amk_options()
+			end	
 		end
 	
 	end
    
 	return true
 end
+
+function main_menu:amk_options()
+-- если еще ни разу не вызывали, то обозначим наш новый скрипт
+	if self.amk_options_dlg == nil then
+		self.amk_options_dlg = ui_amk_options.amk_options()
+		self.amk_options_dlg.owner = self
+	end
+-- останавливаем родительский элемент, запускаем свой, но родителя показываем.
+	self:GetHolder():start_stop_menu(self.amk_options_dlg, true)
+	self:GetHolder():start_stop_menu(self, true)
+	self:Show(false)
+
+end
+

@@ -361,7 +361,7 @@ function get_sound_object(theme, t_type)
 			if sound_object_by_theme[theme].last_id < table_size then
 				play_id = sound_object_by_theme[theme].last_id + 1
 			else
-				if type == "looped" then
+				if t_type == "looped" then
 					play_id = 1
 				end
 			end

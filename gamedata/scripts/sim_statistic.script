@@ -1,6 +1,7 @@
 -- —бор информации о том, какие сталкеры и в каком количестве обитают в симул€ции
 
 function getNpcType(npc)
+	if (npc) then
 	local cls = npc:clsid()
 
 	if cls == clsid.script_stalker then
@@ -11,12 +12,14 @@ function getNpcType(npc)
 	else
 		local community = xr_statistic.monster_classes[cls]
 		if community == nil then
-			abort("Statistic ERROR: cannot find monstr class for clsid[%s]", get_clsid(npc))
+			--abort("Statistic ERROR: cannot find monstr class for clsid[%s]", get_clsid(npc))
+			--community = ""
 		end
 	
 		local rank = ranks.get_obj_rank_name(npc)
 		return community, rank
 	end
+end
 end
 
 
@@ -31,6 +34,7 @@ function simulation_statistic:__init()
 end
 function simulation_statistic:add(npc)
 	local community, rank = getNpcType(npc)
+	if (community == nil or rank == nil) then return end
 	self.objects[npc.id] = {community = community, rank = rank}
 	if self.allocation[community] == nil then
 		self.allocation[community] = {}

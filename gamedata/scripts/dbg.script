@@ -1,0 +1,10 @@
+
+function ShowRespawnInfo()
+end
+
+function log(fmt,...)
+  local msg = string.format(fmt, ...)
+  local msg_no_ws = string.gsub(msg, "%s", "___")
+  get_console():execute("dbg:" .. msg_no_ws)
+  --get_console():execute("flush")
+end

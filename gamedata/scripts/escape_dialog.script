@@ -1,10 +1,211 @@
 --------------------------------------------------------------------------------------------------------
+-- Trader Repair
+--------------------------------------------------------------------------------------------------------
+
+local weapon_profit_margin = 1.3
+local armor_profit_margin = 1.2
+
+function trader_repair_precond(trader, actor)
+	local item_in_slot_1 = db.actor:item_in_slot(1)
+	local item_in_slot_2 = db.actor:item_in_slot(2)
+	local item_in_slot_6 = db.actor:item_in_slot(6)
+	if item_in_slot_1 ~= nil and 1 > item_in_slot_1:condition() + 0.01 then return true
+	elseif item_in_slot_2 ~= nil and 1 > item_in_slot_2:condition() + 0.01 then return true
+	elseif item_in_slot_6 ~= nil and 1 > item_in_slot_6:condition() + 0.01 then return true
+	else return false
+	end	 
+end
+
+function trader_check_money_s1(trader, actor)
+	local item_in_slot = db.actor:item_in_slot(1)
+	if item_in_slot ~= nil then 
+		local item_repair_cost = math.floor( (1-item_in_slot:condition()) * item_in_slot:cost() * weapon_profit_margin )
+		if item_repair_cost > 0 and db.actor:money() >= item_repair_cost and 1 > item_in_slot:condition() then
+			return true
+		end 
+	end
+	return false
+end
+
+function trader_check_money_s2(trader, actor)
+	local item_in_slot = db.actor:item_in_slot(2)
+	if item_in_slot ~= nil then 
+		local item_repair_cost = math.floor( (1-item_in_slot:condition()) * item_in_slot:cost() * weapon_profit_margin )
+		if item_repair_cost > 0 and db.actor:money() >= item_repair_cost and 1 > item_in_slot:condition() then
+			return true
+		end 
+	end
+	return false
+end
+
+function trader_check_money_s6(trader, actor)
+	local item_in_slot = db.actor:item_in_slot(6)
+	if item_in_slot ~= nil then 
+		local item_repair_cost = math.floor( (1-item_in_slot:condition()) * item_in_slot:cost() * armor_profit_margin )
+		if item_repair_cost > 0 and db.actor:money() >= item_repair_cost and 1 > item_in_slot:condition() then
+			return true
+		end 
+	end
+	return false
+end
+
+function trader_repiar_weapon_s1(trader, actor)
+	local item_in_slot = db.actor:item_in_slot(1)
+	if item_in_slot ~= nil then
+		local item_repair_cost = math.floor( (1-item_in_slot:condition()) * item_in_slot:cost() * weapon_profit_margin )
+		item_in_slot:set_condition(1)
+		dialogs.relocate_money(actor, item_repair_cost, "out")
+	end
+end
+
+function trader_repiar_weapon_s2(trader, actor)
+	local item_in_slot = db.actor:item_in_slot(2)
+	if item_in_slot ~= nil then
+		local item_repair_cost = math.floor( (1-item_in_slot:condition()) * item_in_slot:cost() * weapon_profit_margin )
+		item_in_slot:set_condition(1)
+		dialogs.relocate_money(actor, item_repair_cost, "out")
+	end
+end
+
+function trader_repiar_armor_s6(trader, actor)
+	local item_in_slot = db.actor:item_in_slot(6)
+	if item_in_slot ~= nil then
+		local item_repair_cost = math.floor( (1-item_in_slot:condition()) * item_in_slot:cost() * armor_profit_margin )
+		amk_mod.repair_armor(1)
+		dialogs.relocate_money(actor, item_repair_cost, "out")
+	end	
+end
+
+function repair_costs(first_speaker, second_speaker)
+	local task_texture, task_rect = get_texture_info("ui_iconsTotal_lost_money")
+	
+	local item_name_and_price = ""
+	local item_repair_cost = 0
+	if db.actor ~= nil then 
+		local item_in_slot_1 = db.actor:item_in_slot(1)
+		local item_in_slot_2 = db.actor:item_in_slot(2)
+		local item_in_slot_6 = db.actor:item_in_slot(6)
+	
+		if item_in_slot_1 ~= nil then 
+			item_repair_cost = math.floor( (1-item_in_slot_1:condition()) * item_in_slot_1:cost() * weapon_profit_margin )
+			if item_repair_cost > 0 then
+				item_name_and_price = game.translate_string("list_trader_repair_0").." %c[255,238,155,23]"..item_repair_cost.." рублей%c[default]"
+				db.actor:give_talk_message(item_name_and_price, task_texture, task_rect, "iconed_trade_info")
+			end
+		end
+		if item_in_slot_2 ~= nil then
+			item_repair_cost = math.floor( (1-item_in_slot_2:condition()) * item_in_slot_2:cost() * weapon_profit_margin )
+			if item_repair_cost > 0 then
+				item_name_and_price = game.translate_string("list_trader_repair_1").." %c[255,238,155,23]"..item_repair_cost.." рублей%c[default]"
+				db.actor:give_talk_message(item_name_and_price, task_texture, task_rect, "iconed_trade_info")
+			end
+		end
+		if item_in_slot_6 ~= nil then
+			item_repair_cost = math.floor( (1-item_in_slot_6:condition()) * item_in_slot_6:cost() * armor_profit_margin )
+			if item_repair_cost > 0 then
+				item_name_and_price = game.translate_string("list_trader_repair_2").." %c[255,238,155,23]"..item_repair_cost.." рублей%c[default]"
+				db.actor:give_talk_message(item_name_and_price, task_texture, task_rect, "iconed_trade_info")
+			end
+		end
+	end
+end
+
+function trader_miniquest_precond(trader, actor)
+	local zz = false
+	-- Читаем customdata
+	local obj = alife():story_object(3)
+	if (obj) then
+		local t = amk.get_trader_data(obj)
+		local cd = amk.parse_custom_data(t.custom)
+		if (cd.microquest and cd.microquest.reward_money and cd.microquest.reward_items and tonumber(cd.microquest.reward_money) > 0 and cd.microquest.reward_items ~= "") then
+			zz = true
+		end
+	end
+	return zz
+end
+
+function trader_check_money_miniquest(trader, actor)
+	local zz = false
+	if (db.actor:money() >= 100) then
+		zz = true
+	end
+	return zz
+end
+
+function trader_miniquest_transfer(trader, actor)
+	dialogs.relocate_money(actor, 100, "out")
+	news_main.on_miniquest_reward(trader)
+end
+
+function trader_miniquest_free_transfer(trader, actor)
+	news_main.on_miniquest_reward(trader)
+end
+
+function trader_check_miniquest_free(trader, actor)
+	if (has_alife_info("esc_trader_miniquest_free")) then
+		return true
+	end
+	return false
+end
+
+function trader_check_miniquest_free_neg(trader, actor)
+	if (has_alife_info("esc_trader_miniquest_free")) then
+		return false
+	end
+	return true
+end
+
+function trader_check_miniquest_free_all_neg(trader, actor)
+	if (has_alife_info("esc_trader_miniquest_free") or has_alife_info("esc_trader_miniquest_notfree")) then
+		return false
+	end
+	return true
+end
+
+
+--------------------------------------------------------------------------------------------------------
 -- Dialog & InfoPortions Function
 --------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------
 -- Trader
 --------------------------------------------------------------------------------------------------------
+
+
+function transfer_deneg(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 300, "in")
+    dialogs.relocate_item_section(second_speaker, "detector_simple", "in")
+    dialogs.relocate_item_section(second_speaker, "amk_metka", "in")
+	dialogs.relocate_item_section(second_speaker, "treasure_item", "in")
+end
+   
+
+function give_weapon_from_trader(trader, actor)
+    dialogs.relocate_item_section(trader, "wpn_pm", "in")
+    dialogs.relocate_item_section(trader, "ammo_9x18_fmj", "in")
+    dialogs.relocate_item_section(trader, "wpn_knife", "in")    
+	--dialogs.relocate_item_section(trader, "ammo_9x18_fmj", "in")
+end
+
+function otday_art (first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "amk_af_night_star", "out")
+end
+
+function have_a_art()
+    local actor = db.actor
+    if actor ~= nil and actor:object("amk_af_night_star") ~= nil and actor:dont_has_info("test_quest_art_vziat") then
+actor:give_info_portion("test_quest_art_vziat")
+    end
+end
+
+
+function have_a_art2 (stalker, player)
+    return stalker:object ("amk_af_night_star") ~= nil
+end
+
+
+
+
 function trader_alredy_give_job(trader, actor)
 	if (has_alife_info("agroprom_military_case") and not has_alife_info("agroprom_military_case_done")) or
 	   (has_alife_info("escape_blockpost_case") and not has_alife_info("escape_blockpost_case_done")) or
@@ -162,10 +363,16 @@ function transfer_medikit_to_fox (player, wounded)
 end
 
 function give_weapon_to_actor (trader, actor)
+	if not has_alife_info("kvest_art_started") then
     dialogs.relocate_item_section(trader, "wpn_pm", "in")
     dialogs.relocate_item_section(trader, "ammo_9x18_fmj", "in")
 	dialogs.relocate_item_section(trader, "ammo_9x18_fmj", "in")
     dialogs.relocate_item_section(trader, "wpn_knife", "in")     
+	else
+	    --dialogs.relocate_item_section(trader, "wpn_pm", "in")
+	    dialogs.relocate_item_section(trader, "ammo_9x18_fmj", "in")
+	    dialogs.relocate_item_section(trader, "ammo_9x18_fmj", "in")
+	end
 end
 
 

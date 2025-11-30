@@ -69,11 +69,16 @@ function transfer_medkit(first_speaker, second_speaker)
 
 	--' Тут надо анлочить аптечку для использования.
 	xr_wounded.unlock_medkit(second_speaker)
-		
+	
 	if second_speaker:relation(first_speaker) ~= game_object.enemy then
+		first_speaker:change_character_reputation(10)
 		second_speaker:set_relation(game_object.friend, first_speaker)
+	else
+		first_speaker:change_character_reputation(-20)
+		xr_wounded.help_wounded(second_speaker)
 	end
-	first_speaker:change_character_reputation(10);
+
+
 end
 function transfer_bandage(first_speaker, second_speaker)
 	dialogs.relocate_item_section(second_speaker, "bandage", "out")

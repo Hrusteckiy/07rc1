@@ -20,11 +20,12 @@ end
 function GetRPM(section)
 	local ltx = system_ini()
 	
-	local rpm = ltx:r_float(section,"rpm")
+	local rpm = read_if_exist(ltx, section,"rpm", 1)
 	local mag_size = ltx:r_float(section,"ammo_mag_size")
+	local f_modes = read_if_exist(ltx, section, "f_mode", 1)
 	
-	if rpm > 200 then
-		rpm = math.pow((rpm - 200)/720,2)*100 + 15
+	if rpm > 100 then
+		rpm = (mag_size*(60/((mag_size/(rpm/60)) + 5.5)))/2.4
 	else
 		rpm = rpm/14
 	end
@@ -38,16 +39,28 @@ end
 
 function GetDamage(section)
 	local ltx = system_ini()
-	local val = ltx:r_float(section,"hit_power")
+			
+	local hit_power = ltx:r_float(section,"hit_power")
+	--local hit_rate = ltx:r_float(section,"hit_rate")
+	local hit_rate = read_if_exist(ltx, section, "hit_rate", 1)
+	local ammo_list	= ltx:r_string(section,"ammo_class")
 	
+	local pos  = string.find(ammo_list,",",1)
+	local k_hit
+	if nil ~= pos then
+		local ammo = string.sub(ammo_list,1,pos - 1)
+		k_hit				= ltx:r_float(ammo, "k_hit");
+	else
+		k_hit				= ltx:r_float(ammo_list, "k_hit");
+	end
+		
+	
+	local hit = hit_rate + math.log10(2*hit_power*k_hit)
+	
+	
+	val =  28*hit
 
---	if val < 1.36 then
---		val = val*100-46
---	else
---		val = 90 + math.pow(val/2.3,2)*10
---	end
-	
-	return normalize((100*val - 25) * (100/85) )	
+	return normalize(val)
 end
 
 function GetDamageMP(section)
@@ -65,36 +78,45 @@ end
 
 function GetHandling(section)
 	local ltx = system_ini()
-	local val	
-	local control_inertion_factor
+			
+	local misfire_probability	= ltx:r_float(section,"misfire_probability")
+	--local misfire_condition_k = ltx:r_float(section,"misfire_condition_k")
+	local misfire_condition_k  = read_if_exist(ltx, section, "misfire_condition_k", 1)
+	local condition_shot_dec = ltx:r_float(section,"condition_shot_dec")
+
+	local ammo_list			= ltx:r_string(section,"ammo_class")
 	
-	if ltx:line_exist(section,"control_inertion_factor") then
-		control_inertion_factor = ltx:r_float(section,"control_inertion_factor")
+	local pos  = string.find(ammo_list,",",1)
+	local impair
+	if nil ~= pos then
+		local ammo = string.sub(ammo_list,1,pos - 1)
+		impair				= ltx:r_float(ammo, "impair");
 	else
-		control_inertion_factor = 1
+		impair				= ltx:r_float(ammo_list, "impair");
 	end
-	
-	local PDM_disp_base 		= read_if_exist(ltx, section, "PDM_disp_base", 1) 	
-	local PDM_disp_vel_factor	= read_if_exist(ltx, section, "PDM_disp_vel_factor", 1) 
-	
-	if control_inertion_factor < 2 and PDM_disp_base < 1.5 then
-		val = (1 - math.pow(PDM_disp_vel_factor - 0.5, 2) + math.pow(2 - control_inertion_factor,2))*50	
-	else
-		val = 15 - (2*PDM_disp_base + control_inertion_factor)
-	end	
-	
-	return normalize(val) 
+		local n = 3000
+		local cond = 1 - impair*condition_shot_dec*n
+			if cond < 0 then cond = 0 
+		end
+		local prob
+			if cond > 0.95 then prob = 0
+			else
+			prob = (0.95 - cond)*(misfire_condition_k - misfire_probability) + misfire_probability
+		end
+
+		local val = 100*(1 - prob*7) 
+			if val < 20 then val = 20
+		end
+		
+	return normalize(val)
 end
 
 function GetAccuracy(section)
 	local ltx = system_ini()
 			
 	local fire_dispersion_base	= ltx:r_float(section,"fire_dispersion_base")
-	local cam_dispersion		= ltx:r_float(section,"cam_dispersion")
-	local cam_dispersion_inc 	= read_if_exist(ltx, section, "cam_dispersion_inc", 0) 	
-	local cam_dispersion_frac 	= read_if_exist(ltx, section, "cam_dispersion_frac", 1) 
-	local cam_step_angle_horz	= ltx:r_float(section,"cam_step_angle_horz")
-	local rpm 			= ltx:r_float(section,"rpm")
+	--local disp_rate = ltx:r_float(section,"disp_rate")
+	local disp_rate = read_if_exist(ltx, section, "disp_rate", 1)
 	local ammo_list			= ltx:r_string(section,"ammo_class")
 	
 	local pos  = string.find(ammo_list,",",1)
@@ -106,17 +128,11 @@ function GetAccuracy(section)
 		k_disp				= ltx:r_float(ammo_list, "k_disp");
 	end
 	
-	if k_disp > 3.5 then	
-		k_disp = 0.3
-	end
-
-	local fir = math.log10(1/(fire_dispersion_base*k_disp))
-	local inc = math.log10(1/(cam_dispersion/10 + cam_dispersion_inc))
-	local dis = math.log10(1/(cam_dispersion*cam_step_angle_horz))
-	local fra = math.pow(cam_dispersion_frac,1.5)
+	
+	local fir = disp_rate + math.log10(0.9/(fire_dispersion_base*k_disp))
 	
 	
-	val =  30*fir + 15*dis*fra + 0.02*rpm*inc*fra
+	val =  28*fir
 
 	return normalize(val)
 end

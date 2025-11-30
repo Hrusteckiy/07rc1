@@ -50,6 +50,7 @@ function action_car:__init(obj, storage)
 	self.object = obj
 	self.car = self.object:get_car()
 	self.st = storage
+	self.friends = {}
 end
 
 function action_car:reset_scheme(loading)
@@ -921,6 +922,17 @@ function action_car:fastcall()
 end
 
 function action_car:update(delta)
+	
+	self.friends={}
+	for k,v in pairs(amk_mod.btrs_friends) do
+		local tmp=level.object_by_id(k)
+		if tmp and ( (IsStalker(tmp) and tmp:character_community()=="military" and tmp:alive()) or 
+		(tmp:section()=="vehicle_btr" and tmp:id()~=self.object:id()) ) and 
+		self.fire_range_sqr>self.object:position():distance_to_sqr(tmp:position()) then
+				self.friends[k] = tmp:section()
+		end
+	end
+		
 	if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
 		return
 	end
@@ -933,6 +945,7 @@ function action_car:update(delta)
 	if self.st.invulnerable then
 	    self.object.health = self.def_health
 	end
+	
 end
 
 function action_car:destroy_car()
@@ -1018,7 +1031,7 @@ function action_car:fast_update()
 	   self.state_moving ~= state_moving_stop and 
 	   cur_time >= self.last_pos_time + self.min_car_explode_time
 	then
-	    printf("car <state>: moving(%s)", utils.to_str(self.state_moving))
+    printf("car <state>: moving(%s)", utils.to_str(self.state_moving))
 		if not self.last_pos then
 			self.last_pos = self.object:position()
 			self.last_pos_time = cur_time
@@ -1077,80 +1090,88 @@ function action_car:fast_update()
 	
 	--printf("car <fire>: TEST")
 	if self.hasWeapon then
-	    --printf("car <fire>: target(%d)", self.state_firetarget)
+    --printf("car <fire>: target(%d)", self.state_firetarget)
 		if self.on_target_vis and self.on_target_vis.v1:alive() and self.car:IsObjectVisible(self.on_target_vis.v1) then
-	        --printf("car <vis>: try")
-		    local new_section = xr_logic.pick_section_from_condlist(db.actor, self.object, self.on_target_vis.condlist)
-		    if new_section then
-	            printf("car <vis>: switch to section [%s]", new_section)
-		        xr_logic.switch_to_section(self.object, self.st, new_section)
-		    end
+      --printf("car <vis>: try")
+      local new_section = xr_logic.pick_section_from_condlist(db.actor, self.object, self.on_target_vis.condlist)
+      if new_section then
+            printf("car <vis>: switch to section [%s]", new_section)
+          xr_logic.switch_to_section(self.object, self.st, new_section)
+      end
 		end
 
 		if self.on_target_nvis and self.on_target_nvis.v1:alive() and not self.car:IsObjectVisible(self.on_target_nvis.v1) then
-	        --printf("car <nvis>: try")
-		    local new_section = xr_logic.pick_section_from_condlist(db.actor, self.object, self.on_target_nvis.condlist)
-		    if new_section then
-	            printf("car <nvis>: switch to section [%s]", new_section)
-		        xr_logic.switch_to_section(self.object, self.st, new_section)
-		    end
+        --printf("car <nvis>: try")
+      local new_section = xr_logic.pick_section_from_condlist(db.actor, self.object, self.on_target_nvis.condlist)
+      if new_section then
+            printf("car <nvis>: switch to section [%s]", new_section)
+          xr_logic.switch_to_section(self.object, self.st, new_section)
+      end
 		end
 
 	    if self.state_firetarget == state_firetarget_points then
-	        if self.fire_pt_count > 0 and self.state_cannon ~= state_cannon_stop then
-	            --printf("car <fire>: shooting points")
-	            if self.state_cannon == state_cannon_delay then
-	                if self.fire_start_time + self.fire_time < cur_time then
-	                    --printf("car <fire>: stop delaying(%.2f + %.2f < %.2f)", self.fire_start_time, self.fire_time, time_global())
-		                printf("car <fire>: 1.new fire point.")
-	                    self:fire_arrival_callback(self.target_fire_pt_idx)
-	                else
-	                    printf("car <fire>: delaying(%.2f + %.2f < %.2f)", self.fire_start_time, self.fire_time, cur_time)
-	                end
-	            else
-	                if self.car:CanHit() or self.target_fire_pt_idx == 0 then
-		                printf("car <fire>: 2.new fire point.")
-		                -- Прибыли, выбрать новую точку
-		                self:fire_arrival_callback(self.target_fire_pt_idx)
-		            end
-	            end
-	        end
+        if self.fire_pt_count > 0 and self.state_cannon ~= state_cannon_stop then
+            --printf("car <fire>: shooting points")
+            if self.state_cannon == state_cannon_delay then
+                if self.fire_start_time + self.fire_time < cur_time then
+                    --printf("car <fire>: stop delaying(%.2f + %.2f < %.2f)", self.fire_start_time, self.fire_time, time_global())
+                  printf("car <fire>: 1.new fire point.")
+                    self:fire_arrival_callback(self.target_fire_pt_idx)
+                else
+                    printf("car <fire>: delaying(%.2f + %.2f < %.2f)", self.fire_start_time, self.fire_time, cur_time)
+                end
+            else
+                if self.car:CanHit() or self.target_fire_pt_idx == 0 then
+                  printf("car <fire>: 2.new fire point.")
+                  -- Прибыли, выбрать новую точку
+                  self:fire_arrival_callback(self.target_fire_pt_idx)
+              end
+            end
+        end
 	    elseif self.state_firetarget == state_firetarget_enemy then
-	        if self.target_obj:alive() and
-	           self.object:position():distance_to_sqr(self.target_obj:position()) <= self.fire_range_sqr and
-	           self.car:IsObjectVisible(self.target_obj)
-	        then
-	            printf("car <fire>: enemy(%s) is visible.", self.target_obj:name())
+				
+				local target_dist = self.object:position():distance_to_sqr(self.target_obj:position())
+				
+				local has_friends_on_fire_line = self:check_friends_on_fire_line()
+				
+        if self.target_obj:alive() and
+           target_dist <= self.fire_range_sqr and
+           self.car:IsObjectVisible(self.target_obj) and
+					 not has_friends_on_fire_line
+        then
+            printf("car <fire>: enemy(%s) is visible.", self.target_obj:name())
 
-		        self.target_fire_pt = self.target_obj:position()
-		        if self.target_obj:id() ~= db.actor:id() then
-		            if self.target_obj:target_body_state() == move.crouch then
-		                self.target_fire_pt.y = self.target_fire_pt.y + 0.6 -- FAKE
-		            elseif not xr_wounded.is_heavy_wounded_by_id(self.target_obj:id()) then
-		                self.target_fire_pt.y = self.target_fire_pt.y + 1.4 -- FAKE
-		            else
-		                self.target_fire_pt.y = self.target_fire_pt.y + 0.15 -- FAKE
-		            end
-		        end
-		        self:rot_to_firepoint(self.target_fire_pt)
+          self.target_fire_pt = self:extrapolate_pos(self.target_obj)
+          --[[
+          if self.target_obj:id() ~= db.actor:id() then
+              if self.target_obj:target_body_state() == move.crouch then
+                  self.target_fire_pt.y = self.target_fire_pt.y + 0.6 -- FAKE
+              elseif not xr_wounded.is_heavy_wounded_by_id(self.target_obj:id()) then
+                  self.target_fire_pt.y = self.target_fire_pt.y + 1.4 -- FAKE
+              else
+                  self.target_fire_pt.y = self.target_fire_pt.y + 0.15 -- FAKE
+              end
+          end
+          ]]
+          self:rot_to_firepoint(self.target_fire_pt)
 
-	            if self.car:CanHit() then
-	                if self.state_shooting == state_none then
-	                    printf("car <fire>: shooting enemy (first).")
-		                self.state_shooting = state_shooting_on
-		                self:set_shooting(self.state_shooting)
-		                --self:set_signal("fire_start")
-		            end
-	                printf("car <fire>: shooting enemy.")
-		        else
-		            if self.state_shooting ~= state_none then
-	                    printf("car <fire>: targeting enemy (first).")
-		                self.state_shooting = state_none
-		                self:set_shooting(self.state_shooting)
-		                --self:set_signal("fire_end")
-		            end
-	                printf("car <fire>: targeting enemy.")
-		        end
+            if self.car:CanHit() then
+                if self.state_shooting == state_none then
+                    printf("car <fire>: shooting enemy (first).")
+                  self.state_shooting = state_shooting_on
+                  self:set_shooting(self.state_shooting)
+                  --self:set_signal("fire_start")
+              end
+                printf("car <fire>: shooting enemy.")
+          else
+              if self.state_shooting ~= state_none then
+                    printf("car <fire>: targeting enemy (first).")
+                  self.state_shooting = state_none
+                  self:set_shooting(self.state_shooting)
+                  --self:set_signal("fire_end")
+              end
+                printf("car <fire>: targeting enemy.")
+          end
 		    else
 		        if self.state_shooting ~= state_none then
 	                printf("car <fire>: enemy isn't visible (first).")
@@ -1161,8 +1182,7 @@ function action_car:fast_update()
 	            printf("car <fire>: enemy isn't visible.")
 
 	            if self.fire_track_target then
-		            self.target_fire_pt = self.target_obj:position()
-                    self.target_fire_pt.y = self.target_fire_pt.y + 1.4 -- FAKE
+								self.target_fire_pt = self:extrapolate_pos(self.target_obj)
 		            self:rot_to_firepoint(self.target_fire_pt)
 	                printf("car <fire>: target tracking.")
 	            end
@@ -1173,6 +1193,21 @@ function action_car:fast_update()
 	printf("car <state>: check moving3 - [%d][%d]", self.state_moving, self.target_walk_pt)
 	printf("car <state>: END FAST UPDATE ========================================================\n")
 	return false
+end
+
+function action_car:extrapolate_pos(obj)
+  local mypos=self.object:position()
+  if not self.prev_pos then
+    self.prev_pos=obj:bone_position("bip01_spine1")
+    self.prev_delta=vector():set(0,0,0)
+  end
+  local curpos=obj:bone_position("bip01_spine1")
+  local hcorr=mypos:distance_to_sqr(curpos)/180/180*1.3
+  local delta=obj:bone_position("bip01_spine1"):sub(self.prev_pos)
+  self.prev_delta:mul(1):add(delta):mul(0.5)
+  local extrapos=vector():set(self.prev_delta.x,self.prev_delta.y,self.prev_delta.z):mul(10):add(curpos):add(vector():set(0,hcorr,0))
+  self.prev_pos=curpos
+  return extrapos
 end
 
 function action_car:car_explode()
@@ -1188,6 +1223,43 @@ function action_car:net_destroy()
 	        printf("car <death>: give info")
 	    end
 	end
+end
+
+function action_car:check_friends_on_fire_line()
+	if self.target_fire_pt then
+		local pos=self.object:bone_position("mashine_gun_fire_point")
+		local dir_aim = vector():set(self.target_fire_pt.x - pos.x, self.target_fire_pt.y - pos.y , self.target_fire_pt.z - pos.z)	
+		local target_dist = pos:distance_to(self.target_obj:position())
+--проверяем позиции солдат и текущего сектора обстрела
+		for a,v in pairs(self.friends) do        
+			tmp=level.object_by_id(a)
+			if tmp and tmp:alive() then
+				local pos_soldier = tmp:position()
+				local radius=4
+				if v=="vehicle_btr" then
+					radius=4
+				else
+					radius=1.7
+				end
+				local friend_dist=self.object:position():distance_to(pos_soldier)-radius
+				
+				if friend_dist < target_dist then
+					--считаем попадает ли текущий солдат в сектор обстрела
+					local dir_soldier = vector():set(pos_soldier.x - pos.x, pos_soldier.y - pos.y , pos_soldier.z - pos.z)
+					local x=dir_soldier.x*dir_aim.x+dir_soldier.z*dir_aim.z
+					local y=-dir_soldier.z*dir_aim.x+dir_soldier.x*dir_aim.z -- повернули систему координат     
+					local angle=math.atan2(y,x) -- угол доворота от -180 до 180   
+					
+					
+					local div=radius/friend_dist
+					if angle >= -div and angle <= div then return true end
+					
+				end
+			end     
+		end
+	end
+	
+	return false
 end
 
 ---------------------------------------------------------------------------------------------------------------------

@@ -50,7 +50,6 @@ function get_rank_name( rank, tbl )
 			return name
 		end
 	end
-
 	return nil
 end
 
@@ -62,11 +61,20 @@ function get_obj_rank_name( obj )
 
 	local obj_rank
 
-	-- HACK
-	if obj.m_story_id ~= nil then
+	-- HACK ( <-- фи, как некрасиво...)
+	if (obj.m_story_id ~= nil and obj.rank) then
 		obj_rank = obj:rank()
 	else
-		obj_rank = obj:character_rank()
+		if (obj.character_rank) then
+			obj_rank = obj:character_rank()
+		else
+			if IsStalker(obj) then
+				obj_rank = stalker_max_rank_name
+			else
+				obj_rank = monster_max_rank_name
+			end
+		
+		end
 	end
 
 	if IsStalker(obj) then

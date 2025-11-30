@@ -7,6 +7,9 @@
 local def_min_radius = 20
 local def_max_radius = 40
 
+-- Список монстры, для каждого home
+local home_group={}
+
 class "mob_home"
 
 ----------------------------------------------------------------------------------------------------
@@ -64,6 +67,44 @@ function mob_home:reset_scheme()
 	end 
 
 	self.object:set_home(self.st.home, minr, maxr, self.st.aggressive)
+	add_to_home(self.st.home,self.object)
+	self.st.signals={}
+end
+
+function add_to_home(home,mob)
+--	amk.logct(mob:name().." adding to home "..home,"mcbt")	
+	if home_group[home]==nil then home_group[home]={} end
+	home_group[home][mob:id()]=true	
+end
+
+function remove_from_home(home,mob)
+--	amk.logct(mob:name().." removing from home "..home,"mcbt")	
+	if home_group[home]==nil then
+		abort("Trying to remove "..mob:name().." from home "..home.." while home is empty.")
+	end
+	home_group[home][mob:id()]=nil	
+end
+
+
+function mob_home:hit_callback(obj, amount, local_direction, who, bone_index)
+	if amount == 0 then
+		return
+	end
+--	amk.logct(self.object:name().." mob_home hit_callback","mcbt")	
+	-- Ставим сигнал "sig_attacked" для всех зверушек из home
+	local group=home_group[self.st.home]
+	if group then
+		for id in pairs(group) do
+			local st=db.storage and db.storage[id]
+			if st and st.mob_home and st.mob_home.signals then
+				st.mob_home.signals.sig_attacked=true
+--				amk.logct("Setting sig_attacked for id "..id,"mcbt")					
+			else
+			-- выкидываем зверушку из группы.
+				group[id]=nil
+			end
+		end
+	end
 end
 
 ----------------------------------------------------------------------------------------------------
@@ -77,6 +118,7 @@ function mob_home:update(delta)
 end
 
 function mob_home:deactivate()
+	remove_from_home(self.st.home,self.object)
 	self.object:remove_home()
 end
 

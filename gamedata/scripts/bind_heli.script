@@ -96,6 +96,11 @@ function heli_binder:net_spawn( data )
 	db.add_obj( self.object )
 	db.add_heli( self.object )
 
+	if (news_main and news_main.on_heli_seen and self.object) then
+		news_main.on_heli_seen(self.object)
+	end
+
+	
 	return true
 end
 
@@ -213,6 +218,11 @@ function heli_start_flame( obj )
 	obj:get_helicopter():StartFlame()
 
 	db.storage[obj:id()].flame_start_snd:play( obj )
+	
+	if (news_main and news_main.on_heli_flame and obj) then
+		news_main.on_heli_flame(obj)
+	end
+	
 end
 
 function heli_die( obj )
@@ -225,4 +235,8 @@ function heli_die( obj )
 
 	st.last_alt       = heli:GetRealAltitude()
 	st.alt_check_time = time_global() + 1000
+	
+	if (news_main and news_main.on_heli_die and obj) then
+		news_main.on_heli_die(obj)
+	end
 end

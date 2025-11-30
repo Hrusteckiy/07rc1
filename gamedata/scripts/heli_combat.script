@@ -465,6 +465,11 @@ function heli_combat:round_initialize()
 	self.round_initialized         = true
 
 	self:round_setup_flight( self.flight_direction )
+	
+	if (news_main and news_main.on_heli_combat and self.object) then
+		news_main.on_heli_combat(self.object)
+	end
+	
 end
 
 function heli_combat:round_setup_flight( direction )
@@ -561,6 +566,11 @@ function heli_combat:search_initialize()
 	self.search_initialized         = true
 
 	self:search_setup_flight()
+	
+	if (news_main and news_main.on_heli_combat and self.object) then
+		news_main.on_heli_combat(self.object)
+	end
+	
 end
 
 function heli_combat:search_setup_flight()
@@ -658,6 +668,11 @@ function heli_combat:flyby_initialize()
 	self.heliObject:SetMaxVelocity( self.max_velocity )
 	self.heliObject:SetSpeedInDestPoint( self.max_velocity )
 	self.heliObject:LookAtPoint( dummy_vector, false )
+	
+	if (news_main and news_main.on_heli_combat and self.object) then
+		news_main.on_heli_combat(self.object)
+	end
+	
 end
 
 function heli_combat:flyby_set_initial_state()
@@ -744,6 +759,11 @@ function heli_combat:retreat_initialize()
 	self.heliObject:LookAtPoint( dummy_vector, false )
 	self.heliObject:SetDestPosition( self:calc_position_in_radius( 5000 ) )
 	self.heliObject:ClearEnemy()
+	
+	if (news_main and news_main.on_heli_retreat and self.object) then
+		news_main.on_heli_retreat(self.object)
+	end
+	
 end
 
 function heli_combat:retreat_update()

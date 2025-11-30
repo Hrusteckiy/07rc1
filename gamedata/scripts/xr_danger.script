@@ -83,13 +83,15 @@ function evaluator_danger:evaluate()
 	if best_danger_object ~= nil and
 	   best_danger_object:id() == db.actor:id() and
 	   (bd_type == danger_object.attack_sound or
-	   bd_type == danger_object.bullet_ricochet)
+	       bd_type == danger_object.bullet_ricochet)
 	then
 		if self.object:best_enemy() == nil and
 		   self.object:relation(db.actor) ~= game_object.enemy 
 		then
 			printf("DANGER [%s] [FALSE] actor_danger", self.object:name())
-			return false
+      if bd_type ~= danger_object.bullet_ricochet or time_global()-best_danger:time()>10000 then
+        return false
+      end
 		end	
 	end
 

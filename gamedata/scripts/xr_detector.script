@@ -71,10 +71,10 @@ function actor_detector:save(packet)
 end
 function actor_detector:load(packet)
 	local flag = packet:r_u8()
-	if flag == 1 then
-		self.init_time = utils.r_CTime(packet)
-		self.last_update_time = utils.r_CTime(packet)
-	else
+	--if flag == 1 then
+	--	self.init_time = utils.r_CTime(packet)
+	--	self.last_update_time = utils.r_CTime(packet)
+	--else
 		self.init_time = -1
-	end
+	--end
 end

@@ -162,8 +162,8 @@ function move_mgr:reset(path_walk, path_walk_info, path_look, path_look_info, te
 
 		self.no_validation = no_validation
 		
-		self.path_walk = path_walk		
-		self.patrol_walk = patrol(path_walk)
+		self.path_walk = path_walk	
+    self.patrol_walk=patrol(self.path_walk)
 		if not self.patrol_walk then
 			abort("object '%s': unable to find path_walk '%s' on the map",
 				self.object:name(), path_walk)
@@ -219,6 +219,49 @@ function move_mgr:reset(path_walk, path_walk_info, path_look, path_look_info, te
 	self:setup_movement_by_patrol_path()
 end
 
+-- Red75 +
+local safe_pp=
+{
+  l01_escape="esc_specnaz_way3",
+  l02_garbage="gar_psevdowounded_gar_way_spy"
+}
+
+-- Очищаем патрульный путь от аномалий.
+local pp_validated={}
+
+function invalidate_pp_accessibility()
+	pp_validated={}
+end
+
+function validate_accessibility(npc,ppname)
+  local pp=patrol(ppname)
+  local valid=false
+	if pp_validated[ppname] then
+		return true,ppname
+	end
+	pp_validated[ppname]=true
+  if pp then
+		amk.mylog("validating "..ppname.." for "..npc:name())
+    for i=0,pp:count()-1 do
+			local alist=amk_anoms.get_anomaly_list_for_pos(pp:point(i),1)
+			for j,o in ipairs(alist) do
+				-- Отключаем аномалию. И немедленно убираем её из рестрикторов непися.
+				-- Для остальных неписей она удалится на следующем апдейте
+				amk.mylog("disabling "..o.name.." for "..npc:name())
+				amk_anoms.set_anomaly_status(alife():object(o.id),"del")
+				amk_anoms.remove_restriction(npc,o.id,o.name,true)
+			end
+		end
+    for i=0,pp:count()-1 do
+			if npc:accessible(pp:level_vertex_id(i)) then
+        return true,ppname
+      end
+		end
+  end
+	return false,ppname
+end
+-- Red75 -
+
 --' продолжить движение со следующей точки, а не с ближайшей.
 --' состояние move manager-a не сбрасывается.
 function move_mgr:continue()
@@ -227,15 +270,30 @@ function move_mgr:continue()
 end
 
 function move_mgr:setup_movement_by_patrol_path()
-	self.object:set_path_type(game_object.patrol_path)
+-- Red75 +
+  local valid=validate_accessibility(self.object,self.path_walk)
+  if valid then
+    self.object:set_path_type(game_object.patrol_path)
+  else
+    self.object:set_path_type(game_object.level_path)
+  end
 	self.object:set_detail_path_type(move.line)
 
-	if self.current_point_index then
-		self.object:set_start_point(self.current_point_index)
-		self.object:set_patrol_path(self.path_walk, patrol.next,    patrol.continue, true)
-	else
-		self.object:set_patrol_path(self.path_walk, patrol.nearest, patrol.continue, true)
-	end
+  if valid then
+  	if self.current_point_index then
+  		self.object:set_start_point(self.current_point_index)
+  		self.object:set_patrol_path(self.path_walk, patrol.next,    patrol.continue, true)
+  	else
+  		self.object:set_patrol_path(self.path_walk, patrol.nearest, patrol.continue, true)
+  	end
+  else
+    -- путь недоступен. отправляем в ближайшую доступную точку
+    pp=patrol(self.path_walk)
+    if pp and pp:count()>0 then
+      utils.send_to_nearest_accessible_vertex(self.object,pp:level_vertex_id(0))
+    end
+  end
+-- Red75 -
 
 	self.state = state_moving
 

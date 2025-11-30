@@ -7,7 +7,7 @@
 
 level_gulags = {gulag_general, gulag_escape, gulag_garbage, gulag_agroprom, gulag_agroprom_underground, gulag_dark_valley, gulag_labx18, gulag_bar,
                 gulag_military, gulag_radar, gulag_radar_u, gulag_yantar, gulag_pripyat, gulag_kishka, gulag_sarcofag,
-                gulag_deadcity}
+                gulag_deadcity, gulag_amk}
 
 level_groups = {l01_escape = 1, l02_garbage = 2, l03_agroprom = 3, l03u_agr_underground = 4,
                 l04_darkvalley = 5, l04u_labx18 = 6, l05_bar = 7, l06_rostok = 8,
@@ -893,6 +893,7 @@ end
 
 -- установить npc работу, к ней рестрикторы, настроить логику, поменять squad, group
 function gulag:setJob(obj_id, job)
+  --amk.mylog("set job for "..obj_id.." in "..self.name)
 	printf( "[smart_terrain %s] gulag: setJob: obj=%s job=%d %s", self.name, self.npc_info[obj_id].name, job.num, job.section )
 
 	job.object = obj_id
@@ -1305,6 +1306,19 @@ function resetJob( obj )
 	if gulag then
 		gulag:free_obj_and_reinit( obj:id() )
 		gulag:update()
+	end
+end
+
+function clearJob( obj )
+	local sim = alife()
+
+	obj = sim:object( obj:id() )
+
+	if obj:smart_terrain_id() ~= 65535 then
+		local strn = sim:object( obj:smart_terrain_id() )
+
+		strn:initialize_if_needed()
+    strn:unregister_npc(obj)
 	end
 end
 
