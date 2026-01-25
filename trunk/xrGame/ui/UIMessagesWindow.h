@@ -18,13 +18,14 @@ class CUIChatWnd;
 class game_cl_GameState;
 class CUIPdaMsgListItem;
 class CUIProgressShape;
+struct GAME_NEWS_DATA;
 
 class CUIMessagesWindow : public CUIWindow {
 public:
 						CUIMessagesWindow				();
 	virtual				~CUIMessagesWindow				();
 
-	void				AddIconedPdaMessage				(LPCSTR textureName, Frect originalRect, LPCSTR message, int iDelay);
+	void				AddIconedPdaMessage				(GAME_NEWS_DATA* news);
 
 	void				AddLogMessage					(const shared_str& msg);
 	void				AddLogMessage					(KillMessageStruct& msg);

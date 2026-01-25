@@ -18,7 +18,7 @@
 #include "UIColorAnimatorWrapper.h"
 #include "../InfoPortion.h"
 #include "../string_table.h"
-#include "../game_cl_artefacthunt.h"
+#include "../game_news.h"
 
 CUIMessagesWindow::CUIMessagesWindow(){
 	m_pChatLog = NULL;
@@ -75,11 +75,12 @@ void CUIMessagesWindow::Init(float x, float y, float width, float height){
 
 }
 
-void CUIMessagesWindow::AddIconedPdaMessage(LPCSTR textureName, Frect originalRect, LPCSTR message, int iDelay){
-	
-	CUIPdaMsgListItem *pItem			= m_pGameLog->AddPdaMessage(message, float(iDelay));
+void CUIMessagesWindow::AddIconedPdaMessage(GAME_NEWS_DATA* news)
+{
+	CUIPdaMsgListItem *pItem			= m_pGameLog->AddPdaMessage(news->news_text.c_str(), float(news->show_time));
 	pItem->SetTextComplexMode			(true);
-	pItem->UIIcon.InitTexture			(textureName);
+	pItem->UIIcon.InitTexture			(news->texture_name.c_str());
+	Frect originalRect = news->tex_rect;
 	pItem->UIIcon.SetOriginalRect		(originalRect.left, originalRect.top, originalRect.right, originalRect.bottom);
 	pItem->UIMsgText.SetWndPos			(pItem->UIIcon.GetWidth(), pItem->UIMsgText.GetWndPos().y);
 	pItem->UIMsgText.AdjustHeightToText	();
