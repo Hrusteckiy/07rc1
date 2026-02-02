@@ -724,8 +724,7 @@ void CActor::net_Destroy	()
 	m_holderID=u16(-1);
 	
 	m_ArtefactsOnBelt.clear();
-	if (Level().CurrentViewEntity() == this)
-		HUD().GetUI()->UIMainIngameWnd->m_artefactPanel->InitIcons(m_ArtefactsOnBelt);	
+	UpdateArtefactPanel();
 
 	SetDefaultVisualOutfit(NULL);
 	
