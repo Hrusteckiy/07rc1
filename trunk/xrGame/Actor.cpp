@@ -1471,7 +1471,12 @@ void CActor::MoveArtefactBelt(const CArtefact* artefact, bool on_belt)
 		VERIFY(it != m_ArtefactsOnBelt.end());
 		m_ArtefactsOnBelt.erase(it);
 	}	
-	if (Level().CurrentViewEntity() && Level().CurrentViewEntity() == this)
+	UpdateArtefactPanel();
+}
+
+void CActor::UpdateArtefactPanel()
+{
+	if (IsGameTypeSingle() && Level().CurrentViewEntity() && Level().CurrentViewEntity() == this && HUD().GetUI()->UIMainIngameWnd->m_artefactPanel)
 		HUD().GetUI()->UIMainIngameWnd->m_artefactPanel->InitIcons(m_ArtefactsOnBelt);
 }
 

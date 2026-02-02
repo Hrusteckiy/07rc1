@@ -271,21 +271,21 @@ void CHUDManager::SetHitmarkType		(LPCSTR tex_name)
 #include "ui\UIMainInGameWnd.h"
 void CHUDManager::OnScreenResolutionChanged()
 {
-	xr_delete							(pUI->UIMainIngameWnd);
+	xr_delete									(pUI->UIMainIngameWnd);
 
-	pUI->UIMainIngameWnd				= xr_new<CUIMainIngameWnd>	();
-	pUI->UIMainIngameWnd->Init			();
-	pUI->UnLoad							();
-	pUI->Load							(pUI->UIGame());
-	pUI->OnConnected					();
-	GetUICursor()->OnScreenResolutionChanged();
+	pUI->UIMainIngameWnd						= xr_new<CUIMainIngameWnd>	();
+	pUI->UIMainIngameWnd->Init					();
+	pUI->UnLoad									();
+	pUI->Load									(pUI->UIGame());
+	pUI->OnConnected							();
+	GetUICursor()->OnScreenResolutionChanged	();
 
-	if (IsGameTypeSingle() && Level().CurrentViewEntity() && pUI->UIMainIngameWnd->m_artefactPanel)
+	if (IsGameTypeSingle() && Level().CurrentViewEntity())
 	{
 		CActor* actor = smart_cast<CActor*>(Level().CurrentViewEntity());
 
 		if (actor)
-			pUI->UIMainIngameWnd->m_artefactPanel->InitIcons(actor->ArtefactsOnBelt());
+			actor->UpdateArtefactPanel();
 	}
 }
 
