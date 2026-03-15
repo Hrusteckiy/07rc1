@@ -308,6 +308,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\xrRender\dxUIRender.h" />
+    <ClInclude Include="..\xrRender\dxUIShader.h" />
     <ClInclude Include="cl_intersect.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\xrRender\xrRender_console.h" />
@@ -374,6 +376,8 @@
     <ClInclude Include="r2_rendertarget_wallmarks.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\xrRender\dxUIRender.cpp" />
+    <ClCompile Include="..\xrRender\dxUIShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">Create</PrecompiledHeader>
