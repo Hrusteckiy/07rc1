@@ -28,7 +28,7 @@
 #include "MainMenu.h"
 
 
-#define EQUIPMENT_ICONS "ui\\ui_mp_icon_kill"
+#define EQUIPMENT_MP_ICONS "ui\\ui_mp_icon_kill"
 #define KILLEVENT_ICONS "ui\\ui_hud_mp_icon_death"
 #define RADIATION_ICONS "ui\\ui_mn_radiations_hard"
 #define BLOODLOSS_ICONS "ui\\ui_mn_wounds_hard"
@@ -669,7 +669,7 @@ ref_shader game_cl_mp::GetEquipmentIconsShader	()
 {
 	if (m_EquipmentIconsShader) return m_EquipmentIconsShader;
 
-	m_EquipmentIconsShader.create("hud\\default", EQUIPMENT_ICONS);
+	m_EquipmentIconsShader.create("hud\\default", EQUIPMENT_MP_ICONS);
 	return m_EquipmentIconsShader;
 }
 
