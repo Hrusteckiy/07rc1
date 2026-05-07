@@ -92,14 +92,10 @@ protected:
 	shared_str		m_sPatchFileName;
 	
 	xr_vector<CUIMessageBoxEx*>	m_pMB_ErrDlgs;
-
-//.	CUIMessageBoxEx*	m_pMSB_NoNewPatch;
-//.	CUIMessageBoxEx*	m_pMSB_NewPatch;
-//.	CUIMessageBoxEx*	m_pMSB_PatchDownloadError;
-//.	CUIMessageBoxEx*	m_pMSB_PatchDownloadSuccess;
-//.	CUIMessageBoxEx*	m_pMSB_ConnectToMasterServer;
+	bool			ReloadUI						();
 public:
 	u32				m_deactivated_frame;
+	bool			m_activatedScreenRatio;
 	virtual void	DestroyInternal					(bool bForce);
 					CMainMenu						();
 	virtual			~CMainMenu						();
