@@ -1,7 +1,7 @@
 #include "StdAfx.h"
 
 #include "UILabel.h"
-#include "../xr_3da/LightAnimLibrary.h""
+#include "../xr_3da/LightAnimLibrary.h"
 
 CUILabel::CUILabel()
 {
