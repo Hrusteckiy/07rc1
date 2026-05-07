@@ -129,6 +129,7 @@ void CUIMainIngameWnd::Init()
 
 	UIWeaponBack.AttachChild	(&UIWeaponIcon);
 	xml_init.InitStatic			(uiXml, "static_wpn_icon", 0, &UIWeaponIcon);
+	UIWeaponIconScale.set		(uiXml.ReadAttribFlt("static_wpn_icon", 0, "scale_x", 1.f), uiXml.ReadAttribFlt("static_wpn_icon", 0, "scale_y", 1.f));
 	UIWeaponIcon.SetShader		(GetEquipmentIconsShader());
 	UIWeaponIcon_rect			= UIWeaponIcon.GetWndRect();
 	//---------------------------------------------------------
@@ -330,36 +331,47 @@ void CUIMainIngameWnd::SetAmmoIcon (const shared_str& sect_name)
 
 	float iXPos				= pSettings->r_float(sect_name, "inv_grid_x");
 	float iYPos				= pSettings->r_float(sect_name, "inv_grid_y");
-
-	UIWeaponIcon.GetUIStaticItem().SetOriginalRect(	(iXPos		 * INV_GRID_WIDTH),
-													(iYPos		 * INV_GRID_HEIGHT),
-													(iGridWidth	 * INV_GRID_WIDTH),
-													(iGridHeight * INV_GRID_HEIGHT));
 	UIWeaponIcon.SetStretchTexture(true);
 
-	// now perform only width scale for ammo, which (W)size >2
-	// all others ammo (1x1, 1x2) will be not scaled (original picture)
-	float w = ((iGridWidth>2)?1.6f:iGridWidth)*INV_GRID_WIDTH*0.9f;
-	float h = INV_GRID_HEIGHT*0.9f;//1 cell
+	// Переводим в пиксели
+	Frect prect;
+	prect.lt.x = iXPos * INV_GRID_WIDTH;
+	prect.lt.y = iYPos * INV_GRID_HEIGHT;
+	prect.rb.x = (iXPos + iGridWidth) * INV_GRID_WIDTH;
+	prect.rb.y = (iYPos + iGridHeight) * INV_GRID_HEIGHT;
 
-	float x = UIWeaponIcon_rect.x1;
-	float posx_16 = 8.0f;
-	float posx = 10.0f;
+	UIWeaponIcon.GetUIStaticItem().SetOriginalRect(prect);
 
-	if (iGridWidth == iGridHeight == 1)
-	{
-		posx_16 = 28.0f;
-		posx = 30.0f;
-	}
+	// базовая область, которую ты сохранил после InitStatic
+	Frect base = UIWeaponIcon_rect;
 
-	UIWeaponIcon.SetWndPos(x + UI()->is_16_9_mode() ? posx_16 : posx, UIWeaponIcon_rect.y1);
-	
+	// размер исходной иконки
+	float tex_w = prect.width();
+	float tex_h = prect.height();
+
+	// доп. масштаб, если нужен (можно оставить (1,1))
+	Fvector2 scale = UIWeaponIconScale;
+
+	// коэффициент, чтобы вписать иконку в базовую область
+	float kx = (base.width() * scale.x ) / tex_w;
+	float ky = (base.height() * scale.y) / tex_h;
+	float k = _min(kx, ky); // чтобы целиком влезло
+
+	float w = tex_w * k;
+	float h = tex_h * k;
 	if (UI()->is_16_9_mode())
-		UIWeaponIcon.SetWidth(w * UI()->get_current_kx() * 1.05f);
-	else
-		UIWeaponIcon.SetWidth(w);
-	UIWeaponIcon.SetHeight	(h * 0.9f);
-};
+		w *= UI()->get_current_kx();
+
+	// ставим размер окна иконки
+	UIWeaponIcon.SetWidth(w);
+	UIWeaponIcon.SetHeight(h);
+
+	// центрируем иконку внутри базового прямоугольника
+	UIWeaponIcon.SetWndPos(
+		base.lt.x + (base.width() - w) * 0.25f,
+		base.lt.y + (base.height() - h) * 0.5f
+	);
+}
 
 void CUIMainIngameWnd::Update()
 {
