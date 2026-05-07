@@ -11,7 +11,7 @@
 		</auto_static>
 	</static_health>
 
-	<progress_bar_health x="24" y="5" width="84" height="10" horz="1" min="0" max="100" pos="0">
+	<progress_bar_health x="24" y="5" width="83" height="10" horz="1" min="0" max="100" pos="0">
 		<progress>
 			<texture>ui_hud_shk_health</texture>
 		</progress>
@@ -24,7 +24,7 @@
 		</auto_static>
 	</static_armor>
 
-	<progress_bar_armor x="24" y="21" width="84" height="10" horz="1" min="0" max="100" pos="0">
+	<progress_bar_armor x="24" y="21" width="83" height="10" horz="1" min="0" max="100" pos="0">
 		<progress>
 			<texture>ui_hud_shk_armour</texture>
 		</progress>

@@ -3,72 +3,56 @@
 
 	<main x="0" y="0" width="1024" height="768"/>
 
-	<static_icon x="15" y="12" width="170" height="220"  stretch="1">
-		<auto_static x="0" y="-2" width="176" height="45" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="176" height="140" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="183" width="176" height="64" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="136" y="24" width="157.5" height="218"  stretch="1">
+		<texture>ui_charinfo_left</texture>
+		<texture_offset x="-9" y="0"/>
 	</static_icon>
-	
-	<static_icon x="850" y="12" width="170" height="220" stretch="1">
-		<auto_static x="0" y="-2" width="176" height="45" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="176" height="140" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="183" width="176" height="64" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="741" y="24" width="158.25" height="218" stretch="1">
+		<texture>ui_charinfo_right</texture>
 	</static_icon>
 
-	<our_bag_static x="35" y="270" width="570" height="513" stretch="1" complex_mode="1">
-		<texture>ui\ui_dg_inventory_exchange_trade</texture>
-		<text x="30" y="8" font="graffiti22" r="238" g="153" b="26"/>
-	</our_bag_static>
+	<our_bag_static x="125" y="270" width="243" height="455" stretch="1">
+		<texture width="305" height="455">ui\ui_dg_inventory_exchange_trade</texture>
+		<text x="32" y="8" font="graffiti19" r="238" g="153" b="26" complex_mode="1"/>
+		</our_bag_static>
 
-	<dragdrop_list_our x="25" y="35" width="306" height="410"
-			cell_width="29" cell_height="39" rows_num="10" cols_num="10" 
-			unlimited="1" group_similar="1"/>
+	<dragdrop_list_our x="24" y="36" width="210" height="404"
+			cell_width = "27" cell_height="36" rows_num="11" cols_num="7" 
+			group_similar="1" unlimited="1"/>
 
-	<others_bag_static x="675" y="270" width="570" height="513" stretch="1" complex_mode="1">
-		<texture>ui\ui_dg_inventory_exchange_trade</texture>
-		<text x="30" y="8" font="graffiti22" r="238" g="153" b="26">st_items</text>
+	<others_bag_static x="648" y="270" width="243" height="455" stretch="1" mirror="h">
+		<texture width="305" height="455">ui\ui_dg_inventory_exchange_trade</texture>
+		<text x="32" y="8" font="graffiti19" r="238" g="153" b="26" complex_mode="1"/>
 	</others_bag_static>
 
-	<dragdrop_list_other x="25" y="35" width="306" height="410"
-			cell_width="29" cell_height="39" rows_num="10" cols_num="10" 
-			unlimited="1" group_similar="1"/>
+	<dragdrop_list_other x="24" y="36" width="210" height="404"
+			cell_width = "27" cell_height="36" rows_num="11" cols_num="7" 
+			group_similar="1" unlimited="1"/>
 
-	<frame_window x="385" y="274" width="287" height="452">
+	<frame_window x="376" y="274" width="265" height="452">
 		<texture>ui_frame</texture>		
-		<auto_static x="0" y="-13" width="280" height="75" stretch="1">
+		<auto_static x="0" y="-13" width="245" height="62" stretch="1">
 			<texture>ui\ui_inv_info_over_lt</texture>
 		</auto_static>
 	</frame_window>
 
-	<descr_static x="5" y="184" width="280" height="260" stretch="1">
+	<descr_static x="5" y="184" width="256" height="260" stretch="1">
 		<texture width="258" height="271">ui\ui_inv_info_over_b</texture>
 	</descr_static>
 
-	<auto_static x="408" y="461" width="220" height="25">
+	<auto_static x="400" y="461" width="96" height="25">
 		<text vert_align="c" font="graffiti22" r="238" g="153" b="26">ui_st_description</text>
 	</auto_static>
 
-	<top_background x="0" y="0" width="1024" height="128">
+	<top_background x="128" y="0" width="768" height="32" stretch="1">
 		<texture>ui\ui_top_background</texture>
 	</top_background>
 
-	<bottom_background x="0" y="736" width="1024" height="32">
+	<bottom_background x="128" y="737" width="768" height="32" stretch="1">
 		<texture>ui\ui_bottom_background</texture>
 	</bottom_background>
 
-	<take_all_btn x="830" y="725" width="157" height="48" hR="255" hB="83" hG="179" highlight_text="1">
+	<take_all_btn x="764" y="725" width="117.5" stretch="1" height="48" hR="255" hB="83" hG="179" highlight_text="1">
         <texture>ui_button_main01</texture>
         <text align="c" font="graffiti22" r="238" g="153" b="26">ui_st_take_all</text>
 	</take_all_btn>

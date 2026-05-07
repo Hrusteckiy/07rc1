@@ -1,29 +1,29 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <w>
 
-	<static_name x="23" y="188" width="139" height="30" stretch="1">
+	<static_name x="21" y="189.5" width="139" height="30" stretch="1">
 		<text font="letterica18" r="238" g="155" b="23" complex_mode="1" align="l" vert_align="c"/>		
 	</static_name>
 
-	<static_weight x="23" y="222" width="67" height="20" stretch="1">
-		<text align="l" font="letterica16" r="135" g="128" b="122"/>
+	<static_weight x="21" y="224" width="67" height="20" stretch="1">
+		<text align="l" font="letterica18" r="135" g="128" b="122"/>
 	</static_weight>
 
-	<static_cost x="215" y="188" width="83" height="30" stretch="1">
+	<static_cost x="173" y="189" width="83" height="30" stretch="1">
 		<text font="letterica18" r="238" g="155" b="23" align="c" vert_align="c"/>
 	</static_cost>
 
-	<static_condition x="113" y="222" width="72" height="20" stretch="1">
-		<text align="r" font="letterica16" r="135" g="128" b="122">st_condition</text>
+	<static_condition x="76" y="224" width="72" height="20" stretch="1">
+		<text align="r" font="letterica18" r="135" g="128" b="122">st_condition</text>
 	</static_condition>
 
-	<descr_list x="20" y="245" width="300" height="193" always_show_scroll="0" left_ident="16">
+	<descr_list x="20" y="245" width="238" height="193" always_show_scroll="0" left_ident="10">
 		<font font="letterica16" r="240" g="217" b="182"/>
 	</descr_list>
 
-	<image_static x="170" y="100" width="226" height="180" alignment="c" stretch="1"/>		
+	<image_static x="138" y="100" width="226" height="180" alignment="c" stretch="1"/>		
 	
-    <condition_progress x="210" y="227" width="107" height="8" horz="1" min="0" max="100" pos="100">
+    <condition_progress x="170" y="227" width="88" height="8" horz="1" min="0" max="100" pos="100">
 		<min_color r="255" g="0" b="0"/>
 		<max_color r="0" g="255" b="0"/>
 		<progress>

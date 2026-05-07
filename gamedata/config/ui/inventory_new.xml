@@ -19,7 +19,7 @@
 		<auto_static x="695" y="195" width="35" height="115" stretch="1">
 			<texture>ui_inventory_mid</texture>
 		</auto_static>
-		<auto_static x="715" y="315" width="283" height="165" stretch="1">
+		<auto_static x="715" y="315" width="283" height="163" stretch="1">
 			<texture>ui_inventory_right_bottom</texture>
 		</auto_static>
 		<auto_static x="715" y="0" width="283" height="320" stretch="1">
@@ -31,6 +31,10 @@
 		<texture>ui\ui_bottom_background</texture>
 	</bottom_static>
 
+	<auto_static x="0" y="0" width="1024" height="128">
+		<texture>ui\ui_top_background</texture>
+	</auto_static>
+
     <dragdrop_bag x="22" y="36" width="310" height="442"
             cell_width="42" cell_height="42" rows_num="10" cols_num="7" 
             unlimited="1" group_similar="1"/>
@@ -38,7 +42,7 @@
     <dragdrop_belt x="645" y="136" width="410" height="60"
             cell_width = "60" cell_height="60" rows_num="1" cols_num="5"/>
 
-    <dragdrop_outfit x="868" y="290" width="94" height="210" 
+    <dragdrop_outfit x="872" y="290" width="96" height="240" 
             cell_width = "57" cell_height="57" rows_num="4" cols_num="4" 
             custom_placement="0"/>
 
@@ -55,77 +59,77 @@
 
 	
     <bag_static x="15" y="240" width="350" height="480" complex_mode="1">		
-        <text x="30" y="8" font="graffiti22" r="231" g="153" b="22">ui_inv_bag</text>
+        <text x="26" y="8" font="graffiti19" r="231" g="153" b="22">ui_inv_bag</text>
     </bag_static>
     
     <money_static x="737" y="516" width="109" height="32" stretch="1">
-		<text font="graffiti22" r="238" g="153" b="26" align="c" vert_align="c"></text>
+		<text font="graffiti19" r="238" g="153" b="26" align="c" vert_align="c"></text>
     </money_static>
 
 	<auto_static_hack x="203" y="226" width="122" height="16" stretch="1">
 		<texture>ui_inventory_descr_hack</texture>
 	</auto_static_hack>
 
-    <descr_static x="370" y="253" width="335" height="475">
+    <descr_static x="370" y="248" width="335" height="475">
         <text x="25" y="0" font="graffiti22" r="238" g="155" b="23">ui_inv_description</text>
     </descr_static>
     
-    <character_frame_window x="730" y="260" width="268" height="460">
-        <title x="80" y="-8" width="240" height="60">
+    <character_frame_window x="726" y="248" width="268" height="460">
+        <title x="70" y="0" width="240" height="60">
 			<text font="graffiti22" r="231" g="153" b="22">ui_inv_personal</text>
         </title>
     </character_frame_window>
     
 	<outfit_info x="740" y="530" width="260" height="180">
-		<auto_static x="140" y="6">
-			<text font="graffiti22" color="UI_orange" complex_mode="0">ui_st_params</text>
+		<auto_static x="147" y="6">
+			<text font="graffiti19" color="UI_orange" complex_mode="0">ui_st_params</text>
 		</auto_static>
 
-		<scroll_view x="3" y="34" width="240" height="147" always_show_scroll="0"/>
+		<scroll_view x="8" y="35" width="240" height="147" always_show_scroll="0"/>
 
-		<static_burn_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_burn_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_burn_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_burn_immunity>
 		
-		<static_strike_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_strike_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_strike_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_strike_immunity>
 		
-		<static_shock_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_shock_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_shock_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_shock_immunity>
 		
-		<static_wound_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_wound_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_wound_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_wound_immunity>
 		
-		<static_radiation_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_radiation_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_radiation_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_radiation_immunity>
 		
-		<static_telepatic_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_telepatic_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_telepatic_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_telepatic_immunity>
 		
-		<static_chemical_burn_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_chemical_burn_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_chemical_burn_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_chemical_burn_immunity>
 		
-		<static_explosion_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_explosion_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_explosion_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_explosion_immunity>
 		
-		<static_fire_wound_immunity x="0" y="0" width="17" height="16" stretch="1">
+		<static_fire_wound_immunity x="0" y="0" width="230" height="15" complex_mode="1">
 			<texture>ui_inv_icon_fire_wound_immunity</texture>
-			<text font="letterica16" x="20" y="0" color="ui_clr_1"/>
+			<text font="letterica16" x="19" y="0" color="ui_clr_1"/>
 		</static_fire_wound_immunity>
 		
 	</outfit_info>
@@ -137,11 +141,11 @@
 		<pic x="13" y="16" width="42" height="41" stretch="1"/>
     </rank>
     
-    <progress_background x="739" y="335" width="59" height="215">
+    <progress_background x="739" y="300" width="59" height="215">
 		<texture>ui_scale_three</texture>
     </progress_background>
     
-    <progress_back_rank x="784" y="335" width="38" height="215">
+    <progress_back_rank x="784" y="300" width="38" height="215">
 		<texture>ui_scale_one</texture>		
     </progress_back_rank>   
 
@@ -171,11 +175,11 @@
     
     <time_static x="15" y="730" width="200" height="30">        
 		<texture x="0" y="0" width="190" height="36">ui\ui_dg_time</texture>
-        <text x="20" vert_align="c" font="letterica16" r="240" g="217" b="182" a="255">ui_inv_time</text>
+        <text x="20" y="8" font="letterica18" r="240" g="217" b="182" a="255">ui_inv_time</text>
 	</time_static>
 
-    <time_static_str x="107" y="7" width="62" height="18">        
-        <text align="c" vert_align="c" font="letterica16" r="240" g="217" b="182" a="255"/>
+    <time_static_str x="115" y="7" width="107" height="30">        
+        <text font="letterica18" r="240" g="217" b="182" a="255"/>
 	</time_static_str>
 
     <exit_button x="870" y="725" width="157" height="48">

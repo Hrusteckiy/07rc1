@@ -1,28 +1,13 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <window>
 
-	<static_icon x="10" y="25" width="235" height="235" stretch="1">
-		<auto_static x="0" y="-6" width="230" height="52" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="230" height="132" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="175" width="230" height="60" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="10" y="32" width="200" height="200" stretch="0">
+		<texture>ui_charinfo_left</texture>
+		<texture_offset x="-11" y="0"/>
 	</static_icon>
 
-	<static_icon x="785" y="25" width="235" height="235" stretch="1">
-		<auto_static x="0" y="-6" width="230" height="52" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="230" height="132" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="175" width="230" height="60" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="820" y="32" width="200" height="200" stretch="0">
+		<texture>ui_charinfo_right</texture>
 	</static_icon>
 
 	<main x="0" y="0" width="1024" height="768"/>
@@ -52,7 +37,7 @@
 	
 	<our_money_static x="0" y="-17" width="119" height="46">
 	<texture>ui_hud_frame_moneyNumber</texture>
-		<text align="c" y="10" font="graffiti22" r="238" g="155" b="23" complex_mode="0"/>
+		<text align="c" y="14" font="graffiti19" r="238" g="155" b="23" complex_mode="0"/>
 	</our_money_static>
 
 	<dragdrop_list x="29" y="37" width="266" height="410"
@@ -61,14 +46,14 @@
 
 
 	<!-- OTHERS BAG -->
-	<others_bag_static x="715" y="270" width="262" height="455">
-		<texture mirror="h" width="305" height="455">ui\ui_dg_inventory_exchange_trade</texture>
+	<others_bag_static x="715" y="270" width="262" height="455" mirror="h">
+		<texture width="305" height="455">ui\ui_dg_inventory_exchange_trade</texture>
 	<texture_offset x="-10" y="0"/>
 	</others_bag_static>
 
 	<other_money_static x="168" y="-17" width="119" height="46">
 		<texture>ui_hud_frame_moneyNumber</texture>
-		<text align="c" y="10" font="graffiti22" r="238" g="155" b="23" complex_mode="0"/>
+		<text align="c" y="14" font="graffiti19" r="238" g="155" b="23" complex_mode="0"/>
 	</other_money_static>
 
 	<dragdrop_list x="18" y="35" width="262" height="410"
@@ -110,9 +95,9 @@
 	</auto_static_hack>
 
 	<price_mt_static x="35" y="10" width="347" height="40">
-		<phrase x="0" y="0" width="170" font="graffiti22" r="238" g="153" b="26">ui_st_your_items</phrase>
-		<phrase x="170" y="0" font="graffiti22" r="220" g="185" b="140">ui_st_price</phrase>
-		<phrase x="215" y="0" font="graffiti22" r="240" g="215" b="185"></phrase>
+		<phrase x="0" y="0" width="170" font="graffiti19" r="238" g="153" b="26">ui_st_your_items</phrase>
+		<phrase x="170" y="0" font="graffiti19" r="220" g="185" b="140">ui_st_price</phrase>
+		<phrase x="215" y="0" font="graffiti19" r="240" g="215" b="185"></phrase>
 	</price_mt_static>
 
 </window>

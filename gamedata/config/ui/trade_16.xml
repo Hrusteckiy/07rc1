@@ -1,94 +1,80 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <window x="0" y="0" w="640" h="480" r="227" g="121" b="222" texture="1">
 
-	<static_icon x="15" y="12" width="180" height="220"  stretch="1">
-		<auto_static x="0" y="-2" width="176" height="45" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="176" height="140" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="183" width="176" height="64" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="136" y="24" width="157.5" height="218"  stretch="1">
+		<texture>ui_charinfo_left</texture>
+		<texture_offset x="-9" y="0"/>
 	</static_icon>
-
-	<static_icon x="850" y="12" width="180" height="220" stretch="1">
-		<auto_static x="0" y="-2" width="176" height="45" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="176" height="140" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="183" width="176" height="64" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="741" y="24" width="158.25" height="218" stretch="1">
+		<texture>ui_charinfo_right</texture>
 	</static_icon>
 
 	<main x="0" y="0" width="1024" height="768"/>
 
-	<top_background x="0" y="0" width="1024" height="128">
+	<top_background x="128" y="0" width="768" height="32" stretch="1">
 		<texture>ui\ui_top_background</texture>
 	</top_background>
 
-	<bottom_background x="0" y="736" width="1024" height="32">
+	<bottom_background x="128" y="737" width="768" height="32" stretch="1">
 		<texture>ui\ui_bottom_background</texture>
 	</bottom_background>
-
-	<button x="360" y="705" width="157" height="48"  hR="255" hB="83" hG="179" highlight_text="1">
+	
+	<button x="368" y="705" width="117.75" height="48" stretch="1"  hR="255" hB="83" hG="179" highlight_text="1">
 		<texture>ui_button_main01</texture>
 		<text font="graffiti22" r="238" g="153" b="26" align="c">ui_st_trade</text>
 	</button>
-	<button x="530" y="705" width="157" height="48"  hR="255" hB="83" hG="179" highlight_text="1">
+	<button x="530" y="705" width="117.75" height="48" stretch="1"   hR="255" hB="83" hG="179" highlight_text="1">
 		<texture>ui_button_main01</texture>
 		<text font="graffiti22" r="238" g="153" b="26" align="c">ui_st_leave</text>
 	</button>
 
 
-	<our_bag_static x="15" y="270" width="333" height="450" stretch="1">
+	<our_bag_static x="125" y="270" width="243" height="455" stretch="1">
 		<texture width="305" height="455">ui\ui_dg_inventory_exchange_trade</texture>
-	</our_bag_static>
+		<text x="32" y="8" font="graffiti19" r="238" g="153" b="26" complex_mode="1"/>
+		</our_bag_static>
 	
 	<our_money_static x="0" y="-17" width="119" height="46">
 	<texture>ui_hud_frame_moneyNumber</texture>
 		<text align="c" y="10" font="graffiti22" r="238" g="155" b="23" complex_mode="0"/>
 	</our_money_static>
 
-	<dragdrop_list x="29" y="37" width="295" height="410"
-			cell_width = "31" cell_height="41" rows_num="10" cols_num="9" 
+	<dragdrop_list x="24" y="36" width="210" height="404"
+			cell_width = "27" cell_height="36" rows_num="11" cols_num="7" 
 			group_similar="1" unlimited="1"/>
 
 
-	<others_bag_static x="680" y="270" width="333" height="455" stretch="1" complex_mode="1">
+	<others_bag_static x="648" y="270" width="243" height="455" stretch="1" mirror="h">
 		<texture width="305" height="455">ui\ui_dg_inventory_exchange_trade</texture>
+		<text x="32" y="8" font="graffiti19" r="238" g="153" b="26" complex_mode="1"/>
 	</others_bag_static>
 
-	<other_money_static x="168" y="-17" width="119" height="46">
+	<other_money_static x="126" y="-17" width="119" height="46">
 		<texture>ui_hud_frame_moneyNumber</texture>
 		<text align="c" y="10" font="graffiti22" r="238" g="155" b="23" complex_mode="0"/>
 	</other_money_static>
 
-	<dragdrop_list x="29" y="35" width="295" height="410"
-			cell_width = "31" cell_height="41" rows_num="10" cols_num="9" 
+	<dragdrop_list x="24" y="36" width="210" height="404"
+			cell_width = "27" cell_height="36" rows_num="11" cols_num="7" 
 			group_similar="1" unlimited="1"/>
 
-	<static x="350" y="260" width="333" height="212" stretch="1">
-		<texture width="350" height="210">ui\ui_trade_list_back</texture>
+	<static x="368" y="260" width="408" height="265" stretch="1">
+		<texture>ui\ui_trade_list_back</texture>
 	</static>
 
-	<dragdrop_list x="31" y="37" width="296" height="164"
+	<dragdrop_list x="28" y="40" width="240" height="164"
 			cell_width = "31" cell_height="41"
-			rows_num="4" cols_num="9" 
+			rows_num="4" cols_num="7" 
 			group_similar="1" unlimited="1"/>
 
 
-	<static x="350" y="480" width="333" height="212" stretch="1">
-		<texture width="350" height="210">ui\ui_trade_list_back</texture>
+	<static x="368" y="480" width="408" height="265" stretch="1">
+		<texture>ui\ui_trade_list_back</texture>
 	</static>
 
-	<dragdrop_list x="31" y="37" width="296" height="164"
+	<dragdrop_list x="28" y="40" width="240" height="164"
 			cell_width = "31" cell_height="41"
-			rows_num="4" cols_num="9" 
+			rows_num="4" cols_num="7" 
 			group_similar="1" unlimited="1"/>
 
 
@@ -96,18 +82,18 @@
 		<texture>ui_frame_03</texture>		
 	</desc_frame_window>
 
-	<desc_static x="258" y="22" width="507" height="232" stretch="1">
+	<desc_static x="309.5" y="22" width="404" height="232" stretch="1">
 		<texture>ui_hud_frame_buyM</texture>		
 	</desc_static>
 
-	<auto_static_hack x="394" y="50" width="105" height="14" stretch="1">
+	<auto_static_hack x="315" y="50" width="84" height="14" stretch="1">
 		<texture>ui_inventory_descr_hack</texture>
 	</auto_static_hack>
 
-	<price_mt_static x="35" y="10" width="347" height="40">
-		<phrase x="0" y="0" width="170" font="graffiti22" r="238" g="153" b="26">ui_st_your_items</phrase>
+	<price_mt_static x="0" y="10" width="347" height="40">
+		<phrase x="28" y="0" width="170" font="graffiti22" r="238" g="153" b="26">ui_st_your_items</phrase>
 		<phrase x="175" y="0" font="graffiti22" r="220" g="185" b="140">ui_st_price</phrase>
-		<phrase x="230" y="0" font="graffiti22" r="240" g="215" b="185"></phrase>
+		<phrase x="215" y="0" font="graffiti22" r="240" g="215" b="185"></phrase>
 	</price_mt_static>
 
 </window>

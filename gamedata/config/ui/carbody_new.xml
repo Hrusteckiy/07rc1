@@ -3,47 +3,33 @@
 
 	<main x="0" y="0" width="1024" height="768"/>
 
-	<static_icon x="10" y="25" width="235" height="235" stretch="1">
-		<auto_static x="0" y="-6" width="230" height="52" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="230" height="132" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="175" width="230" height="60" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="10" y="32" width="200" height="200" stretch="0">
+		<texture>ui_charinfo_left</texture>
+		<texture_offset x="-11" y="0"/>
 	</static_icon>
 
-	<static_icon x="785" y="25" width="235" height="235" stretch="1">
-		<auto_static x="0" y="-6" width="230" height="52" stretch="1">
-			<texture>ui_charinfo_left_top</texture>
-		</auto_static>
-		<auto_static x="0" y="43" width="230" height="132" stretch="1">
-			<texture>ui_charinfo_left_middle</texture>
-		</auto_static>
-		<auto_static x="0" y="175" width="230" height="60" stretch="1">
-			<texture>ui_charinfo_left_bottom</texture>
-		</auto_static>
+	<static_icon x="820" y="32" width="200" height="200" stretch="0">
+		<texture>ui_charinfo_right</texture>
 	</static_icon>
 
 	<our_bag_static x="20" y="260" width="520" height="518" stretch="1">
 		<texture>ui\ui_dg_inventory_exchange_trade</texture>
-		<text x="30" y="8" font="graffiti22" r="238" g="153" b="26" complex_mode="1"/>
+		<text x="30" y="4" font="graffiti22" r="238" g="153" b="26" complex_mode="1"/>
 	</our_bag_static>
 
 	<dragdrop_list_our x="22" y="35" width="283" height="418"
 			cell_width = "38" cell_height="38" rows_num="11" cols_num="7" 
-			unlimited="1" group_similar="1"/>
+			unlimited="1" group_similar="0"/>
 
-	<others_bag_static x="683" y="260" width="520" height="518" stretch="1" complex_mode="1">
+	<others_bag_static x="683" y="260" width="520" height="518" stretch="1" complex_mode="1" mirror="h">
 		<texture>ui\ui_dg_inventory_exchange_trade</texture>
-		<text x="30" y="8" font="graffiti22" r="238" g="153" b="26">st_items</text>
+		<texture_offset x="-196" y="0"/>		
+		<text x="154" y="4" font="graffiti22" r="238" g="153" b="26">st_items</text>
 	</others_bag_static>
 
 	<dragdrop_list_other x="22" y="35" width="283" height="418"
 			cell_width="38" cell_height="38" rows_num="11" cols_num="7" 
-			unlimited="1" group_similar="1"/>
+			unlimited="1" group_similar="0"/>
 
 	<frame_window x="355" y="262" width="310" height="455">
 		<texture>ui_frame</texture>		
@@ -56,7 +42,7 @@
 		<texture>ui\ui_inv_info_over_b</texture>
 	</descr_static>
 
-	<auto_static x="380" y="448" width="220" height="30">
+	<auto_static x="380" y="442" width="220" height="30">
 		<text font="graffiti22" r="238" g="153" b="26">ui_st_description</text>
 	</auto_static>
 
