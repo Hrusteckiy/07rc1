@@ -36,11 +36,11 @@
 		<texture>ui_hud_frame_patron</texture>
 	</static_weapon>
 	
-	<static_ammo x="75" y="22" width="70" height="30">
+	<static_ammo x="77" y="22" width="70" height="30">
 		<text align="c" complex_mode="0" font="graffiti32" r="238" g="155" b="23" a="255">Ammo</text>
 	</static_ammo>
 	
-	<static_wpn_icon x="0" y="13" width="80" height="42">
+	<static_wpn_icon x="7" y="16" width="80" height="42">
 		<text font="graffiti19" r="239" g="154" b="29" a="230"/>
 	</static_wpn_icon>
 

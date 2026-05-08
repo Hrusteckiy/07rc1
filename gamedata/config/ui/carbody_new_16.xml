@@ -25,7 +25,7 @@
 		<text x="32" y="8" font="graffiti19" r="238" g="153" b="26" complex_mode="1"/>
 	</others_bag_static>
 
-	<dragdrop_list_other x="24" y="36" width="210" height="404"
+	<dragdrop_list_other x="12" y="36" width="210" height="404"
 			cell_width = "27" cell_height="36" rows_num="11" cols_num="7" 
 			group_similar="1" unlimited="1"/>
 
