@@ -9,8 +9,8 @@
 	
 	<main x="0" y="0" width="1024" height="768"/>
 	
-	<belt_slots x="127" y="70" width="771" height="172" stretch="1">
-		<texture>ui_slots_belt</texture>		
+	<belt_slots x="127" y="70" width="768" height="256" stretch="1">
+		<texture>ui\ui_inv_belt_16</texture>		
 	</belt_slots>
 	
 	<back x="118" y="233" width="556" height="483" stretch="1">
@@ -48,7 +48,7 @@
 
 
 	<bottom_static x="128" y="737" width="768" height="32" stretch="1">
-		<texture>ui\ui_bottom_background</texture>
+		<texture>ui\ui_bottom_background_16</texture>
 	</bottom_static>
 
 	<auto_static x="128" y="0" width="768" height="32" stretch="1">

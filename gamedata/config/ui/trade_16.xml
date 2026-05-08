@@ -16,7 +16,7 @@
 	</top_background>
 
 	<bottom_background x="128" y="737" width="768" height="32" stretch="1">
-		<texture>ui\ui_bottom_background</texture>
+		<texture>ui\ui_bottom_background_16</texture>
 	</bottom_background>
 	
 	<button x="368" y="705" width="117.75" height="48" stretch="1"  hR="255" hB="83" hG="179" highlight_text="1">
