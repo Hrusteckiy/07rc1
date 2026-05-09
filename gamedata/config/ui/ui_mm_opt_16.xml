@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <window>	
-	<back_video x="0" y="0" width="1024" height="430">
-		<texture x="0" y="0" width="1024" height="430">ui\ui_mm_window_back_crop</texture>
+	<back_video x="128" y="0" width="768" height="512" stretch="1">
+		<texture height="192">ui\ui_mm_window_back_crop</texture>
 	</back_video>
+
+	<back_left x="0" y="0" width="128" height="768" stretch="1">
+		<texture r="255" g="255" b="255" >ui\ui_mm_border</texture>
+	</back_left>
+
+	<back_right x="896" y="0" width="128" height="768" stretch="1">
+		<texture r="255" g="255" b="255" >ui\ui_mm_border</texture>
+	</back_right>	
 
 	<_back_video x="0" y="0" width="1024" height="512" stretch="1">
 		<texture>ui\ui_vid_back_02</texture>
 	</_back_video>
 
-	<background x="0" y="0" width="1024" height="768">
+	<background x="128" y="0" width="768" height="1024" stretch="1">
 		<texture>ui\ui_static_mm_back_03</texture>
 	</background>
 
-	<back_left x="0" y="0" width="128" height="768" stretch="1">
-	</back_left>
-
-	<back_right x="896" y="0" width="128" height="768" stretch="1">
-	</back_right>	
-
-	<rug_video x="275" y="425" width="128" height="256">
+	<rug_video x="336" y="426" width="96" height="256" stretch="1">
 		<texture>ui\ui_mm_rug02</texture>
 	</rug_video>
 	<main_dialog>

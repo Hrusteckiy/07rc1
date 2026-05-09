@@ -74,6 +74,8 @@ function save_dialog:InitControls()
 	xml:InitStatic("back_video", self)
 	
 	xml:InitStatic("background",				self)	
+	xml:InitStatic("back_left", self)
+	xml:InitStatic("back_right", self)
 	xml:InitStatic("newspaper_video",			self)	
 	self.form = xml:InitStatic("form",			self)
 	

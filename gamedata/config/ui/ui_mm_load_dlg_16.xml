@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <window>
-	<back_video x="0" y="0" width="1024" height="430">
-		<texture x="0" y="0" width="1024" height="430">ui\ui_mm_window_back_crop</texture>
+	<back_video x="128" y="0" width="768" height="512" stretch="1">
+		<texture height="192">ui\ui_mm_window_back_crop</texture>
 	</back_video>
 
 	<_back_video x="0" y="0" width="1024" height="512" stretch="1">
 		<texture>ui\ui_vid_back_04</texture>
 	</_back_video>
 
-	<background x="0" y="0" width="1024" height="768">
-		<texture x="0" y="0" width="1024" height="768">ui\ui_static_mm_back_04</texture>
+	<background x="128" y="0" width="768" height="1024" stretch="1">
+		<texture>ui\ui_static_mm_back_04</texture>
 	</background>
 
 	<back_left x="0" y="0" width="128" height="768" stretch="1">
+		<texture r="255" g="255" b="255" >ui\ui_mm_border</texture>
 	</back_left>
 
 	<back_right x="896" y="0" width="128" height="768" stretch="1">
+		<texture r="255" g="255" b="255" >ui\ui_mm_border</texture>
 	</back_right>	
 
-	<newspaper_video x="137" y="512" width="256" height="256">
+	<newspaper_video x="228" y="512" width="192" height="256" stretch="1">
 		<texture>ui\ui_mm_newspaper</texture>
 	</newspaper_video>
 	
-	<form x="415" y="168" width="560" height="460">
+	<form x="438" y="168" width="420" height="460" stretch="1">
 		<_texture>ui\ui_options_menu_static</_texture>
 		<_texture_offset x="-29" y="-19"/>
 		<texture>ui_menu_options_dlg</texture>
 		
 		
-		<caption x="65" y="10" width="500" height="25" complex_mode="0">
+		<caption x="45" y="7" width="500" height="25" complex_mode="0">
 			<text font="graffiti22" r="184" g="168" b="131">ui_mm_load_game</text>
 		</caption>
 		
-		<picture x="105" y="71" width="128" height="128" clipper="1">
+		<picture x="92" y="73" width="96" height="128" clipper="1" stretch="1">
 			<texture>ui\ui_noise</texture>
 		</picture>
 		
-		<file_info	x="47" y="55" width="497" height="171">
+		<file_info	x="37" y="55" width="372.75" height="171" stretch="1">
 			<_texture>ui\ui_static_loadgameinfo</_texture>
 			<texture x="0" y="768" width="497" height="171">ui\ui_static_mm_back_04</texture>
 		</file_info>
 		
 		
-		
-		
-		<file_caption x="299" y="109" width="512" height="20" complex_mode="1">
+		<file_caption x="226" y="109" width="158" height="20" complex_mode="1">
 			<text font="letterica18" r="238" g="155" b="23"/>
 		</file_caption>
 		
-		<file_data x="299" y="129" width="512" height="50" complex_mode="1">
+		<file_data x="226" y="146" width="512" height="50" complex_mode="1">
 			<text font="letterica18" r="216" g="186" b="140"/>
 		</file_data>
 		
-		<list_frame x="65" y="221" width="449" height="200">
+		<list_frame x="50" y="221" width="336.75" height="200" stretch="1">
 			<texture>ui_tablist_textbox</texture>
 			
 		</list_frame>
 		
-		<list x="75" y="231" width="429" height="180" item_height="18">
+		<list x="58" y="231" width="320" height="180" item_height="18">
 			<font font="letterica16" r="216" g="186" b="140" />
 		</list>
 				
-		<btn_load x="65" y="427" width="157" height="48">
+		<btn_load x="50" y="427" width="117.75" height="48" stretch="1">
 			<texture>ui_button_main01</texture>
 			<text font="graffiti22">ui_mm_load</text>
 			<text_color>
@@ -70,7 +70,7 @@
 			</text_color>
 		</btn_load>
 		
-		<btn_delete x="221" y="427" width="157" height="48">
+		<btn_delete x="170" y="427" width="117.75" height="48" stretch="1">
 			<texture>ui_button_main01</texture>
 			<text font="graffiti22">ui_mm_delete</text>
 			<text_color>
@@ -78,7 +78,7 @@
 			</text_color>
 		</btn_delete>
 		
-		<btn_cancel x="377" y="427" width="157" height="48">
+		<btn_cancel x="290" y="427" width="117.75" height="48" stretch="1">
 			<texture>ui_button_main01</texture>			
 			<text font="graffiti22">ui_mm_cancel</text>
 			<text_color>

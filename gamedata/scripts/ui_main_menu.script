@@ -30,6 +30,8 @@ function main_menu:InitControls()
     xml:InitStatic("back_movie", self)
     xml:InitStatic("background", self)
     xml:InitStatic("fire_movie", self)
+	xml:InitStatic("back_left", self)
+	xml:InitStatic("back_right", self)
     self.shniaga = xml:InitMMShniaga("shniaga_wnd",self);
 	
 	self.message_box = CUIMessageBoxEx()

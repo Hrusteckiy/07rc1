@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
-	<background x="0" y="0" width="1024" height="768">
+	<background x="128" y="0" width="768" height="768" stretch="1">
 		<texture>ui_menu_backgraund</texture>
 	</background>
 	
-	<back_movie x="148" y="0" width="876" height="400">
-		<texture x="0" y="0" width="876" height="400">ui\ui_mm_main_back_crop</texture>
+	<back_left x="0" y="0" width="128" height="768" stretch="1">
+		<texture r="255" g="255" b="255" >ui\ui_mm_border</texture>
+	</back_left>
+
+	<back_right x="896" y="0" width="128" height="768" stretch="1">
+		<texture r="255" g="255" b="255" >ui\ui_mm_border</texture>
+	</back_right>	
+	
+	<back_movie x="256" y="0" width="768" height="512" stretch="1">
+		<texture height="192">ui\ui_mm_main_back_crop</texture>
 	</back_movie>
 	
-	<fire_movie x="525" y="459" width="128" height="256">
+	<fire_movie x="522" y="459" width="96" height="256" stretch="1">
 		<texture>ui\ui_mm_fire</texture>
 	</fire_movie>
 
-	<shniaga_wnd x="590" y="419" width="392" height="280">
-		<buttons_region	x="110" y="0" width="164" height="280" always_show_scroll="false"/>
+	<shniaga_wnd x="540" y="419" width="392" height="280" stretch="1">
+		<buttons_region	x="96" y="0" width="164" height="280" always_show_scroll="false"/>
 		
-		<shniaga x="9" y="0" width="253" height="73" stretch="1">
+		<shniaga x="9" y="0" width="180" height="73" stretch="1">
 			<texture>ui_menu_move</texture>
-			<texture_offset x="65" y="0"/>
-			<magnifire x="66" y="22" width="252" height="36" stretch="1">
+			<texture_offset x="80" y="0"/>
+			<magnifire x="78" y="22" width="186" height="36" stretch="1">
 				<texture>ui\ui_magnifier</texture>
         <y_offset>0</y_offset>
 			</magnifire>
 			
-			<left_back_wheel x="14" y="0" width="52" height="73" stretch="1">
+			<left_back_wheel x="38" y="0" width="42.75" height="73" stretch="1">
 				<texture>ui_menu_move_l</texture>
 			</left_back_wheel>
-			<right_back_wheel x="314" y="0" width="52" height="73" stretch="1">
+			<right_back_wheel x="260" y="0" width="42.75" height="73" stretch="1">
 				<texture>ui_menu_move_r</texture>
 			</right_back_wheel>
-			<left_anim x="43" y="37" width="55" height="55" stretch="1" heading="1" alignment="c">
+			<left_anim x="59" y="37" width="55" height="55" stretch="1" heading="1" alignment="c">
 				<texture>ui_menu_bigroll_l</texture>
 			</left_anim>			
-			<right_anim x="338" y="37" width="55" height="55" stretch="1" heading="1" alignment="c">
+			<right_anim x="279" y="37" width="55" height="55" stretch="1" heading="1" alignment="c">
 				<texture>ui_menu_bigroll_r</texture>
 			</right_anim>
-			<left_grating x="0" y="4" width="45" height="69" stretch="1">
+			<left_grating x="28" y="4" width="33.75" height="69" stretch="1">
 				<texture>ui_menu_grating_l</texture>
 			</left_grating>
-			<right_grating x="337" y="4" width="45" height="69" stretch="1">
+			<right_grating x="284" y="4" width="33.75" height="69" stretch="1">
 				<texture>ui_menu_grating_r</texture>
 			</right_grating>
 		</shniaga>		

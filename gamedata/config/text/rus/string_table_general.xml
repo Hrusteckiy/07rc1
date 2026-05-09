@@ -13,7 +13,7 @@
 		<text>Наемник</text>
 	</string>
 	<string id="bad">
-		<text>плохо</text>
+		<text>Плохо</text>
 	</string>
 	<string id="bandit">
 		<text>Бандит</text>
@@ -25,16 +25,16 @@
 		<text>Эколог</text>
 	</string>
 	<string id="enemy">
-		<text>враг</text>
+		<text>Враг</text>
 	</string>
 	<string id="excellent">
-		<text>отлично</text>
+		<text>Отлично</text>
 	</string>
 	<string id="exo_outfit_name_m1">
 		<text>Экзоскелет ПНБ-4УЗ</text>
 	</string>
 	<string id="experienced">
-		<text>опытный</text>
+		<text>Опытный</text>
 	</string>
 	<string id="Found_PDA">
 		<text>Найденные КПК</text>
@@ -43,13 +43,13 @@
 		<text>Свобода</text>
 	</string>
 	<string id="friendly">
-		<text>друг</text>
+		<text>Друг</text>
 	</string>
 	<string id="good">
-		<text>хорошо</text>
+		<text>Хорошо</text>
 	</string>
 	<string id="indifferent">
-		<text>нейтрал</text>
+		<text>Нейтрал</text>
 	</string>
 	<string id="killer">
 		<text>Наемник</text>
@@ -91,7 +91,7 @@
 		<text>ЧАЭС</text>
 	</string>
 	<string id="master">
-		<text>мастер</text>
+		<text>Мастер</text>
 	</string>
 	<string id="military">
 		<text>Военный</text>
@@ -100,10 +100,10 @@
 		<text>Монолит</text>
 	</string>
 	<string id="neutral">
-		<text>нейтрал</text>
+		<text>Нейтрал</text>
 	</string>
 	<string id="novice">
-		<text>новичок</text>
+		<text>Новичок</text>
 	</string>
 	<string id="st_no_active_task">
 		<text>Нет активного задания</text>
@@ -115,37 +115,37 @@
 		<text>Одиночка</text>
 	</string>
 	<string id="terrible">
-		<text>ужасно</text>
+		<text>Ужасно</text>
 	</string>
 	<string id="trader">
 		<text>Торговец</text>
 	</string>
 	<string id="ui_st_community">
-		<text>группа</text>
+		<text>Группа</text>
 	</string>
 	<string id="ui_st_price">
 		<text>Цена</text>
 	</string>
 	<string id="ui_st_rank">
-		<text>ранг</text>
+		<text>Ранг</text>
 	</string>
 	<string id="ui_st_relation">
-		<text>отношение</text>
+		<text>Отношение</text>
 	</string>
 	<string id="ui_st_reputation">
-		<text>репутация</text>
+		<text>Репутация</text>
 	</string>
 	<string id="very_bad">
-		<text>оч. плохо</text>
+		<text>Оч. плохо</text>
 	</string>
 	<string id="very_good">
-		<text>оч. хорошо</text>
+		<text>Оч. хорошо</text>
 	</string>
 	<string id="veteran">
-		<text>ветеран</text>
+		<text>Ветеран</text>
 	</string>
 	<string id="zombied">
-		<text>зомби</text>
+		<text>Зомби</text>
 	</string>
 	<string id="Btn_Cancel">
 		<text>Отменить</text>
