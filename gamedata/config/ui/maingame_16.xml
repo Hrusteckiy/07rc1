@@ -35,11 +35,11 @@
 		<texture>ui_hud_frame_patron</texture>
 	</static_weapon>
 	
-	<static_ammo x="65" y="22" width="53" height="30">
-		<text align="c" complex_mode="0" font="graffiti32" r="238" g="155" b="23" a="255">Ammo</text>
+	<static_ammo x="60" y="22" width="53" height="30">
+		<text align="r" complex_mode="0" font="graffiti32" r="238" g="155" b="23" a="255">Ammo</text>
 	</static_ammo>
 	
-	<static_wpn_icon x="4" y="16" width="90" height="42" use_ammo="1" scale_x="1" scale_y="1"/>
+	<static_wpn_icon x="4" y="16" width="74" height="42" use_ammo="1" scale_x="1" scale_y="1"/>
 
 	<car_panel x="900" y="584" width="123" height="200"/>
 	
