@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="windows-1251" ?>
 <string_table>
 	<string id="Clear">
-		<text>clear</text>
+		<text>Clear</text>
 	</string>
 	<string id="Cloudy">
-		<text>cloudy</text>
+		<text>Cloudy</text>
 	</string>
 	<string id="Default">
-		<text>medium</text>
+		<text>Medium</text>
 	</string>
 	<string id="Extreme">
-		<text>maximum</text>
+		<text>Maximum</text>
 	</string>
 	<string id="gd_master">
-		<text>master</text>
+		<text>Master</text>
 	</string>
 	<string id="gd_novice">
-		<text>novice</text>
+		<text>Novice</text>
 	</string>
 	<string id="gd_stalker">
-		<text>stalker</text>
+		<text>Stalker</text>
 	</string>
 	<string id="gd_veteran">
-		<text>veteran</text>
+		<text>Veteran</text>
 	</string>
 	<string id="High">
-		<text>high</text>
+		<text>High</text>
 	</string>
 	<string id="Low">
-		<text>low</text>
+		<text>Low</text>
 	</string>
 	<string id="Minimum">
-		<text>minimum</text>
+		<text>Minimum</text>
 	</string>
 	<string id="mm_mp_check_cdkey">
-		<text>check CD-Key</text>
+		<text>Check CD-Key</text>
 	</string>
 	<string id="Nigth">
-		<text>night</text>
+		<text>Night</text>
 	</string>
 	<string id="Rain">
-		<text>rainy</text>
+		<text>Rainy</text>
 	</string>
 	<string id="renderer_r1">
 		<text>Static lighting</text>
@@ -61,13 +61,13 @@
 		<text>Experienced</text>
 	</string>
 	<string id="st_rank_legend">
-		<text>legendary stalker</text>
+		<text>Legendary stalker</text>
 	</string>
 	<string id="st_rank_novice">
-		<text>novice</text>
+		<text>Novice</text>
 	</string>
 	<string id="st_rank_professional">
-		<text>professional</text>
+		<text>Professional</text>
 	</string>
 	<string id="st_rank_veteran">
 		<text>Veteran</text>
@@ -109,7 +109,7 @@
 		<text>Frequency 60Hz</text>
 	</string>
 	<string id="ui_mm_action">
-		<text>action</text>
+		<text>Action</text>
 	</string>
 	<string id="ui_mm_advanced">
 		<text>Advanced</text>
@@ -178,7 +178,7 @@
 		<text>Invert mouse</text>
 	</string>
 	<string id="ui_mm_key">
-		<text>button</text>
+		<text>Button</text>
 	</string>
 	<string id="ui_mm_keyboard_setup">
 		<text>Keyboard setup</text>
