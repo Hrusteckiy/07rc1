@@ -130,6 +130,9 @@ bool CUIXmlInit::InitFrameWindow(CUIXml& xml_doc, LPCSTR path, int index, CUIFra
 	InitWindow(xml_doc, path, index, pWnd);
 	InitTexture(xml_doc, path, index, pWnd);
 
+	u32 color = GetColor(xml_doc, path, index, 0xff);
+	pWnd->SetBaseTextureColor(color);
+
 	string256 buf;
 /*
 	strconcat(buf,path,":left_top_texture");
