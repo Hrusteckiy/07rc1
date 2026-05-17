@@ -54,7 +54,7 @@
 		<text align="c" y="10" font="graffiti22" r="238" g="155" b="23" complex_mode="0"/>
 	</other_money_static>
 
-	<dragdrop_list x="24" y="36" width="210" height="404"
+	<dragdrop_list x="13" y="36" width="210" height="404"
 			cell_width = "27" cell_height="36" rows_num="11" cols_num="7" 
 			group_similar="1" unlimited="1"/>
 
