@@ -237,7 +237,7 @@ void			INetQueue::Release	()
 
 //
 const u32 syncQueueSize		= 512;
-const int syncSamples		= 6;
+const int syncSamples		= 256;
 class XRNETSERVER_API syncQueue
 {
 	u32				table	[syncQueueSize];
